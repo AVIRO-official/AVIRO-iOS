@@ -249,7 +249,7 @@
 		C510005D2ABAA3C700F65C1F /* Enum+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+.swift"; sourceTree = "<group>"; };
 		C51000602ABAE61F00F65C1F /* ReportReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReviewModel.swift; sourceTree = "<group>"; };
 		C51000622ABAE6A200F65C1F /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
-		C51132C02A559BCA006E1EC3 /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppController.swift; path = ../ViewLogic/AppController.swift; sourceTree = "<group>"; };
+		C51132C02A559BCA006E1EC3 /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		C51385412AAADB0E001AB827 /* EditNickNameButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNickNameButton.swift; sourceTree = "<group>"; };
 		C51385442AAAE493001AB827 /* MyDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDataModel.swift; sourceTree = "<group>"; };
 		C51385462AAAF3BB001AB827 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
@@ -303,7 +303,7 @@
 		C53C54D12AD67E8800C3662A /* MarkerModelLocalDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerModelLocalDB.swift; sourceTree = "<group>"; };
 		C541521C2AC125E100F39826 /* TutorialTopLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialTopLabel.swift; sourceTree = "<group>"; };
 		C54657862ABF2D82003A0BCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		C54657872ABF2DBA003A0BCB /* API.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = API.plist; path = AVIRO/Utils/API.plist; sourceTree = SOURCE_ROOT; };
+		C54657872ABF2DBA003A0BCB /* API.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = API.plist; path = ../AVIRO/AVIRO/App/API.plist; sourceTree = SOURCE_ROOT; };
 		C547A8B92A17D8D4004D1339 /* KakaoAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAPIManager.swift; sourceTree = "<group>"; };
 		C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIRODeleteAPI.swift; sourceTree = "<group>"; };
@@ -450,7 +450,7 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		C50367EC2A1791620020C6BB /* Utils */ = {
+		C50367EC2A1791620020C6BB /* App */ = {
 			isa = PBXGroup;
 			children = (
 				C510002C2AB5F1E600F65C1F /* Fonts */,
@@ -458,12 +458,13 @@
 				C505EB172ACC5AC50057A4F8 /* LaunchScreenViewController.swift */,
 				C52FA3422A175B20005E70DC /* AppDelegate.swift */,
 				C52FA3442A175B20005E70DC /* SceneDelegate.swift */,
+				C51132C02A559BCA006E1EC3 /* AppController.swift */,
 				C52FA34B2A175B20005E70DC /* Assets.xcassets */,
 				C52FA34D2A175B20005E70DC /* LaunchScreen.storyboard */,
 				C52FA3502A175B20005E70DC /* Info.plist */,
 				C54657872ABF2DBA003A0BCB /* API.plist */,
 			);
-			path = Utils;
+			path = App;
 			sourceTree = "<group>";
 		};
 		C50367ED2A1791840020C6BB /* Scene */ = {
@@ -737,7 +738,6 @@
 		C520663D2A80C60D0038ECCD /* ViewLogic */ = {
 			isa = PBXGroup;
 			children = (
-				C51132C02A559BCA006E1EC3 /* AppController.swift */,
 			);
 			path = ViewLogic;
 			sourceTree = "<group>";
@@ -782,7 +782,7 @@
 			isa = PBXGroup;
 			children = (
 				C593B64C2A4BFD9A00D224CE /* AVIRO.entitlements */,
-				C50367EC2A1791620020C6BB /* Utils */,
+				C50367EC2A1791620020C6BB /* App */,
 				C50367F62A179D6E0020C6BB /* Custom */,
 				C50367F32A1795BE0020C6BB /* Model */,
 				C50367F22A1795B90020C6BB /* Manager */,
@@ -1956,7 +1956,7 @@
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = C4K2HXA435;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = AVIRO/Utils/Info.plist;
+				INFOPLIST_FILE = AVIRO/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "어비로";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "현재 내 위치와 가까운 가게를 찾아드려요. 위치 정보를 저장하지 않으니 안심하세요.";
@@ -1971,7 +1971,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.VeganRestaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1991,7 +1991,7 @@
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = C4K2HXA435;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = AVIRO/Utils/Info.plist;
+				INFOPLIST_FILE = AVIRO/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "어비로";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "현재 내 위치와 가까운 가게를 찾아드려요. 위치 정보를 저장하지 않으니 안심하세요.";
@@ -2006,7 +2006,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.VeganRestaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// **Pretendard 폰트 적용을 위한 Class입니다.**
 final class CFont {
     static let font = CFont()
     
