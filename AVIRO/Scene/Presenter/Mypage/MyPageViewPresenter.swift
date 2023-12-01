@@ -43,7 +43,7 @@ final class MyPageViewPresenter {
     init(viewController: MyPageViewProtocol,
          bookmarkManager: BookmarkFacadeManager = BookmarkFacadeManager(),
          markerManager: MarkerModelManagerProtocol = MarkerModelManager(),
-         amplitude: AmplitudeProtocol = AmplitudeUtilityDummy()
+         amplitude: AmplitudeProtocol = AmplitudeUtility()
     ) {
         self.viewController = viewController
         self.bookmarkManager = bookmarkManager

@@ -152,7 +152,7 @@ final class EditPlaceInfoPresenter {
     var afterReportShowAlert: (() -> Void)?
     
     init(viewController: EditPlaceInfoProtocol,
-         amplitude: AmplitudeProtocol = AmplitudeUtilityDummy(),
+         amplitude: AmplitudeProtocol = AmplitudeUtility(),
          placeMarkerModel: MarkerModel? = nil,
          placeId: String? = nil,
          placeSummary: AVIROPlaceSummary? = nil,
