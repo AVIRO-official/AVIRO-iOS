@@ -249,7 +249,7 @@
 		C510005D2ABAA3C700F65C1F /* Enum+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+.swift"; sourceTree = "<group>"; };
 		C51000602ABAE61F00F65C1F /* ReportReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReviewModel.swift; sourceTree = "<group>"; };
 		C51000622ABAE6A200F65C1F /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
-		C51132C02A559BCA006E1EC3 /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppController.swift; path = ../ViewLogic/AppController.swift; sourceTree = "<group>"; };
+		C51132C02A559BCA006E1EC3 /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		C51385412AAADB0E001AB827 /* EditNickNameButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNickNameButton.swift; sourceTree = "<group>"; };
 		C51385442AAAE493001AB827 /* MyDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDataModel.swift; sourceTree = "<group>"; };
 		C51385462AAAF3BB001AB827 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
@@ -458,6 +458,7 @@
 				C505EB172ACC5AC50057A4F8 /* LaunchScreenViewController.swift */,
 				C52FA3422A175B20005E70DC /* AppDelegate.swift */,
 				C52FA3442A175B20005E70DC /* SceneDelegate.swift */,
+				C51132C02A559BCA006E1EC3 /* AppController.swift */,
 				C52FA34B2A175B20005E70DC /* Assets.xcassets */,
 				C52FA34D2A175B20005E70DC /* LaunchScreen.storyboard */,
 				C52FA3502A175B20005E70DC /* Info.plist */,
@@ -737,7 +738,6 @@
 		C520663D2A80C60D0038ECCD /* ViewLogic */ = {
 			isa = PBXGroup;
 			children = (
-				C51132C02A559BCA006E1EC3 /* AppController.swift */,
 			);
 			path = ViewLogic;
 			sourceTree = "<group>";

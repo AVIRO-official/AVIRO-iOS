@@ -327,6 +327,7 @@ extension HomeSearchViewController: HomeSearchProtocol {
     
     // MARK: Alert Interactions
     func showErrorAlert(with error: String, title: String? = nil) {
+        print("DWD")
         DispatchQueue.main.async { [weak self] in
             if let title = title {
                 self?.showAlert(title: title, message: error)

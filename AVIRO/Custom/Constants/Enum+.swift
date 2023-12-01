@@ -45,10 +45,10 @@ enum CVIdentifier: String {
 
 // MARK: 이용 약관
 enum Policy: String {
-    case termsOfService = "https://sponge-nose-882.notion.site/259b51ac0b4a41d7aaf5ea2b89a768f8?pvs=4"
-    case privacy = "https://sponge-nose-882.notion.site/c98c9103ebdb44cfadd8cd1d11600f99?pvs=4"
-    case location =  "https://sponge-nose-882.notion.site/50102bd385664c89ab39f1b290fb033e?pvs=4"
-    case thanksto = "https://sponge-nose-882.notion.site/8bfc56f574f542648a2d95c938e2f96f"
+    case termsOfService = "https://bronzed-fowl-e81.notion.site/85cfe934602142949a18c2a5ac0ea641?pvs=4"
+    case privacy = "https://bronzed-fowl-e81.notion.site/6722cb9f4d334987bc6683400ed794b9?pvs=4"
+    case location =  "https://bronzed-fowl-e81.notion.site/42daafcaf14945eca8f2c2b3f1fe5c43?pvs=4"
+    case thanksto = "https://bronzed-fowl-e81.notion.site/8b6eb5da64054f7db1c307dd5d057317?pvs=4"
 }
 
 // MARK: Defalut Coordinate

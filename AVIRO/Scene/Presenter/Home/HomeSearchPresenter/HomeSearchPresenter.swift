@@ -153,9 +153,8 @@ final class HomeSearchPresenter {
     
     // MARK: 최초 Search 후 KakaoMap Load -> AVIRO 데이터 비교
     func initSearchDataAndCompareAVIROData(_ query: String) {
-        if query == "" {
-            return
-        }
+        guard query != "" else { return }
+        
         isEndCompare = false
         matchedPlaceModel.removeAll()
         
@@ -167,6 +166,8 @@ final class HomeSearchPresenter {
     
     // MARK: Paging후 KakaoMap Load -> AVIRO 데이터 비교
     func afterPagingSearchAndCompareAVIROData(_ query: String) {
+        guard query != "" else { return }
+
         pagingSearchData(query: query) { [weak self] placeList in
             self?.makeToPlaceFromAVIROData(placeList: placeList)
         }
@@ -245,6 +246,7 @@ final class HomeSearchPresenter {
                 self?.isLoading = false
 
                 if let error = error.errorDescription {
+                    print(error)
                     self?.viewController?.showErrorAlert(with: error, title: nil)
                 }
             }
