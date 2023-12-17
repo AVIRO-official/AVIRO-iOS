@@ -1,5 +1,6 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
+platform :ios, '15.0'
 
 target 'AVIRO' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -11,8 +12,17 @@ pod 'lottie-ios'
 pod 'RealmSwift'
 pod 'Toast-Swift'
 pod 'AmplitudeSwift', '~> 0.4.14'
+pod 'RxSwift', '6.6.0'
+pod 'RxCocoa', '6.6.0'
 
   # Pods for AVIRO
+
+end
+
+target 'AVIROTests' do 
+
+pod 'RxBlocking', '6.6.0' 
+pod 'RxTest', '6.6.0'
 
 end
 

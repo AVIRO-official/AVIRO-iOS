@@ -72,7 +72,7 @@ final class AppController {
                     self?.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
                     self?.setLoginView()
                 }
-            case .failure(_):
+            case .failure:
                 self?.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
                 self?.setLoginView()
             }

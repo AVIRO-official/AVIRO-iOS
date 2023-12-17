@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import MessageUI
 
 private enum Text: String {
     case title = "마이페이지"

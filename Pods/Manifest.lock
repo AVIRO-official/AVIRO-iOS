@@ -10,6 +10,16 @@ PODS:
   - Realm/Headers (10.43.0)
   - RealmSwift (10.43.0):
     - Realm (= 10.43.0)
+  - RxBlocking (6.6.0):
+    - RxSwift (= 6.6.0)
+  - RxCocoa (6.6.0):
+    - RxRelay (= 6.6.0)
+    - RxSwift (= 6.6.0)
+  - RxRelay (6.6.0):
+    - RxSwift (= 6.6.0)
+  - RxSwift (6.6.0)
+  - RxTest (6.6.0):
+    - RxSwift (= 6.6.0)
   - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
@@ -18,6 +28,10 @@ DEPENDENCIES:
   - lottie-ios
   - NMapsMap
   - RealmSwift
+  - RxBlocking (= 6.6.0)
+  - RxCocoa (= 6.6.0)
+  - RxSwift (= 6.6.0)
+  - RxTest (= 6.6.0)
   - Toast-Swift
 
 SPEC REPOS:
@@ -29,6 +43,11 @@ SPEC REPOS:
     - NMapsMap
     - Realm
     - RealmSwift
+    - RxBlocking
+    - RxCocoa
+    - RxRelay
+    - RxSwift
+    - RxTest
     - Toast-Swift
 
 SPEC CHECKSUMS:
@@ -39,8 +58,13 @@ SPEC CHECKSUMS:
   NMapsMap: a5b909a31b6f3d27a670f6eb2ddc913c38975474
   Realm: fc65bea3f5c3da2ecdc76324f180e054e7cf4eb0
   RealmSwift: a7d48361c585769690c175428cc2bf15e1074444
+  RxBlocking: fbd1f8501443024f686e556f36dac79b0d5f4d7c
+  RxCocoa: 44a80de90e25b739b5aeaae3c8c371a32e3343cc
+  RxRelay: 45eaa5db8ee4fb50e5ebd57deec0159e97fa51e6
+  RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
+  RxTest: a23f26bb53a5e146a0a69db4f0fa0b69001ce7f4
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 04c926d24049590164209d06260a809ea3594da3
+PODFILE CHECKSUM: 5bafb821b58cc17bfa6bbffc0a44a56e947d7bf3
 
 COCOAPODS: 1.12.1

@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A156F24E1DC1F5FA54D44A76 /* Pods_AVIRO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796022A3066B91147B712BB4 /* Pods_AVIRO.framework */; };
+		07B07E7D2181EE7FE8658FF3 /* Pods_AVIRO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 666C79719FFC2B1B1010E863 /* Pods_AVIRO.framework */; };
+		BAABB6DFC862FB737E319364 /* libPods-AVIROTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 145E32B416F8757C584E1EC5 /* libPods-AVIROTests.a */; };
 		C50367F52A1795D10020C6BB /* HomeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50367F42A1795D10020C6BB /* HomeViewPresenter.swift */; };
 		C505EB162ACC048E0057A4F8 /* Berry2.json in Resources */ = {isa = PBXBuildFile; fileRef = C505EB152ACC048E0057A4F8 /* Berry2.json */; };
 		C505EB182ACC5AC50057A4F8 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C505EB172ACC5AC50057A4F8 /* LaunchScreenViewController.swift */; };
@@ -96,6 +97,7 @@
 		C53C54D22AD67E8800C3662A /* MarkerModelLocalDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53C54D12AD67E8800C3662A /* MarkerModelLocalDB.swift */; };
 		C541521D2AC125E100F39826 /* TutorialTopLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C541521C2AC125E100F39826 /* TutorialTopLabel.swift */; };
 		C54657882ABF2DBA003A0BCB /* API.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54657872ABF2DBA003A0BCB /* API.plist */; };
+		C5476B4D2B2F1F1F00F5FC6E /* AVIROTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B4C2B2F1F1F00F5FC6E /* AVIROTests.swift */; };
 		C547A8BA2A17D8D4004D1339 /* KakaoAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C547A8B92A17D8D4004D1339 /* KakaoAPIManager.swift */; };
 		C54BC0DB2A2C2D0D00B65439 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */; };
 		C552D5342ABE8CA500933D8A /* AVIRODeleteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */; };
@@ -209,10 +211,22 @@
 		C5FF13572A42C8970026981D /* AVIROPlaceReviews+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FF13562A42C8970026981D /* AVIROPlaceReviews+DTO.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C5476B4E2B2F1F1F00F5FC6E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C52FA3372A175B20005E70DC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C52FA33E2A175B20005E70DC;
+			remoteInfo = AVIRO;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		4EB01DC761F38F50251EAA43 /* Pods-AVIRO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVIRO.release.xcconfig"; path = "Target Support Files/Pods-AVIRO/Pods-AVIRO.release.xcconfig"; sourceTree = "<group>"; };
-		796022A3066B91147B712BB4 /* Pods_AVIRO.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AVIRO.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B57500A8C1EA6C6CFDED2C4C /* Pods-AVIRO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVIRO.debug.xcconfig"; path = "Target Support Files/Pods-AVIRO/Pods-AVIRO.debug.xcconfig"; sourceTree = "<group>"; };
+		145E32B416F8757C584E1EC5 /* libPods-AVIROTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AVIROTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F4D9C82B45E94A145093777 /* Pods-AVIRO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVIRO.release.xcconfig"; path = "Target Support Files/Pods-AVIRO/Pods-AVIRO.release.xcconfig"; sourceTree = "<group>"; };
+		209280C6A805DB12C44C7A1C /* Pods-AVIROTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVIROTests.debug.xcconfig"; path = "Target Support Files/Pods-AVIROTests/Pods-AVIROTests.debug.xcconfig"; sourceTree = "<group>"; };
+		543A0041DDDA86D0223E371E /* Pods-AVIRO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVIRO.debug.xcconfig"; path = "Target Support Files/Pods-AVIRO/Pods-AVIRO.debug.xcconfig"; sourceTree = "<group>"; };
+		666C79719FFC2B1B1010E863 /* Pods_AVIRO.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AVIRO.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C50367F42A1795D10020C6BB /* HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenter.swift; sourceTree = "<group>"; };
 		C505EB152ACC048E0057A4F8 /* Berry2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Berry2.json; sourceTree = "<group>"; };
 		C505EB172ACC5AC50057A4F8 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
@@ -304,6 +318,8 @@
 		C541521C2AC125E100F39826 /* TutorialTopLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialTopLabel.swift; sourceTree = "<group>"; };
 		C54657862ABF2D82003A0BCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C54657872ABF2DBA003A0BCB /* API.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = API.plist; path = ../AVIRO/AVIRO/App/API.plist; sourceTree = SOURCE_ROOT; };
+		C5476B4A2B2F1F1F00F5FC6E /* AVIROTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AVIROTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5476B4C2B2F1F1F00F5FC6E /* AVIROTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROTests.swift; sourceTree = "<group>"; };
 		C547A8B92A17D8D4004D1339 /* KakaoAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAPIManager.swift; sourceTree = "<group>"; };
 		C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIRODeleteAPI.swift; sourceTree = "<group>"; };
@@ -417,6 +433,7 @@
 		C5FF13522A42C8810026981D /* AVIROPlaceInfo+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROPlaceInfo+DTO.swift"; sourceTree = "<group>"; };
 		C5FF13542A42C88D0026981D /* AVIROPlaceMenus+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROPlaceMenus+DTO.swift"; sourceTree = "<group>"; };
 		C5FF13562A42C8970026981D /* AVIROPlaceReviews+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROPlaceReviews+DTO.swift"; sourceTree = "<group>"; };
+		F704C4270ED4B2E1C26DC5BB /* Pods-AVIROTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVIROTests.release.xcconfig"; path = "Target Support Files/Pods-AVIROTests/Pods-AVIROTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -425,7 +442,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C50DB74E2A9B2A8C0078B501 /* WebKit.framework in Frameworks */,
-				A156F24E1DC1F5FA54D44A76 /* Pods_AVIRO.framework in Frameworks */,
+				07B07E7D2181EE7FE8658FF3 /* Pods_AVIRO.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5476B472B2F1F1F00F5FC6E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BAABB6DFC862FB737E319364 /* libPods-AVIROTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,7 +461,8 @@
 			isa = PBXGroup;
 			children = (
 				C50DB74D2A9B2A8C0078B501 /* WebKit.framework */,
-				796022A3066B91147B712BB4 /* Pods_AVIRO.framework */,
+				666C79719FFC2B1B1010E863 /* Pods_AVIRO.framework */,
+				145E32B416F8757C584E1EC5 /* libPods-AVIROTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -444,8 +470,10 @@
 		BE7C2C07294F8980354FE766 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B57500A8C1EA6C6CFDED2C4C /* Pods-AVIRO.debug.xcconfig */,
-				4EB01DC761F38F50251EAA43 /* Pods-AVIRO.release.xcconfig */,
+				543A0041DDDA86D0223E371E /* Pods-AVIRO.debug.xcconfig */,
+				1F4D9C82B45E94A145093777 /* Pods-AVIRO.release.xcconfig */,
+				209280C6A805DB12C44C7A1C /* Pods-AVIROTests.debug.xcconfig */,
+				F704C4270ED4B2E1C26DC5BB /* Pods-AVIROTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -764,6 +792,7 @@
 			children = (
 				C5351B4A2A1919F700116D50 /* .swiftlint.yml */,
 				C52FA3412A175B20005E70DC /* AVIRO */,
+				C5476B4B2B2F1F1F00F5FC6E /* AVIROTests */,
 				BE7C2C07294F8980354FE766 /* Pods */,
 				C52FA3402A175B20005E70DC /* Products */,
 				0C3C6AC2BC6B49CCDD2FE9BF /* Frameworks */,
@@ -774,6 +803,7 @@
 			isa = PBXGroup;
 			children = (
 				C52FA33F2A175B20005E70DC /* AVIRO.app */,
+				C5476B4A2B2F1F1F00F5FC6E /* AVIROTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -787,6 +817,7 @@
 				C50367F32A1795BE0020C6BB /* Model */,
 				C50367F22A1795B90020C6BB /* Manager */,
 				C50367ED2A1791840020C6BB /* Scene */,
+				C5D654F82B27597B00A04F4F /* Infrastructure */,
 			);
 			path = AVIRO;
 			sourceTree = "<group>";
@@ -867,6 +898,14 @@
 			path = OperationHours;
 			sourceTree = "<group>";
 		};
+		C5476B4B2B2F1F1F00F5FC6E /* AVIROTests */ = {
+			isa = PBXGroup;
+			children = (
+				C5476B4C2B2F1F1F00F5FC6E /* AVIROTests.swift */,
+			);
+			path = AVIROTests;
+			sourceTree = "<group>";
+		};
 		C54BC0D82A2C2CEE00B65439 /* UIButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -908,6 +947,7 @@
 				C5EB50EB2A1C72C600B29CC1 /* TabBarViewController.swift */,
 				C5EB50ED2A1C76FC00B29CC1 /* Home */,
 				C5351B722A1B369000116D50 /* Enroll */,
+				C5AAEB472B2F044000507C73 /* Challenge */,
 				C5EB50F02A1C772300B29CC1 /* MyPage */,
 			);
 			path = TabBar;
@@ -1128,6 +1168,13 @@
 			path = FacadeManager;
 			sourceTree = "<group>";
 		};
+		C5AAEB472B2F044000507C73 /* Challenge */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Challenge;
+			sourceTree = "<group>";
+		};
 		C5B071E22A59B3C200AE709A /* UITextField */ = {
 			isa = PBXGroup;
 			children = (
@@ -1250,6 +1297,21 @@
 				C510005D2ABAA3C700F65C1F /* Enum+.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		C5D654F82B27597B00A04F4F /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				C5D654F92B275D4400A04F4F /* Network */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		C5D654F92B275D4400A04F4F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		C5D8EB242A9D78F900EF629F /* SubView */ = {
@@ -1483,12 +1545,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C52FA3532A175B20005E70DC /* Build configuration list for PBXNativeTarget "AVIRO" */;
 			buildPhases = (
-				94D666AE4260592A253C27D2 /* [CP] Check Pods Manifest.lock */,
+				D7D5DA7E12DC2962A2A12597 /* [CP] Check Pods Manifest.lock */,
 				C52FA33B2A175B20005E70DC /* Sources */,
 				C52FA33C2A175B20005E70DC /* Frameworks */,
 				C52FA33D2A175B20005E70DC /* Resources */,
 				C5351B492A19160600116D50 /* swiftlint */,
-				C60A8D31733F9A2D78370C5C /* [CP] Embed Pods Frameworks */,
+				EFB56813950653F6BBFA7E35 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1499,6 +1561,25 @@
 			productReference = C52FA33F2A175B20005E70DC /* AVIRO.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C5476B492B2F1F1F00F5FC6E /* AVIROTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C5476B522B2F1F1F00F5FC6E /* Build configuration list for PBXNativeTarget "AVIROTests" */;
+			buildPhases = (
+				2EF359596099E4A8E159BA54 /* [CP] Check Pods Manifest.lock */,
+				C5476B462B2F1F1F00F5FC6E /* Sources */,
+				C5476B472B2F1F1F00F5FC6E /* Frameworks */,
+				C5476B482B2F1F1F00F5FC6E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C5476B4F2B2F1F1F00F5FC6E /* PBXTargetDependency */,
+			);
+			name = AVIROTests;
+			productName = AVIROTests;
+			productReference = C5476B4A2B2F1F1F00F5FC6E /* AVIROTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1506,11 +1587,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastSwiftUpdateCheck = 1510;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					C52FA33E2A175B20005E70DC = {
 						CreatedOnToolsVersion = 14.3;
+					};
+					C5476B492B2F1F1F00F5FC6E = {
+						CreatedOnToolsVersion = 15.1;
+						TestTargetID = C52FA33E2A175B20005E70DC;
 					};
 				};
 			};
@@ -1529,6 +1614,7 @@
 			projectRoot = "";
 			targets = (
 				C52FA33E2A175B20005E70DC /* AVIRO */,
+				C5476B492B2F1F1F00F5FC6E /* AVIROTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1554,10 +1640,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C5476B482B2F1F1F00F5FC6E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		94D666AE4260592A253C27D2 /* [CP] Check Pods Manifest.lock */ = {
+		2EF359596099E4A8E159BA54 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1572,7 +1665,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-AVIRO-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-AVIROTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1598,7 +1691,29 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n    export PATH=\"$PATH:/opt/homebrew/bin\"\n    if which swiftlint > /dev/null; then\n      swiftlint\n    else\n      echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n    fi\n";
 		};
-		C60A8D31733F9A2D78370C5C /* [CP] Embed Pods Frameworks */ = {
+		D7D5DA7E12DC2962A2A12597 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AVIRO-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EFB56813950653F6BBFA7E35 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1810,7 +1925,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C5476B462B2F1F1F00F5FC6E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5476B4D2B2F1F1F00F5FC6E /* AVIROTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C5476B4F2B2F1F1F00F5FC6E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C52FA33E2A175B20005E70DC /* AVIRO */;
+			targetProxy = C5476B4E2B2F1F1F00F5FC6E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C52FA34D2A175B20005E70DC /* LaunchScreen.storyboard */ = {
@@ -1947,7 +2078,7 @@
 		};
 		C52FA3542A175B20005E70DC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B57500A8C1EA6C6CFDED2C4C /* Pods-AVIRO.debug.xcconfig */;
+			baseConfigurationReference = 543A0041DDDA86D0223E371E /* Pods-AVIRO.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1982,7 +2113,7 @@
 		};
 		C52FA3552A175B20005E70DC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EB01DC761F38F50251EAA43 /* Pods-AVIRO.release.xcconfig */;
+			baseConfigurationReference = 1F4D9C82B45E94A145093777 /* Pods-AVIRO.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -2015,6 +2146,63 @@
 			};
 			name = Release;
 		};
+		C5476B502B2F1F1F00F5FC6E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 209280C6A805DB12C44C7A1C /* Pods-AVIROTests.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = C4K2HXA435;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.AVIROTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AVIRO.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AVIRO";
+			};
+			name = Debug;
+		};
+		C5476B512B2F1F1F00F5FC6E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F704C4270ED4B2E1C26DC5BB /* Pods-AVIROTests.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = C4K2HXA435;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.AVIROTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AVIRO.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AVIRO";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2032,6 +2220,15 @@
 			buildConfigurations = (
 				C52FA3542A175B20005E70DC /* Debug */,
 				C52FA3552A175B20005E70DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C5476B522B2F1F1F00F5FC6E /* Build configuration list for PBXNativeTarget "AVIROTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5476B502B2F1F1F00F5FC6E /* Debug */,
+				C5476B512B2F1F1F00F5FC6E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
