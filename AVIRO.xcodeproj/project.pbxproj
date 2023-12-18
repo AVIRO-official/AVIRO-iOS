@@ -98,6 +98,11 @@
 		C541521D2AC125E100F39826 /* TutorialTopLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C541521C2AC125E100F39826 /* TutorialTopLabel.swift */; };
 		C54657882ABF2DBA003A0BCB /* API.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54657872ABF2DBA003A0BCB /* API.plist */; };
 		C5476B4D2B2F1F1F00F5FC6E /* AVIROTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B4C2B2F1F1F00F5FC6E /* AVIROTests.swift */; };
+		C5476B572B2FD60100F5FC6E /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B562B2FD60100F5FC6E /* NetworkMonitor.swift */; };
+		C5476B592B2FD61500F5FC6E /* DataTransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B582B2FD61500F5FC6E /* DataTransferService.swift */; };
+		C5476B5B2B2FD61E00F5FC6E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B5A2B2FD61E00F5FC6E /* NetworkService.swift */; };
+		C5476B5D2B2FD62800F5FC6E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B5C2B2FD62800F5FC6E /* Endpoint.swift */; };
+		C5476B5F2B2FD63100F5FC6E /* NetworkConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B5E2B2FD63100F5FC6E /* NetworkConfigurable.swift */; };
 		C547A8BA2A17D8D4004D1339 /* KakaoAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C547A8B92A17D8D4004D1339 /* KakaoAPIManager.swift */; };
 		C54BC0DB2A2C2D0D00B65439 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */; };
 		C552D5342ABE8CA500933D8A /* AVIRODeleteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */; };
@@ -320,6 +325,11 @@
 		C54657872ABF2DBA003A0BCB /* API.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = API.plist; path = ../AVIRO/AVIRO/App/API.plist; sourceTree = SOURCE_ROOT; };
 		C5476B4A2B2F1F1F00F5FC6E /* AVIROTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AVIROTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5476B4C2B2F1F1F00F5FC6E /* AVIROTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROTests.swift; sourceTree = "<group>"; };
+		C5476B562B2FD60100F5FC6E /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		C5476B582B2FD61500F5FC6E /* DataTransferService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferService.swift; sourceTree = "<group>"; };
+		C5476B5A2B2FD61E00F5FC6E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		C5476B5C2B2FD62800F5FC6E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		C5476B5E2B2FD63100F5FC6E /* NetworkConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfigurable.swift; sourceTree = "<group>"; };
 		C547A8B92A17D8D4004D1339 /* KakaoAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAPIManager.swift; sourceTree = "<group>"; };
 		C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIRODeleteAPI.swift; sourceTree = "<group>"; };
@@ -817,6 +827,8 @@
 				C50367F32A1795BE0020C6BB /* Model */,
 				C50367F22A1795B90020C6BB /* Manager */,
 				C50367ED2A1791840020C6BB /* Scene */,
+				C5476B542B2FD59E00F5FC6E /* Domain */,
+				C5476B532B2FD59800F5FC6E /* Data */,
 				C5D654F82B27597B00A04F4F /* Infrastructure */,
 			);
 			path = AVIRO;
@@ -904,6 +916,28 @@
 				C5476B4C2B2F1F1F00F5FC6E /* AVIROTests.swift */,
 			);
 			path = AVIROTests;
+			sourceTree = "<group>";
+		};
+		C5476B532B2FD59800F5FC6E /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		C5476B542B2FD59E00F5FC6E /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		C5476B552B2FD5F000F5FC6E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C5476B562B2FD60100F5FC6E /* NetworkMonitor.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		C54BC0D82A2C2CEE00B65439 /* UIButton */ = {
@@ -1303,6 +1337,7 @@
 			isa = PBXGroup;
 			children = (
 				C5D654F92B275D4400A04F4F /* Network */,
+				C5476B552B2FD5F000F5FC6E /* Utils */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -1310,6 +1345,10 @@
 		C5D654F92B275D4400A04F4F /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				C5476B582B2FD61500F5FC6E /* DataTransferService.swift */,
+				C5476B5A2B2FD61E00F5FC6E /* NetworkService.swift */,
+				C5476B5C2B2FD62800F5FC6E /* Endpoint.swift */,
+				C5476B5E2B2FD63100F5FC6E /* NetworkConfigurable.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1765,6 +1804,7 @@
 				C50F6AF52A68FD6300E942F5 /* EnrollPlacePresenter.swift in Sources */,
 				C50DB7572A9B8DF80078B501 /* EditLocationAddressTextView.swift in Sources */,
 				C595ACD12A84A4EB00D35123 /* PlaceSummaryView.swift in Sources */,
+				C5476B5D2B2FD62800F5FC6E /* Endpoint.swift in Sources */,
 				C520663A2A808DC40038ECCD /* PlaceListHeaderView.swift in Sources */,
 				C52066382A808DAD0038ECCD /* HistoryHeaderView.swift in Sources */,
 				C5C290742A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift in Sources */,
@@ -1821,6 +1861,7 @@
 				C5EB510D2A20A4B400B29CC1 /* HomeSearchViewTableViewCell.swift in Sources */,
 				C510005C2AB9C39500F65C1F /* MarkerModelManager.swift in Sources */,
 				C5FD92ED2A9C7AE800CF4673 /* PublicAPIManager.swift in Sources */,
+				C5476B592B2FD61500F5FC6E /* DataTransferService.swift in Sources */,
 				C50367F52A1795D10020C6BB /* HomeViewPresenter.swift in Sources */,
 				C5FD92F42A9CD2FC00CF4673 /* KakaoAddressPlace+DTO.swift in Sources */,
 				C5ED46952AAEB3F300F2DA04 /* OperationHourView.swift in Sources */,
@@ -1864,6 +1905,7 @@
 				C5732C772A41A0A500CDC499 /* AVIROMapMarker+DTO.swift in Sources */,
 				C5FF13532A42C8810026981D /* AVIROPlaceInfo+DTO.swift in Sources */,
 				C5351B5C2A19F60200116D50 /* PlaceListSearchViewPresenter.swift in Sources */,
+				C5476B572B2FD60100F5FC6E /* NetworkMonitor.swift in Sources */,
 				C513854A2AAB3B13001AB827 /* NickNameChangebleViewController.swift in Sources */,
 				C50E6F6F2A8F10B500703B9E /* UILabel+Extension.swift in Sources */,
 				C52066352A7F3FAE0038ECCD /* HistoryTableViewCell.swift in Sources */,
@@ -1889,6 +1931,7 @@
 				C56857802A7113C600F52715 /* NormalTableViewCell.swift in Sources */,
 				C52066312A7E4A580038ECCD /* AVIROMainSearchCompare+DTO.swift in Sources */,
 				C5C9619F2A8DEB230016E2F8 /* ReviewWriteButton.swift in Sources */,
+				C5476B5B2B2FD61E00F5FC6E /* NetworkService.swift in Sources */,
 				C5E143A72AB43B8F007AC8C9 /* AVIROResult+DTO.swift in Sources */,
 				C5E430B52A5DAE9800CB67EC /* SecondRegistrationViewController.swift in Sources */,
 				C593B64B2A4AEA9800D224CE /* AVIROReview+DTO.swift in Sources */,
@@ -1902,6 +1945,7 @@
 				C53893162A5EC0C500CB9A54 /* GenderButton.swift in Sources */,
 				C505EB182ACC5AC50057A4F8 /* LaunchScreenViewController.swift in Sources */,
 				C50F6AFD2A68FFCB00E942F5 /* EnrollMenuTableView.swift in Sources */,
+				C5476B5F2B2FD63100F5FC6E /* NetworkConfigurable.swift in Sources */,
 				C5351B602A19F9A700116D50 /* PlaceListModel.swift in Sources */,
 				C5A201C52A98A67900A54381 /* EditPhoneView.swift in Sources */,
 				C5732C712A41739000CDC499 /* AVIROAPIManager.swift in Sources */,
