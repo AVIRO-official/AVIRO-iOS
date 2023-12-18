@@ -34,7 +34,8 @@ final class AppController {
         window.backgroundColor = .gray7
         window.makeKeyAndVisible()
         
-        checkState()
+//        checkState()
+        setHomeView()
     }
     
     // MARK: 불러올 view 확인 메서드

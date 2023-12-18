@@ -131,13 +131,7 @@ final class MyInfoView: UIView {
         
         return stackView
     }()
-    
-    private lazy var checkButtonStackView: UIStackView = {
-        let stackView = UIStackView()
         
-        return stackView
-    }()
-    
     var editNickNameTapped: (() -> Void)?
     
     override init(frame: CGRect) {

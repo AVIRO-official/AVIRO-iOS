@@ -98,6 +98,10 @@
 		C541521D2AC125E100F39826 /* TutorialTopLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C541521C2AC125E100F39826 /* TutorialTopLabel.swift */; };
 		C54657882ABF2DBA003A0BCB /* API.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54657872ABF2DBA003A0BCB /* API.plist */; };
 		C5476B4D2B2F1F1F00F5FC6E /* AVIROTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B4C2B2F1F1F00F5FC6E /* AVIROTests.swift */; };
+		C5476B612B3028FA00F5FC6E /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B602B3028FA00F5FC6E /* ChallengeViewController.swift */; };
+		C5476B682B303BE800F5FC6E /* MyInfoView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B672B303BE800F5FC6E /* MyInfoView2.swift */; };
+		C5476B6A2B304C8200F5FC6E /* ChallengeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B692B304C8200F5FC6E /* ChallengeTitleView.swift */; };
+		C5476B6C2B304C8900F5FC6E /* ChallengeLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B6B2B304C8900F5FC6E /* ChallengeLevelView.swift */; };
 		C547A8BA2A17D8D4004D1339 /* KakaoAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C547A8B92A17D8D4004D1339 /* KakaoAPIManager.swift */; };
 		C54BC0DB2A2C2D0D00B65439 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */; };
 		C552D5342ABE8CA500933D8A /* AVIRODeleteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */; };
@@ -320,6 +324,10 @@
 		C54657872ABF2DBA003A0BCB /* API.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = API.plist; path = ../AVIRO/AVIRO/App/API.plist; sourceTree = SOURCE_ROOT; };
 		C5476B4A2B2F1F1F00F5FC6E /* AVIROTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AVIROTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5476B4C2B2F1F1F00F5FC6E /* AVIROTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROTests.swift; sourceTree = "<group>"; };
+		C5476B602B3028FA00F5FC6E /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
+		C5476B672B303BE800F5FC6E /* MyInfoView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoView2.swift; sourceTree = "<group>"; };
+		C5476B692B304C8200F5FC6E /* ChallengeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeTitleView.swift; sourceTree = "<group>"; };
+		C5476B6B2B304C8900F5FC6E /* ChallengeLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeLevelView.swift; sourceTree = "<group>"; };
 		C547A8B92A17D8D4004D1339 /* KakaoAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAPIManager.swift; sourceTree = "<group>"; };
 		C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIRODeleteAPI.swift; sourceTree = "<group>"; };
@@ -817,7 +825,6 @@
 				C50367F32A1795BE0020C6BB /* Model */,
 				C50367F22A1795B90020C6BB /* Manager */,
 				C50367ED2A1791840020C6BB /* Scene */,
-				C5D654F82B27597B00A04F4F /* Infrastructure */,
 			);
 			path = AVIRO;
 			sourceTree = "<group>";
@@ -904,6 +911,48 @@
 				C5476B4C2B2F1F1F00F5FC6E /* AVIROTests.swift */,
 			);
 			path = AVIROTests;
+			sourceTree = "<group>";
+		};
+		C5476B622B3036DA00F5FC6E /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C5476B642B303BBB00F5FC6E /* ChallengeTitleView */,
+				C5476B662B303BD400F5FC6E /* ChallengeLevelView */,
+				C5476B652B303BCB00F5FC6E /* MyInfoView */,
+				C5476B602B3028FA00F5FC6E /* ChallengeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		C5476B632B3036E300F5FC6E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C5476B642B303BBB00F5FC6E /* ChallengeTitleView */ = {
+			isa = PBXGroup;
+			children = (
+				C5476B692B304C8200F5FC6E /* ChallengeTitleView.swift */,
+			);
+			path = ChallengeTitleView;
+			sourceTree = "<group>";
+		};
+		C5476B652B303BCB00F5FC6E /* MyInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				C5476B672B303BE800F5FC6E /* MyInfoView2.swift */,
+			);
+			path = MyInfoView;
+			sourceTree = "<group>";
+		};
+		C5476B662B303BD400F5FC6E /* ChallengeLevelView */ = {
+			isa = PBXGroup;
+			children = (
+				C5476B6B2B304C8900F5FC6E /* ChallengeLevelView.swift */,
+			);
+			path = ChallengeLevelView;
 			sourceTree = "<group>";
 		};
 		C54BC0D82A2C2CEE00B65439 /* UIButton */ = {
@@ -1171,6 +1220,8 @@
 		C5AAEB472B2F044000507C73 /* Challenge */ = {
 			isa = PBXGroup;
 			children = (
+				C5476B632B3036E300F5FC6E /* ViewModel */,
+				C5476B622B3036DA00F5FC6E /* ViewController */,
 			);
 			path = Challenge;
 			sourceTree = "<group>";
@@ -1297,21 +1348,6 @@
 				C510005D2ABAA3C700F65C1F /* Enum+.swift */,
 			);
 			path = Constants;
-			sourceTree = "<group>";
-		};
-		C5D654F82B27597B00A04F4F /* Infrastructure */ = {
-			isa = PBXGroup;
-			children = (
-				C5D654F92B275D4400A04F4F /* Network */,
-			);
-			path = Infrastructure;
-			sourceTree = "<group>";
-		};
-		C5D654F92B275D4400A04F4F /* Network */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Network;
 			sourceTree = "<group>";
 		};
 		C5D8EB242A9D78F900EF629F /* SubView */ = {
@@ -1810,6 +1846,7 @@
 				C50F6AF32A68FD0A00E942F5 /* EnrollPlaceViewController.swift in Sources */,
 				C5732C7E2A41D42700CDC499 /* RequestTableFieldModel.swift in Sources */,
 				C5C961982A8DA5880016E2F8 /* EditInfoButton.swift in Sources */,
+				C5476B682B303BE800F5FC6E /* MyInfoView2.swift in Sources */,
 				C5A989972A959D920021B7C3 /* AVIROUpdateBookmark+DTO.swift in Sources */,
 				C5E7B7A92A4D3CDF00CA2090 /* AVIROUser+DTO.swift in Sources */,
 				C5A201C32A98A61F00A54381 /* EditLocationBottomView.swift in Sources */,
@@ -1882,6 +1919,7 @@
 				C5A201BB2A986F9B00A54381 /* EditMenuPresenter.swift in Sources */,
 				C5C90EBB2AA7F79600AB3668 /* EditTimeChangebleView.swift in Sources */,
 				C5C9619C2A8DB1D80016E2F8 /* MenuTypeLabel.swift in Sources */,
+				C5476B6C2B304C8900F5FC6E /* ChallengeLevelView.swift in Sources */,
 				C5351B7A2A1B439000116D50 /* KakaoCoordinateSearchDTO.swift in Sources */,
 				C50E6F6D2A8E5AAC00703B9E /* ReviewLabel.swift in Sources */,
 				C5C290852A86173F00ED5DCE /* PlaceReviewWriteView.swift in Sources */,
@@ -1903,6 +1941,7 @@
 				C505EB182ACC5AC50057A4F8 /* LaunchScreenViewController.swift in Sources */,
 				C50F6AFD2A68FFCB00E942F5 /* EnrollMenuTableView.swift in Sources */,
 				C5351B602A19F9A700116D50 /* PlaceListModel.swift in Sources */,
+				C5476B612B3028FA00F5FC6E /* ChallengeViewController.swift in Sources */,
 				C5A201C52A98A67900A54381 /* EditPhoneView.swift in Sources */,
 				C5732C712A41739000CDC499 /* AVIROAPIManager.swift in Sources */,
 				C50F6AF92A68FFBB00E942F5 /* EnrollStoreInfoView.swift in Sources */,
@@ -1922,6 +1961,7 @@
 				C51AED1F2A8B2BC80015FBC2 /* HomeTopButton.swift in Sources */,
 				C5FA0EAC2A94DF39004AD8B4 /* ReportReviewPresenter.swift in Sources */,
 				C5A201B22A98502500A54381 /* TimeUtility.swift in Sources */,
+				C5476B6A2B304C8200F5FC6E /* ChallengeTitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

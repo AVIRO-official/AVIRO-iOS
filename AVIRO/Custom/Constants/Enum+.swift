@@ -63,13 +63,13 @@ enum DefaultCoordinate: Double {
 enum TBItem: CaseIterable {
     case home
     case plus
-    case myPage
+    case challenge
     
     var title: String {
         switch self {
         case .home: return "홈"
         case .plus: return "등록하기"
-        case .myPage: return "마이페이지"
+        case .challenge: return "챌린지"
         }
     }
     
@@ -81,17 +81,17 @@ enum TBItem: CaseIterable {
         case .home: return (
             UIImage.home1,
             UIImage.home2
-            )
-
+        )
+            
         case .plus: return (
             UIImage.edit1,
             UIImage.edit2
-            )
-
-        case .myPage: return (
+        )
+            
+        case .challenge: return (
             UIImage.user1,
             UIImage.user2
-            )
+        )
         }
     }
     
@@ -103,8 +103,8 @@ enum TBItem: CaseIterable {
         case .plus: return UINavigationController(
             rootViewController: EnrollPlaceViewController()
         )
-        case .myPage: return UINavigationController(
-            rootViewController: MyPageViewController()
+        case .challenge: return UINavigationController(
+            rootViewController: ChallengeViewController()
         )
         }
     }
