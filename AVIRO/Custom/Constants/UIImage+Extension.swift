@@ -66,6 +66,9 @@ extension UIImage {
     static let edit1 = UIImage(named: "square1")!
     static let edit2 = UIImage(named: "square2")!
     
+    static let tropy1 = UIImage(named: "Trophy")!.withRenderingMode(.alwaysTemplate).withTintColor(.keywordBlue)
+    static let tropy2 = UIImage(named: "Trophy")!.withRenderingMode(.alwaysTemplate).withTintColor(.gray2)
+
     static let user1 = UIImage(named: "user1")!
     static let user2 = UIImage(named: "user2")!
     
@@ -125,4 +128,6 @@ extension UIImage {
     
     static let mainSearchStore = UIImage(named: "MainSearchStore")!
     static let mainSearchStation = UIImage(named: "MainSearchStation")!
+    
+    static let infoCircle = UIImage(named: "InfoCircle")!
 }

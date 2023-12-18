@@ -196,7 +196,7 @@ final class MyInfoView2: UIView {
         self.backgroundColor = .gray7
     }
     
-    // TODO: DataBinding때 삭제 예정
+    // TODO: DataBinding 설계 시 삭제 예정
     func updateMyPlace(_ place: String) {
         myPlaceButton.setTitle("\(place)개", for: .normal)
     }

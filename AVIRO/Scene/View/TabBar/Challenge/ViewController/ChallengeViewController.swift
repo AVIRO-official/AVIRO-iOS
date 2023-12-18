@@ -21,8 +21,8 @@ final class ChallengeViewController: UIViewController {
         return view
     }()
     
-    private lazy var challengeLevelView: ChallengeLevelView = {
-        let view = ChallengeLevelView()
+    private lazy var challengeUserInfoView: ChallengeUserInfoView = {
+        let view = ChallengeUserInfoView()
         
         return view
     }()
@@ -62,7 +62,7 @@ final class ChallengeViewController: UIViewController {
         
         [
             challengeTitleView,
-            challengeLevelView,
+            challengeUserInfoView,
             myInfoView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -81,19 +81,19 @@ final class ChallengeViewController: UIViewController {
                 equalToConstant: 107
             ),
             
-            challengeLevelView.topAnchor.constraint(
+            challengeUserInfoView.topAnchor.constraint(
                 equalTo: challengeTitleView.bottomAnchor,
                 constant: 16
             ),
-            challengeLevelView.widthAnchor.constraint(
+            challengeUserInfoView.widthAnchor.constraint(
                 equalTo: scrollView.frameLayoutGuide.widthAnchor
             ),
-            challengeLevelView.heightAnchor.constraint(
+            challengeUserInfoView.heightAnchor.constraint(
                 equalToConstant: 341
             ),
             
             myInfoView.topAnchor.constraint(
-                equalTo: challengeLevelView.bottomAnchor,
+                equalTo: challengeUserInfoView.bottomAnchor,
                 constant: 20
             ),
             myInfoView.widthAnchor.constraint(
@@ -101,7 +101,8 @@ final class ChallengeViewController: UIViewController {
             ),
             myInfoView.heightAnchor.constraint(equalToConstant: 81),
             myInfoView.bottomAnchor.constraint(
-                equalTo: scrollView.contentLayoutGuide.bottomAnchor
+                equalTo: scrollView.contentLayoutGuide.bottomAnchor,
+                constant: -32
             )
         ])
     }
@@ -117,12 +118,20 @@ final class ChallengeViewController: UIViewController {
             action: nil
         )
         rightBarButton.tintColor = .gray1
+
+        let navBarAppearance = UINavigationBarAppearance()
         
+        navBarAppearance.shadowColor = nil
+        navBarAppearance.backgroundColor = .gray7
+        self.navigationItem.standardAppearance = navBarAppearance
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
     private func dataBinding() {
         // TODO: ViewModel 생성 후 변경 예정
+        challengeTitleView.updateDate(with: "1월 1일 ~ 1월 31일")
+        challengeTitleView.updateTitle(with: "1월 '비거뉴어리'")
+        
         myInfoView.updateMyPlace("2")
         myInfoView.updateMyReview("3")
         myInfoView.updateMyStar("4")

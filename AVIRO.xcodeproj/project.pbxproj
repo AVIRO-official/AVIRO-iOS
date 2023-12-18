@@ -101,7 +101,8 @@
 		C5476B612B3028FA00F5FC6E /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B602B3028FA00F5FC6E /* ChallengeViewController.swift */; };
 		C5476B682B303BE800F5FC6E /* MyInfoView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B672B303BE800F5FC6E /* MyInfoView2.swift */; };
 		C5476B6A2B304C8200F5FC6E /* ChallengeTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B692B304C8200F5FC6E /* ChallengeTitleView.swift */; };
-		C5476B6C2B304C8900F5FC6E /* ChallengeLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B6B2B304C8900F5FC6E /* ChallengeLevelView.swift */; };
+		C5476B6C2B304C8900F5FC6E /* ChallengeUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B6B2B304C8900F5FC6E /* ChallengeUserInfoView.swift */; };
+		C5476B6E2B30760000F5FC6E /* ChallengeLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B6D2B30760000F5FC6E /* ChallengeLevelView.swift */; };
 		C547A8BA2A17D8D4004D1339 /* KakaoAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C547A8B92A17D8D4004D1339 /* KakaoAPIManager.swift */; };
 		C54BC0DB2A2C2D0D00B65439 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */; };
 		C552D5342ABE8CA500933D8A /* AVIRODeleteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */; };
@@ -327,7 +328,8 @@
 		C5476B602B3028FA00F5FC6E /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
 		C5476B672B303BE800F5FC6E /* MyInfoView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoView2.swift; sourceTree = "<group>"; };
 		C5476B692B304C8200F5FC6E /* ChallengeTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeTitleView.swift; sourceTree = "<group>"; };
-		C5476B6B2B304C8900F5FC6E /* ChallengeLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeLevelView.swift; sourceTree = "<group>"; };
+		C5476B6B2B304C8900F5FC6E /* ChallengeUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeUserInfoView.swift; sourceTree = "<group>"; };
+		C5476B6D2B30760000F5FC6E /* ChallengeLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeLevelView.swift; sourceTree = "<group>"; };
 		C547A8B92A17D8D4004D1339 /* KakaoAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAPIManager.swift; sourceTree = "<group>"; };
 		C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIRODeleteAPI.swift; sourceTree = "<group>"; };
@@ -917,7 +919,7 @@
 			isa = PBXGroup;
 			children = (
 				C5476B642B303BBB00F5FC6E /* ChallengeTitleView */,
-				C5476B662B303BD400F5FC6E /* ChallengeLevelView */,
+				C5476B662B303BD400F5FC6E /* ChallengeUserInfoView */,
 				C5476B652B303BCB00F5FC6E /* MyInfoView */,
 				C5476B602B3028FA00F5FC6E /* ChallengeViewController.swift */,
 			);
@@ -947,12 +949,13 @@
 			path = MyInfoView;
 			sourceTree = "<group>";
 		};
-		C5476B662B303BD400F5FC6E /* ChallengeLevelView */ = {
+		C5476B662B303BD400F5FC6E /* ChallengeUserInfoView */ = {
 			isa = PBXGroup;
 			children = (
-				C5476B6B2B304C8900F5FC6E /* ChallengeLevelView.swift */,
+				C5476B6B2B304C8900F5FC6E /* ChallengeUserInfoView.swift */,
+				C5476B6D2B30760000F5FC6E /* ChallengeLevelView.swift */,
 			);
-			path = ChallengeLevelView;
+			path = ChallengeUserInfoView;
 			sourceTree = "<group>";
 		};
 		C54BC0D82A2C2CEE00B65439 /* UIButton */ = {
@@ -1836,6 +1839,7 @@
 				C5D93DA32A58718300629C39 /* NextPageButton.swift in Sources */,
 				C50DB7512A9B83550078B501 /* ChangeableAddressViewController.swift in Sources */,
 				C5A989992A959E040021B7C3 /* AVIROBookmark+DTO.swift in Sources */,
+				C5476B6E2B30760000F5FC6E /* ChallengeLevelView.swift in Sources */,
 				C51000582AB939A200F65C1F /* NoResultLabel.swift in Sources */,
 				C58EC7D02AB1B59100401FF7 /* AVIROEditLocation+DTO.swift in Sources */,
 				C5803F582A88C1990064A853 /* PlaceTopModel.swift in Sources */,
@@ -1919,7 +1923,7 @@
 				C5A201BB2A986F9B00A54381 /* EditMenuPresenter.swift in Sources */,
 				C5C90EBB2AA7F79600AB3668 /* EditTimeChangebleView.swift in Sources */,
 				C5C9619C2A8DB1D80016E2F8 /* MenuTypeLabel.swift in Sources */,
-				C5476B6C2B304C8900F5FC6E /* ChallengeLevelView.swift in Sources */,
+				C5476B6C2B304C8900F5FC6E /* ChallengeUserInfoView.swift in Sources */,
 				C5351B7A2A1B439000116D50 /* KakaoCoordinateSearchDTO.swift in Sources */,
 				C50E6F6D2A8E5AAC00703B9E /* ReviewLabel.swift in Sources */,
 				C5C290852A86173F00ED5DCE /* PlaceReviewWriteView.swift in Sources */,

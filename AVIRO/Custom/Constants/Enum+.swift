@@ -89,8 +89,8 @@ enum TBItem: CaseIterable {
         )
             
         case .challenge: return (
-            UIImage.user1,
-            UIImage.user2
+            UIImage.tropy1,
+            UIImage.tropy2
         )
         }
     }
