@@ -225,7 +225,7 @@ final class HomeViewPresenter: NSObject {
             switch result {
             case .success(let mapDatas):
                 self?.saveMarkers(mapDatas)
-            case .failure(_):
+            case .failure:
                 self?.viewController?.showErrorAlertWhenLoadMarker()
             }
         }

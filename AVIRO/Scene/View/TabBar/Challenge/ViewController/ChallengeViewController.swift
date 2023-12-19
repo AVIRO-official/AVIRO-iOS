@@ -27,8 +27,8 @@ final class ChallengeViewController: UIViewController {
         return view
     }()
     
-    private lazy var myInfoView: MyInfoView2 = {
-        let view = MyInfoView2()
+    private lazy var myInfoView: MyInfoView = {
+        let view = MyInfoView()
         
         return view
     }()
@@ -135,5 +135,14 @@ final class ChallengeViewController: UIViewController {
         myInfoView.updateMyPlace("2")
         myInfoView.updateMyReview("3")
         myInfoView.updateMyStar("4")
+        
+        navigationItem.rightBarButtonItem?.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                let vc = MyPageViewController()
+                let presenter = MyPageViewPresenter(viewController: vc)
+                
+                self?.navigationController?.pushViewController(vc, animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 }

@@ -17,7 +17,7 @@ enum LoginRedirectReason {
 protocol MyPageViewProtocol: NSObject {
     func setupLayout()
     func setupAttribute()
-    func updateMyData(_ myDataModel: MyDataModel)
+//    func updateMyData(_ myDataModel: MyDataModel)
     func pushLoginViewController(with: LoginRedirectReason)
     func showErrorAlert(with error: String, title: String?)
     func switchIsLoading(with loading: Bool)
@@ -31,14 +31,14 @@ final class MyPageViewPresenter {
     private let amplitude: AmplitudeProtocol
     private let keychain = KeychainSwift()
     
-    private var myDataModel: MyDataModel? {
-        didSet {
-            guard let myDataModel = myDataModel else { return }
-            DispatchQueue.main.async {
-                self.viewController?.updateMyData(myDataModel)
-            }
-        }
-    }
+//    private var myDataModel: MyDataModel? {
+//        didSet {
+//            guard let myDataModel = myDataModel else { return }
+//            DispatchQueue.main.async {
+//                self.viewController?.updateMyData(myDataModel)
+//            }
+//        }
+//    }
     
     init(viewController: MyPageViewProtocol,
          bookmarkManager: BookmarkFacadeManager = BookmarkFacadeManager(),
@@ -57,42 +57,42 @@ final class MyPageViewPresenter {
     }
     
     func viewWillAppear() {
-        viewController?.switchIsLoading(with: false)
+//        viewController?.switchIsLoading(with: false)
 
-        loadMyData()
+//        loadMyData()
     }
     
-    private func loadMyData() {
-        let myNickName = MyData.my.nickname
-        let myStar = String(BookmarkFacadeManager().loadAllData().count)
-        
-        AVIROAPIManager().loadMyContributedCount(with: MyData.my.id) { [weak self] result in
-            switch result {
-            case .success(let success):
-                if success.statusCode == 200 {
-                    if let myPlace = success.data?.placeCount,
-                       let myReview = success.data?.commentCount {
-                        
-                        let myPlaceString = String(myPlace)
-                        let myReviewString = String(myReview)
-                        
-                        self?.myDataModel = MyDataModel(
-                            id: myNickName,
-                            place: myPlaceString,
-                            review: myReviewString,
-                            star: myStar
-                        )
-                    }
-                } else {
-                    self?.viewController?.showErrorAlert(with: "서버 에러", title: nil)
-                }
-            case .failure(let error):
-                if let error = error.errorDescription {
-                    self?.viewController?.showErrorAlert(with: error, title: nil)
-                }
-            }
-        }
-    }
+//    private func loadMyData() {
+//        let myNickName = MyData.my.nickname
+//        let myStar = String(BookmarkFacadeManager().loadAllData().count)
+//        
+//        AVIROAPIManager().loadMyContributedCount(with: MyData.my.id) { [weak self] result in
+//            switch result {
+//            case .success(let success):
+//                if success.statusCode == 200 {
+//                    if let myPlace = success.data?.placeCount,
+//                       let myReview = success.data?.commentCount {
+//                        
+//                        let myPlaceString = String(myPlace)
+//                        let myReviewString = String(myReview)
+//                        
+//                        self?.myDataModel = MyDataModel(
+//                            id: myNickName,
+//                            place: myPlaceString,
+//                            review: myReviewString,
+//                            star: myStar
+//                        )
+//                    }
+//                } else {
+//                    self?.viewController?.showErrorAlert(with: "서버 에러", title: nil)
+//                }
+//            case .failure(let error):
+//                if let error = error.errorDescription {
+//                    self?.viewController?.showErrorAlert(with: error, title: nil)
+//                }
+//            }
+//        }
+//    }
     
     func whenAfterLogout() {
         bookmarkManager.deleteAllData()
@@ -108,6 +108,7 @@ final class MyPageViewPresenter {
     
     func whenAfterWithdrawal() {
         guard let refreshToken = keychain.get(KeychainKey.appleRefreshToken.rawValue) else { return }
+        
         viewController?.switchIsLoading(with: true)
 
         let model = AVIROAutoLoginWhenAppleUserDTO(refreshToken: refreshToken)

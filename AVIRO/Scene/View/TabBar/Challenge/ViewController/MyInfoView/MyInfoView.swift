@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MyInfoView2: UIView {
+final class MyInfoView: UIView {
     private lazy var myPlaceLabel: UILabel = {
         let label = UILabel()
         

@@ -335,6 +335,13 @@ extension EnrollPlaceViewController {
         let backButtonItem = UIBarButtonItem(customView: backButton)
         
         self.navigationItem.leftBarButtonItem = backButtonItem
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        
+        navBarAppearance.shadowColor = nil
+        navBarAppearance.backgroundColor = .gray7
+        self.navigationItem.standardAppearance = navBarAppearance
+        self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
     // MARK: TabBar Attribute
