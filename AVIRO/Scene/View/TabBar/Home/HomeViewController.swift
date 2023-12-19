@@ -949,6 +949,12 @@ extension HomeViewController {
         placeView.editMyReview = { [weak self] commentId in
             self?.showEditMyReviewAlert(commentId)
         }
+        
+        placeView.test = { [weak self] in
+            let vc = ReviewWriteViewController()
+            
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 

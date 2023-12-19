@@ -73,6 +73,8 @@ final class PlaceView: UIView {
     var reportReview: ((AVIROReportReviewModel) -> Void)?
     var editMyReview: ((String) -> Void)?
     
+    var test: (() -> Void)? 
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -230,6 +232,10 @@ final class PlaceView: UIView {
         
         segmentedControlView.editMyReview = { [weak self] commentId in
             self?.editMyReview?(commentId)
+        }
+        
+        segmentedControlView.test = { [weak self] in
+            self?.test?()
         }
     }
     

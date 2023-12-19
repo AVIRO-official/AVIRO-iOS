@@ -14,8 +14,14 @@ final class LicensesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let navBarAppearance = UINavigationBarAppearance()
+        
+        navBarAppearance.shadowColor = nil
+        navBarAppearance.backgroundColor = .gray7
+        self.navigationItem.standardAppearance = navBarAppearance
+        
         self.navigationItem.title = "오픈소스 라이선스"
-        self.setupBack()
+        self.setupBack(true)
         
         tableView = UITableView(frame: self.view.bounds, style: .insetGrouped)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "LicenseCell")

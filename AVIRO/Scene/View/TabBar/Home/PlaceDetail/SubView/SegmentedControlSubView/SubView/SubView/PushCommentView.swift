@@ -70,6 +70,8 @@ final class PushCommentView: UIView {
     var enrollReview: ((String) -> Void)?
     var initView: (() -> Void)?
     
+    var test: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -295,20 +297,29 @@ final class PushCommentView: UIView {
     }
 }
 
+
+// TODO: 수정 예정
+// - View로 만들자 textview기능 다 삭제
+// - 폴더 정리
+// 클릭 후 editing 종료 해야함
 extension PushCommentView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == .gray4 {
-            textView.textColor = .gray0
-            textView.text = ""
-        }
+//        let vc = ReviewWriteViewController()
+//        if textView.textColor == .gray4 {
+//            textView.textColor = .gray0
+//            textView.text = ""
+//        }
+        
+        test?()
+        textView.endEditing(true)
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        if textView.text != "" {
-            enrollButton.setTitleColor(.gray0, for: .normal)
-            updateTextviewHeight()
-        } else {
-            enrollButton.setTitleColor(.gray4, for: .normal)
-        }
+//        if textView.text != "" {
+//            enrollButton.setTitleColor(.gray0, for: .normal)
+//            updateTextviewHeight()
+//        } else {
+//            enrollButton.setTitleColor(.gray4, for: .normal)
+//        }
     }
 }

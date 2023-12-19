@@ -42,7 +42,13 @@ final class LicenseDetailViewController: UIViewController {
     
     private func setupAttribute() {
         self.view.backgroundColor = .gray7
-        self.setupBack()
+        self.setupBack(true)
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        
+        navBarAppearance.shadowColor = nil
+        navBarAppearance.backgroundColor = .gray7
+        self.navigationItem.standardAppearance = navBarAppearance
     }
 
     func loadLicenseText(with body: String, title: String) {

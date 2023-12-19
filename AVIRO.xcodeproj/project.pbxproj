@@ -110,6 +110,9 @@
 		C54BC0DB2A2C2D0D00B65439 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */; };
 		C552D5342ABE8CA500933D8A /* AVIRODeleteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */; };
 		C5538AAF2A1BB81200661DE2 /* AVIROEnrollPlace+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5538AAE2A1BB81200661DE2 /* AVIROEnrollPlace+DTO.swift */; };
+		C56295072B3188530067BBE5 /* ReviewWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56295062B3188530067BBE5 /* ReviewWriteViewController.swift */; };
+		C56295092B31885C0067BBE5 /* ReviewWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56295082B31885C0067BBE5 /* ReviewWriteViewModel.swift */; };
+		C562950C2B318BB60067BBE5 /* ReviewPlaceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562950B2B318BB60067BBE5 /* ReviewPlaceInfoView.swift */; };
 		C567C1502A56611500D4B426 /* TopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C567C14F2A56611500D4B426 /* TopCell.swift */; };
 		C568577D2A70E1F600F52715 /* MenuPlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568577C2A70E1F600F52715 /* MenuPlusButton.swift */; };
 		C56857802A7113C600F52715 /* NormalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568577F2A7113C600F52715 /* NormalTableViewCell.swift */; };
@@ -338,6 +341,9 @@
 		C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIRODeleteAPI.swift; sourceTree = "<group>"; };
 		C5538AAE2A1BB81200661DE2 /* AVIROEnrollPlace+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROEnrollPlace+DTO.swift"; sourceTree = "<group>"; };
+		C56295062B3188530067BBE5 /* ReviewWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewWriteViewController.swift; sourceTree = "<group>"; };
+		C56295082B31885C0067BBE5 /* ReviewWriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewWriteViewModel.swift; sourceTree = "<group>"; };
+		C562950B2B318BB60067BBE5 /* ReviewPlaceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPlaceInfoView.swift; sourceTree = "<group>"; };
 		C567C14F2A56611500D4B426 /* TopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCell.swift; sourceTree = "<group>"; };
 		C568577C2A70E1F600F52715 /* MenuPlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPlusButton.swift; sourceTree = "<group>"; };
 		C568577F2A7113C600F52715 /* NormalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalTableViewCell.swift; sourceTree = "<group>"; };
@@ -1033,6 +1039,40 @@
 			path = UITextLabel;
 			sourceTree = "<group>";
 		};
+		C56295032B3188160067BBE5 /* ReviewWriteView */ = {
+			isa = PBXGroup;
+			children = (
+				C56295042B3188230067BBE5 /* ViewModel */,
+				C56295052B3188270067BBE5 /* ViewController */,
+			);
+			path = ReviewWriteView;
+			sourceTree = "<group>";
+		};
+		C56295042B3188230067BBE5 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C56295082B31885C0067BBE5 /* ReviewWriteViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C56295052B3188270067BBE5 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C56295062B3188530067BBE5 /* ReviewWriteViewController.swift */,
+				C562950A2B318B520067BBE5 /* ReviewPlaceInfoView */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		C562950A2B318B520067BBE5 /* ReviewPlaceInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				C562950B2B318BB60067BBE5 /* ReviewPlaceInfoView.swift */,
+			);
+			path = ReviewPlaceInfoView;
+			sourceTree = "<group>";
+		};
 		C567C14D2A5658C700D4B426 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -1325,6 +1365,7 @@
 				C5C2907A2A85E51B00ED5DCE /* PlaceReviewsView.swift */,
 				C5166E4A2A939442003495AA /* SubView */,
 				C5C961902A8D9EA10016E2F8 /* TableView */,
+				C56295032B3188160067BBE5 /* ReviewWriteView */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -1825,6 +1866,7 @@
 				C5EB510B2A209FD300B29CC1 /* HomeSearchPresenter.swift in Sources */,
 				C52066262A7CC3CE0038ECCD /* NoHistoryLabelView.swift in Sources */,
 				C5803F5D2A88C3C00064A853 /* LocationUtility.swift in Sources */,
+				C562950C2B318BB60067BBE5 /* ReviewPlaceInfoView.swift in Sources */,
 				C5F1014F2A6D19A800C53286 /* VeganOptionButton.swift in Sources */,
 				C52066292A7CD5FC0038ECCD /* HistoryTableModel.swift in Sources */,
 				C5FD92EB2A9C786600CF4673 /* PublicAPIRequestComponents.swift in Sources */,
@@ -1843,6 +1885,7 @@
 				C5C290812A8616E500ED5DCE /* PlaceInfoView.swift in Sources */,
 				C5B071E12A59454300AE709A /* BottomCell.swift in Sources */,
 				C51000382AB5F3BD00F65C1F /* UIFont+Extension.swift in Sources */,
+				C56295072B3188530067BBE5 /* ReviewWriteViewController.swift in Sources */,
 				C5476B7B2B31516000F5FC6E /* LicenseDetailViewController.swift in Sources */,
 				C5FA0EAA2A94DB3E004AD8B4 /* ReportReviewViewController.swift in Sources */,
 				C5C90EBD2AA85E7000AB3668 /* AVIROOperationHours+DTO.swift in Sources */,
@@ -1993,6 +2036,7 @@
 				C51AED1F2A8B2BC80015FBC2 /* HomeTopButton.swift in Sources */,
 				C5FA0EAC2A94DF39004AD8B4 /* ReportReviewPresenter.swift in Sources */,
 				C5A201B22A98502500A54381 /* TimeUtility.swift in Sources */,
+				C56295092B31885C0067BBE5 /* ReviewWriteViewModel.swift in Sources */,
 				C5476B6A2B304C8200F5FC6E /* ChallengeTitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

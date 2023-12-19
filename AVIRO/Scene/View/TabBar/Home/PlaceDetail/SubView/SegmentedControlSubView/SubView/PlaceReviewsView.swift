@@ -102,6 +102,8 @@ final class PlaceReviewsView: UIView {
     var whenReportReview: ((AVIROReportReviewModel) -> Void)?
     var whenBeforeEditMyReview: ((String) -> Void)?
     
+    var test: (() -> Void)?
+    
     private var placeId = ""
     private var isEditedAfter = false
     private var editedReviewId = ""
@@ -509,6 +511,10 @@ final class PlaceReviewsView: UIView {
         
         reviewInputView.initView = { [weak self] in
             self?.isEditedAfter = false
+        }
+        
+        reviewInputView.test = { [weak self] in
+            self?.test?()
         }
     }
 }

@@ -176,6 +176,7 @@ extension UIViewController {
         
         backButton.tag = animatied ? 1 : 0
         
+        print(backButton.tag)
         let barButtonItem = UIBarButtonItem(customView: backButton)
         
         self.navigationItem.leftBarButtonItem = barButtonItem
@@ -183,6 +184,7 @@ extension UIViewController {
     
     @objc private func customBackButtonTapped(_ sender: UIButton) {
         let animated = sender.tag == 1
+        print(animated)
         
         navigationController?.popViewController(animated: animated)
     }

@@ -32,7 +32,7 @@ final class PlaceHomeView: UIView {
     var showMoreReviewsAndWriteComment: (() -> Void)?
     var reportReview: ((AVIROReportReviewModel) -> Void)?
     var editMyReview: ((String) -> Void)?
-    
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         

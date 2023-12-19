@@ -145,6 +145,12 @@ extension MyPageViewController: MyPageViewProtocol {
         view.backgroundColor = .gray7
         self.setupBack(true)
                 
+        let navBarAppearance = UINavigationBarAppearance()
+        
+        navBarAppearance.shadowColor = nil
+        navBarAppearance.backgroundColor = .gray7
+        self.navigationItem.standardAppearance = navBarAppearance
+        
         navigationItem.title = Text.title.rawValue
         navigationController?.navigationBar.isHidden = false
     }
