@@ -23,6 +23,7 @@ extension APIManagerProtocol {
     var session: URLSession {
          let configuration = URLSessionConfiguration.default
          configuration.timeoutIntervalForRequest = 10.0
+        configuration.waitsForConnectivity = false
          return URLSession(configuration: configuration)
      }
 
@@ -44,7 +45,7 @@ extension APIManagerProtocol {
             }
         }
         
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        session.dataTask(with: request) { data, response, error in
             if let error = error {
                 completionHandler(.failure(.networkError(error)))
                 return

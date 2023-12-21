@@ -121,6 +121,9 @@ extension UIImage {
     static let placeReviw = UIImage(named: "PlaceReview")!
     static let placeIcon = UIImage(named: "PlaceViewMap")!
     static let editInfo = UIImage(named: "Edit")!
+    
+    static let pointExplain = UIImage(named: "Point_explain")!
+    
     /// 최근검색어
     static let timeIcon = UIImage(named: "RecentlyTime")!
     /// place 정보 아이콘
