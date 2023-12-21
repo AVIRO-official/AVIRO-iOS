@@ -172,6 +172,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
         }
         
         performRequest(with: url, completionHandler: completionHandler)
+        
     }
     
     func loadPlaceInfo(
