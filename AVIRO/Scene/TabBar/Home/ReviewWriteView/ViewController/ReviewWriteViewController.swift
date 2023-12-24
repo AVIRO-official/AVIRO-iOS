@@ -11,7 +11,7 @@ import RxCocoa
 
 final class ReviewWriteViewController: UIViewController {
     private var viewModel: ReviewWriteViewModel!
-    private var disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
         
     private lazy var placeInfoView: ReviewPlaceInfoView = {
         let view = ReviewPlaceInfoView()

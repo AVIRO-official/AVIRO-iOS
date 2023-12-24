@@ -115,6 +115,10 @@
 		C56295072B3188530067BBE5 /* ReviewWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56295062B3188530067BBE5 /* ReviewWriteViewController.swift */; };
 		C56295092B31885C0067BBE5 /* ReviewWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56295082B31885C0067BBE5 /* ReviewWriteViewModel.swift */; };
 		C562950C2B318BB60067BBE5 /* ReviewPlaceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562950B2B318BB60067BBE5 /* ReviewPlaceInfoView.swift */; };
+		C562B6DC2B38704600CE5D4C /* ChallengeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6DB2B38704600CE5D4C /* ChallengeViewModel.swift */; };
+		C562B6DF2B387AE200CE5D4C /* ChallengeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6DE2B387AE200CE5D4C /* ChallengeInfoViewController.swift */; };
+		C562B6E22B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */; };
+		C562B6E42B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */; };
 		C567C1502A56611500D4B426 /* TopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C567C14F2A56611500D4B426 /* TopCell.swift */; };
 		C568577D2A70E1F600F52715 /* MenuPlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568577C2A70E1F600F52715 /* MenuPlusButton.swift */; };
 		C56857802A7113C600F52715 /* NormalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568577F2A7113C600F52715 /* NormalTableViewCell.swift */; };
@@ -348,6 +352,10 @@
 		C56295062B3188530067BBE5 /* ReviewWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewWriteViewController.swift; sourceTree = "<group>"; };
 		C56295082B31885C0067BBE5 /* ReviewWriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewWriteViewModel.swift; sourceTree = "<group>"; };
 		C562950B2B318BB60067BBE5 /* ReviewPlaceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPlaceInfoView.swift; sourceTree = "<group>"; };
+		C562B6DB2B38704600CE5D4C /* ChallengeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewModel.swift; sourceTree = "<group>"; };
+		C562B6DE2B387AE200CE5D4C /* ChallengeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoViewController.swift; sourceTree = "<group>"; };
+		C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoPresentationAnimator.swift; sourceTree = "<group>"; };
+		C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoPresentaionDelegate.swift; sourceTree = "<group>"; };
 		C567C14F2A56611500D4B426 /* TopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCell.swift; sourceTree = "<group>"; };
 		C568577C2A70E1F600F52715 /* MenuPlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPlusButton.swift; sourceTree = "<group>"; };
 		C568577F2A7113C600F52715 /* NormalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalTableViewCell.swift; sourceTree = "<group>"; };
@@ -1083,6 +1091,7 @@
 				C5476B602B3028FA00F5FC6E /* ChallengeViewController.swift */,
 				C5476B642B303BBB00F5FC6E /* ChallengeTitleView */,
 				C5476B662B303BD400F5FC6E /* ChallengeUserInfoView */,
+				C562B6DD2B387ABE00CE5D4C /* ChallengeInfoView */,
 				C5476B652B303BCB00F5FC6E /* MyInfoView */,
 			);
 			path = ViewController;
@@ -1091,6 +1100,7 @@
 		C5476B632B3036E300F5FC6E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C562B6DB2B38704600CE5D4C /* ChallengeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1223,6 +1233,24 @@
 				C562950B2B318BB60067BBE5 /* ReviewPlaceInfoView.swift */,
 			);
 			path = ReviewPlaceInfoView;
+			sourceTree = "<group>";
+		};
+		C562B6DD2B387ABE00CE5D4C /* ChallengeInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				C562B6DE2B387AE200CE5D4C /* ChallengeInfoViewController.swift */,
+				C562B6E02B387B5100CE5D4C /* AnimationCustom */,
+			);
+			path = ChallengeInfoView;
+			sourceTree = "<group>";
+		};
+		C562B6E02B387B5100CE5D4C /* AnimationCustom */ = {
+			isa = PBXGroup;
+			children = (
+				C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */,
+				C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */,
+			);
+			path = AnimationCustom;
 			sourceTree = "<group>";
 		};
 		C567C14D2A5658C700D4B426 /* Login */ = {
@@ -1933,6 +1961,7 @@
 				C50DB7592A9B8E060078B501 /* EditLocationAddressMapView.swift in Sources */,
 				C5ED46932AAEB02F00F2DA04 /* PlaceOperationHoursViewController.swift in Sources */,
 				C5732C752A41962D00CDC499 /* AVIRORequestAPI.swift in Sources */,
+				C562B6DC2B38704600CE5D4C /* ChallengeViewModel.swift in Sources */,
 				C5C20BAC2AD504D500855BBB /* AmplitudeUtility.swift in Sources */,
 				C513854C2AAB3B52001AB827 /* NickNameChangeblePresenter.swift in Sources */,
 				C5D93DA12A581F5A00629C39 /* FirstRegistrationPresenter.swift in Sources */,
@@ -1940,6 +1969,7 @@
 				C58FBF842AC26D3E00AB6EFC /* APIManagerProtocol.swift in Sources */,
 				C50F6B042A6BCD6900E942F5 /* CategoryButton.swift in Sources */,
 				C58FBF862AC270A200AB6EFC /* APITypes.swift in Sources */,
+				C562B6DF2B387AE200CE5D4C /* ChallengeInfoViewController.swift in Sources */,
 				C5C915492A777F8500C7CB93 /* SearchField.swift in Sources */,
 				C52066212A7CA9050038ECCD /* MainField.swift in Sources */,
 				C5EB510B2A209FD300B29CC1 /* HomeSearchPresenter.swift in Sources */,
@@ -2055,6 +2085,7 @@
 				C5732C772A41A0A500CDC499 /* AVIROMapMarker+DTO.swift in Sources */,
 				C5FF13532A42C8810026981D /* AVIROPlaceInfo+DTO.swift in Sources */,
 				C5351B5C2A19F60200116D50 /* SearchPlacePresenter.swift in Sources */,
+				C562B6E42B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift in Sources */,
 				C513854A2AAB3B13001AB827 /* NickNameChangebleViewController.swift in Sources */,
 				C50E6F6F2A8F10B500703B9E /* UILabel+Extension.swift in Sources */,
 				C52066352A7F3FAE0038ECCD /* HistoryTableViewCell.swift in Sources */,
@@ -2111,6 +2142,7 @@
 				C568577D2A70E1F600F52715 /* MenuPlusButton.swift in Sources */,
 				C51132C12A559BCA006E1EC3 /* AppController.swift in Sources */,
 				C5FD92F92A9CDB9E00CF4673 /* EditMenuBottomView.swift in Sources */,
+				C562B6E22B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift in Sources */,
 				C5FD92F02A9C803600CF4673 /* PublicAddress+DTO.swift in Sources */,
 				C593B6472A4AB3A700D224CE /* PushCommentView.swift in Sources */,
 				C51AED1F2A8B2BC80015FBC2 /* HomeTopButton.swift in Sources */,

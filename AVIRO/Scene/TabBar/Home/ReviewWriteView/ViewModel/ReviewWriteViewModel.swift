@@ -7,9 +7,7 @@
 import RxSwift
 import RxCocoa
 
-final class ReviewWriteViewModel: ViewModel {
-    private let disposeBag = DisposeBag()
-    
+final class ReviewWriteViewModel: ViewModel {    
     var placeIcon: UIImage!
     var placeTitle: String!
     var placeAddress: String!

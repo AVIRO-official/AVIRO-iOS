@@ -103,9 +103,11 @@ enum TBItem: CaseIterable {
         case .plus: return UINavigationController(
             rootViewController: EnrollPlaceViewController()
         )
-        case .challenge: return UINavigationController(
-            rootViewController: ChallengeViewController()
-        )
+        case .challenge:
+            let viewModel = ChallengeViewModel()
+            let vc = ChallengeViewController.create(with: viewModel)
+            
+            return UINavigationController(rootViewController: vc)
         }
     }
 }
