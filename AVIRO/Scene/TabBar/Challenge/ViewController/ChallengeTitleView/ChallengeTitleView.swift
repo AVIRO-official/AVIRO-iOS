@@ -7,7 +7,16 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
+
 final class ChallengeTitleView: UIView {
+    private var viewModel: ChallengeViewModel!
+    
+    var challengeInfoButtonTap: Driver<Void> {
+        return challengeInfoButton.rx.tap.asDriver()
+    }
+    
     private lazy var challengeDateLabel: UILabel = {
         let label = UILabel()
         
@@ -43,6 +52,15 @@ final class ChallengeTitleView: UIView {
         
         return button
     }()
+    
+    init(with viewModel: ChallengeViewModel) {
+        super.init(frame: .zero)
+        
+        self.viewModel = viewModel
+        
+        setupLayout()
+        setupAttribute()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

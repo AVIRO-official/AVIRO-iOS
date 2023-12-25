@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 
 final class ChallengeViewController: UIViewController {
+    private var viewModel: ChallengeViewModel!
     private let disposeBag = DisposeBag()
     
     private lazy var scrollView = UIScrollView()
@@ -32,6 +33,13 @@ final class ChallengeViewController: UIViewController {
         
         return view
     }()
+        
+    static func create(with viewModel: ChallengeViewModel) -> ChallengeViewController {
+        let vc = ChallengeViewController()
+        vc.viewModel = viewModel
+        
+        return vc
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,19 +138,59 @@ final class ChallengeViewController: UIViewController {
     private func dataBinding() {
         // TODO: ViewModel 생성 후 변경 예정
         challengeTitleView.updateDate(with: "1월 1일 ~ 1월 31일")
-        challengeTitleView.updateTitle(with: "1월 '비거뉴어리'")
+        challengeTitleView.updateTitle(with: "2024 비거뉴어리")
         
         myInfoView.updateMyPlace("2")
         myInfoView.updateMyReview("3")
         myInfoView.updateMyStar("4")
         
-        navigationItem.rightBarButtonItem?.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                let vc = SettingViewController()
-                let presenter = SettingViewPresenter(viewController: vc)
-                
-                self?.navigationController?.pushViewController(vc, animated: true)
-            })
+        let tappedNavigationBarRightButton = navigationItem.rightBarButtonItem?.rx.tap.asDriver() ?? .empty()
+        
+        let input = ChallengeViewModel.Input(
+            tappedChallengeInfoButton: challengeTitleView.challengeInfoButtonTap,
+            tappedNavigationBarRightButton: tappedNavigationBarRightButton
+        )
+        
+        let output = viewModel.transform(with: input)
+        
+        output.afterTappedChallengeInfoButton
+            .drive(self.rx.isPushChallengeInfoViewController)
             .disposed(by: disposeBag)
+        
+        output.afterTappedNavigationBarRightButton
+            .drive(self.rx.isPushSettingViewController)
+            .disposed(by: disposeBag)
+    }
+    
+    func pushChallengeInfoViewController() {
+        let vc = ChallengeInfoViewController.create(with: "2024 비거뉴어리")
+        
+        let presentationDelegate = ChallengeInfoPresentaionDelegate()
+        
+        vc.transitioningDelegate = presentationDelegate
+        vc.modalPresentationStyle = .custom
+        
+        self.present(vc, animated: true)
+    }
+    
+    // TODO: 수정 예정
+    func pushSettingViewController() {
+        let vc = SettingViewController()
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension Reactive where Base: ChallengeViewController {
+    var isPushChallengeInfoViewController: Binder<Void> {
+        return Binder(self.base) { base, _ in
+            base.pushChallengeInfoViewController()
+        }
+    }
+    
+    var isPushSettingViewController: Binder<Void> {
+        return Binder(self.base) { base, _ in
+            base.pushSettingViewController()
+        }
     }
 }

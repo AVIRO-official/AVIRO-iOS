@@ -115,6 +115,10 @@
 		C56295072B3188530067BBE5 /* ReviewWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56295062B3188530067BBE5 /* ReviewWriteViewController.swift */; };
 		C56295092B31885C0067BBE5 /* ReviewWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56295082B31885C0067BBE5 /* ReviewWriteViewModel.swift */; };
 		C562950C2B318BB60067BBE5 /* ReviewPlaceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562950B2B318BB60067BBE5 /* ReviewPlaceInfoView.swift */; };
+		C562B6DC2B38704600CE5D4C /* ChallengeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6DB2B38704600CE5D4C /* ChallengeViewModel.swift */; };
+		C562B6DF2B387AE200CE5D4C /* ChallengeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6DE2B387AE200CE5D4C /* ChallengeInfoViewController.swift */; };
+		C562B6E22B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */; };
+		C562B6E42B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */; };
 		C567C1502A56611500D4B426 /* TopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C567C14F2A56611500D4B426 /* TopCell.swift */; };
 		C568577D2A70E1F600F52715 /* MenuPlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568577C2A70E1F600F52715 /* MenuPlusButton.swift */; };
 		C56857802A7113C600F52715 /* NormalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568577F2A7113C600F52715 /* NormalTableViewCell.swift */; };
@@ -209,6 +213,10 @@
 		C5F33DFD2ADED19000A29FB9 /* SystemUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F33DFC2ADED19000A29FB9 /* SystemUtility.swift */; };
 		C5FA0EAA2A94DB3E004AD8B4 /* ReportReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0EA92A94DB3E004AD8B4 /* ReportReviewViewController.swift */; };
 		C5FA0EAC2A94DF39004AD8B4 /* ReportReviewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0EAB2A94DF39004AD8B4 /* ReportReviewPresenter.swift */; };
+		C5FBDA5A2B398258007AC77E /* ChallengeInfoTopLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FBDA592B398258007AC77E /* ChallengeInfoTopLabelView.swift */; };
+		C5FBDA5C2B398264007AC77E /* ChallengeInfoGreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FBDA5B2B398264007AC77E /* ChallengeInfoGreenView.swift */; };
+		C5FBDA5E2B398270007AC77E /* ChallengeInfoYellowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FBDA5D2B398270007AC77E /* ChallengeInfoYellowView.swift */; };
+		C5FBDA602B398280007AC77E /* ChallengeInfoOrangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FBDA5F2B398280007AC77E /* ChallengeInfoOrangeView.swift */; };
 		C5FD92E32A9C6C1E00CF4673 /* EditLocationAddressTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD92E22A9C6C1E00CF4673 /* EditLocationAddressTextTableViewCell.swift */; };
 		C5FD92EB2A9C786600CF4673 /* PublicAPIRequestComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD92EA2A9C786600CF4673 /* PublicAPIRequestComponents.swift */; };
 		C5FD92ED2A9C7AE800CF4673 /* PublicAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD92EC2A9C7AE800CF4673 /* PublicAPIManager.swift */; };
@@ -348,6 +356,10 @@
 		C56295062B3188530067BBE5 /* ReviewWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewWriteViewController.swift; sourceTree = "<group>"; };
 		C56295082B31885C0067BBE5 /* ReviewWriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewWriteViewModel.swift; sourceTree = "<group>"; };
 		C562950B2B318BB60067BBE5 /* ReviewPlaceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPlaceInfoView.swift; sourceTree = "<group>"; };
+		C562B6DB2B38704600CE5D4C /* ChallengeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewModel.swift; sourceTree = "<group>"; };
+		C562B6DE2B387AE200CE5D4C /* ChallengeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoViewController.swift; sourceTree = "<group>"; };
+		C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoPresentationAnimator.swift; sourceTree = "<group>"; };
+		C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoPresentaionDelegate.swift; sourceTree = "<group>"; };
 		C567C14F2A56611500D4B426 /* TopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCell.swift; sourceTree = "<group>"; };
 		C568577C2A70E1F600F52715 /* MenuPlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPlusButton.swift; sourceTree = "<group>"; };
 		C568577F2A7113C600F52715 /* NormalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalTableViewCell.swift; sourceTree = "<group>"; };
@@ -444,6 +456,10 @@
 		C5F33DFE2ADFC5B600A29FB9 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C5FA0EA92A94DB3E004AD8B4 /* ReportReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReviewViewController.swift; sourceTree = "<group>"; };
 		C5FA0EAB2A94DF39004AD8B4 /* ReportReviewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReviewPresenter.swift; sourceTree = "<group>"; };
+		C5FBDA592B398258007AC77E /* ChallengeInfoTopLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoTopLabelView.swift; sourceTree = "<group>"; };
+		C5FBDA5B2B398264007AC77E /* ChallengeInfoGreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoGreenView.swift; sourceTree = "<group>"; };
+		C5FBDA5D2B398270007AC77E /* ChallengeInfoYellowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoYellowView.swift; sourceTree = "<group>"; };
+		C5FBDA5F2B398280007AC77E /* ChallengeInfoOrangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoOrangeView.swift; sourceTree = "<group>"; };
 		C5FD92E22A9C6C1E00CF4673 /* EditLocationAddressTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLocationAddressTextTableViewCell.swift; sourceTree = "<group>"; };
 		C5FD92EA2A9C786600CF4673 /* PublicAPIRequestComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicAPIRequestComponents.swift; sourceTree = "<group>"; };
 		C5FD92EC2A9C7AE800CF4673 /* PublicAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicAPIManager.swift; sourceTree = "<group>"; };
@@ -1091,6 +1107,7 @@
 		C5476B632B3036E300F5FC6E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C562B6DB2B38704600CE5D4C /* ChallengeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1223,6 +1240,25 @@
 				C562950B2B318BB60067BBE5 /* ReviewPlaceInfoView.swift */,
 			);
 			path = ReviewPlaceInfoView;
+			sourceTree = "<group>";
+		};
+		C562B6DD2B387ABE00CE5D4C /* ChallengeInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				C562B6DE2B387AE200CE5D4C /* ChallengeInfoViewController.swift */,
+				C5FBDA572B397F56007AC77E /* SubView */,
+				C562B6E02B387B5100CE5D4C /* AnimationCustom */,
+			);
+			path = ChallengeInfoView;
+			sourceTree = "<group>";
+		};
+		C562B6E02B387B5100CE5D4C /* AnimationCustom */ = {
+			isa = PBXGroup;
+			children = (
+				C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */,
+				C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */,
+			);
+			path = AnimationCustom;
 			sourceTree = "<group>";
 		};
 		C567C14D2A5658C700D4B426 /* Login */ = {
@@ -1447,6 +1483,7 @@
 			children = (
 				C5476B632B3036E300F5FC6E /* ViewModel */,
 				C5476B622B3036DA00F5FC6E /* ViewController */,
+				C562B6DD2B387ABE00CE5D4C /* ChallengeInfoView */,
 				C5476B6F2B31459C00F5FC6E /* Setting */,
 			);
 			path = Challenge;
@@ -1662,6 +1699,17 @@
 				C54386612B33DCFD00BD2CAF /* ViewController */,
 			);
 			path = Report;
+			sourceTree = "<group>";
+		};
+		C5FBDA572B397F56007AC77E /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				C5FBDA592B398258007AC77E /* ChallengeInfoTopLabelView.swift */,
+				C5FBDA5B2B398264007AC77E /* ChallengeInfoGreenView.swift */,
+				C5FBDA5D2B398270007AC77E /* ChallengeInfoYellowView.swift */,
+				C5FBDA5F2B398280007AC77E /* ChallengeInfoOrangeView.swift */,
+			);
+			path = SubView;
 			sourceTree = "<group>";
 		};
 		C5FD92E82A9C77CE00CF4673 /* PublicManager */ = {
@@ -1933,6 +1981,7 @@
 				C50DB7592A9B8E060078B501 /* EditLocationAddressMapView.swift in Sources */,
 				C5ED46932AAEB02F00F2DA04 /* PlaceOperationHoursViewController.swift in Sources */,
 				C5732C752A41962D00CDC499 /* AVIRORequestAPI.swift in Sources */,
+				C562B6DC2B38704600CE5D4C /* ChallengeViewModel.swift in Sources */,
 				C5C20BAC2AD504D500855BBB /* AmplitudeUtility.swift in Sources */,
 				C513854C2AAB3B52001AB827 /* NickNameChangeblePresenter.swift in Sources */,
 				C5D93DA12A581F5A00629C39 /* FirstRegistrationPresenter.swift in Sources */,
@@ -1940,6 +1989,7 @@
 				C58FBF842AC26D3E00AB6EFC /* APIManagerProtocol.swift in Sources */,
 				C50F6B042A6BCD6900E942F5 /* CategoryButton.swift in Sources */,
 				C58FBF862AC270A200AB6EFC /* APITypes.swift in Sources */,
+				C562B6DF2B387AE200CE5D4C /* ChallengeInfoViewController.swift in Sources */,
 				C5C915492A777F8500C7CB93 /* SearchField.swift in Sources */,
 				C52066212A7CA9050038ECCD /* MainField.swift in Sources */,
 				C5EB510B2A209FD300B29CC1 /* HomeSearchPresenter.swift in Sources */,
@@ -1966,6 +2016,7 @@
 				C51000382AB5F3BD00F65C1F /* UIFont+Extension.swift in Sources */,
 				C56295072B3188530067BBE5 /* ReviewWriteViewController.swift in Sources */,
 				C5476B7B2B31516000F5FC6E /* LicenseDetailViewController.swift in Sources */,
+				C5FBDA602B398280007AC77E /* ChallengeInfoOrangeView.swift in Sources */,
 				C5FA0EAA2A94DB3E004AD8B4 /* ReportReviewViewController.swift in Sources */,
 				C5C90EBD2AA85E7000AB3668 /* AVIROOperationHours+DTO.swift in Sources */,
 				C5F33DFD2ADED19000A29FB9 /* SystemUtility.swift in Sources */,
@@ -1987,6 +2038,7 @@
 				C5C290772A85E4FF00ED5DCE /* PlaceHomeView.swift in Sources */,
 				C5D93D9F2A581EC800629C39 /* FirstRegistrationViewController.swift in Sources */,
 				C528E4C02A5FF1CB002BD72E /* FinalRegistrationViewController.swift in Sources */,
+				C5FBDA5C2B398264007AC77E /* ChallengeInfoGreenView.swift in Sources */,
 				C5D93DA32A58718300629C39 /* NextPageButton.swift in Sources */,
 				C50DB7512A9B83550078B501 /* ChangeableAddressViewController.swift in Sources */,
 				C5A989992A959E040021B7C3 /* AVIROBookmark+DTO.swift in Sources */,
@@ -2024,6 +2076,7 @@
 				C5351B542A19A7B100116D50 /* MyCoordinate.swift in Sources */,
 				C5EB50EA2A1C705900B29CC1 /* SettingViewController.swift in Sources */,
 				C510005A2AB998F600F65C1F /* UIImage+Extension.swift in Sources */,
+				C5FBDA5E2B398270007AC77E /* ChallengeInfoYellowView.swift in Sources */,
 				C5D8E8632A3DEC3900D88A43 /* String+Extension.swift in Sources */,
 				C58EC7D62AB1B61500401FF7 /* AVIROEditCommonBeforeAfterDTO.swift in Sources */,
 				C58EC7CE2AB1B57100401FF7 /* AVIROEditOperationTime+DTO.swift in Sources */,
@@ -2055,6 +2108,7 @@
 				C5732C772A41A0A500CDC499 /* AVIROMapMarker+DTO.swift in Sources */,
 				C5FF13532A42C8810026981D /* AVIROPlaceInfo+DTO.swift in Sources */,
 				C5351B5C2A19F60200116D50 /* SearchPlacePresenter.swift in Sources */,
+				C562B6E42B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift in Sources */,
 				C513854A2AAB3B13001AB827 /* NickNameChangebleViewController.swift in Sources */,
 				C50E6F6F2A8F10B500703B9E /* UILabel+Extension.swift in Sources */,
 				C52066352A7F3FAE0038ECCD /* HistoryTableViewCell.swift in Sources */,
@@ -2063,6 +2117,7 @@
 				C528E4BC2A5F9AB6002BD72E /* ThridRegistrationPresenter.swift in Sources */,
 				C51000612ABAE61F00F65C1F /* ReportReviewModel.swift in Sources */,
 				C5C290792A85E51000ED5DCE /* PlaceMenuView.swift in Sources */,
+				C5FBDA5A2B398258007AC77E /* ChallengeInfoTopLabelView.swift in Sources */,
 				C5A201B42A986EC300A54381 /* EditPlaceInfoViewController.swift in Sources */,
 				C51AED1D2A8A192D0015FBC2 /* ChangedViewAction+HomeViewController.swift in Sources */,
 				C51B09BC2A82397800916BBD /* Marker+Extension.swift in Sources */,
@@ -2111,6 +2166,7 @@
 				C568577D2A70E1F600F52715 /* MenuPlusButton.swift in Sources */,
 				C51132C12A559BCA006E1EC3 /* AppController.swift in Sources */,
 				C5FD92F92A9CDB9E00CF4673 /* EditMenuBottomView.swift in Sources */,
+				C562B6E22B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift in Sources */,
 				C5FD92F02A9C803600CF4673 /* PublicAddress+DTO.swift in Sources */,
 				C593B6472A4AB3A700D224CE /* PushCommentView.swift in Sources */,
 				C51AED1F2A8B2BC80015FBC2 /* HomeTopButton.swift in Sources */,

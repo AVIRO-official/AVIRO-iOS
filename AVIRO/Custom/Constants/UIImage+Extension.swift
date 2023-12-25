@@ -133,4 +133,9 @@ extension UIImage {
     static let mainSearchStation = UIImage(named: "MainSearchStation")!
     
     static let infoCircle = UIImage(named: "InfoCircle")!
+    
+    // MARK: Challenge
+    static let challengeInfoGreen = UIImage(named: "ChallengeInfoGreen")!
+    static let challengeInfoYellow = UIImage(named: "ChallengeInfoYellow")!
+    static let challengeInfoOrange = UIImage(named: "ChallengeInfoOrange")!
 }

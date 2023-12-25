@@ -71,20 +71,15 @@ final class ReviewPlaceInfoView: UIView {
             self.addSubview($0)
         }
         
-        let placeTitleLeading = placeTitle.leadingAnchor.constraint(equalTo: placeIcon.trailingAnchor, constant: 4)
-        placeTitleLeading.priority = UILayoutPriority.defaultHigh
-        
-        let placeTitleTrailing = placeTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)
-        placeTitleTrailing.priority = UILayoutPriority.defaultLow
-        
-        placeTitleLeading.isActive = true
-        placeTitleTrailing.isActive = true
-        
         NSLayoutConstraint.activate([
             placeIcon.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
             placeIcon.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            placeIcon.widthAnchor.constraint(equalToConstant: 24),
+            placeIcon.heightAnchor.constraint(equalToConstant: 24),
             
             placeTitle.centerYAnchor.constraint(equalTo: placeIcon.centerYAnchor),
+            placeTitle.leadingAnchor.constraint(equalTo: placeIcon.trailingAnchor, constant: 4),
+            placeTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             
             placeAddress.topAnchor.constraint(equalTo: placeIcon.bottomAnchor, constant: 5),
             placeAddress.leadingAnchor.constraint(equalTo: placeIcon.leadingAnchor),
