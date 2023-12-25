@@ -48,10 +48,12 @@ class ChallengeInfoPresentationAnimator: NSObject, UIViewControllerAnimatedTrans
         UIView.animate(
             withDuration: transitionDuration(using: transitionContext),
             animations: {
-                blurEffectView.alpha = 0.4
                 toViewController.view.frame = finalFrame
             },
-            completion: { finished in transitionContext.completeTransition(finished) }
+            completion: { finished in
+                blurEffectView.alpha = 0.4
+                transitionContext.completeTransition(finished)
+            }
         )
     }
 }

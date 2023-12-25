@@ -33,9 +33,7 @@ final class ChallengeViewController: UIViewController {
         
         return view
     }()
-    
-//    private lazy var challengeInfoView:
-    
+        
     static func create(with viewModel: ChallengeViewModel) -> ChallengeViewController {
         let vc = ChallengeViewController()
         vc.viewModel = viewModel
@@ -140,7 +138,7 @@ final class ChallengeViewController: UIViewController {
     private func dataBinding() {
         // TODO: ViewModel 생성 후 변경 예정
         challengeTitleView.updateDate(with: "1월 1일 ~ 1월 31일")
-        challengeTitleView.updateTitle(with: "1월 '비거뉴어리'")
+        challengeTitleView.updateTitle(with: "2024 비거뉴어리")
         
         myInfoView.updateMyPlace("2")
         myInfoView.updateMyReview("3")
@@ -165,7 +163,7 @@ final class ChallengeViewController: UIViewController {
     }
     
     func pushChallengeInfoViewController() {
-        let vc = ChallengeInfoViewController()
+        let vc = ChallengeInfoViewController.create(with: "2024 비거뉴어리")
         
         let presentationDelegate = ChallengeInfoPresentaionDelegate()
         
