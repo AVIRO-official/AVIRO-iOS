@@ -35,7 +35,7 @@ final class AppController {
         window.makeKeyAndVisible()
         
 //        checkState()
-        setHomeView()
+        setTabBarView()
     }
     
     // MARK: 불러올 view 확인 메서드
@@ -67,7 +67,7 @@ final class AppController {
                             userNickname: data.nickname,
                             marketingAgree: data.marketingAgree
                         )
-                        self?.setHomeView()
+                        self?.setTabBarView()
                     }
                 } else {
                     self?.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
@@ -98,13 +98,26 @@ final class AppController {
         }
     }
     
-    // MARK: home View
-    private func setHomeView() {
+    // MARK: TabBar View
+    private func setTabBarView() {
         DispatchQueue.main.async { [weak self] in
-            let homeVC = TabBarViewController()
-
-            self?.rootViewController = homeVC
+            let tabBarVC = AVIROTabBarController()
+            tabBarVC.setViewControllers(with: [
+                TabBarType.home,
+                TabBarType.plus,
+                TabBarType.challenge
+            ])
+            
+            tabBarVC.selectedIndex = 0
+            
+            self?.rootViewController = tabBarVC
+            
         }
+//        DispatchQueue.main.async { [weak self] in
+//            let homeVC = TabBarViewController()
+//
+//            self?.rootViewController = homeVC
+//        }
     }
     
 }
