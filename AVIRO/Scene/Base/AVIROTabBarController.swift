@@ -198,7 +198,8 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
                     constant: buttonWidth * CGFloat(index)
                 ),
                 button.widthAnchor.constraint(equalToConstant: buttonWidth),
-                button.heightAnchor.constraint(equalToConstant: CGFloat.tabBarHeight)
+                button.heightAnchor.constraint(equalToConstant: CGFloat.tabBarHeight),
+                button.centerYAnchor.constraint(equalTo: tabBarView.centerYAnchor)
             ])
         }
     }

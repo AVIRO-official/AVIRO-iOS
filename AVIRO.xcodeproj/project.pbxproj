@@ -10,6 +10,10 @@
 		07B07E7D2181EE7FE8658FF3 /* Pods_AVIRO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 666C79719FFC2B1B1010E863 /* Pods_AVIRO.framework */; };
 		BAABB6DFC862FB737E319364 /* libPods-AVIROTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 145E32B416F8757C584E1EC5 /* libPods-AVIROTests.a */; };
 		C50367F52A1795D10020C6BB /* HomeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50367F42A1795D10020C6BB /* HomeViewPresenter.swift */; };
+		C505C1DA2B3AC0070058F115 /* AVIROConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C505C1D92B3AC0070058F115 /* AVIROConfiguration.swift */; };
+		C505C1DD2B3ACCC40058F115 /* AVIROChallengeInfoResult+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C505C1DC2B3ACCC40058F115 /* AVIROChallengeInfoResult+DTO.swift */; };
+		C505C1E02B3ACCEC0058F115 /* AVIROMyChallengeLevelResult+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C505C1DF2B3ACCEC0058F115 /* AVIROMyChallengeLevelResult+DTO.swift */; };
+		C505C1E22B3ACEC00058F115 /* Reactive+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C505C1E12B3ACEC00058F115 /* Reactive+Extension.swift */; };
 		C505EB162ACC048E0057A4F8 /* Berry2.json in Resources */ = {isa = PBXBuildFile; fileRef = C505EB152ACC048E0057A4F8 /* Berry2.json */; };
 		C505EB182ACC5AC50057A4F8 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C505EB172ACC5AC50057A4F8 /* LaunchScreenViewController.swift */; };
 		C50DB7422A99DCDA0078B501 /* PlaceListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DB7402A99DCDA0078B501 /* PlaceListCell.swift */; };
@@ -251,6 +255,10 @@
 		543A0041DDDA86D0223E371E /* Pods-AVIRO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVIRO.debug.xcconfig"; path = "Target Support Files/Pods-AVIRO/Pods-AVIRO.debug.xcconfig"; sourceTree = "<group>"; };
 		666C79719FFC2B1B1010E863 /* Pods_AVIRO.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AVIRO.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C50367F42A1795D10020C6BB /* HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenter.swift; sourceTree = "<group>"; };
+		C505C1D92B3AC0070058F115 /* AVIROConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROConfiguration.swift; sourceTree = "<group>"; };
+		C505C1DC2B3ACCC40058F115 /* AVIROChallengeInfoResult+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROChallengeInfoResult+DTO.swift"; sourceTree = "<group>"; };
+		C505C1DF2B3ACCEC0058F115 /* AVIROMyChallengeLevelResult+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROMyChallengeLevelResult+DTO.swift"; sourceTree = "<group>"; };
+		C505C1E12B3ACEC00058F115 /* Reactive+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+Extension.swift"; sourceTree = "<group>"; };
 		C505EB152ACC048E0057A4F8 /* Berry2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Berry2.json; sourceTree = "<group>"; };
 		C505EB172ACC5AC50057A4F8 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		C50DB7402A99DCDA0078B501 /* PlaceListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceListCell.swift; sourceTree = "<group>"; };
@@ -1355,12 +1363,14 @@
 			path = CheckPlace;
 			sourceTree = "<group>";
 		};
-		C58FBF8A2AC2A4BD00AB6EFC /* MyPage */ = {
+		C58FBF8A2AC2A4BD00AB6EFC /* Challenge */ = {
 			isa = PBXGroup;
 			children = (
 				C53856B02ABC13ED00D52DEC /* AVIROMyContributionCount+DTO.swift */,
+				C505C1DC2B3ACCC40058F115 /* AVIROChallengeInfoResult+DTO.swift */,
+				C505C1DF2B3ACCEC0058F115 /* AVIROMyChallengeLevelResult+DTO.swift */,
 			);
-			path = MyPage;
+			path = Challenge;
 			sourceTree = "<group>";
 		};
 		C58FBF8B2AC2A4FB00AB6EFC /* Enroll */ = {
@@ -1415,7 +1425,7 @@
 			children = (
 				C58FBF882AC2A48400AB6EFC /* Marker */,
 				C58FBF892AC2A4A800AB6EFC /* CheckPlace */,
-				C58FBF8A2AC2A4BD00AB6EFC /* MyPage */,
+				C58FBF8A2AC2A4BD00AB6EFC /* Challenge */,
 				C5166E472A930583003495AA /* DetailPlace */,
 			);
 			path = AVIROGet;
@@ -1679,6 +1689,7 @@
 			isa = PBXGroup;
 			children = (
 				C5DBF8402B3A787800668B0D /* CGFloat+Extension.swift */,
+				C505C1E12B3ACEC00058F115 /* Reactive+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1782,6 +1793,7 @@
 				C5732C6F2A41736D00CDC499 /* AVIROManager */,
 				C5351B4E2A19223600116D50 /* KakaoMapManager */,
 				C5FD92E82A9C77CE00CF4673 /* PublicManager */,
+				C505C1D92B3AC0070058F115 /* AVIROConfiguration.swift */,
 			);
 			path = APIManager;
 			sourceTree = "<group>";
@@ -2051,6 +2063,7 @@
 				C5803F5D2A88C3C00064A853 /* LocationUtility.swift in Sources */,
 				C562950C2B318BB60067BBE5 /* ReviewPlaceInfoView.swift in Sources */,
 				C5F1014F2A6D19A800C53286 /* VeganOptionButton.swift in Sources */,
+				C505C1DD2B3ACCC40058F115 /* AVIROChallengeInfoResult+DTO.swift in Sources */,
 				C52066292A7CD5FC0038ECCD /* HistoryTableModel.swift in Sources */,
 				C5FD92EB2A9C786600CF4673 /* PublicAPIRequestComponents.swift in Sources */,
 				C58C49C82AC9B67600DE04B7 /* AppleUserLoginModel.swift in Sources */,
@@ -2152,6 +2165,7 @@
 				C50DB7422A99DCDA0078B501 /* PlaceListCell.swift in Sources */,
 				C50DB7432A99DCDA0078B501 /* SearchPlaceViewController.swift in Sources */,
 				C5FD92F22A9C805700CF4673 /* PublicXMLParserDelegate.swift in Sources */,
+				C505C1E22B3ACEC00058F115 /* Reactive+Extension.swift in Sources */,
 				C5166E4D2A945228003495AA /* MyData.swift in Sources */,
 				C58B9AAE2A5675B9008AEAC3 /* TutorialViewController.swift in Sources */,
 				C5DBF8432B3A822900668B0D /* AVIROViewController.swift in Sources */,
@@ -2193,6 +2207,7 @@
 				C52066312A7E4A580038ECCD /* AVIROMainSearchCompare+DTO.swift in Sources */,
 				C5C9619F2A8DEB230016E2F8 /* ReviewWriteButton.swift in Sources */,
 				C5E143A72AB43B8F007AC8C9 /* AVIROResult+DTO.swift in Sources */,
+				C505C1E02B3ACCEC0058F115 /* AVIROMyChallengeLevelResult+DTO.swift in Sources */,
 				C5E430B52A5DAE9800CB67EC /* SecondRegistrationViewController.swift in Sources */,
 				C593B64B2A4AEA9800D224CE /* AVIROReview+DTO.swift in Sources */,
 				C5C90EB52AA6D80300AB3668 /* EditOperatingHourView.swift in Sources */,
@@ -2211,6 +2226,7 @@
 				C5732C712A41739000CDC499 /* AVIROAPIManager.swift in Sources */,
 				C54386792B3432FE00BD2CAF /* ViewModel.swift in Sources */,
 				C50F6AF92A68FFBB00E942F5 /* EnrollStoreInfoView.swift in Sources */,
+				C505C1DA2B3AC0070058F115 /* AVIROConfiguration.swift in Sources */,
 				C5FD92F72A9CDB9300CF4673 /* EditMenuTopView.swift in Sources */,
 				C56857822A7113CF00F52715 /* RequestTableViewCell.swift in Sources */,
 				C5C2907B2A85E51B00ED5DCE /* PlaceReviewsView.swift in Sources */,

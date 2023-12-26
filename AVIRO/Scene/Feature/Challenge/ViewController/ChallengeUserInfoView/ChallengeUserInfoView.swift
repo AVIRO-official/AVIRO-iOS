@@ -23,6 +23,7 @@ final class ChallengeUserInfoView: UIView {
         
         imageView.layer.cornerRadius = 150/2
         imageView.backgroundColor = .gray7
+        imageView.contentMode = .scaleAspectFit
         
         return imageView
     }()
@@ -38,7 +39,6 @@ final class ChallengeUserInfoView: UIView {
         
         setupLayout()
         setupAttribute()
-        test()
     }
     
     required init?(coder: NSCoder) {
@@ -75,12 +75,38 @@ final class ChallengeUserInfoView: UIView {
         self.backgroundColor = .gray7
     }
     
-    // TODO: Binding 작업 시 수정
-    private func test() {
-        nameLabel.text = "천재강쥐또또님의 나무"
+    func bindData(with result: AVIROMyChallengeLevelResultDTO) {
+        let total = result.total ?? 0
+        let rank = result.userRank ?? 0
+        let level = result.level ?? 0
+        let point = result.point ?? 0
+        let pointForNext = result.pointForNext ?? 100
+        let imageURL = URL(string: result.image ?? "")!
         
-        levelView.updateLankLabel(with: "참여중인 300명 중 20등이에요!")
-        levelView.updateLevelLabel(with: "레벨 1을 달성했어요!")
-        levelView.updateLevelPoint(with: LevelPoint("30", "90"))
+        nameLabel.text = MyData.my.nickname
+        
+        levelView.updateLankLabel(with: "참여중인 \(total)명 중 \(rank)등이에요!")
+        levelView.updateLevelLabel(with: "레벨 \(level) 달성했어요!")
+        levelView.updateLevelPoint(with: LevelPoint("\(point)", "\(pointForNext)"))
+        
+        bindingImage(with: imageURL)
+    }
+    
+    private func bindingImage(with url: URL) {
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+             guard let self = self else { return }
+
+             if let error = error {
+                 print("이미지 다운로드 실패: \(error)")
+                 return
+             }
+
+             if let data = data, let image = UIImage(data: data) {
+                 DispatchQueue.main.async {
+                     self.treeImageView.image = image
+                     print(image.size)
+                 }
+             }
+         }.resume()
     }
 }

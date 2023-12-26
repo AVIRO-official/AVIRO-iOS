@@ -84,8 +84,11 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
                 equalTo: scrollView.contentLayoutGuide.topAnchor,
                 constant: 16
             ),
-            challengeTitleView.widthAnchor.constraint(
-                equalTo: scrollView.frameLayoutGuide.widthAnchor
+            challengeTitleView.leadingAnchor.constraint(
+                equalTo: scrollView.frameLayoutGuide.leadingAnchor
+            ),
+            challengeTitleView.trailingAnchor.constraint(
+                equalTo: scrollView.frameLayoutGuide.trailingAnchor
             ),
             challengeTitleView.heightAnchor.constraint(
                 equalToConstant: 107
@@ -95,8 +98,11 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
                 equalTo: challengeTitleView.bottomAnchor,
                 constant: 16
             ),
-            challengeUserInfoView.widthAnchor.constraint(
-                equalTo: scrollView.frameLayoutGuide.widthAnchor
+            challengeUserInfoView.leadingAnchor.constraint(
+                equalTo: scrollView.frameLayoutGuide.leadingAnchor
+            ),
+            challengeUserInfoView.trailingAnchor.constraint(
+                equalTo: scrollView.frameLayoutGuide.trailingAnchor
             ),
             challengeUserInfoView.heightAnchor.constraint(
                 equalToConstant: 341
@@ -106,8 +112,11 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
                 equalTo: challengeUserInfoView.bottomAnchor,
                 constant: 20
             ),
-            myInfoView.widthAnchor.constraint(
-                equalTo: scrollView.frameLayoutGuide.widthAnchor
+            myInfoView.leadingAnchor.constraint(
+                equalTo: scrollView.frameLayoutGuide.leadingAnchor
+            ),
+            myInfoView.trailingAnchor.constraint(
+                equalTo: scrollView.frameLayoutGuide.trailingAnchor
             ),
             myInfoView.heightAnchor.constraint(equalToConstant: 81),
             myInfoView.bottomAnchor.constraint(
@@ -138,22 +147,29 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
     }
     
     private func dataBinding() {
-        // TODO: ViewModel 생성 후 변경 예정
-        challengeTitleView.updateDate(with: "1월 1일 ~ 1월 31일")
-        challengeTitleView.updateTitle(with: "2024 비거뉴어리")
-        
-        myInfoView.updateMyPlace("2")
-        myInfoView.updateMyReview("3")
-        myInfoView.updateMyStar("4")
+        let viewWillAppearTrigger = self.rx.viewWillAppear.map { _ in }.asDriver(onErrorDriveWith: .empty())
         
         let tappedNavigationBarRightButton = navigationItem.rightBarButtonItem?.rx.tap.asDriver() ?? .empty()
         
         let input = ChallengeViewModel.Input(
+            loadData: viewWillAppearTrigger,
             tappedChallengeInfoButton: challengeTitleView.challengeInfoButtonTap,
             tappedNavigationBarRightButton: tappedNavigationBarRightButton
         )
         
         let output = viewModel.transform(with: input)
+        
+        output.myContributionCountResult
+            .drive(self.rx.isMyContributionCountResult)
+            .disposed(by: disposeBag)
+        
+        output.challengeInfoResult
+            .drive(self.rx.isChallengeInfoResult)
+            .disposed(by: disposeBag)
+        
+        output.myChallengeLevelResult
+            .drive(self.rx.isMyChallengeLevelResult)
+            .disposed(by: disposeBag)
         
         output.afterTappedChallengeInfoButton
             .drive(self.rx.isPushChallengeInfoViewController)
@@ -162,10 +178,34 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
         output.afterTappedNavigationBarRightButton
             .drive(self.rx.isPushSettingViewController)
             .disposed(by: disposeBag)
+        
+    }
+    
+    func bindChallengeInfo(with result: AVIROChallengeInfoDTO) {
+        let period = result.period
+        let title = result.title
+        viewModel.challengeTitle = title
+
+        challengeTitleView.updateDate(with: period)
+        challengeTitleView.updateTitle(with: title)
+    }
+    
+    func bindMyChallengeLevel(with result: AVIROMyChallengeLevelResultDTO) {
+        challengeUserInfoView.bindData(with: result)
+    }
+    
+    func bindMyContributionCount(with result: AVIROMyContributionCountDTO) {
+        let placeCount = String(result.data?.placeCount ?? 0)
+        let reviewCount = String(result.data?.commentCount ?? 0)
+        let starCount = String(result.data?.bookmarkCount ?? 0)
+        
+        myInfoView.updateMyPlace(placeCount)
+        myInfoView.updateMyReview(reviewCount)
+        myInfoView.updateMyStar(starCount)
     }
     
     func pushChallengeInfoViewController() {
-        let vc = ChallengeInfoViewController.create(with: "2024 비거뉴어리")
+        let vc = ChallengeInfoViewController.create(with: viewModel.challengeTitle)
         
         let presentationDelegate = ChallengeInfoPresentaionDelegate()
         
@@ -184,6 +224,24 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
 }
 
 extension Reactive where Base: ChallengeViewController {
+    var isMyContributionCountResult: Binder<AVIROMyContributionCountDTO> {
+        return Binder(self.base) { base, result in
+            base.bindMyContributionCount(with: result)
+        }
+    }
+    
+    var isChallengeInfoResult: Binder<AVIROChallengeInfoDTO> {
+        return Binder(self.base) { base, result in
+            base.bindChallengeInfo(with: result)
+        }
+    }
+    
+    var isMyChallengeLevelResult: Binder<AVIROMyChallengeLevelResultDTO> {
+        return Binder(self.base) { base, result in
+            base.bindMyChallengeLevel(with: result)
+        }
+    }
+    
     var isPushChallengeInfoViewController: Binder<Void> {
         return Binder(self.base) { base, _ in
             base.pushChallengeInfoViewController()

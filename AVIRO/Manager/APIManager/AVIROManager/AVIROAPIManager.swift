@@ -28,7 +28,11 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             return
         }
 
-        performRequest(with: url, completionHandler: completionHandler)
+        performRequest(
+            with: url,
+            headers: requestAPI.headers,
+            completionHandler: completionHandler
+        )
     }
     
     func loadBookmarkModels(
@@ -40,7 +44,11 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             return
         }
         
-        performRequest(with: url, completionHandler: completionHandler)
+        performRequest(
+            with: url,
+            headers: requestAPI.headers,
+            completionHandler: completionHandler
+        )
     }
     
     func createBookmarkModel(
@@ -61,7 +69,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             with: url,
             httpMethod: .post,
             requestBody: jsonData,
-            headers: postAPI.headers,
+            headers: requestAPI.headers,
             completionHandler: completionHandler
         )
     }
@@ -76,7 +84,11 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             return
         }
         
-        performRequest(with: url, completionHandler: completionHandler)
+        performRequest(
+            with: url,
+            headers: requestAPI.headers,
+            completionHandler: completionHandler
+        )
     }
     
     func checkPlaceList(
@@ -111,7 +123,11 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             return
         }
         
-        performRequest(with: url, completionHandler: completionHandler)
+        performRequest(
+            with: url,
+            headers: requestAPI.headers,
+            completionHandler: completionHandler
+        )
     }
     
     // MARK: Create Refer
@@ -171,8 +187,12 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             return
         }
         
-        performRequest(with: url, completionHandler: completionHandler)
-        
+        performRequest(
+            with: url,
+            headers: requestAPI.headers,
+            completionHandler: completionHandler
+        )
+
     }
     
     func loadPlaceInfo(
@@ -184,7 +204,11 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             return
         }
         
-        performRequest(with: url, completionHandler: completionHandler)
+        performRequest(
+            with: url,
+            headers: requestAPI.headers,
+            completionHandler: completionHandler
+        )
     }
     
     func loadMenus(
@@ -196,7 +220,11 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             return
         }
         
-        performRequest(with: url, completionHandler: completionHandler)
+        performRequest(
+            with: url,
+            headers: requestAPI.headers,
+            completionHandler: completionHandler
+        )
     }
     
     func loadReviews(
@@ -208,7 +236,11 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             return
         }
         
-        performRequest(with: url, completionHandler: completionHandler)
+        performRequest(
+            with: url,
+            headers: requestAPI.headers,
+            completionHandler: completionHandler
+        )
     }
     
     func loadOperationHours(
@@ -220,7 +252,11 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             return
         }
         
-        performRequest(with: url, completionHandler: completionHandler)
+        performRequest(
+            with: url,
+            headers: requestAPI.headers,
+            completionHandler: completionHandler
+        )
     }
     
     // MARK: Edit Refer
@@ -576,6 +612,40 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             return
         }
         
-        performRequest(with: url, completionHandler: completionHandler)
+        performRequest(
+            with: url,
+            headers: requestAPI.headers,
+            completionHandler: completionHandler
+        )
+    }
+    
+    func loadChallengeInfo(
+        completionHandler: @escaping (Result<AVIROChallengeInfoDTO, APIError>) -> Void) {
+            guard let url = requestAPI.getChallengeInfo().url else {
+                completionHandler(.failure(.urlError))
+                return
+            }
+            
+            performRequest(
+                with: url,
+                headers: requestAPI.headers,
+                completionHandler: completionHandler
+            )
+    }
+    
+    func loadMyChallengeLevel(
+        with userId: String,
+        completionHandler: @escaping (Result<AVIROMyChallengeLevelResultDTO, APIError>) -> Void
+    ) {
+        guard let url = requestAPI.getMyChallengeLevel(userId: userId).url else {
+            completionHandler(.failure(.urlError))
+            return
+        }
+        
+        performRequest(
+            with: url,
+            headers: requestAPI.headers,
+            completionHandler: completionHandler
+        )
     }
 }
