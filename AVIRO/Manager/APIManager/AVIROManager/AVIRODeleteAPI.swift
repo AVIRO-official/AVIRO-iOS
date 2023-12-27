@@ -25,7 +25,7 @@ struct AVIRODeleteAPI {
         "X-API-KEY": "\(AVIROConfiguration.apikey)"
     ]
     // MARK: Path
-    static let commentDeletePath = "/dev/map/update/comment"
+    static let commentDeletePath = "/1/map/update/comment"
     
     // MARK: Key
     static let commentId = "commentId"

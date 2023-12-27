@@ -156,7 +156,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
     
     func createReview(
         with reviewModel: AVIROEnrollReviewDTO,
-        completionHandler: @escaping (Result<AVIROResultDTO, APIError>) -> Void
+        completionHandler: @escaping (Result<AVIROEnrollReviewResultDTO, APIError>) -> Void
     ) {
         guard let url = postAPI.commentUpload().url else {
             completionHandler(.failure(.urlError))

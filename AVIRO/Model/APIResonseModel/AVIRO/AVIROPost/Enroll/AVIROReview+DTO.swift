@@ -14,6 +14,13 @@ struct AVIROEnrollReviewDTO: Encodable {
     let content: String
 }
 
+struct AVIROEnrollReviewResultDTO: Decodable {
+    let statusCode: Int
+    let message: String
+    let levelUp: Bool?
+    let userLevel: Int?
+}
+
 struct AVIROEditReviewDTO: Encodable {
     let commentId: String
     let content: String

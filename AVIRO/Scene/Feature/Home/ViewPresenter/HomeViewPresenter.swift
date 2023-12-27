@@ -826,16 +826,17 @@ final class HomeViewPresenter: NSObject {
         viewController?.updateMapPlace(changedMarkerModel.mapPlace)
     }
     
+    // TODO: 삭제 예정
     func uploadReview(_ postReviewModel: AVIROEnrollReviewDTO) {
         AVIROAPIManager().createReview(with: postReviewModel) { [weak self] result in
             switch result {
             case .success(let model):
-                if let message = model.message {
+                if model.statusCode == 200 {
                     self?.amplitude.uploadReview(
                         with: self?.selectedSummaryModel?.title ?? "",
                         review: postReviewModel.content
                     )
-                    self?.viewController?.showToastAlert(message)
+//                    self?.viewController?.showToastAlert(message)
                 }
             case .failure(let error):
                 self?.viewController?.showErrorAlert(with: error.localizedDescription, title: nil)
@@ -917,6 +918,7 @@ final class HomeViewPresenter: NSObject {
         }
         
         let viewModel = ReviewWriteViewModel(
+            placeId: markerModel.placeId,
             placeIcon: image,
             placeTitle: summaryModel.title,
             placeAddress: infoModel.address + " " + (infoModel.address2 ?? "")

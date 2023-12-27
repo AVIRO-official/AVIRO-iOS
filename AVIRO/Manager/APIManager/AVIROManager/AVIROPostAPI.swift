@@ -32,30 +32,30 @@ struct AVIROPostAPI {
         "Content-Type": "application/json",
         "X-API-KEY": "\(AVIROConfiguration.apikey)"
     ]
-    static let placeEnrollPath = "/dev/map/add/place"
-    static let placeListMatchedAVIROPath = "/dev/map/check/place"
-    static let placeListReportPath = "/dev/map/report/place"
+    static let placeEnrollPath = "/1/map/add/place"
+    static let placeListMatchedAVIROPath = "/1/map/check/place"
+    static let placeListReportPath = "/1/map/report/place"
     
-    static let editPlaceLocationPath = "/dev/map/report/address"
-    static let editPlacePhonePath = "/dev/map/report/phone"
-    static let editPlaceOperationPath = "/dev/map/update/time"
-    static let editPlaceURLPath = "/dev/map/report/url"
+    static let editPlaceLocationPath = "/1/map/report/address"
+    static let editPlacePhonePath = "/1/map/report/phone"
+    static let editPlaceOperationPath = "/1/map/update/time"
+    static let editPlaceURLPath = "/1/map/report/url"
     
-    static let commentUploadPath = "/dev/map/add/comment"
-    static let commentEditPath = "/dev/map/update/comment"
-    static let commentReportPath = "/dev/map/report/comment"
+    static let commentUploadPath = "/1/map/add/comment"
+    static let commentEditPath = "/1/map/update/comment"
+    static let commentReportPath = "/1/map/report/comment"
 
-    static let bookmarkPostPath = "/dev/map/add/bookmark"
+    static let bookmarkPostPath = "/1/map/add/bookmark"
     
-    static let editMenuPath = "/dev/map/update/menu"
+    static let editMenuPath = "/1/map/update/menu"
     
-    static let appleUserAutoLoginPath = "/dev/member/apple"
-    static let appleUserCheckPath = "/dev/member"
-    static let appleUserSignUpPath = "/dev/member/sign-up"
-    static let appleUserRevokePath = "/dev/member/revoke"
+    static let appleUserAutoLoginPath = "/1/member/apple"
+    static let appleUserCheckPath = "/1/member"
+    static let appleUserSignUpPath = "/1/member/sign-up"
+    static let appleUserRevokePath = "/1/member/revoke"
     
-    static let userNicnameCheckPath = "/dev/member/check"
-    static let userNicknameChangeablePath = "/dev/member/update/nickname"
+    static let userNicnameCheckPath = "/1/member/check"
+    static let userNicknameChangeablePath = "/1/member/update/nickname"
     
     // MARK: Place Enroll
     mutating func placeEnroll() -> URLComponents {

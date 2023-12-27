@@ -11,6 +11,7 @@ import RxCocoa
 
 final class ReviewWriteViewController: UIViewController {
     weak var tabBarDelegate: TabBarDelegate?
+    weak var homeViewDelegate: AfterHomeViewControllerProtocol?
     
     private var viewModel: ReviewWriteViewModel!
     private let disposeBag = DisposeBag()
@@ -69,7 +70,7 @@ final class ReviewWriteViewController: UIViewController {
         
         label.text = "도움이 돼요 : 맛, 가격, 분위기, 편의시설, 비건프렌들리함 등"
         label.textColor = .gray2
-        label.numberOfLines = 1
+        label.numberOfLines = 0
         label.font = .pretendard(size: 16, weight: .medium)
         
         return label
@@ -200,6 +201,10 @@ final class ReviewWriteViewController: UIViewController {
                 equalTo: self.view.leadingAnchor,
                 constant: 17
             ),
+            exampleLabel.trailingAnchor.constraint(
+                equalTo: self.view.trailingAnchor,
+                constant: -16
+            ),
             
             exampleSticy.centerXAnchor.constraint(
                 equalTo: self.view.centerXAnchor
@@ -257,8 +262,7 @@ final class ReviewWriteViewController: UIViewController {
         backButton.rx.controlEvent(.touchUpInside)
             .asDriver()
             .drive(onNext: { [weak self] _ in
-                self?.tabBarDelegate?.isHidden = (false, true)
-                self?.navigationController?.popViewController(animated: true)
+                self?.popViewController()
             })
             .disposed(by: disposeBag)
         
@@ -295,9 +299,11 @@ final class ReviewWriteViewController: UIViewController {
     
     private func dataBinding() {
         let text = reviewTextView.rx.text.asDriver()
+        let updateReview = reviewUploadButton.rx.controlEvent(.touchUpInside).asDriver()
         
         let input = ReviewWriteViewModel.Input(
-            text: text
+            text: text,
+            uploadReview: updateReview
         )
         
         let output = viewModel.transform(with: input)
@@ -320,6 +326,14 @@ final class ReviewWriteViewController: UIViewController {
 
         output.keyboardWillHide
             .drive(self.rx.keyboardWillHide)
+            .disposed(by: disposeBag)
+        
+        output.uploadReview
+            .drive(self.rx.uploadReview)
+            .disposed(by: disposeBag)
+        
+        output.error
+            .drive(self.rx.isErrorShow)
             .disposed(by: disposeBag)
     }
     
@@ -400,6 +414,25 @@ final class ReviewWriteViewController: UIViewController {
     private func whenOverText() {
         reviewTextView.activeHshakeEffect()
     }
+    
+    func afterSuccessUploadReview(with model: AVIROEnrollReviewResultDTO) {
+        homeViewDelegate?.showRecommendPlaceAlert(with: model)
+        
+        if model.levelUp ?? false {
+            homeViewDelegate?.showLevelUpAlert(with: model.userLevel ?? 0)
+        }
+        
+        popViewController()
+    }
+    
+    private func popViewController() {
+        tabBarDelegate?.isHidden = (false, true)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func afterErrorShow(with error: APIError) {
+        // TODO: Error Alert
+    }
 }
 
 extension Reactive where Base: ReviewWriteViewController {
@@ -425,6 +458,17 @@ extension Reactive where Base: ReviewWriteViewController {
         return Binder(self.base) { base, _ in
             base.adjustViewForKeyboardWillHide()
         }
-
+    }
+    
+    var uploadReview: Binder<AVIROEnrollReviewResultDTO> {
+        return Binder(self.base) { base, model in
+            base.afterSuccessUploadReview(with: model)
+        }
+    }
+    
+    var isErrorShow: Binder<APIError> {
+        return Binder(self.base) { base, error in
+            base.afterErrorShow(with: error)
+        }
     }
 }

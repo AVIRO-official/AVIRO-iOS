@@ -48,5 +48,6 @@ extension UIColor {
     static let launchTitleColor = UIColor(red: 0.83, green: 0.89, blue: 1, alpha: 1)
     
     static let loginTitleColor = UIColor(red: 0.57, green: 0.69, blue: 0.92, alpha: 1)
-
+    
+    static let challengeImageBorder = UIColor(named: "ChallengeImageBorder")!
 }

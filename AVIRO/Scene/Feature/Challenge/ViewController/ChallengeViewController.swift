@@ -179,6 +179,10 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
             .drive(self.rx.isPushSettingViewController)
             .disposed(by: disposeBag)
         
+        output.error
+            .drive(self.rx.isError)
+            .disposed(by: disposeBag)
+        
     }
     
     func bindChallengeInfo(with result: AVIROChallengeInfoDTO) {
@@ -221,6 +225,10 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
         
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func showErrorAlert() {
+        self.showAlert(title: "에러", message: "재시도 해주세요")
+    }
 }
 
 extension Reactive where Base: ChallengeViewController {
@@ -251,6 +259,12 @@ extension Reactive where Base: ChallengeViewController {
     var isPushSettingViewController: Binder<Void> {
         return Binder(self.base) { base, _ in
             base.pushSettingViewController()
+        }
+    }
+    
+    var isError: Binder<APIError> {
+        return Binder(self.base) { base, _ in
+            base.showErrorAlert()
         }
     }
 }

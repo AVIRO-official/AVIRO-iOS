@@ -26,21 +26,21 @@ struct AVIRORequestAPI {
     ]
 
     // MARK: Path
-    static let getNerbyStorePath = "/dev/map"
-    static let getBookmarkPath = "/dev/map/load/bookmark"
+    static let getNerbyStorePath = "/1/map"
+    static let getBookmarkPath = "/1/map/load/bookmark"
     
-    static let checkPlacePath = "/dev/map/check/place"
-    static let checkPlaceReport = "/dev/map/check/place/report"
+    static let checkPlacePath = "/1/map/check/place"
+    static let checkPlaceReport = "/1/map/check/place/report"
     
-    static let placeSummaryPath = "/dev/map/load/summary"
-    static let placeInfoPath = "/dev/map/load/place"
-    static let menuInfoPath = "/dev/map/load/menu"
-    static let commentPath = "/dev/map/load/comment"
-    static let operationHourPath = "/dev/map/load/timetable"
+    static let placeSummaryPath = "/1/map/load/summary"
+    static let placeInfoPath = "/1/map/load/place"
+    static let menuInfoPath = "/1/map/load/menu"
+    static let commentPath = "/1/map/load/comment"
+    static let operationHourPath = "/1/map/load/timetable"
         
-    static let myContributionCount = "/dev/mypage/count"
-    static let challengeInfo = "/dev/mypage/challenge"
-    static let myChallengeLevel = "/dev/mypage/challenge/level"
+    static let myContributionCount = "/1/mypage/count"
+    static let challengeInfo = "/1/mypage/challenge"
+    static let myChallengeLevel = "/1/mypage/challenge/level"
     
     // MARK: Key
     static let userId = "userId"

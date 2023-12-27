@@ -171,6 +171,9 @@ final class HomeViewController: UIViewController, AVIROViewController {
         return button
     }()
     
+    private lazy var recommendPlaceAlertView = RecommendPlaceAlertView()
+    private lazy var levelUpAlertView = LevelUpAlertView()
+    
     private(set) lazy var placeView = PlaceView()
         
     private(set) var placeViewTopConstraint: NSLayoutConstraint?
@@ -225,7 +228,9 @@ extension HomeViewController: HomeViewProtocol {
             searchTextField,
             placeView,
             flagButton,
-            downBackButton
+            downBackButton,
+            recommendPlaceAlertView,
+            levelUpAlertView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
@@ -301,7 +306,17 @@ extension HomeViewController: HomeViewProtocol {
                 equalTo: flagButton.topAnchor
             ),
             downBackButton.widthAnchor.constraint(equalToConstant: Layout.Size.topButtonSize.rawValue),
-            downBackButton.heightAnchor.constraint(equalToConstant: Layout.Size.topButtonSize.rawValue)
+            downBackButton.heightAnchor.constraint(equalToConstant: Layout.Size.topButtonSize.rawValue),
+            
+            recommendPlaceAlertView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            recommendPlaceAlertView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            recommendPlaceAlertView.heightAnchor.constraint(equalToConstant: 185),
+            recommendPlaceAlertView.widthAnchor.constraint(equalToConstant: 300),
+            
+            levelUpAlertView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            levelUpAlertView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            levelUpAlertView.heightAnchor.constraint(equalToConstant: 260),
+            levelUpAlertView.widthAnchor.constraint(equalToConstant: 310)
         ])
                         
         searchTextFieldTopConstraint = searchTextField.topAnchor.constraint(
@@ -363,7 +378,6 @@ extension HomeViewController: HomeViewProtocol {
     
     /// 모든 조건에 해당 사항 없을 때, place view 초기화
     func whenViewWillAppearOffAllCondition() {
-//        tabBarDelegate?.isHidden = false
         whenViewWillAppearInitPlaceView()
         afterSearchFieldInit()
     }
@@ -372,25 +386,6 @@ extension HomeViewController: HomeViewProtocol {
     func whenAfterPopEditViewController() {
         naverMapView.isHidden = true
     }
-    
-//    // MARK: UI Interactions
-//    /// 댓글 입력할때 keyboard
-//    func keyboardWillShow(notification: NSNotification) {
-//        if let userInfo = notification.userInfo {
-//            let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue ?? .zero
-//            let keyboardHeight = keyboardFrame.height
-//            
-//            let tabbarHeight = tabBarController?.tabBar.frame.height ?? 0
-//            
-//            let result = keyboardHeight - tabbarHeight
-//            
-//            placeView.keyboardWillShow(notification: notification, height: result)
-//        }
-//    }
-// 
-//    func keyboardWillHide() {
-//        placeView.keyboardWillHide()
-//    }
     
     /// location button clicked
     func isSuccessLocation() {
@@ -667,7 +662,7 @@ extension HomeViewController: HomeViewProtocol {
         vc.presenter = presenter
         vc.tabBarDelegate = self.tabBarDelegate
         
-        self.tabBarDelegate?.isHidden = (true,true)
+        self.tabBarDelegate?.isHidden = (true, true)
 
 //        self.tabBarDelegate?.setTabBarHidden(with: true)
 
@@ -678,8 +673,9 @@ extension HomeViewController: HomeViewProtocol {
         let vc = ReviewWriteViewController.create(with: viewModel)
         
         vc.tabBarDelegate = tabBarDelegate
+        vc.homeViewDelegate = self
         
-        tabBarDelegate?.isHidden = (true,true)
+        tabBarDelegate?.isHidden = (true, true)
         
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -1025,7 +1021,7 @@ extension HomeViewController: UITextFieldDelegate {
                 self?.changedSearchField(with: place)
             }
             
-            self?.tabBarDelegate?.isHidden = (true,true)
+            self?.tabBarDelegate?.isHidden = (true, true)
 //            self?.tabBarDelegate?.setTabBarHidden(with: true)
             self?.navigationController?.pushViewController(vc, animated: false)
             
@@ -1081,5 +1077,28 @@ extension HomeViewController: NMFMapViewTouchDelegate {
     ) {
         whenClosedPlaceView()
         isSlideUpView = false
+    }
+}
+
+// MARK: AfterHomeViewControllerProtocol
+extension HomeViewController: AfterHomeViewControllerProtocol {
+    func showRecommendPlaceAlert(with model: AVIROEnrollReviewResultDTO) {
+        // TODO: true 이면 팝업 끝나고 알람창 또 뜨게 설정
+
+        recommendPlaceAlertView.afterTappedNoRecommendButton = { [weak self] in
+            if model.levelUp ?? false {
+                self?.showLevelUpAlert(with: model.userLevel ?? 0)
+            }
+        }
+        
+        recommendPlaceAlertView.afterTappedNoRecommendButton = { [weak self] in
+            if model.levelUp ?? false {
+                self?.showLevelUpAlert(with: model.userLevel ?? 0)
+            }
+        }
+    }
+    
+    func showLevelUpAlert(with level: Int) {
+        
     }
 }
