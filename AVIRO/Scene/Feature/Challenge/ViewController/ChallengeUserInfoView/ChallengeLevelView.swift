@@ -135,6 +135,8 @@ final class ChallengeLevelView: UIView {
         
         levelPointLabel.attributedText = attributedText
         
-        levelProgress.progress = Float(Double(levelPoint.now)!/Double(levelPoint.gool)!)
+        let currentProgress = Float(levelPoint.now)! / Float(levelPoint.gool)!
+
+        levelProgress.setProgress(currentProgress, animated: true)
     }
 }

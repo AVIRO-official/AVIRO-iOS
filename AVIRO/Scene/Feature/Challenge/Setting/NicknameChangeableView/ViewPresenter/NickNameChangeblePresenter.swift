@@ -43,7 +43,7 @@ final class NickNameChangeblePresenter {
         let nickname = AVIRONicknameIsDuplicatedCheckDTO(nickname: userNickname)
         
         if userNickname != initNickName {
-            AVIROAPIManager().checkNickname(with: nickname) { [weak self] result in
+            AVIROAPI.manager.checkNickname(with: nickname) { [weak self] result in
                 switch result {
                 case .success(let model):
                     if model.statusCode == 200 {
@@ -73,7 +73,7 @@ final class NickNameChangeblePresenter {
             nickname: userNickname
         )
         
-        AVIROAPIManager().editNickname(with: model) { [weak self] result in
+        AVIROAPI.manager.editNickname(with: model) { [weak self] result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {

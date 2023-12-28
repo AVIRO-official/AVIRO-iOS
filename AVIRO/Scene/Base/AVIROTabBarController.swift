@@ -60,7 +60,9 @@ enum TabBarType: CaseIterable {
 
 protocol TabBarDelegate: AnyObject {
     var selectedIndex: Int { get set }
-    var isHidden: (isHidden: Bool,isSameNavi: Bool) { get set }
+    var isHidden: (isHidden: Bool, isSameNavi: Bool) { get set }
+    
+    func hideBlurEffectView(with active: Bool)
 }
 
 final class AVIROTabBarController: UIViewController, TabBarDelegate {
@@ -73,6 +75,10 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
         let view = UIView()
         
         view.backgroundColor = .gray7
+        view.layer.shadowOpacity = 0.1
+        view.layer.shadowRadius = 3.0
+        view.layer.shadowColor = UIColor.gray0.cgColor
+        view.layer.shadowOffset = CGSize(width: 0, height: -1)
         
         return view
     }()
@@ -81,6 +87,17 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
         let view = UIView()
         
         view.backgroundColor = .gray7
+        
+        return view
+    }()
+    
+    private lazy var blurEffectView: UIVisualEffectView = {
+        let view = UIVisualEffectView()
+        
+        let blurEffect = UIBlurEffect(style: .dark)
+        
+        view.effect = blurEffect
+        view.alpha = 0.6
         
         return view
     }()
@@ -102,7 +119,6 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
     
     var isHidden: (isHidden: Bool,isSameNavi: Bool) = (false,true) {
         didSet {
-            print(isHidden)
             tabBarView.isHidden = isHidden.isHidden
             bottomInsetView.isHidden = isHidden.isHidden
             
@@ -127,35 +143,35 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
     func setViewControllers(with types: [TabBarType]) {
         
         self.types = types
-        types.forEach { tabBarType in
-            switch tabBarType {
-            case .home:
-                let vc = HomeViewController()
-                vc.tabBarDelegate = self
-                
-                let navigationVC = UINavigationController(rootViewController: vc)
-                viewControllers.append(navigationVC)
-            case .plus:
-                let vc = EnrollPlaceViewController()
-                vc.tabBarDelegate = self
-                
-                let navigationVC = UINavigationController(rootViewController: vc)
-                viewControllers.append(navigationVC)
-            case .challenge:
-                let viewModel = ChallengeViewModel()
-                let vc = ChallengeViewController.create(with: viewModel)
-                vc.tabBarDelegate = self
-                
-                let navigationVC = UINavigationController(rootViewController: vc)
-                viewControllers.append(navigationVC)
-            }
-        }
+        let home = HomeViewController()
+        
+        let enroll = EnrollPlaceViewController()
+        
+        let challengeViewModel = ChallengeViewModel()
+        let challenge = ChallengeViewController.create(with: challengeViewModel)
+        
+        home.tabBarDelegate = self
+        enroll.tabBarDelegate = self
+        challenge.tabBarDelegate = self
+        
+        enroll.homeViewDelegate = home
+        
+        let homeNaviVC = UINavigationController(rootViewController: home)
+        let enrollNaviVC = UINavigationController(rootViewController: enroll)
+        let challengeNaviVC = UINavigationController(rootViewController: challenge)
+        
+        viewControllers.append(contentsOf: [
+            homeNaviVC,
+            enrollNaviVC,
+            challengeNaviVC
+        ])
     }
     
     private func setupLayout() {
         [
             tabBarView,
-            bottomInsetView
+            bottomInsetView,
+            blurEffectView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview($0)
@@ -170,8 +186,15 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
             bottomInsetView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             bottomInsetView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             bottomInsetView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            bottomInsetView.topAnchor.constraint(equalTo: tabBarView.bottomAnchor)
+            bottomInsetView.topAnchor.constraint(equalTo: tabBarView.bottomAnchor),
+            
+            blurEffectView.topAnchor.constraint(equalTo: tabBarView.topAnchor),
+            blurEffectView.leadingAnchor.constraint(equalTo: tabBarView.leadingAnchor),
+            blurEffectView.trailingAnchor.constraint(equalTo: tabBarView.trailingAnchor),
+            blurEffectView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
+        
+        blurEffectView.isHidden = true
         
         setupButtons()
     }
@@ -259,5 +282,9 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
     
     @objc private func tabBarButtonTapped(_ sender: TabBarButton) {
         selectedIndex = sender.tag
+    }
+    
+    func hideBlurEffectView(with active: Bool) {
+        blurEffectView.isHidden = active
     }
 }

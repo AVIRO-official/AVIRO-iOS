@@ -69,7 +69,7 @@ final class ThridRegistrationPresenter {
         
         userInfoModel.marketingAgree = false
                 
-        AVIROAPIManager().createAppleUser(with: userInfoModel) { [weak self] result in
+        AVIROAPI.manager.createAppleUser(with: userInfoModel) { [weak self] result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {

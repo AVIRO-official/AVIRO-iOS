@@ -77,7 +77,7 @@ final class SearchPlacePresenter: NSObject {
             isAccuracy: nil
         )
         
-        KakaoAPIManager().keywordSearchPlace(with: model) { [weak self] result in
+        KakaoAPI.manager.keywordSearchPlace(with: model) { [weak self] result in
             switch result {
             case .success(let listModel):
                 let placeList = listModel.documents.map { location in
@@ -138,7 +138,7 @@ final class SearchPlacePresenter: NSObject {
             isAccuracy: nil
         )
         
-        KakaoAPIManager().keywordSearchPlace(with: model) { [weak self] result in
+        KakaoAPI.manager.keywordSearchPlace(with: model) { [weak self] result in
             switch result {
             case .success(let listModel):
                 let placeList = listModel.documents.map { location in
@@ -177,7 +177,7 @@ final class SearchPlacePresenter: NSObject {
             y: String(selectedItem.y)
         )
         
-        AVIROAPIManager().checkPlaceOne(with: placeModel) { [weak self] result in
+        AVIROAPI.manager.checkPlaceOne(with: placeModel) { [weak self] result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {

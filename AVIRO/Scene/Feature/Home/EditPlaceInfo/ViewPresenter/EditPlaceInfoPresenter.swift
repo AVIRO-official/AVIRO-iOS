@@ -299,7 +299,7 @@ final class EditPlaceInfoPresenter {
         
         self.placeOperationModels = [EditOperationHoursModel]()
         
-        AVIROAPIManager().loadOperationHours(with: placeId) { [weak self] result in
+        AVIROAPI.manager.loadOperationHours(with: placeId) { [weak self] result in
             switch result {
             case .success(let model):
                 if model.statusCode == 200 {
@@ -347,7 +347,7 @@ final class EditPlaceInfoPresenter {
     }
     
     private func changeLocationFromKakaoAPI() {
-        KakaoAPIManager().addressSearch(with: afterChangedAddress) { [weak self] result in
+        KakaoAPI.manager.addressSearch(with: afterChangedAddress) { [weak self] result in
             switch result {
             case .success(let model):
                 guard let documents = model.documents,
@@ -638,7 +638,7 @@ extension EditPlaceInfoPresenter {
                 y: whenRequestAndLoadYLatitude(beforeAddress: beforeAddress)
             )
 
-            AVIROAPIManager().editPlaceLocation(with: model) { [weak self] result in
+            AVIROAPI.manager.editPlaceLocation(with: model) { [weak self] result in
                 defer { dispatchGroup.leave() }
                 switch result {
                 case .success(let success):
@@ -762,7 +762,7 @@ extension EditPlaceInfoPresenter {
                 )
             )
             
-            AVIROAPIManager().editPlacePhone(with: model) { [weak self] result in
+            AVIROAPI.manager.editPlacePhone(with: model) { [weak self] result in
                 defer { dispatchGroup.leave() }
                 switch result {
                 case .success(let success):
@@ -824,7 +824,7 @@ extension EditPlaceInfoPresenter {
                 sunBreak: operationHours[.sun]?.breakTime
             )
             
-            AVIROAPIManager().editPlaceOperation(with: model) { [weak self] result in
+            AVIROAPI.manager.editPlaceOperation(with: model) { [weak self] result in
                 defer { dispatchGroup.leave() }
                 switch result {
                 case .success(let success):
@@ -869,7 +869,7 @@ extension EditPlaceInfoPresenter {
                 )
             )
             
-            AVIROAPIManager().editPlaceURL(with: model) { [weak self] result in
+            AVIROAPI.manager.editPlaceURL(with: model) { [weak self] result in
                 defer { dispatchGroup.leave() }
                 switch result {
                 case .success(let success):

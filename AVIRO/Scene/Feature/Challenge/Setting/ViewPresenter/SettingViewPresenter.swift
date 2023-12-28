@@ -113,7 +113,7 @@ final class SettingViewPresenter {
 
         let model = AVIROAutoLoginWhenAppleUserDTO(refreshToken: refreshToken)
                         
-        AVIROAPIManager().revokeAppleUser(with: model) { [weak self] result in
+        AVIROAPI.manager.revokeAppleUser(with: model) { [weak self] result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {

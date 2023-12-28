@@ -34,8 +34,8 @@ final class AppController {
         window.backgroundColor = .gray7
         window.makeKeyAndVisible()
         
-        checkState()
-//        setTabBarView()
+//        checkState()
+        setTabBarView()
     }
     
     // MARK: 불러올 view 확인 메서드
@@ -54,7 +54,7 @@ final class AppController {
 
         let userCheck = AVIROAutoLoginWhenAppleUserDTO(refreshToken: userKey)
 
-        AVIROAPIManager().appleUserCheck(with: userCheck) { [weak self] result in
+        AVIROAPI.manager.appleUserCheck(with: userCheck) { [weak self] result in
             switch result {
             case .success(let model):
                 if model.statusCode == 200 {

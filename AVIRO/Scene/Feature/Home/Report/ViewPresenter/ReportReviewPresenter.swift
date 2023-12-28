@@ -160,7 +160,7 @@ final class ReportReviewPresenter {
             content: typeString
         )
          
-        AVIROAPIManager().reportReview(with: reportModel) { [weak self] result in
+        AVIROAPI.manager.reportReview(with: reportModel) { [weak self] result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {

@@ -409,7 +409,7 @@ final class HomeViewPresenter: NSObject {
 
         selectedPlaceId = placeId
         
-        AVIROAPIManager().loadPlaceSummary(with: placeId) { [weak self] result in
+        AVIROAPI.manager.loadPlaceSummary(with: placeId) { [weak self] result in
             switch result {
             case .success(let summary):
                 if summary.statusCode == 200 {
@@ -582,7 +582,7 @@ final class HomeViewPresenter: NSObject {
     
     private func loadPlaceInfo(with placeId: String, dispatchGroup: DispatchGroup) {
         dispatchGroup.enter()
-        AVIROAPIManager().loadPlaceInfo(with: placeId) { [weak self] result in
+        AVIROAPI.manager.loadPlaceInfo(with: placeId) { [weak self] result in
             defer { dispatchGroup.leave() }
             
             switch result {
@@ -604,7 +604,7 @@ final class HomeViewPresenter: NSObject {
     
     private func loadPlaceMenus(with placeId: String, dispatchGroup: DispatchGroup) {
         dispatchGroup.enter()
-        AVIROAPIManager().loadMenus(with: placeId) { [weak self] result in
+        AVIROAPI.manager.loadMenus(with: placeId) { [weak self] result in
             defer { dispatchGroup.leave() }
             
             switch result {
@@ -626,7 +626,7 @@ final class HomeViewPresenter: NSObject {
     
     private func loadPlaceReviews(with placeId: String, dispatchGroup: DispatchGroup) {
         dispatchGroup.enter()
-        AVIROAPIManager().loadReviews(with: placeId) { [weak self] result in
+        AVIROAPI.manager.loadReviews(with: placeId) { [weak self] result in
             defer { dispatchGroup.leave() }
             
             switch result {
@@ -656,7 +656,7 @@ final class HomeViewPresenter: NSObject {
             code: type.code
         )
 
-        AVIROAPIManager().reportPlace(with: model) { [weak self] result in
+        AVIROAPI.manager.reportPlace(with: model) { [weak self] result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {
@@ -682,7 +682,7 @@ final class HomeViewPresenter: NSObject {
             userId: MyData.my.id
         )
         
-        AVIROAPIManager().checkPlaceReportIsDuplicated(with: model) { [weak self] result in
+        AVIROAPI.manager.checkPlaceReportIsDuplicated(with: model) { [weak self] result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {
@@ -712,7 +712,7 @@ final class HomeViewPresenter: NSObject {
     func loadPlaceOperationHours() {
         guard let placeId = selectedPlaceId else { return }
         
-        AVIROAPIManager().loadOperationHours(with: placeId) { [weak self] result in
+        AVIROAPI.manager.loadOperationHours(with: placeId) { [weak self] result in
             switch result {
             case .success(let model):
                 if model.statusCode == 200 {
@@ -776,7 +776,7 @@ final class HomeViewPresenter: NSObject {
     
     func afterEditMenu() {
         guard let placeId = selectedPlaceId else { return }
-        AVIROAPIManager().loadMenus(with: placeId) { [weak self] result in
+        AVIROAPI.manager.loadMenus(with: placeId) { [weak self] result in
             switch result {
             case .success(let menuModel):
                 if menuModel.statusCode == 200 {
@@ -859,7 +859,7 @@ final class HomeViewPresenter: NSObject {
 //    }
     
     func deleteMyReview(_ postDeleteReviewModel: AVIRODeleteReveiwDTO) {
-        AVIROAPIManager().deleteReview(with: postDeleteReviewModel) { [weak self] result in
+        AVIROAPI.manager.deleteReview(with: postDeleteReviewModel) { [weak self] result in
             switch result {
             case .success(let model):
                 if model.statusCode == 200 {

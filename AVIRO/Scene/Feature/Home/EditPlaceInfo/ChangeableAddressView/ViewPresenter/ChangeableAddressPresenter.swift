@@ -80,7 +80,7 @@ final class ChangeableAddressPresenter {
         pageIndex = 1
         self.changedColorText = text
         
-        PublicAPIManager().publicAddressSearch(currentPage: String(pageIndex), keyword: text) { [weak self] result in
+        PublicAPI.manager.publicAddressSearch(currentPage: String(pageIndex), keyword: text) { [weak self] result in
             switch result {
             case .success(let addressTableModel):
                 guard let totalCount = addressTableModel.totalCount else { return }
@@ -96,7 +96,7 @@ final class ChangeableAddressPresenter {
     func whenScrollingTableView() {
         if totalCount > pageIndex * 20 {
             pageIndex += 1
-            PublicAPIManager().publicAddressSearch(
+            PublicAPI.manager.publicAddressSearch(
                 currentPage: String(pageIndex),
                 keyword: changedColorText
             ) { [weak self] result in
@@ -131,7 +131,7 @@ final class ChangeableAddressPresenter {
         
         let model = KakaoCoordinateSearchDTO(lng: lng, lat: lat)
         
-        KakaoAPIManager().coordinateSearch(with: model) { [weak self] result in
+        KakaoAPI.manager.coordinateSearch(with: model) { [weak self] result in
             switch result {
             case .success(let model):
                 guard let firstDocument = model.documents?.first,

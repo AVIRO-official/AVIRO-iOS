@@ -14,11 +14,13 @@ protocol PublicAPIManagerProtocol {
         completion: @escaping (Result<PublicAddressDTO, Error>) -> Void)
 }
 
-final class PublicAPIManager: PublicAPIManagerProtocol {
+final class PublicAPI: PublicAPIManagerProtocol {
+    static let manager = PublicAPI()
+    
     private let session: URLSession
     let api = PublicAPIRequestComponents()
     
-    init(session: URLSession = .shared) {
+    private init(session: URLSession = .shared) {
         self.session = session
     }
     

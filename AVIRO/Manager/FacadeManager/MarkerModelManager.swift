@@ -75,7 +75,7 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
             time: updateTime
         )
         
-        AVIROAPIManager().loadNerbyPlaceModels(with: mapModel) { result in
+        AVIROAPI.manager.loadNerbyPlaceModels(with: mapModel) { result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {
@@ -133,7 +133,7 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
             time: nil
         )
         
-        AVIROAPIManager().loadNerbyPlaceModels(with: model) { result in
+        AVIROAPI.manager.loadNerbyPlaceModels(with: model) { result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {
@@ -193,7 +193,7 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
             time: updateTime
         )
         
-        AVIROAPIManager().loadNerbyPlaceModels(with: mapModel) { [weak self] result in
+        AVIROAPI.manager.loadNerbyPlaceModels(with: mapModel) { [weak self] result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {

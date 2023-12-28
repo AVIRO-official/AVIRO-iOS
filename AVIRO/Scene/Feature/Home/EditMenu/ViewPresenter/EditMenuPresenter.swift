@@ -906,7 +906,7 @@ final class EditMenuPresenter {
             isRequest: isRequest
         )
         
-        AVIROAPIManager().editMenu(with: editMenu) { [weak self] result in
+        AVIROAPI.manager.editMenu(with: editMenu) { [weak self] result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {

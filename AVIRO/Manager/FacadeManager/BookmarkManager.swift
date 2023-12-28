@@ -24,7 +24,7 @@ final class BookmarkFacadeManager: BookmarkFacadeProtocol {
     }
     
     func fetchAllData(completionHandler: @escaping ((String) -> Void)) {
-        AVIROAPIManager().loadBookmarkModels(with: MyData.my.id) { [weak self] result in
+        AVIROAPI.manager.loadBookmarkModels(with: MyData.my.id) { [weak self] result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {
@@ -81,7 +81,7 @@ final class BookmarkFacadeManager: BookmarkFacadeProtocol {
             userId: MyData.my.id
         )
         
-        AVIROAPIManager().createBookmarkModel(with: postModel) { result in
+        AVIROAPI.manager.createBookmarkModel(with: postModel) { result in
             switch result {
             case .success(let success):
                 if success.statusCode != 200 {
