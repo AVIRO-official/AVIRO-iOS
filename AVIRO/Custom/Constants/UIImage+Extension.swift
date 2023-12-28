@@ -131,4 +131,6 @@ extension UIImage {
     static let challengeInfoGreen = UIImage(named: "ChallengeInfoGreen")!
     static let challengeInfoYellow = UIImage(named: "ChallengeInfoYellow")!
     static let challengeInfoOrange = UIImage(named: "ChallengeInfoOrange")!
+    static let goldRectangle = UIImage(named: "GoldRectangle")!
+    static let goldTrophy = UIImage(named: "GoldTrophy")
 }

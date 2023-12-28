@@ -31,7 +31,7 @@ final class PlaceHomeView: UIView {
     var showMoreReviews: (() -> Void)?
     var showMoreReviewsAndWriteComment: (() -> Void)?
     var reportReview: ((AVIROReportReviewModel) -> Void)?
-    var editMyReview: ((String) -> Void)?
+    var whenBeforeEditMyReview: ((String, String) -> Void)?
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -174,8 +174,8 @@ final class PlaceHomeView: UIView {
             self?.reportReview?(reportCommentModel)
         }
         
-        placeReviewsView.whenBeforeEditMyReview = { [weak self] commentId in
-            self?.editMyReview?(commentId)
+        placeReviewsView.whenBeforeEditMyReview = { [weak self] (commentId, content) in
+            self?.whenBeforeEditMyReview?(commentId, content)
         }
     }
 }

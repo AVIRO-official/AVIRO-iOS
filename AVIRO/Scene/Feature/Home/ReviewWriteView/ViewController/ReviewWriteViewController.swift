@@ -104,12 +104,6 @@ final class ReviewWriteViewController: UIViewController {
         let vc = ReviewWriteViewController()
         vc.viewModel = viewModel
         
-        vc.placeInfoView.dataBinding(
-            icon: viewModel.placeIcon,
-            title: viewModel.placeTitle,
-            address: viewModel.placeAddress
-        )
-        
         return vc
     }
     
@@ -308,7 +302,11 @@ final class ReviewWriteViewController: UIViewController {
         
         let output = viewModel.transform(with: input)
         
-        output.isEditing
+        output.reviewWritePlaceModel
+            .drive(self.rx.updatePlaceInfo)
+            .disposed(by: disposeBag)
+        
+        output.isEditingTextView
             .drive(self.rx.isEditing)
             .disposed(by: disposeBag)
         
@@ -335,6 +333,14 @@ final class ReviewWriteViewController: UIViewController {
         output.error
             .drive(self.rx.isErrorShow)
             .disposed(by: disposeBag)
+    }
+    
+    func updatePlaceInfo(with model: ReviewWritePlaceModel) {
+        placeInfoView.dataBinding(
+            icon: model.placeIcon,
+            title: model.placeTitle,
+            address: model.placeAddress
+        )
     }
     
     func adjustViewForKeyboardWillShow() {
@@ -418,10 +424,6 @@ final class ReviewWriteViewController: UIViewController {
     func afterSuccessUploadReview(with model: AVIROEnrollReviewResultDTO) {
         homeViewDelegate?.showRecommendPlaceAlert(with: model)
         
-        if model.levelUp ?? false {
-            homeViewDelegate?.showLevelUpAlert(with: model.userLevel ?? 0)
-        }
-        
         popViewController()
     }
     
@@ -431,11 +433,20 @@ final class ReviewWriteViewController: UIViewController {
     }
     
     func afterErrorShow(with error: APIError) {
-        // TODO: Error Alert
+        showAlert(
+            title: "에러",
+            message: error.localizedDescription
+        )
     }
 }
 
 extension Reactive where Base: ReviewWriteViewController {
+    var updatePlaceInfo: Binder<ReviewWritePlaceModel> {
+        return Binder(self.base) { base, model in
+            base.updatePlaceInfo(with: model)
+        }
+    }
+    
     var isEditing: Binder<Bool> {
         return Binder(self.base) { base, isEditing in
             base.updateTextViewPlaceHolder(with: isEditing)

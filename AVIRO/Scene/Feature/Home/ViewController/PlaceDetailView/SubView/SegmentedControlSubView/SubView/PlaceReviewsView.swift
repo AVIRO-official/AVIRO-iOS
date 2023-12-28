@@ -100,7 +100,7 @@ final class PlaceReviewsView: UIView {
     var whenAfterEditMyReview: ((AVIROEditReviewDTO) -> Void)?
     
     var whenReportReview: ((AVIROReportReviewModel) -> Void)?
-    var whenBeforeEditMyReview: ((String) -> Void)?
+    var whenBeforeEditMyReview: ((_ commentID: String, _ content: String) -> Void)?
         
     var pushReviewWriteView: (() -> Void)?
     
@@ -403,16 +403,15 @@ final class PlaceReviewsView: UIView {
 //        reviewInputView.editMyReview(text)
     }
     
-    private func updateReviewArray(_ text: String) {
+    func updateReviewArray(with model: AVIROEnrollReviewDTO) {
         if isEditedAfter {
-           whenEditedAfterUpdateReviewArray(text)
+            whenEditedAfterUpdateReviewArray(with: model)
         } else {
-            whenUpdateReviewArray(text)
+            whenUpdateReviewArray(with: model)
         }
-        
     }
     
-    private func whenEditedAfterUpdateReviewArray(_ text: String) {
+    private func whenEditedAfterUpdateReviewArray(with model: AVIROEnrollReviewDTO) {
         isEditedAfter = false
         
         let nowDate = TimeUtility.nowDate()
@@ -421,17 +420,17 @@ final class PlaceReviewsView: UIView {
             return
         }
                 
-        var postModel = AVIROEnrollReviewDTO(
-            placeId: placeId,
-            userId: MyData.my.id,
-            content: text
-        )
-        postModel.commentId = editedReviewId
+//        var postModel = AVIROEnrollReviewDTO(
+//            placeId: placeId,
+//            userId: MyData.my.id,
+//            content: text
+//        )
+//        postModel.commentId = editedReviewId
         
         let reviewModel = AVIROReviewRawData(
-            commentId: postModel.commentId,
-            userId: postModel.userId,
-            content: text,
+            commentId: model.commentId,
+            userId: model.userId,
+            content: model.content,
             updatedTime: nowDate,
             nickname: MyData.my.nickname
         )
@@ -443,30 +442,26 @@ final class PlaceReviewsView: UIView {
         subTitle.text = "\(reviewsArray.count)개"
         editedReviewId = ""
         
+        
+        // TODO: 해당 api도 수정 예정
         let editModel = AVIROEditReviewDTO(
             commentId: reviewModel.commentId,
-            content: text,
+            content: reviewModel.content,
             userId: reviewModel.userId
         )
         
         self.whenAfterEditMyReview?(editModel)
     }
     
-    private func whenUpdateReviewArray(_ text: String) {
+    private func whenUpdateReviewArray(with model: AVIROEnrollReviewDTO) {
         isEditedAfter = false
         
         let nowDate = TimeUtility.nowDate()
-        
-        let postModel = AVIROEnrollReviewDTO(
-            placeId: placeId,
-            userId: MyData.my.id,
-            content: text
-        )
                 
         let reviewModel = AVIROReviewRawData(
-            commentId: postModel.commentId,
-            userId: postModel.userId,
-            content: postModel.content,
+            commentId: model.commentId,
+            userId: model.userId,
+            content: model.content,
             updatedTime: nowDate,
             nickname: MyData.my.nickname
         )
@@ -481,7 +476,7 @@ final class PlaceReviewsView: UIView {
         
         subTitle.text = "\(reviewsArray.count)개"
         
-        self.whenUploadReview?(postModel)
+        self.whenUploadReview?(model)
     }
     
     func deleteMyReview(_ commentId: String) {
@@ -559,7 +554,7 @@ extension PlaceReviewsView: UITableViewDataSource {
               
                 self?.whenReportReview?(reportModel)
             } else {
-                self?.whenBeforeEditMyReview?(commentId)
+                self?.whenBeforeEditMyReview?(commentId, content)
             }
         }
         

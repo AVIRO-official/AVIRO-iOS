@@ -175,7 +175,19 @@ final class HomeViewController: UIViewController, AVIROViewController {
     private lazy var levelUpAlertView = LevelUpAlertView()
     
     private(set) lazy var placeView = PlaceView()
+    
+    private lazy var blurEffectView: UIVisualEffectView = {
+        let view = UIVisualEffectView()
         
+        let blurEffect = UIBlurEffect(style: .dark)
+        
+        view.effect = blurEffect
+        view.frame = self.view.frame
+        view.alpha = 0.6
+        
+        return view
+    }()
+
     private(set) var placeViewTopConstraint: NSLayoutConstraint?
     private(set) var searchTextFieldTopConstraint: NSLayoutConstraint?
     
@@ -229,13 +241,14 @@ extension HomeViewController: HomeViewProtocol {
             placeView,
             flagButton,
             downBackButton,
+            blurEffectView,
             recommendPlaceAlertView,
             levelUpAlertView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
-
+        
         NSLayoutConstraint.activate([
             naverMapView.topAnchor.constraint(
                 equalTo: view.topAnchor
@@ -308,6 +321,11 @@ extension HomeViewController: HomeViewProtocol {
             downBackButton.widthAnchor.constraint(equalToConstant: Layout.Size.topButtonSize.rawValue),
             downBackButton.heightAnchor.constraint(equalToConstant: Layout.Size.topButtonSize.rawValue),
             
+            blurEffectView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            blurEffectView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            blurEffectView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            blurEffectView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            
             recommendPlaceAlertView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             recommendPlaceAlertView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             recommendPlaceAlertView.heightAnchor.constraint(equalToConstant: 185),
@@ -315,8 +333,8 @@ extension HomeViewController: HomeViewProtocol {
             
             levelUpAlertView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             levelUpAlertView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            levelUpAlertView.heightAnchor.constraint(equalToConstant: 260),
-            levelUpAlertView.widthAnchor.constraint(equalToConstant: 310)
+            levelUpAlertView.heightAnchor.constraint(equalToConstant: 340),
+            levelUpAlertView.widthAnchor.constraint(equalToConstant: 350)
         ])
                         
         searchTextFieldTopConstraint = searchTextField.topAnchor.constraint(
@@ -329,6 +347,10 @@ extension HomeViewController: HomeViewProtocol {
             equalTo: self.view.safeAreaLayoutGuide.bottomAnchor
         )
         placeViewTopConstraint?.isActive = true
+        
+        blurEffectView.isHidden = true
+        recommendPlaceAlertView.isHidden = true
+        levelUpAlertView.isHidden = true
     }
     
     func setupAttribute() {
@@ -490,6 +512,13 @@ extension HomeViewController: HomeViewProtocol {
     
     func updateMapPlace(_ mapPlace: MapPlace) {
         placeView.updateMapPlace(mapPlace)
+    }
+    
+    // MARK: 12. 28 추가
+    func updateReview(with model: AVIROEnrollReviewDTO) {
+        DispatchQueue.main.async { [weak self] in
+            self?.placeView.updateReview(with: model)
+        }
     }
     
     func deleteMyReview(_ commentId: String) {
@@ -820,12 +849,16 @@ extension HomeViewController: HomeViewProtocol {
         )
     }
     
-    private func showEditMyReviewAlert(_ commentId: String) {
+    private func showEditMyReviewAlert(
+        _ commentId: String,
+        _ content: String
+    ) {
         let editMyReviewAction: AlertAction = (
             title: Text.edit.rawValue,
             style: .default,
             handler: {
-                self.editMyReview(commentId)
+                self.presenter.pushReviewWriteViewWhenEditReview(commentId, content)
+//                self.editMyReview(commentId, content)
             }
         )
         
@@ -952,20 +985,20 @@ extension HomeViewController {
             self?.presenter.editMenu()
         }
         
-        placeView.whenUploadReview = { [weak self] postReviewModel in
-            self?.presenter.uploadReview(postReviewModel)
-        }
-        
+//        placeView.whenUploadReview = { [weak self] postReviewModel in
+//            self?.presenter.uploadReview(postReviewModel)
+//        }
+//        
         placeView.whenAfterEditReview = { [weak self] postReviewEditModel in
-            self?.presenter.editMyReview(postReviewEditModel)
+            self?.presenter.afterEditMyReview(postReviewEditModel)
         }
     
         placeView.reportReview = { [weak self] reportIdModel in
             self?.showReportReviewAlert(reportIdModel)
         }
         
-        placeView.editMyReview = { [weak self] commentId in
-            self?.showEditMyReviewAlert(commentId)
+        placeView.whenBeforeEditMyReview = { [weak self] (commentId, content) in
+            self?.showEditMyReviewAlert(commentId, content)
         }
         
         // TODO: 수정 예정
@@ -1083,22 +1116,47 @@ extension HomeViewController: NMFMapViewTouchDelegate {
 // MARK: AfterHomeViewControllerProtocol
 extension HomeViewController: AfterHomeViewControllerProtocol {
     func showRecommendPlaceAlert(with model: AVIROEnrollReviewResultDTO) {
-        // TODO: true 이면 팝업 끝나고 알람창 또 뜨게 설정
+        blurEffectView.isHidden = false
+        recommendPlaceAlertView.isHidden = false
 
-        recommendPlaceAlertView.afterTappedNoRecommendButton = { [weak self] in
+        // TODO: API 연결
+        recommendPlaceAlertView.afterTappedRecommendButton = { [weak self] in
+            self?.recommendPlaceAlertView.isHidden = true
+
             if model.levelUp ?? false {
                 self?.showLevelUpAlert(with: model.userLevel ?? 0)
+            } else {
+                self?.blurEffectView.isHidden = true
             }
+            
         }
         
         recommendPlaceAlertView.afterTappedNoRecommendButton = { [weak self] in
+            self?.recommendPlaceAlertView.isHidden = true
+
             if model.levelUp ?? false {
                 self?.showLevelUpAlert(with: model.userLevel ?? 0)
+            } else {
+                self?.blurEffectView.isHidden = true
             }
         }
     }
     
     func showLevelUpAlert(with level: Int) {
+        levelUpAlertView.setMainTitle(with: level)
+        blurEffectView.isHidden = false
+        levelUpAlertView.isHidden = false
         
+        levelUpAlertView.afterTappedCheckButtonTapped = { [weak self] in
+            self?.blurEffectView.isHidden = true
+            self?.levelUpAlertView.isHidden = true
+            
+            self?.tabBarDelegate?.selectedIndex = 2
+        }
+        
+        levelUpAlertView.afterTappedNoCheckButtonTapped = { [weak self] in
+            self?.blurEffectView.isHidden = true
+            self?.levelUpAlertView.isHidden = true
+        }
     }
 }

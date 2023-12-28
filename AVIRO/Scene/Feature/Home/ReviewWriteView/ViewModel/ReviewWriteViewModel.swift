@@ -7,26 +7,45 @@
 import RxSwift
 import RxCocoa
 
-final class ReviewWriteViewModel: ViewModel {    
+struct ReviewWritePlaceModel {
+    let placeIcon: UIImage
+    let placeTitle: String
+    let placeAddress: String
+}
+
+final class ReviewWriteViewModel: ViewModel {   
+    weak var afterReviewUpdate: AfterReviewUpdate?
+    
     private var amplitude: AmplitudeProtocol!
     
-    var placeId: String!
-    var placeIcon: UIImage!
-    var placeTitle: String!
-    var placeAddress: String!
+    private var placeId: String!
+    private var placeIcon: UIImage!
+    private var placeTitle: String!
+    private var placeAddress: String!
+    private var editReview: String = ""
+    private var editCommentId: String?
+    
+    private var isViewWillAppear = true
     
     init(
         placeId: String,
         placeIcon: UIImage,
         placeTitle: String,
         placeAddress: String,
-        amplitude: AmplitudeProtocol = AmplitudeUtility()
+        content: String = "",
+        editCommentId: String? = nil,
+        amplitude: AmplitudeProtocol = AmplitudeUtility(),
+        afterReviewUpdate: AfterReviewUpdate
     ) {
+        self.placeId = placeId
         self.placeIcon = placeIcon
         self.placeTitle = placeTitle
         self.placeAddress = placeAddress
+        self.editReview = content
+        self.editCommentId = editCommentId
         
         self.amplitude = amplitude
+        self.afterReviewUpdate = afterReviewUpdate
     }
     
     struct Input {
@@ -35,7 +54,8 @@ final class ReviewWriteViewModel: ViewModel {
     }
     
     struct Output {
-        let isEditing: Driver<Bool>
+        let reviewWritePlaceModel: Driver<ReviewWritePlaceModel>
+        let isEditingTextView: Driver<Bool>
         let textCount: Driver<Int>
         let review: Driver<String>
         let keyboardWillShow: Driver<Void>
@@ -45,24 +65,40 @@ final class ReviewWriteViewModel: ViewModel {
     }
     
     func transform(with input: Input) -> Output {
-        var content = ""
+        var content = self.editReview.isEmpty ? "" : self.editReview
+
         let uploadReviewError = PublishSubject<Error>()
         
         let isEditing = input.text.map {
             $0?.count ?? 0 > 0 ? true : false
         }
         
+        let placeModel = ReviewWritePlaceModel(
+            placeIcon: self.placeIcon,
+            placeTitle: self.placeTitle,
+            placeAddress: self.placeAddress
+        )
+        
+        let reviewWritePlaceModel = Observable<ReviewWritePlaceModel>.just(placeModel)
+            .asDriver(onErrorDriveWith: .empty())
+        
         let restrictedText = input.text
-            .map { text in
-                let text = text ?? ""
-                if text.count > 200 {
-                    let index = text.index(text.startIndex, offsetBy: 200)
-                    let restricted = String(text[..<index])
+            .map { [weak self] text in
+                var newText = text ?? ""
+                
+                if self?.isViewWillAppear ?? false {
+                    newText = self?.editReview.isEmpty ?? true ? (text ?? "") : self?.editReview ?? ""
+                    self?.isViewWillAppear.toggle()
+                }
+                
+                if newText.count > 200 {
+                    let index = newText.index(newText.startIndex, offsetBy: 200)
+                    let restricted = String(newText[..<index])
                     content = restricted
                     return restricted
                 } else {
-                    content = text
-                    return text
+                    content = newText
+                    return newText
                 }
             }
         
@@ -83,12 +119,23 @@ final class ReviewWriteViewModel: ViewModel {
                     return Driver<AVIROEnrollReviewResultDTO>.empty()
                 }
                 
-                let model = AVIROEnrollReviewDTO(
+                var model = AVIROEnrollReviewDTO(
                     placeId: self.placeId,
                     userId: MyData.my.id,
                     content: content
                 )
                 
+                // TODO: 수정 업데이트
+                if let editCommentId = editCommentId {
+                    model.commentId = editCommentId
+                    
+                    return self.editReview(with: model)
+                        .asDriver { error in
+                            uploadReviewError.onNext(error)
+                            return Driver.empty()
+                        }
+                }
+                                
                 return self.updateReview(with: model)
                     .asDriver { error in
                         uploadReviewError.onNext(error)
@@ -103,7 +150,8 @@ final class ReviewWriteViewModel: ViewModel {
             .asDriver(onErrorDriveWith: Driver.empty())
         
         return Output(
-            isEditing: isEditing,
+            reviewWritePlaceModel: reviewWritePlaceModel,
+            isEditingTextView: isEditing,
             textCount: textCount,
             review: restrictedText,
             keyboardWillShow: keyboardWillShow,
@@ -116,6 +164,7 @@ final class ReviewWriteViewModel: ViewModel {
     private func updateReview(with reviewModel: AVIROEnrollReviewDTO) -> Single<AVIROEnrollReviewResultDTO> {
         return Single.create { single in
             AVIROAPIManager().createReview(with: reviewModel) { [weak self] result in
+                
                 switch result {
                 case .success(let model):
                     if model.statusCode == 200 {
@@ -123,6 +172,7 @@ final class ReviewWriteViewModel: ViewModel {
                             with: self?.placeTitle ?? "",
                             review: reviewModel.content
                         )
+                        self?.afterReviewUpdate?.updateReview(with: reviewModel)
                         single(.success(model))
                     }
                 case .failure(let error):
@@ -133,4 +183,35 @@ final class ReviewWriteViewModel: ViewModel {
             return Disposables.create()
         }
     }
+    
+    private func editReview(with reviewModel: AVIROEnrollReviewDTO) -> Single<AVIROEnrollReviewResultDTO> {
+        let model = AVIROEditReviewDTO(
+            commentId: reviewModel.commentId,
+            content: reviewModel.content,
+            userId: reviewModel.userId
+        )
+        
+        return Single.create { single in
+            AVIROAPIManager().editReview(with: model) { result in
+                switch result {
+                case .success(let model):
+                    if model.statusCode == 200 {
+                        let resultModel = AVIROEnrollReviewResultDTO(
+                            statusCode: model.statusCode,
+                            message: model.message ?? "",
+                            levelUp: false,
+                            userLevel: 0
+                        )
+                        
+                        single(.success(resultModel))
+                    }
+                case .failure(let error):
+                    single(.failure(error))
+                }
+            }
+            
+            return Disposables.create()
+        }
+    }
 }
+

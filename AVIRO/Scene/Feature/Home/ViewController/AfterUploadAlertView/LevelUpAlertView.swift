@@ -12,9 +12,24 @@ final class LevelUpAlertView: UIView {
     var afterTappedNoCheckButtonTapped: (() -> Void)?
     
     private lazy var backgroundImageView: UIImageView = {
-        let imageView = UIImageView()
+        let view = UIImageView()
         
-        return imageView
+        let opacityKeyframe = CAKeyframeAnimation(keyPath: "opacity")
+        opacityKeyframe.values = [
+            0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1
+        ]
+        opacityKeyframe.keyTimes = [
+            0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1
+        ]
+        opacityKeyframe.duration = 1
+        opacityKeyframe.repeatCount = 1
+
+        view.layer.cornerRadius = 15
+        view.image = .goldRectangle
+        view.backgroundColor = .clear
+        view.layer.add(opacityKeyframe, forKey: "BackgroundImageAnimation")
+        
+        return view
     }()
     
     private lazy var contentView: UIView = {
@@ -28,6 +43,8 @@ final class LevelUpAlertView: UIView {
     
     private lazy var tropyImageView: UIImageView = {
         let imageView = UIImageView()
+        
+        imageView.image = .goldTrophy
         
         return imageView
     }()
@@ -98,7 +115,35 @@ final class LevelUpAlertView: UIView {
         }
         
         NSLayoutConstraint.activate([
-        
+            backgroundImageView.topAnchor.constraint(
+                equalTo: self.topAnchor
+            ),
+            backgroundImageView.leadingAnchor.constraint(
+                equalTo: self.leadingAnchor
+            ),
+            backgroundImageView.trailingAnchor.constraint(
+                equalTo: self.trailingAnchor
+            ),
+            backgroundImageView.bottomAnchor.constraint(
+                equalTo: self.bottomAnchor
+            ),
+            
+            contentView.topAnchor.constraint(
+                equalTo: backgroundImageView.topAnchor,
+                constant: 45
+            ),
+            contentView.leadingAnchor.constraint(
+                equalTo: backgroundImageView.leadingAnchor,
+                constant: 45
+            ),
+            contentView.trailingAnchor.constraint(
+                equalTo: backgroundImageView.trailingAnchor,
+                constant: -45
+            ),
+            contentView.bottomAnchor.constraint(
+                equalTo: backgroundImageView.bottomAnchor,
+                constant: -45
+            )
         ])
 
         [
@@ -112,11 +157,29 @@ final class LevelUpAlertView: UIView {
         }
         
         NSLayoutConstraint.activate([
-        
+            tropyImageView.heightAnchor.constraint(equalToConstant: 56),
+            tropyImageView.widthAnchor.constraint(equalToConstant: 56),
+            tropyImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            tropyImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            
+            mainTitle.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            mainTitle.topAnchor.constraint(equalTo: tropyImageView.bottomAnchor, constant: 10),
+            
+            checkButton.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: 15),
+            checkButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            checkButton.heightAnchor.constraint(equalToConstant: 45),
+            checkButton.widthAnchor.constraint(equalToConstant: 160),
+            
+            noCheckButton.topAnchor.constraint(equalTo: checkButton.bottomAnchor, constant: 10),
+            noCheckButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            noCheckButton.heightAnchor.constraint(equalToConstant: 25),
+            noCheckButton.widthAnchor.constraint(equalToConstant: 120)
         ])
     }
     
     private func setupAttribute() {
+        self.layer.cornerRadius = 15
+        self.backgroundColor = .clear
         
     }
     
@@ -125,10 +188,10 @@ final class LevelUpAlertView: UIView {
     }
     
     @objc private func tappedCheckButton(_ sender: UIButton) {
-        
+        afterTappedCheckButtonTapped?()
     }
     
     @objc private func tappedNoCheckButton(_ sender: UIButton) {
-        
+        afterTappedNoCheckButtonTapped?()
     }
 }

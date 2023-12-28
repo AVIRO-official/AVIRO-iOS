@@ -77,7 +77,7 @@ final class PlaceSegmentedControlView: UIView {
     var whenAfterEditReview: ((AVIROEditReviewDTO) -> Void)?
     var updateReviewsCount: ((Int) -> Void)?
     var reportReview: ((AVIROReportReviewModel) -> Void)?
-    var editMyReview: ((String) -> Void)?
+    var whenBeforeEditMyReview: ((String, String) -> Void)?
     
     var pushReviewWriteView: (() -> Void)?
     
@@ -308,11 +308,15 @@ final class PlaceSegmentedControlView: UIView {
         menuView.dataBinding(menuModel)
     }
     
+    func updateReview(with model: AVIROEnrollReviewDTO) {
+        reviewView.updateReviewArray(with: model)
+    }
+    
     func editMyReview(_ commentId: String) {
-        if segmentedControl.selectedSegmentIndex == 0 {
-            self.segmentedControl.selectedSegmentIndex = 2
-            self.activeReviewView()
-        }
+//        if segmentedControl.selectedSegmentIndex == 0 {
+//            self.segmentedControl.selectedSegmentIndex = 2
+//            self.activeReviewView()
+//        }
         reviewView.editMyReview(commentId)
     }
     
@@ -392,12 +396,12 @@ final class PlaceSegmentedControlView: UIView {
             self?.reportReview?(reportCommentModel)
         }
         
-        reviewView.whenBeforeEditMyReview = { [weak self] commentId in
-            self?.editMyReview?(commentId)
+        reviewView.whenBeforeEditMyReview = { [weak self] (commentId, content) in
+            self?.whenBeforeEditMyReview?(commentId, content)
         }
         
-        homeView.editMyReview = { [weak self] commentId in
-            self?.editMyReview?(commentId)
+        homeView.whenBeforeEditMyReview = { [weak self] (commentId, content) in
+            self?.whenBeforeEditMyReview?(commentId, content)
         }
         
         reviewView.pushReviewWriteView = { [weak self] in

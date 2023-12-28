@@ -40,6 +40,7 @@ protocol HomeViewProtocol: NSObject {
     
     func updateMenus(_ menuData: AVIROPlaceMenus?)
     func updateMapPlace(_ mapPlace: MapPlace)
+    func updateReview(with model: AVIROEnrollReviewDTO)
     func deleteMyReview(_ commentId: String)
     
     func pushPlaceInfoOpreationHoursViewController(_ models: [EditOperationHoursModel])
@@ -827,24 +828,24 @@ final class HomeViewPresenter: NSObject {
     }
     
     // TODO: 삭제 예정
-    func uploadReview(_ postReviewModel: AVIROEnrollReviewDTO) {
-        AVIROAPIManager().createReview(with: postReviewModel) { [weak self] result in
-            switch result {
-            case .success(let model):
-                if model.statusCode == 200 {
-                    self?.amplitude.uploadReview(
-                        with: self?.selectedSummaryModel?.title ?? "",
-                        review: postReviewModel.content
-                    )
-//                    self?.viewController?.showToastAlert(message)
-                }
-            case .failure(let error):
-                self?.viewController?.showErrorAlert(with: error.localizedDescription, title: nil)
-            }
-        }
-    }
-    
-    func editMyReview(_ postEditReviewModel: AVIROEditReviewDTO) {
+//    func uploadReview(_ postReviewModel: AVIROEnrollReviewDTO) {
+//        AVIROAPIManager().createReview(with: postReviewModel) { [weak self] result in
+//            switch result {
+//            case .success(let model):
+//                if model.statusCode == 200 {
+//                    self?.amplitude.uploadReview(
+//                        with: self?.selectedSummaryModel?.title ?? "",
+//                        review: postReviewModel.content
+//                    )
+////                    self?.viewController?.showToastAlert(message)
+//                }
+//            case .failure(let error):
+//                self?.viewController?.showErrorAlert(with: error.localizedDescription, title: nil)
+//            }
+//        }
+//    }
+//    
+    func afterEditMyReview(_ postEditReviewModel: AVIROEditReviewDTO) {
         
         AVIROAPIManager().editReview(with: postEditReviewModel) { [weak self] result in
             switch result {
@@ -921,7 +922,42 @@ final class HomeViewPresenter: NSObject {
             placeId: markerModel.placeId,
             placeIcon: image,
             placeTitle: summaryModel.title,
-            placeAddress: infoModel.address + " " + (infoModel.address2 ?? "")
+            placeAddress: infoModel.address + " " + (infoModel.address2 ?? ""),
+            afterReviewUpdate: self
+        )
+        
+        viewController?.pushReviewWriteView(with: viewModel)
+    }
+    
+    func pushReviewWriteViewWhenEditReview(
+        _ commentId: String,
+        _ content: String
+    ) {
+        whenKeepPlaceInfoView = true
+
+        guard let markerModel = selectedMarkerModel,
+              let summaryModel = selectedSummaryModel,
+              let infoModel = selectedInfoModel else { return }
+        
+        var image: UIImage!
+        
+        switch markerModel.mapPlace {
+        case .All:
+            image = .allCell
+        case .Some:
+            image = .someCell
+        case .Request:
+            image = .requestCell
+        }
+        
+        let viewModel = ReviewWriteViewModel(
+            placeId: markerModel.placeId,
+            placeIcon: image,
+            placeTitle: summaryModel.title,
+            placeAddress: infoModel.address + " " + (infoModel.address2 ?? ""),
+            content: content,
+            editCommentId: commentId,
+            afterReviewUpdate: self
         )
         
         viewController?.pushReviewWriteView(with: viewModel)
@@ -982,5 +1018,16 @@ extension HomeViewPresenter: CLLocationManagerDelegate {
         let mapCoor = NMGLatLng(lat: DefaultCoordinate.lat.rawValue, lng: DefaultCoordinate.lng.rawValue)
         
         viewController?.ifDeniedLocation(mapCoor)
+    }
+}
+
+// MARK: 12.28 추가
+protocol AfterReviewUpdate: AnyObject {
+    func updateReview(with model: AVIROEnrollReviewDTO)
+}
+
+extension HomeViewPresenter: AfterReviewUpdate {
+    func updateReview(with model: AVIROEnrollReviewDTO) {
+        viewController?.updateReview(with: model)
     }
 }

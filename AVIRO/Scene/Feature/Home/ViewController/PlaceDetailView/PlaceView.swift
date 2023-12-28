@@ -67,11 +67,11 @@ final class PlaceView: UIView {
     
     var editMenu: (() -> Void)?
     
-    var whenUploadReview: ((AVIROEnrollReviewDTO) -> Void)?
+//    var whenUploadReview: ((AVIROEnrollReviewDTO) -> Void)?
     var whenAfterEditReview: ((AVIROEditReviewDTO) -> Void)?
     
     var reportReview: ((AVIROReportReviewModel) -> Void)?
-    var editMyReview: ((String) -> Void)?
+    var whenBeforeEditMyReview: ((String, String) -> Void)?
     
     var pushReviewWriteView: (() -> Void)? 
     
@@ -130,6 +130,10 @@ final class PlaceView: UIView {
     func updateMapPlace(_ mapPlace: MapPlace) {
         summaryView.updateMapPlace(mapPlace)
     }
+    
+    func updateReview(with model: AVIROEnrollReviewDTO) {
+        segmentedControlView.updateReview(with: model)
+    }
   
     func deleteMyReview(_ commentId: String) {
         segmentedControlView.deleteMyReview(commentId)
@@ -148,6 +152,7 @@ final class PlaceView: UIView {
         isLoadingDetail = false
     }
     
+    // TODO: After Edit My Review 수정
     func editMyReview(_ commentId: String) {
         segmentedControlView.editMyReview(commentId)
     }
@@ -213,10 +218,10 @@ final class PlaceView: UIView {
             self?.editMenu?()
         }
         
-        // place review
-        segmentedControlView.whenUploadReview = { [weak self] postReviewModel in
-            self?.whenUploadReview?(postReviewModel)
-        }
+//        // place review
+//        segmentedControlView.whenUploadReview = { [weak self] postReviewModel in
+//            self?.whenUploadReview?(postReviewModel)
+//        }
         
         segmentedControlView.whenAfterEditReview = { [weak self] postEditReviewModel in
             self?.whenAfterEditReview?(postEditReviewModel)
@@ -230,8 +235,8 @@ final class PlaceView: UIView {
             self?.reportReview?(reportCommentModel)
         }
         
-        segmentedControlView.editMyReview = { [weak self] commentId in
-            self?.editMyReview?(commentId)
+        segmentedControlView.whenBeforeEditMyReview = { [weak self] (commentId, content) in
+            self?.whenBeforeEditMyReview?(commentId, content)
         }
         
         segmentedControlView.pushReviewWriteView = { [weak self] in
