@@ -421,7 +421,7 @@ final class ReviewWriteViewController: UIViewController {
         reviewTextView.activeHshakeEffect()
     }
     
-    func afterSuccessUploadReview(with model: AVIROEnrollReviewResultDTO) {
+    func afterSuccessUploadReview(with model: (AfterWriteReviewModel, Bool)) {
         homeViewDelegate?.showRecommendPlaceAlert(with: model)
         
         popViewController()
@@ -471,7 +471,7 @@ extension Reactive where Base: ReviewWriteViewController {
         }
     }
     
-    var uploadReview: Binder<AVIROEnrollReviewResultDTO> {
+    var uploadReview: Binder<(AfterWriteReviewModel, Bool)> {
         return Binder(self.base) { base, model in
             base.afterSuccessUploadReview(with: model)
         }

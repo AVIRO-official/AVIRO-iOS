@@ -8,6 +8,6 @@
 import UIKit
 
 protocol AfterHomeViewControllerProtocol: AnyObject {
-    func showRecommendPlaceAlert(with model: AVIROEnrollReviewResultDTO)
+    func showRecommendPlaceAlert(with model: (AfterWriteReviewModel, Bool))
     func showLevelUpAlert(with level: Int)
 }

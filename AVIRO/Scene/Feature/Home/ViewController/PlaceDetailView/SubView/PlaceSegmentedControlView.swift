@@ -312,12 +312,12 @@ final class PlaceSegmentedControlView: UIView {
         reviewView.updateReviewArray(with: model)
     }
     
-    func editMyReview(_ commentId: String) {
+    func editMyReview(with model: AVIROEnrollReviewDTO) {
 //        if segmentedControl.selectedSegmentIndex == 0 {
 //            self.segmentedControl.selectedSegmentIndex = 2
 //            self.activeReviewView()
 //        }
-        reviewView.editMyReview(commentId)
+        reviewView.editMyReview(with: model)
     }
     
     func deleteMyReview(_ commentId: String) {

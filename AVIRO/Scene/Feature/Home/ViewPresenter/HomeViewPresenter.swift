@@ -40,7 +40,6 @@ protocol HomeViewProtocol: NSObject {
     
     func updateMenus(_ menuData: AVIROPlaceMenus?)
     func updateMapPlace(_ mapPlace: MapPlace)
-    func updateReview(with model: AVIROEnrollReviewDTO)
     func deleteMyReview(_ commentId: String)
     
     func pushPlaceInfoOpreationHoursViewController(_ models: [EditOperationHoursModel])
@@ -845,19 +844,19 @@ final class HomeViewPresenter: NSObject {
 //        }
 //    }
 //    
-    func afterEditMyReview(_ postEditReviewModel: AVIROEditReviewDTO) {
-        
-        AVIROAPIManager().editReview(with: postEditReviewModel) { [weak self] result in
-            switch result {
-            case .success(let model):
-                if let message = model.message {
-                    self?.viewController?.showToastAlert(message)
-                }
-            case .failure(let error):
-                self?.viewController?.showErrorAlert(with: error.localizedDescription, title: nil)
-            }
-        }
-    }
+//    func afterEditMyReview(_ postEditReviewModel: AVIROEditReviewDTO) {
+//        
+//        AVIROAPIManager().editReview(with: postEditReviewModel) { [weak self] result in
+//            switch result {
+//            case .success(let model):
+//                if let message = model.message {
+//                    self?.viewController?.showToastAlert(message)
+//                }
+//            case .failure(let error):
+//                self?.viewController?.showErrorAlert(with: error.localizedDescription, title: nil)
+//            }
+//        }
+//    }
     
     func deleteMyReview(_ postDeleteReviewModel: AVIRODeleteReveiwDTO) {
         AVIROAPIManager().deleteReview(with: postDeleteReviewModel) { [weak self] result in
@@ -922,8 +921,7 @@ final class HomeViewPresenter: NSObject {
             placeId: markerModel.placeId,
             placeIcon: image,
             placeTitle: summaryModel.title,
-            placeAddress: infoModel.address + " " + (infoModel.address2 ?? ""),
-            afterReviewUpdate: self
+            placeAddress: infoModel.address + " " + (infoModel.address2 ?? "")
         )
         
         viewController?.pushReviewWriteView(with: viewModel)
@@ -956,8 +954,7 @@ final class HomeViewPresenter: NSObject {
             placeTitle: summaryModel.title,
             placeAddress: infoModel.address + " " + (infoModel.address2 ?? ""),
             content: content,
-            editCommentId: commentId,
-            afterReviewUpdate: self
+            editCommentId: commentId
         )
         
         viewController?.pushReviewWriteView(with: viewModel)
@@ -1018,16 +1015,5 @@ extension HomeViewPresenter: CLLocationManagerDelegate {
         let mapCoor = NMGLatLng(lat: DefaultCoordinate.lat.rawValue, lng: DefaultCoordinate.lng.rawValue)
         
         viewController?.ifDeniedLocation(mapCoor)
-    }
-}
-
-// MARK: 12.28 추가
-protocol AfterReviewUpdate: AnyObject {
-    func updateReview(with model: AVIROEnrollReviewDTO)
-}
-
-extension HomeViewPresenter: AfterReviewUpdate {
-    func updateReview(with model: AVIROEnrollReviewDTO) {
-        viewController?.updateReview(with: model)
     }
 }

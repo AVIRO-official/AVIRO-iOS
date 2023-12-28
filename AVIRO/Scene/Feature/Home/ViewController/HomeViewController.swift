@@ -514,13 +514,6 @@ extension HomeViewController: HomeViewProtocol {
         placeView.updateMapPlace(mapPlace)
     }
     
-    // MARK: 12. 28 추가
-    func updateReview(with model: AVIROEnrollReviewDTO) {
-        DispatchQueue.main.async { [weak self] in
-            self?.placeView.updateReview(with: model)
-        }
-    }
-    
     func deleteMyReview(_ commentId: String) {
         DispatchQueue.main.async { [weak self] in
             self?.placeView.deleteMyReview(commentId)
@@ -532,9 +525,9 @@ extension HomeViewController: HomeViewProtocol {
         showWebView(with: url)
     }
     
-    private func editMyReview(_ commentId: String) {
-        placeView.editMyReview(commentId)
-    }
+//    private func editMyReview(_ commentId: String) {
+//        placeView.editMyReview(commentId)
+//    }
     
     @objc private func downBackButtonTapped(_ sender: UIButton) {
         placeViewPopUpAfterInitPlacePopViewHeight()
@@ -989,8 +982,9 @@ extension HomeViewController {
 //            self?.presenter.uploadReview(postReviewModel)
 //        }
 //        
-        placeView.whenAfterEditReview = { [weak self] postReviewEditModel in
-            self?.presenter.afterEditMyReview(postReviewEditModel)
+        placeView.whenAfterEditReview = { [weak self] _ in
+            self?.showToastAlert("수정했습니다.")
+//       self?.presenter.afterEditMyReview(postReviewEditModel)
         }
     
         placeView.reportReview = { [weak self] reportIdModel in
@@ -1115,7 +1109,14 @@ extension HomeViewController: NMFMapViewTouchDelegate {
 
 // MARK: AfterHomeViewControllerProtocol
 extension HomeViewController: AfterHomeViewControllerProtocol {
-    func showRecommendPlaceAlert(with model: AVIROEnrollReviewResultDTO) {
+    func showRecommendPlaceAlert(with model: (AfterWriteReviewModel, Bool)) {
+        model.1 ? afterEditReview(with: model.0) : afterUploadReview(with: model.0)
+    }
+    
+    private func afterUploadReview(with model: AfterWriteReviewModel) {
+        // MARK: Update Review 추가
+        updateReview(with: model)
+
         blurEffectView.isHidden = false
         recommendPlaceAlertView.isHidden = false
 
@@ -1123,8 +1124,8 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
         recommendPlaceAlertView.afterTappedRecommendButton = { [weak self] in
             self?.recommendPlaceAlertView.isHidden = true
 
-            if model.levelUp ?? false {
-                self?.showLevelUpAlert(with: model.userLevel ?? 0)
+            if model.levelUp {
+                self?.showLevelUpAlert(with: model.userLevel)
             } else {
                 self?.blurEffectView.isHidden = true
             }
@@ -1134,12 +1135,35 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
         recommendPlaceAlertView.afterTappedNoRecommendButton = { [weak self] in
             self?.recommendPlaceAlertView.isHidden = true
 
-            if model.levelUp ?? false {
-                self?.showLevelUpAlert(with: model.userLevel ?? 0)
+            if model.levelUp {
+                self?.showLevelUpAlert(with: model.userLevel)
             } else {
                 self?.blurEffectView.isHidden = true
             }
         }
+        
+    }
+    
+    private func updateReview(with model: AfterWriteReviewModel) {
+        let resultModel = AVIROEnrollReviewDTO(
+            commentId: model.contentId,
+            placeId: model.placeId,
+            userId: model.userId,
+            content: model.content
+        )
+        
+        placeView.updateReview(with: resultModel)
+    }
+    
+    private func afterEditReview(with model: AfterWriteReviewModel) {
+        let resultModel = AVIROEnrollReviewDTO(
+            commentId: model.contentId,
+            placeId: model.placeId,
+            userId: model.userId,
+            content: model.content
+        )
+        
+        placeView.editMyReview(with: resultModel)
     }
     
     func showLevelUpAlert(with level: Int) {

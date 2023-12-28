@@ -106,7 +106,7 @@ final class PlaceReviewsView: UIView {
     
     private var placeId = ""
     private var isEditedAfter = false
-    private var editedReviewId = ""
+//    private var editedReviewId = ""
     private var whenHomeViewReviewsCount = 0
     
     override init(frame: CGRect) {
@@ -389,16 +389,17 @@ final class PlaceReviewsView: UIView {
 //    }
     
     // MARK: Edit My Review
-    func editMyReview(_ commentId: String) {
-        var text = ""
-        reviewsArray.forEach {
-            if $0.commentId == commentId {
-                text = $0.content
-            }
-        }
+    func editMyReview(with model: AVIROEnrollReviewDTO) {
+//        var text = ""
+//        reviewsArray.forEach {
+//            if $0.commentId == commentId {
+//                text = $0.content
+//            }
+//        }
         
         isEditedAfter = true
-        editedReviewId = commentId
+        updateReviewArray(with: model)
+//        editedReviewId = commentId
         
 //        reviewInputView.editMyReview(text)
     }
@@ -416,7 +417,7 @@ final class PlaceReviewsView: UIView {
         
         let nowDate = TimeUtility.nowDate()
 
-        guard let index = reviewsArray.firstIndex(where: {$0.commentId == editedReviewId}) else {
+        guard let index = reviewsArray.firstIndex(where: {$0.commentId == model.commentId}) else {
             return
         }
                 
@@ -440,7 +441,7 @@ final class PlaceReviewsView: UIView {
         reviewsTable.reloadData()
         
         subTitle.text = "\(reviewsArray.count)개"
-        editedReviewId = ""
+//        editedReviewId = ""
         
         
         // TODO: 해당 api도 수정 예정

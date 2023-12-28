@@ -13,9 +13,16 @@ struct ReviewWritePlaceModel {
     let placeAddress: String
 }
 
-final class ReviewWriteViewModel: ViewModel {   
-    weak var afterReviewUpdate: AfterReviewUpdate?
-    
+struct AfterWriteReviewModel {
+    let placeId: String
+    let contentId: String
+    let content: String
+    let userId: String
+    let levelUp: Bool
+    let userLevel: Int
+}
+
+final class ReviewWriteViewModel: ViewModel {
     private var amplitude: AmplitudeProtocol!
     
     private var placeId: String!
@@ -34,8 +41,7 @@ final class ReviewWriteViewModel: ViewModel {
         placeAddress: String,
         content: String = "",
         editCommentId: String? = nil,
-        amplitude: AmplitudeProtocol = AmplitudeUtility(),
-        afterReviewUpdate: AfterReviewUpdate
+        amplitude: AmplitudeProtocol = AmplitudeUtility()
     ) {
         self.placeId = placeId
         self.placeIcon = placeIcon
@@ -45,7 +51,6 @@ final class ReviewWriteViewModel: ViewModel {
         self.editCommentId = editCommentId
         
         self.amplitude = amplitude
-        self.afterReviewUpdate = afterReviewUpdate
     }
     
     struct Input {
@@ -60,7 +65,7 @@ final class ReviewWriteViewModel: ViewModel {
         let review: Driver<String>
         let keyboardWillShow: Driver<Void>
         let keyboardWillHide: Driver<Void>
-        let uploadReview: Driver<AVIROEnrollReviewResultDTO>
+        let uploadReview: Driver<(AfterWriteReviewModel, Bool)>
         let error: Driver<APIError>
     }
     
@@ -116,7 +121,7 @@ final class ReviewWriteViewModel: ViewModel {
         let uploadReview = input.uploadReview
             .flatMapLatest { [weak self] in
                 guard let self = self else {
-                    return Driver<AVIROEnrollReviewResultDTO>.empty()
+                    return Driver<(AfterWriteReviewModel, Bool)>.empty()
                 }
                 
                 var model = AVIROEnrollReviewDTO(
@@ -161,7 +166,7 @@ final class ReviewWriteViewModel: ViewModel {
         )
     }
     
-    private func updateReview(with reviewModel: AVIROEnrollReviewDTO) -> Single<AVIROEnrollReviewResultDTO> {
+    private func updateReview(with reviewModel: AVIROEnrollReviewDTO) -> Single<(AfterWriteReviewModel, Bool)> {
         return Single.create { single in
             AVIROAPIManager().createReview(with: reviewModel) { [weak self] result in
                 
@@ -172,8 +177,17 @@ final class ReviewWriteViewModel: ViewModel {
                             with: self?.placeTitle ?? "",
                             review: reviewModel.content
                         )
-                        self?.afterReviewUpdate?.updateReview(with: reviewModel)
-                        single(.success(model))
+                        
+                        let resultModel = AfterWriteReviewModel(
+                            placeId: self?.placeId ?? "",
+                            contentId: reviewModel.commentId,
+                            content: reviewModel.content,
+                            userId: reviewModel.userId,
+                            levelUp: model.levelUp ?? false,
+                            userLevel: model.userLevel ?? 0
+                        )
+                        
+                        single(.success((resultModel, false)))
                     }
                 case .failure(let error):
                     single(.failure(error))
@@ -184,7 +198,7 @@ final class ReviewWriteViewModel: ViewModel {
         }
     }
     
-    private func editReview(with reviewModel: AVIROEnrollReviewDTO) -> Single<AVIROEnrollReviewResultDTO> {
+    private func editReview(with reviewModel: AVIROEnrollReviewDTO) -> Single<(AfterWriteReviewModel, Bool)> {
         let model = AVIROEditReviewDTO(
             commentId: reviewModel.commentId,
             content: reviewModel.content,
@@ -192,18 +206,20 @@ final class ReviewWriteViewModel: ViewModel {
         )
         
         return Single.create { single in
-            AVIROAPIManager().editReview(with: model) { result in
+            AVIROAPIManager().editReview(with: model) { [weak self] result in
                 switch result {
                 case .success(let model):
                     if model.statusCode == 200 {
-                        let resultModel = AVIROEnrollReviewResultDTO(
-                            statusCode: model.statusCode,
-                            message: model.message ?? "",
+                        let resultModel = AfterWriteReviewModel(
+                            placeId: self?.placeId ?? "",
+                            contentId: reviewModel.commentId,
+                            content: reviewModel.content,
+                            userId: reviewModel.userId,
                             levelUp: false,
                             userLevel: 0
                         )
                         
-                        single(.success(resultModel))
+                        single(.success((resultModel, true)))
                     }
                 case .failure(let error):
                     single(.failure(error))
@@ -214,4 +230,3 @@ final class ReviewWriteViewModel: ViewModel {
         }
     }
 }
-

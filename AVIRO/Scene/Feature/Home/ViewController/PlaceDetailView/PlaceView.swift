@@ -153,8 +153,8 @@ final class PlaceView: UIView {
     }
     
     // TODO: After Edit My Review 수정
-    func editMyReview(_ commentId: String) {
-        segmentedControlView.editMyReview(commentId)
+    func editMyReview(with model: AVIROEnrollReviewDTO) {
+        segmentedControlView.editMyReview(with: model)
     }
     
     private func whenViewPopUp() {
