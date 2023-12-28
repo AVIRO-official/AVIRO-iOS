@@ -43,7 +43,7 @@ protocol AVIROAPIMangerProtocol: APIManagerProtocol {
     )
     func createReview(
         with reviewModel: AVIROEnrollReviewDTO,
-        completionHandler: @escaping(Result<AVIROResultDTO, APIError>) -> Void
+        completionHandler: @escaping(Result<AVIROEnrollReviewResultDTO, APIError>) -> Void
     )
     
     // MARK: Load Refer

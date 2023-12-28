@@ -34,13 +34,12 @@ final class AppController {
         window.backgroundColor = .gray7
         window.makeKeyAndVisible()
         
-//        checkState()
-        setHomeView()
+        checkState()
+//        setTabBarView()
     }
     
     // MARK: 불러올 view 확인 메서드
     private func checkState() {
-//        self.setHomeView()
         // 최초 튜토리얼 화면 안 봤을 때
         guard UserDefaults.standard.bool(forKey: UDKey.tutorial.rawValue) else {
             setTutorialView()
@@ -67,7 +66,7 @@ final class AppController {
                             userNickname: data.nickname,
                             marketingAgree: data.marketingAgree
                         )
-                        self?.setHomeView()
+                        self?.setTabBarView()
                     }
                 } else {
                     self?.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
@@ -98,13 +97,26 @@ final class AppController {
         }
     }
     
-    // MARK: home View
-    private func setHomeView() {
+    // MARK: TabBar View
+    private func setTabBarView() {
         DispatchQueue.main.async { [weak self] in
-            let homeVC = TabBarViewController()
-
-            self?.rootViewController = homeVC
+            let tabBarVC = AVIROTabBarController()
+            tabBarVC.setViewControllers(with: [
+                TabBarType.home,
+                TabBarType.plus,
+                TabBarType.challenge
+            ])
+            
+            tabBarVC.selectedIndex = 0
+            
+            self?.rootViewController = tabBarVC
+            
         }
+//        DispatchQueue.main.async { [weak self] in
+//            let homeVC = TabBarViewController()
+//
+//            self?.rootViewController = homeVC
+//        }
     }
     
 }

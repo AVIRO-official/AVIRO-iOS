@@ -9,30 +9,38 @@ import Foundation
 
 struct AVIRORequestAPI {
     static let scheme = "https"
-    
+        
     var host: String? = {
         guard let path = Bundle.main.url(forResource: "API", withExtension: "plist"),
               let dict = NSDictionary(contentsOf: path) as? [String: Any],
-              let host = dict["AVIROHost"] as? String else {
+              let host = dict["AVIRO_Host"] as? String else {
             return nil
         }
         return host
     }()
+
     
+    let headers = [
+        "Content-Type": "application/json",
+        "X-API-KEY": "\(AVIROConfiguration.apikey)"
+    ]
+
     // MARK: Path
-    static let getNerbyStorePath = "/prod/map"
-    static let getBookmarkPath = "/prod/map/load/bookmark"
+    static let getNerbyStorePath = "/1/map"
+    static let getBookmarkPath = "/1/map/load/bookmark"
     
-    static let checkPlacePath = "/prod/map/check/place"
-    static let checkPlaceReport = "/prod/map/check/place/report"
+    static let checkPlacePath = "/1/map/check/place"
+    static let checkPlaceReport = "/1/map/check/place/report"
     
-    static let placeSummaryPath = "/prod/map/load/summary"
-    static let placeInfoPath = "/prod/map/load/place"
-    static let menuInfoPath = "/prod/map/load/menu"
-    static let commentPath = "/prod/map/load/comment"
-    static let operationHourPath = "/prod/map/load/timetable"
+    static let placeSummaryPath = "/1/map/load/summary"
+    static let placeInfoPath = "/1/map/load/place"
+    static let menuInfoPath = "/1/map/load/menu"
+    static let commentPath = "/1/map/load/comment"
+    static let operationHourPath = "/1/map/load/timetable"
         
-    static let myContributionCount = "/prod/mypage/count"
+    static let myContributionCount = "/1/mypage/count"
+    static let challengeInfo = "/1/mypage/challenge"
+    static let myChallengeLevel = "/1/mypage/challenge/level"
     
     // MARK: Key
     static let userId = "userId"
@@ -225,12 +233,27 @@ struct AVIRORequestAPI {
             queryItems: queryItems
         )
     }
+    
+    mutating func getChallengeInfo() -> URLComponents {
+        return createURLComponents(path: AVIRORequestAPI.challengeInfo)
+    }
+    
+    mutating func getMyChallengeLevel(userId: String) -> URLComponents {
+        let queryItems = [
+            URLQueryItem(name: AVIRORequestAPI.userId, value: userId)
+        ]
+        
+        return createURLComponents(
+            path: AVIRORequestAPI.myChallengeLevel,
+            queryItems: queryItems
+        )
+    }
 }
 
 extension AVIRORequestAPI {
     mutating func createURLComponents(
         path: String,
-        queryItems: [URLQueryItem]
+        queryItems: [URLQueryItem]? = nil
     ) -> URLComponents {
         var components = URLComponents()
         

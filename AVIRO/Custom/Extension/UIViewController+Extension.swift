@@ -153,7 +153,7 @@ extension UIViewController {
             )
         }
     }
-        
+            
     // MARK: Back Button
     func setupBack(_ animatied: Bool = false) {
         let backButton = UIButton()
@@ -176,7 +176,6 @@ extension UIViewController {
         
         backButton.tag = animatied ? 1 : 0
         
-        print(backButton.tag)
         let barButtonItem = UIBarButtonItem(customView: backButton)
         
         self.navigationItem.leftBarButtonItem = barButtonItem
@@ -184,7 +183,6 @@ extension UIViewController {
     
     @objc private func customBackButtonTapped(_ sender: UIButton) {
         let animated = sender.tag == 1
-        print(animated)
         
         navigationController?.popViewController(animated: animated)
     }
@@ -221,6 +219,22 @@ extension UIViewController {
         ]
         
         applyGradientToView(colors: colors)
+    }
+    
+    // MARK: View Add, Remove
+    func add(child: UIViewController, container: UIView) {
+        addChild(child)
+        child.view.frame = container.bounds
+        container.addSubview(child.view)
+        child.didMove(toParent: self)
+    }
+    
+    func remove() {
+        guard parent != nil else { return }
+        
+        willMove(toParent: nil)
+        removeFromParent()
+        view.removeFromSuperview()
     }
 }
 

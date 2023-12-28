@@ -58,60 +58,6 @@ enum DefaultCoordinate: Double {
     case lng = 129.118924
 }
 
-// MARK: TabBar
-/// TabBarItem Enum
-enum TBItem: CaseIterable {
-    case home
-    case plus
-    case challenge
-    
-    var title: String {
-        switch self {
-        case .home: return "홈"
-        case .plus: return "등록하기"
-        case .challenge: return "챌린지"
-        }
-    }
-    
-    var icon: (
-        default: UIImage?,
-        selected: UIImage?
-    ) {
-        switch self {
-        case .home: return (
-            UIImage.home1,
-            UIImage.home2
-        )
-            
-        case .plus: return (
-            UIImage.edit1,
-            UIImage.edit2
-        )
-            
-        case .challenge: return (
-            UIImage.tropy1,
-            UIImage.tropy2
-        )
-        }
-    }
-    
-    var vc: UIViewController {
-        switch self {
-        case .home: return UINavigationController(
-            rootViewController: HomeViewController()
-        )
-        case .plus: return UINavigationController(
-            rootViewController: EnrollPlaceViewController()
-        )
-        case .challenge:
-            let viewModel = ChallengeViewModel()
-            let vc = ChallengeViewController.create(with: viewModel)
-            
-            return UINavigationController(rootViewController: vc)
-        }
-    }
-}
-
 // MARK: Gender 
 enum Gender: String, Codable {
     case male
