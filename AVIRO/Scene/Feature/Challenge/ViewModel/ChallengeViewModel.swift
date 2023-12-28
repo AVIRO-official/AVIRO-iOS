@@ -93,7 +93,7 @@ final class ChallengeViewModel: ViewModel {
     
     private func loadMyContributedCountAPI(userId: String) -> Single<AVIROMyContributionCountDTO> {
         return Single.create { single in
-            AVIROAPIManager().loadMyContributedCount(with: userId) { result in
+            AVIROAPI.manager.loadMyContributedCount(with: userId) { result in
                 switch result {
                 case .success(let data):
                     single(.success(data))
@@ -107,7 +107,7 @@ final class ChallengeViewModel: ViewModel {
 
     private func loadChallengeInfoAPI() -> Single<AVIROChallengeInfoDTO> {
         return Single.create { single in
-            AVIROAPIManager().loadChallengeInfo { result in
+            AVIROAPI.manager.loadChallengeInfo { result in
                 switch result {
                 case .success(let data):
                     single(.success(data))
@@ -121,7 +121,7 @@ final class ChallengeViewModel: ViewModel {
     
     private func loadMyChallengeLevelAPI(userId: String) -> Single<AVIROMyChallengeLevelResultDTO> {
         return Single.create { single in
-            AVIROAPIManager().loadMyChallengeLevel(with: userId) { result in
+            AVIROAPI.manager.loadMyChallengeLevel(with: userId) { result in
                 switch result {
                 case .success(let data):
                     single(.success(data))

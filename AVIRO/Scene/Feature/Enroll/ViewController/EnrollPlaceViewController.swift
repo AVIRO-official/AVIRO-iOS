@@ -13,6 +13,7 @@ private enum Text: String {
 
 final class EnrollPlaceViewController: UIViewController, AVIROViewController {
     weak var tabBarDelegate: TabBarDelegate?
+    weak var homeViewDelegate: AfterHomeViewControllerProtocol?
     
     lazy var presenter = EnrollPlacePresenter(viewController: self)
     
@@ -241,10 +242,15 @@ extension EnrollPlaceViewController: EnrollPlaceProtocol {
     }
     
     // MARK: Pop View Controller
-    func popViewController() {
+    func popViewController(level: Int, isLevelUp: Bool) {
         DispatchQueue.main.async { [weak self] in
+            if isLevelUp {
+                self?.homeViewDelegate?.showLevelUpAlert(with: level)
+            }
+            
             self?.initData()
-            self?.tabBarController?.selectedIndex = 0
+            self?.tabBarDelegate?.selectedIndex = 0
+            self?.tabBarDelegate?.isHidden = (false, false)
         }
     }
     

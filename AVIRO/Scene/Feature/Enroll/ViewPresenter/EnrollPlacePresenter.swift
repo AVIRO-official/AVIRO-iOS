@@ -20,7 +20,7 @@ protocol EnrollPlaceProtocol: NSObject {
     func keyboardWillShow(height: CGFloat, isFirst: Bool)
     func keyboardWillHide()
     func enableRightButton(_ bool: Bool)
-    func popViewController()
+    func popViewController(level: Int, isLevelUp: Bool)
     func pushAlertController()
     func showErrorAlert(with error: String, title: String?)
 }
@@ -122,23 +122,23 @@ final class EnrollPlacePresenter {
             return
         }
         
-        AVIROAPIManager().createPlaceModel(with: veganModel) { [weak self] result in
+        AVIROAPI.manager.createPlaceModel(with: veganModel) { [weak self] result in
             switch result {
-            case .success(let success):
-                if success.statusCode == 200 {
+            case .success(let resultModel):
+                if resultModel.statusCode == 200 {
                     self?.amplitude.uploadPlace(with: veganModel.title)
                     
                     CenterCoordinate.shared.longitude = veganModel.x
                     CenterCoordinate.shared.latitude = veganModel.y
                     CenterCoordinate.shared.isChangedFromEnrollView = true
-
-                    self?.viewController?.popViewController()
-                } else if success.statusCode == 400 {
-                    self?.viewController?.pushAlertController()
+                    
+                    self?.viewController?.popViewController(
+                        level: resultModel.userLevel ?? 0,
+                        isLevelUp: resultModel.levelUp ?? false
+                    )
+                    
                 } else {
-                    if let message = success.message {
-                        self?.viewController?.showErrorAlert(with: message, title: nil)
-                    }
+                    self?.viewController?.pushAlertController()
                 }
             case .failure(let error):
                 if let error = error.errorDescription {

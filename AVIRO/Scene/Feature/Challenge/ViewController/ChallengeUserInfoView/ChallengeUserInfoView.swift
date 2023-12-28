@@ -24,7 +24,7 @@ final class ChallengeUserInfoView: UIView {
         imageView.layer.cornerRadius = 150/2
         imageView.backgroundColor = .gray7
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.borderWidth = 10
+        imageView.layer.borderWidth = 5
         imageView.layer.borderColor = UIColor.challengeImageBorder.cgColor
         
         return imageView
@@ -87,7 +87,12 @@ final class ChallengeUserInfoView: UIView {
         
         nameLabel.text = "\(MyData.my.nickname)님의 나무"
         
-        levelView.updateLankLabel(with: "참여중인 \(total)명 중 \(rank)등이에요!")
+        if level == 1 && point == 0 {
+            levelView.updateLankLabel(with: "포인트를 모아 나무를 성장시켜보세요!")
+        } else {
+            levelView.updateLankLabel(with: "참여중인 \(total)명 중 \(rank)등이에요!")
+        }
+        
         levelView.updateLevelLabel(with: "레벨 \(level) 달성했어요!")
         levelView.updateLevelPoint(with: LevelPoint("\(point)", "\(pointForNext)"))
         

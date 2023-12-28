@@ -12,3 +12,10 @@ struct AVIROResultDTO: Decodable {
     let statusCode: Int
     let message: String?
 }
+
+struct AVIROChallengeResultDTO: Decodable {
+    let statusCode: Int
+    let message: String
+    let levelUp: Bool?
+    let userLevel: Int?
+}

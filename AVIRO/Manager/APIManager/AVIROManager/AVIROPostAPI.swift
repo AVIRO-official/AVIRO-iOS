@@ -32,6 +32,7 @@ struct AVIROPostAPI {
         "Content-Type": "application/json",
         "X-API-KEY": "\(AVIROConfiguration.apikey)"
     ]
+    
     static let placeEnrollPath = "/1/map/add/place"
     static let placeListMatchedAVIROPath = "/1/map/check/place"
     static let placeListReportPath = "/1/map/report/place"

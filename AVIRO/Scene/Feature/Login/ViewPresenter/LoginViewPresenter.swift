@@ -77,7 +77,7 @@ final class LoginViewPresenter: NSObject {
             authorizationCode: model.authorizationCode
         )
                 
-        AVIROAPIManager().checkWhenAppleLogin(with: checkAppleLoginModel) { [weak self] result in
+        AVIROAPI.manager.checkWhenAppleLogin(with: checkAppleLoginModel) { [weak self] result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {
@@ -127,7 +127,7 @@ final class LoginViewPresenter: NSObject {
         
         let model = AVIROAutoLoginWhenAppleUserDTO(refreshToken: refreshToken)
         
-        AVIROAPIManager().appleUserCheck(with: model) { [weak self] result in
+        AVIROAPI.manager.appleUserCheck(with: model) { [weak self] result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {

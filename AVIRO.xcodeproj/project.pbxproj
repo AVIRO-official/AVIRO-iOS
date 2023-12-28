@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -112,7 +112,7 @@
 		C5476B762B314D4900F5FC6E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C5476B752B314D4900F5FC6E /* Settings.bundle */; };
 		C5476B792B314F6F00F5FC6E /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B782B314F6F00F5FC6E /* LicensesViewController.swift */; };
 		C5476B7B2B31516000F5FC6E /* LicenseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B7A2B31516000F5FC6E /* LicenseDetailViewController.swift */; };
-		C547A8BA2A17D8D4004D1339 /* KakaoAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C547A8B92A17D8D4004D1339 /* KakaoAPIManager.swift */; };
+		C547A8BA2A17D8D4004D1339 /* KakaoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C547A8B92A17D8D4004D1339 /* KakaoAPI.swift */; };
 		C54BC0DB2A2C2D0D00B65439 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */; };
 		C552D5342ABE8CA500933D8A /* AVIRODeleteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */; };
 		C5538AAF2A1BB81200661DE2 /* AVIROEnrollPlace+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5538AAE2A1BB81200661DE2 /* AVIROEnrollPlace+DTO.swift */; };
@@ -128,7 +128,7 @@
 		C56857802A7113C600F52715 /* NormalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568577F2A7113C600F52715 /* NormalTableViewCell.swift */; };
 		C56857822A7113CF00F52715 /* RequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56857812A7113CF00F52715 /* RequestTableViewCell.swift */; };
 		C56E7A112A971504009CCAF2 /* ReportCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56E7A102A971504009CCAF2 /* ReportCellView.swift */; };
-		C5732C712A41739000CDC499 /* AVIROAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5732C702A41739000CDC499 /* AVIROAPIManager.swift */; };
+		C5732C712A41739000CDC499 /* AVIROAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5732C702A41739000CDC499 /* AVIROAPI.swift */; };
 		C5732C732A41778A00CDC499 /* AVIROPostAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5732C722A41778A00CDC499 /* AVIROPostAPI.swift */; };
 		C5732C752A41962D00CDC499 /* AVIRORequestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5732C742A41962D00CDC499 /* AVIRORequestAPI.swift */; };
 		C5732C772A41A0A500CDC499 /* AVIROMapMarker+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5732C762A41A0A500CDC499 /* AVIROMapMarker+DTO.swift */; };
@@ -230,7 +230,7 @@
 		C5FBDA602B398280007AC77E /* ChallengeInfoOrangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FBDA5F2B398280007AC77E /* ChallengeInfoOrangeView.swift */; };
 		C5FD92E32A9C6C1E00CF4673 /* EditLocationAddressTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD92E22A9C6C1E00CF4673 /* EditLocationAddressTextTableViewCell.swift */; };
 		C5FD92EB2A9C786600CF4673 /* PublicAPIRequestComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD92EA2A9C786600CF4673 /* PublicAPIRequestComponents.swift */; };
-		C5FD92ED2A9C7AE800CF4673 /* PublicAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD92EC2A9C7AE800CF4673 /* PublicAPIManager.swift */; };
+		C5FD92ED2A9C7AE800CF4673 /* PublicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD92EC2A9C7AE800CF4673 /* PublicAPI.swift */; };
 		C5FD92F02A9C803600CF4673 /* PublicAddress+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD92EF2A9C803600CF4673 /* PublicAddress+DTO.swift */; };
 		C5FD92F22A9C805700CF4673 /* PublicXMLParserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD92F12A9C805700CF4673 /* PublicXMLParserDelegate.swift */; };
 		C5FD92F42A9CD2FC00CF4673 /* KakaoAddressPlace+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD92F32A9CD2FC00CF4673 /* KakaoAddressPlace+DTO.swift */; };
@@ -364,7 +364,7 @@
 		C5476B752B314D4900F5FC6E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		C5476B782B314F6F00F5FC6E /* LicensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
 		C5476B7A2B31516000F5FC6E /* LicenseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseDetailViewController.swift; sourceTree = "<group>"; };
-		C547A8B92A17D8D4004D1339 /* KakaoAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAPIManager.swift; sourceTree = "<group>"; };
+		C547A8B92A17D8D4004D1339 /* KakaoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAPI.swift; sourceTree = "<group>"; };
 		C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIRODeleteAPI.swift; sourceTree = "<group>"; };
 		C5538AAE2A1BB81200661DE2 /* AVIROEnrollPlace+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROEnrollPlace+DTO.swift"; sourceTree = "<group>"; };
@@ -380,7 +380,7 @@
 		C568577F2A7113C600F52715 /* NormalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalTableViewCell.swift; sourceTree = "<group>"; };
 		C56857812A7113CF00F52715 /* RequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTableViewCell.swift; sourceTree = "<group>"; };
 		C56E7A102A971504009CCAF2 /* ReportCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCellView.swift; sourceTree = "<group>"; };
-		C5732C702A41739000CDC499 /* AVIROAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROAPIManager.swift; sourceTree = "<group>"; };
+		C5732C702A41739000CDC499 /* AVIROAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROAPI.swift; sourceTree = "<group>"; };
 		C5732C722A41778A00CDC499 /* AVIROPostAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROPostAPI.swift; sourceTree = "<group>"; };
 		C5732C742A41962D00CDC499 /* AVIRORequestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIRORequestAPI.swift; sourceTree = "<group>"; };
 		C5732C762A41A0A500CDC499 /* AVIROMapMarker+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROMapMarker+DTO.swift"; sourceTree = "<group>"; };
@@ -484,7 +484,7 @@
 		C5FBDA5F2B398280007AC77E /* ChallengeInfoOrangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoOrangeView.swift; sourceTree = "<group>"; };
 		C5FD92E22A9C6C1E00CF4673 /* EditLocationAddressTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLocationAddressTextTableViewCell.swift; sourceTree = "<group>"; };
 		C5FD92EA2A9C786600CF4673 /* PublicAPIRequestComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicAPIRequestComponents.swift; sourceTree = "<group>"; };
-		C5FD92EC2A9C7AE800CF4673 /* PublicAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicAPIManager.swift; sourceTree = "<group>"; };
+		C5FD92EC2A9C7AE800CF4673 /* PublicAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicAPI.swift; sourceTree = "<group>"; };
 		C5FD92EF2A9C803600CF4673 /* PublicAddress+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PublicAddress+DTO.swift"; sourceTree = "<group>"; };
 		C5FD92F12A9C805700CF4673 /* PublicXMLParserDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicXMLParserDelegate.swift; sourceTree = "<group>"; };
 		C5FD92F32A9CD2FC00CF4673 /* KakaoAddressPlace+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KakaoAddressPlace+DTO.swift"; sourceTree = "<group>"; };
@@ -843,7 +843,7 @@
 			isa = PBXGroup;
 			children = (
 				C58FBF912AC2D87300AB6EFC /* KakaoAPIManagerProtocol.swift */,
-				C547A8B92A17D8D4004D1339 /* KakaoAPIManager.swift */,
+				C547A8B92A17D8D4004D1339 /* KakaoAPI.swift */,
 				C5351B4C2A19223300116D50 /* KakaoMapRequestAPI.swift */,
 			);
 			path = KakaoMapManager;
@@ -1316,7 +1316,7 @@
 			isa = PBXGroup;
 			children = (
 				C58FBF8F2AC2B83A00AB6EFC /* AVIROAPIManagerProtocol.swift */,
-				C5732C702A41739000CDC499 /* AVIROAPIManager.swift */,
+				C5732C702A41739000CDC499 /* AVIROAPI.swift */,
 				C5732C742A41962D00CDC499 /* AVIRORequestAPI.swift */,
 				C5732C722A41778A00CDC499 /* AVIROPostAPI.swift */,
 				C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */,
@@ -1795,7 +1795,7 @@
 		C5FD92E82A9C77CE00CF4673 /* PublicManager */ = {
 			isa = PBXGroup;
 			children = (
-				C5FD92EC2A9C7AE800CF4673 /* PublicAPIManager.swift */,
+				C5FD92EC2A9C7AE800CF4673 /* PublicAPI.swift */,
 				C5FD92EA2A9C786600CF4673 /* PublicAPIRequestComponents.swift */,
 				C5FD92F12A9C805700CF4673 /* PublicXMLParserDelegate.swift */,
 			);
@@ -1914,7 +1914,7 @@
 				};
 			};
 			buildConfigurationList = C52FA33A2A175B20005E70DC /* Build configuration list for PBXProject "AVIRO" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -2150,7 +2150,7 @@
 				C5E430B32A5DADBE00CB67EC /* SecondRegistrationPresenter.swift in Sources */,
 				C5EB510D2A20A4B400B29CC1 /* HomeSearchViewTableViewCell.swift in Sources */,
 				C510005C2AB9C39500F65C1F /* MarkerModelManager.swift in Sources */,
-				C5FD92ED2A9C7AE800CF4673 /* PublicAPIManager.swift in Sources */,
+				C5FD92ED2A9C7AE800CF4673 /* PublicAPI.swift in Sources */,
 				C50367F52A1795D10020C6BB /* HomeViewPresenter.swift in Sources */,
 				C5FD92F42A9CD2FC00CF4673 /* KakaoAddressPlace+DTO.swift in Sources */,
 				C5ED46952AAEB3F300F2DA04 /* OperationHourView.swift in Sources */,
@@ -2194,7 +2194,7 @@
 				C52066332A7E80350038ECCD /* MatchedPlaceCellModel.swift in Sources */,
 				C595ACCD2A84A1A200D35123 /* PlaceView.swift in Sources */,
 				C51385422AAADB0E001AB827 /* EditNickNameButton.swift in Sources */,
-				C547A8BA2A17D8D4004D1339 /* KakaoAPIManager.swift in Sources */,
+				C547A8BA2A17D8D4004D1339 /* KakaoAPI.swift in Sources */,
 				C5732C772A41A0A500CDC499 /* AVIROMapMarker+DTO.swift in Sources */,
 				C5FF13532A42C8810026981D /* AVIROPlaceInfo+DTO.swift in Sources */,
 				C5351B5C2A19F60200116D50 /* SearchPlacePresenter.swift in Sources */,
@@ -2243,7 +2243,7 @@
 				C5351B602A19F9A700116D50 /* PlaceListModel.swift in Sources */,
 				C5476B612B3028FA00F5FC6E /* ChallengeViewController.swift in Sources */,
 				C5A201C52A98A67900A54381 /* EditPhoneView.swift in Sources */,
-				C5732C712A41739000CDC499 /* AVIROAPIManager.swift in Sources */,
+				C5732C712A41739000CDC499 /* AVIROAPI.swift in Sources */,
 				C54386792B3432FE00BD2CAF /* ViewModel.swift in Sources */,
 				C50F6AF92A68FFBB00E942F5 /* EnrollStoreInfoView.swift in Sources */,
 				C505C1DA2B3AC0070058F115 /* AVIROConfiguration.swift in Sources */,
@@ -2428,7 +2428,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AVIRO/AVIRO.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = C4K2HXA435;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
@@ -2438,15 +2438,15 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "현재 내 위치와 가까운 가게를 찾아드려요. 위치 정보를 저장하지 않으니 안심하세요.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.VeganRestaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2463,7 +2463,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AVIRO/AVIRO.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = C4K2HXA435;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
@@ -2473,15 +2473,15 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "현재 내 위치와 가까운 가게를 찾아드려요. 위치 정보를 저장하지 않으니 안심하세요.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.VeganRestaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

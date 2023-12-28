@@ -7,14 +7,17 @@
 
 import Foundation
 
-final class AVIROAPIManager: AVIROAPIMangerProtocol {
+final class AVIROAPI: AVIROAPIMangerProtocol {
+    static let manager = AVIROAPI()
+    var onRequest: Set<URL> = []
+    
     var session: URLSession
     
     var postAPI = AVIROPostAPI()
     var requestAPI = AVIRORequestAPI()
     var deleteAPI = AVIRODeleteAPI()
     
-    init(session: URLSession = .shared) {
+    private init(session: URLSession = .shared) {
         self.session = session
     }
         
@@ -27,7 +30,6 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-
         performRequest(
             with: url,
             headers: requestAPI.headers,
@@ -64,7 +66,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-        
+
         performRequest(
             with: url,
             httpMethod: .post,
@@ -83,7 +85,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-        
+
         performRequest(
             with: url,
             headers: requestAPI.headers,
@@ -104,7 +106,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-        
+
         performRequest(
             with: url,
             httpMethod: .post,
@@ -122,7 +124,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-        
+
         performRequest(
             with: url,
             headers: requestAPI.headers,
@@ -133,7 +135,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
     // MARK: Create Refer
     func createPlaceModel(
         with placeModel: AVIROEnrollPlaceDTO,
-        completionHandler: @escaping (Result<AVIROResultDTO, APIError>) -> Void
+        completionHandler: @escaping (Result<AVIROChallengeResultDTO, APIError>) -> Void
     ) {
         guard let url = postAPI.placeEnroll().url else {
             completionHandler(.failure(.urlError))
@@ -144,7 +146,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-        
+
         performRequest(
             with: url,
             httpMethod: .post,
@@ -156,7 +158,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
     
     func createReview(
         with reviewModel: AVIROEnrollReviewDTO,
-        completionHandler: @escaping (Result<AVIROEnrollReviewResultDTO, APIError>) -> Void
+        completionHandler: @escaping (Result<AVIROChallengeResultDTO, APIError>) -> Void
     ) {
         guard let url = postAPI.commentUpload().url else {
             completionHandler(.failure(.urlError))
@@ -203,7 +205,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-        
+
         performRequest(
             with: url,
             headers: requestAPI.headers,
@@ -219,7 +221,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-        
+
         performRequest(
             with: url,
             headers: requestAPI.headers,
@@ -235,7 +237,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-        
+
         performRequest(
             with: url,
             headers: requestAPI.headers,
@@ -251,7 +253,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-        
+
         performRequest(
             with: url,
             headers: requestAPI.headers,
@@ -273,7 +275,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-        
+
         performRequest(
             with: url,
             httpMethod: .post,
@@ -296,7 +298,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-        
+
         performRequest(
             with: url,
             httpMethod: .post,
@@ -319,7 +321,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-        
+
         performRequest(
             with: url,
             httpMethod: .post,
@@ -342,7 +344,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-        
+
         performRequest(
             with: url,
             httpMethod: .post,
@@ -365,7 +367,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-        
+
         performRequest(
             with: url,
             httpMethod: .post,
@@ -388,7 +390,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-        
+
         performRequest(
             with: url,
             httpMethod: .post,
@@ -412,7 +414,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-        
+
         performRequest(
             with: url,
             httpMethod: .post,
@@ -468,6 +470,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
         with user: AVIROAutoLoginWhenAppleUserDTO,
         completionHandler: @escaping (Result<AVIROAutoLoginWhenAppleUserResultDTO, APIError>) -> Void
     ) {
+        
         guard let url = postAPI.appleUserAutoLogin().url else {
             completionHandler(.failure(.urlError))
             return
@@ -500,7 +503,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-        
+
         performRequest(
             with: url,
             httpMethod: .post,
@@ -523,7 +526,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-        
+
         performRequest(
             with: url,
             httpMethod: .post,
@@ -546,7 +549,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-        
+
         performRequest(
             with: url,
             httpMethod: .post,
@@ -569,7 +572,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-        
+
         performRequest(
             with: url,
             httpMethod: .post,
@@ -592,7 +595,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-        
+
         performRequest(
             with: url,
             httpMethod: .post,
@@ -611,7 +614,7 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-        
+
         performRequest(
             with: url,
             headers: requestAPI.headers,
@@ -620,17 +623,18 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
     }
     
     func loadChallengeInfo(
-        completionHandler: @escaping (Result<AVIROChallengeInfoDTO, APIError>) -> Void) {
-            guard let url = requestAPI.getChallengeInfo().url else {
-                completionHandler(.failure(.urlError))
-                return
-            }
-            
-            performRequest(
-                with: url,
-                headers: requestAPI.headers,
-                completionHandler: completionHandler
-            )
+        completionHandler: @escaping (Result<AVIROChallengeInfoDTO, APIError>) -> Void
+    ) {
+        guard let url = requestAPI.getChallengeInfo().url else {
+            completionHandler(.failure(.urlError))
+            return
+        }
+
+        performRequest(
+            with: url,
+            headers: requestAPI.headers,
+            completionHandler: completionHandler
+        )
     }
     
     func loadMyChallengeLevel(
@@ -647,5 +651,82 @@ final class AVIROAPIManager: AVIROAPIMangerProtocol {
             headers: requestAPI.headers,
             completionHandler: completionHandler
         )
+    }
+}
+
+extension AVIROAPI {
+    func performRequest<T>(
+        with url: URL,
+        httpMethod: HTTPMethodType = .get,
+        requestBody: Data? = nil,
+        headers: [String: String]? = nil,
+        completionHandler: @escaping (Result<T, APIError>) -> Void
+    ) where T: Decodable {
+        guard !onRequest.contains(url) else { return }
+        
+        onRequest.insert(url)
+        
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = httpMethod.rawValue
+        request.httpBody = requestBody
+        
+        if let headers = headers {
+            for (key, value) in headers {
+                request.addValue(value, forHTTPHeaderField: key)
+            }
+        }
+        
+        let task = session.dataTask(with: request) { [weak self] data, response, error in
+            defer {
+                self?.onRequest.remove(url)
+            }
+            
+            if let error = error {
+                completionHandler(.failure(.networkError(error)))
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completionHandler(.failure(.invalidResponse))
+                return
+            }
+            
+            if let apiError = self?.handleStatusCode(with: httpResponse.statusCode) {
+                completionHandler(.failure(apiError))
+                return
+            }
+            
+            guard let data = data else {
+                completionHandler(.failure(.badRequest))
+                return
+            }
+            
+            do {
+                let decodedObject = try JSONDecoder().decode(T.self, from: data)
+                completionHandler(.success(decodedObject))
+            } catch {
+                completionHandler(.failure(.decodingError(error)))
+            }
+        }
+        
+        task.resume()
+    }
+    
+    private func handleStatusCode(with code: Int) -> APIError? {
+        switch code {
+        case 100..<200:
+            return APIError.informationResponse
+        case 200..<300:
+            return nil
+        case 300..<400:
+            return APIError.redirectionRequired
+        case 400..<500:
+            return APIError.clientError(code)
+        case 500...:
+            return APIError.serverError(code)
+        default:
+            return APIError.badRequest
+        }
     }
 }

@@ -224,7 +224,7 @@ final class HomeSearchPresenter {
             isAccuracy: KakaoAPISortingQuery.shared.sorting
         )
         
-        KakaoAPIManager().allSearchPlace(with: model) { [weak self] result in
+        KakaoAPI.manager.allSearchPlace(with: model) { [weak self] result in
             switch result {
             case .success(let model):
                 let placeList = model.documents.map { location in
@@ -273,7 +273,7 @@ final class HomeSearchPresenter {
                 
         let beforeMatchedRequestModel = AVIROBeforeComparePlaceDTO(placeArray: beforeMatchedArray)
                 
-        AVIROAPIManager().checkPlaceList(with: beforeMatchedRequestModel) { [weak self] result in
+        AVIROAPI.manager.checkPlaceList(with: beforeMatchedRequestModel) { [weak self] result in
             switch result {
             case .success(let model):
                 if model.statusCode == 200 {

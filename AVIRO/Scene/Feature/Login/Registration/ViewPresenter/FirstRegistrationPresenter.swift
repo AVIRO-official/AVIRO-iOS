@@ -67,7 +67,7 @@ final class FirstRegistrationPresenter {
         
         let nickname = AVIRONicknameIsDuplicatedCheckDTO(nickname: userNickname)
         
-        AVIROAPIManager().checkNickname(with: nickname) { [weak self] result in
+        AVIROAPI.manager.checkNickname(with: nickname) { [weak self] result in
             switch result {
             case .success(let model):
                 if model.statusCode == 200 {
