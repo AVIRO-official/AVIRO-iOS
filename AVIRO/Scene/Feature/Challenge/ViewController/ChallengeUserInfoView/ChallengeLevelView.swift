@@ -13,6 +13,7 @@ final class ChallengeLevelView: UIView {
     private lazy var lankLabel: UILabel = {
         let label = UILabel()
         
+        label.text = "포인트를 모아 나무를 성장시켜보세요!"
         label.textColor = .gray0
         label.font = .pretendard(size: 17, weight: .semibold)
         label.numberOfLines = 1
@@ -23,6 +24,7 @@ final class ChallengeLevelView: UIView {
     private lazy var levelLabel: UILabel = {
         let label = UILabel()
         
+        label.text = "레벨   달성했어요!"
         label.textColor = .gray2
         label.font = .pretendard(size: 15, weight: .medium)
         label.numberOfLines = 1
@@ -35,6 +37,7 @@ final class ChallengeLevelView: UIView {
         
         view.trackTintColor = .gray5
         view.progressTintColor = .keywordBlue
+        view.setProgress(0.05, animated: true)
         
         return view
     }()
@@ -89,6 +92,8 @@ final class ChallengeLevelView: UIView {
     private func setupAttribute() {
         self.backgroundColor = .gray6
         self.layer.cornerRadius = 12
+        
+        updateLevelPoint(with: ("0", "30"))
     }
     
     func updateLankLabel(with lank: String) {

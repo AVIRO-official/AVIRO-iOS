@@ -94,6 +94,17 @@ final class ReviewWriteViewController: UIViewController {
         button.setTitleColor(.gray2, for: .disabled)
         return button
     }()
+    
+    private lazy var indicatorView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        
+        view.style = .large
+        view.color = .gray5
+        view.startAnimating()
+        view.isHidden = true
+        
+        return view
+    }()
         
     private var reviewTextViewWhenKeyboardWillShow: NSLayoutConstraint!
     private var reviewTextViewWhenKeyboardWillHide: NSLayoutConstraint!
@@ -132,7 +143,8 @@ final class ReviewWriteViewController: UIViewController {
             textViewCountLabel,
             exampleLabel,
             exampleSticy,
-            reviewUploadButton
+            reviewUploadButton,
+            indicatorView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview($0)
@@ -216,8 +228,10 @@ final class ReviewWriteViewController: UIViewController {
             ),
             reviewUploadButton.trailingAnchor.constraint(
                 equalTo: self.view.trailingAnchor
-            )
+            ),
             
+            indicatorView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            indicatorView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         ])
         
         reviewTextViewWhenKeyboardWillShow = self.reviewTextView.topAnchor.constraint(
@@ -285,7 +299,7 @@ final class ReviewWriteViewController: UIViewController {
             ),
             
             height > 750 ?
-                reviewTextView.heightAnchor.constraint(equalToConstant: 320)
+            reviewTextView.heightAnchor.constraint(equalToConstant: 320)
             :
                 reviewTextView.heightAnchor.constraint(equalToConstant: 280)
         ])
@@ -293,7 +307,12 @@ final class ReviewWriteViewController: UIViewController {
     
     private func dataBinding() {
         let text = reviewTextView.rx.text.asDriver()
-        let updateReview = reviewUploadButton.rx.controlEvent(.touchUpInside).asDriver()
+        let updateReview = reviewUploadButton.rx
+            .controlEvent(.touchUpInside)
+            .asDriver()
+            .do { [weak self] _ in
+                self?.startLoading()
+            }
         
         let input = ReviewWriteViewModel.Input(
             text: text,
@@ -428,15 +447,31 @@ final class ReviewWriteViewController: UIViewController {
     }
     
     private func popViewController() {
+        endLoading()
         tabBarDelegate?.isHidden = (false, true)
         navigationController?.popViewController(animated: true)
     }
     
     func afterErrorShow(with error: APIError) {
-        showAlert(
-            title: "에러",
-            message: error.localizedDescription
-        )
+        endLoading()
+        switch error {
+        case .clientError(1):
+            showAlert(title: "에러", message: "중복 등록된 후기 입니다.")
+        default:
+            showAlert(title: "에러", message: error.localizedDescription)
+        }
+    }
+    
+    private func startLoading() {
+        indicatorView.isHidden = false
+        reviewUploadButton.isEnabled = false
+        reviewUploadButton.backgroundColor = .gray5
+    }
+
+    private func endLoading() {
+        indicatorView.isHidden = true
+        reviewUploadButton.isEnabled = true
+        reviewUploadButton.backgroundColor = .keywordBlue
     }
 }
 

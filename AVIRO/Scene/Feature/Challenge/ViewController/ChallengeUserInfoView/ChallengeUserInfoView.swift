@@ -11,6 +11,7 @@ final class ChallengeUserInfoView: UIView {
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         
+        label.text = MyData.my.nickname
         label.textColor = .gray0
         label.font = .pretendard(size: 20, weight: .semibold)
         label.numberOfLines = 1
@@ -28,6 +29,17 @@ final class ChallengeUserInfoView: UIView {
         imageView.layer.borderColor = UIColor.challengeImageBorder.cgColor
         
         return imageView
+    }()
+    
+    private lazy var indicatorView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        
+        view.style = .large
+        view.color = .gray5
+        view.startAnimating()
+        view.isHidden = true
+        
+        return view
     }()
     
     private lazy var levelView: ChallengeLevelView = {
@@ -51,7 +63,8 @@ final class ChallengeUserInfoView: UIView {
         [
             nameLabel,
             levelView,
-            treeImageView
+            treeImageView,
+            indicatorView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
@@ -69,12 +82,23 @@ final class ChallengeUserInfoView: UIView {
             levelView.topAnchor.constraint(equalTo: treeImageView.topAnchor, constant: 84),
             levelView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
             levelView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15),
-            levelView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            levelView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            
+            indicatorView.centerXAnchor.constraint(equalTo: treeImageView.centerXAnchor),
+            indicatorView.centerYAnchor.constraint(equalTo: treeImageView.centerYAnchor)
         ])
     }
     
     private func setupAttribute() {
         self.backgroundColor = .gray7
+    }
+    
+    func isStartIndicator() {
+        indicatorView.isHidden = false
+    }
+    
+    func isEndIndicator() {
+        indicatorView.isHidden = true
     }
     
     func bindData(with result: AVIROMyChallengeLevelResultDTO) {

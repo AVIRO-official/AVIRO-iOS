@@ -52,9 +52,13 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
     }
     
     private func setupLayout() {
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(scrollView)
-        
+        [
+            scrollView
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+        }
+
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(
                 equalTo: self.view.safeAreaLayoutGuide.topAnchor
@@ -148,6 +152,9 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
     
     private func dataBinding() {
         let viewWillAppearTrigger = self.rx.viewWillAppear.map { _ in }.asDriver(onErrorDriveWith: .empty())
+            .do { [weak self] _ in
+                self?.challengeUserInfoView.isStartIndicator()
+            }
         
         let tappedNavigationBarRightButton = navigationItem.rightBarButtonItem?.rx.tap.asDriver() ?? .empty()
         
@@ -195,6 +202,7 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
     }
     
     func bindMyChallengeLevel(with result: AVIROMyChallengeLevelResultDTO) {
+        challengeUserInfoView.isEndIndicator()
         challengeUserInfoView.bindData(with: result)
     }
     

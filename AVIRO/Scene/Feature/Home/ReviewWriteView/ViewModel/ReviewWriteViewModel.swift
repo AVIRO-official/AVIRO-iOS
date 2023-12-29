@@ -166,10 +166,13 @@ final class ReviewWriteViewModel: ViewModel {
         )
     }
     
+    private var test = 0
     private func updateReview(with reviewModel: AVIROEnrollReviewDTO) -> Single<(AfterWriteReviewModel, Bool)> {
+        test += 1
+        print(test)
         return Single.create { single in
             AVIROAPI.manager.createReview(with: reviewModel) { [weak self] result in
-                
+                print(result)
                 switch result {
                 case .success(let model):
                     if model.statusCode == 200 {
@@ -188,6 +191,8 @@ final class ReviewWriteViewModel: ViewModel {
                         )
                         
                         single(.success((resultModel, false)))
+                    } else {
+                        single(.failure(APIError.clientError(1)))
                     }
                 case .failure(let error):
                     single(.failure(error))

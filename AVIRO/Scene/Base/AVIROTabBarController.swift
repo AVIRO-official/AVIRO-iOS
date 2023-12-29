@@ -133,6 +133,8 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
     private var selectedVCBottomUponTabViewConstraint: NSLayoutConstraint?
     private var selectedVCBottomUponViewBottom: NSLayoutConstraint?
     
+    private var timer: Timer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -281,10 +283,38 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
     }
     
     @objc private func tabBarButtonTapped(_ sender: TabBarButton) {
-        selectedIndex = sender.tag
+        if sender.tag == selectedIndex {
+            if timer == nil {
+                startTimer(with: sender.tag)
+                selectedIndex = sender.tag
+            }
+        } else {
+            timerExpired()
+            selectedIndex = sender.tag
+        }
     }
     
     func hideBlurEffectView(with active: Bool) {
         blurEffectView.isHidden = active
+    }
+    
+    private func startTimer(with tag: Int) {
+        var timerInterval: TimeInterval = 1.5
+        
+        if tag == 2 {
+            timerInterval = 5
+        }
+
+        timer = Timer.scheduledTimer(
+            withTimeInterval: timerInterval,
+            repeats: false,
+            block: { [weak self] _ in
+            self?.timerExpired()
+        })
+    }
+    
+    private func timerExpired() {
+        timer?.invalidate()
+        timer = nil
     }
 }

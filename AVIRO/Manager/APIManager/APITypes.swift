@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum APIError: Error {
+enum APIError: Error {    
     case urlError
     case networkError(Error)
     case encodingError

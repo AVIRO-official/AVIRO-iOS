@@ -20,7 +20,11 @@ final class ChallengeTitleView: UIView {
     private lazy var challengeDateLabel: UILabel = {
         let label = UILabel()
         
-        label.textColor = .gray2
+        label.text = "................"
+        label.textColor = .gray6
+        label.backgroundColor = .gray6
+        label.layer.cornerRadius = 10
+        label.clipsToBounds = true
         label.font = .pretendard(size: 17, weight: .medium)
         
         return label
@@ -29,7 +33,11 @@ final class ChallengeTitleView: UIView {
     private lazy var challengeTitleLabel: UILabel = {
         let label = UILabel()
         
-        label.textColor = .gray0
+        label.text = "................"
+        label.textColor = .gray6
+        label.backgroundColor = .gray6
+        label.layer.cornerRadius = 15
+        label.clipsToBounds = true
         label.font = .pretendard(size: 32, weight: .semibold)
         
         return label
@@ -103,12 +111,17 @@ final class ChallengeTitleView: UIView {
         self.backgroundColor = .gray7
     }
     
-    // TODO: DataBinding 설계 시 삭제 예정
     func updateDate(with date: String) {
+        challengeDateLabel.textColor = .gray2
+        challengeDateLabel.backgroundColor = .gray7
+        challengeDateLabel.clipsToBounds = false
         challengeDateLabel.text = date
     }
     
     func updateTitle(with title: String) {
+        challengeTitleLabel.backgroundColor = .gray7
+        challengeTitleLabel.textColor = .gray0
+        challengeTitleLabel.clipsToBounds = false
         challengeTitleLabel.text = title
     }
 }
