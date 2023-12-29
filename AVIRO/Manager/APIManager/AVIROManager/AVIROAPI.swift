@@ -655,6 +655,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
 }
 
 extension AVIROAPI {
+    
     func performRequest<T>(
         with url: URL,
         httpMethod: HTTPMethodType = .get,
@@ -662,9 +663,12 @@ extension AVIROAPI {
         headers: [String: String]? = nil,
         completionHandler: @escaping (Result<T, APIError>) -> Void
     ) where T: Decodable {
+        print("before: ", onRequest.count)
         guard !onRequest.contains(url) else { return }
         
         onRequest.insert(url)
+        
+        print("after: ", onRequest.count)
         
         var request = URLRequest(url: url)
         
@@ -679,6 +683,7 @@ extension AVIROAPI {
         
         let task = session.dataTask(with: request) { [weak self] data, response, error in
             defer {
+                print(url)
                 self?.onRequest.remove(url)
             }
             

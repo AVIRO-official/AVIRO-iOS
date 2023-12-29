@@ -39,6 +39,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
     }
     
+    func application(
+        _ application: UIApplication,
+        supportedInterfaceOrientationsFor window: UIWindow?
+    ) -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
     private func setNaverMapAPI() {
         guard let keyUrl = Bundle.main.url(
             forResource: "API",
