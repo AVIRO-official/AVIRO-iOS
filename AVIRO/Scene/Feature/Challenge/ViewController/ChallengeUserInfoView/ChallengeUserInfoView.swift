@@ -135,7 +135,6 @@ final class ChallengeUserInfoView: UIView {
              if let data = data, let image = UIImage(data: data) {
                  DispatchQueue.main.async {
                      self.treeImageView.image = image
-                     print(image.size)
                 }
              }
          }.resume()

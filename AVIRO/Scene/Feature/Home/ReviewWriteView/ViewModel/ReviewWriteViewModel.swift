@@ -60,7 +60,7 @@ final class ReviewWriteViewModel: ViewModel {
     
     struct Output {
         let reviewWritePlaceModel: Driver<ReviewWritePlaceModel>
-        let isEditingTextView: Driver<Bool>
+        let isShowTextViewPlaceHolder: Driver<Bool>
         let textCount: Driver<Int>
         let review: Driver<String>
         let keyboardWillShow: Driver<Void>
@@ -156,7 +156,7 @@ final class ReviewWriteViewModel: ViewModel {
         
         return Output(
             reviewWritePlaceModel: reviewWritePlaceModel,
-            isEditingTextView: isEditing,
+            isShowTextViewPlaceHolder: isEditing,
             textCount: textCount,
             review: restrictedText,
             keyboardWillShow: keyboardWillShow,

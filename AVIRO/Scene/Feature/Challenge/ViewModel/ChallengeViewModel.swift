@@ -12,7 +12,8 @@ final class ChallengeViewModel: ViewModel {
     var challengeTitle: String = ""
     
     struct Input {
-        let loadData: Driver<Void>
+        let whenViewWillAppear: Driver<Void>
+        let whenRefesh: Driver<Void>
         let tappedChallengeInfoButton: Driver<Void>
         let tappedNavigationBarRightButton: Driver<Void>
     }
@@ -28,11 +29,13 @@ final class ChallengeViewModel: ViewModel {
     }
     
     func transform(with input: Input) -> Output {
+        let loadInfoTrigger = Driver.merge(input.whenViewWillAppear, input.whenRefesh)
+        
         let challengeInfoError = PublishSubject<Error>()
         let myContributionCountError = PublishSubject<Error>()
         let myChallengeLevelError = PublishSubject<Error>()
         
-        let challengeInfoResult = input.loadData
+        let challengeInfoResult = loadInfoTrigger
             .flatMapLatest { [weak self] in
                 guard let self = self else {
                     return Driver<AVIROChallengeInfoDTO>.empty()
@@ -45,7 +48,7 @@ final class ChallengeViewModel: ViewModel {
                     })
             }
         
-        let myChallengeLevelResult = input.loadData
+        let myChallengeLevelResult = loadInfoTrigger
             .flatMapLatest { [weak self] in
                 guard let self = self else {
                     return Driver<AVIROMyChallengeLevelResultDTO>.empty()
@@ -58,7 +61,7 @@ final class ChallengeViewModel: ViewModel {
                     })
             }
         
-        let myContributionCountResult = input.loadData
+        let myContributionCountResult = loadInfoTrigger
             .flatMapLatest { [weak self] in
                 guard let self = self else {
                     return Driver<AVIROMyContributionCountDTO>.empty()

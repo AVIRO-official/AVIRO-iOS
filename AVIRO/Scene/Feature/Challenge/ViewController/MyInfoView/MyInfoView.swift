@@ -24,6 +24,7 @@ final class MyInfoView: UIView {
         button.setTitle("0개", for: .normal)
         button.setTitleColor(.gray0, for: .normal)
         button.titleLabel?.font = .pretendard(size: 20, weight: .bold)
+        button.addTarget(self, action: #selector(tappedButton(_:)), for: .touchUpInside)
         
         return button
     }()
@@ -54,7 +55,8 @@ final class MyInfoView: UIView {
         button.setTitle("0개", for: .normal)
         button.setTitleColor(.gray0, for: .normal)
         button.titleLabel?.font = .pretendard(size: 20, weight: .bold)
-        
+        button.addTarget(self, action: #selector(tappedButton(_:)), for: .touchUpInside)
+
         return button
     }()
     
@@ -84,7 +86,8 @@ final class MyInfoView: UIView {
         button.setTitle("0개", for: .normal)
         button.setTitleColor(.gray0, for: .normal)
         button.titleLabel?.font = .pretendard(size: 20, weight: .bold)
-        
+        button.addTarget(self, action: #selector(tappedButton(_:)), for: .touchUpInside)
+
         return button
     }()
     
@@ -123,6 +126,8 @@ final class MyInfoView: UIView {
         
         return stackView
     }()
+    
+    var tappedCountButton: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -207,5 +212,9 @@ final class MyInfoView: UIView {
     
     func updateMyStar(_ star: String) {
         myStarButton.setTitle("\(star)개", for: .normal)
+    }
+    
+    @objc private func tappedButton(_ sender: UIButton) {
+        tappedCountButton?()
     }
 }

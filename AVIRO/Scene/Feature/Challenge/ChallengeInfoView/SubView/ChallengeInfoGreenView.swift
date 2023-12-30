@@ -32,7 +32,7 @@ final class ChallengeInfoGreenView: UIView {
     private lazy var subLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "* 시즌 하정 보상은 시즌 내에만 볼 수 있어요"
+        label.text = "* 시즌 한정 보상은 시즌 내에만 볼 수 있어요"
         label.numberOfLines = 1
         label.textColor = .gray2
         label.font = .pretendard(size: 12, weight: .regular)

@@ -36,7 +36,7 @@ enum TabBarType: CaseIterable {
     var normalColor: UIColor {
         switch self {
         case .home: return .gray4
-        case .plus: return .gray0
+        case .plus: return .gray4
         case .challenge: return .gray4
         }
     }
@@ -44,7 +44,7 @@ enum TabBarType: CaseIterable {
     var selectedColor: UIColor {
         switch self {
         case .home: return .keywordBlue
-        case .plus: return .gray0
+        case .plus: return .keywordBlue
         case .challenge: return .keywordBlue
         }
     }
@@ -117,7 +117,7 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
         }
     }
     
-    var isHidden: (isHidden: Bool,isSameNavi: Bool) = (false,true) {
+    var isHidden: (isHidden: Bool, isSameNavi: Bool) = (false, true) {
         didSet {
             tabBarView.isHidden = isHidden.isHidden
             bottomInsetView.isHidden = isHidden.isHidden
@@ -283,6 +283,8 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
     }
     
     @objc private func tabBarButtonTapped(_ sender: TabBarButton) {
+        afterTappedButton(sender)
+        
         if sender.tag == selectedIndex {
             if timer == nil {
                 startTimer(with: sender.tag)
@@ -294,15 +296,11 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
         }
     }
     
-    func hideBlurEffectView(with active: Bool) {
-        blurEffectView.isHidden = active
-    }
-    
     private func startTimer(with tag: Int) {
         var timerInterval: TimeInterval = 1.5
         
         if tag == 2 {
-            timerInterval = 5
+            timerInterval = 8
         }
 
         timer = Timer.scheduledTimer(
@@ -316,5 +314,34 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
     private func timerExpired() {
         timer?.invalidate()
         timer = nil
+    }
+    
+    private func afterTappedButton(_ button: UIButton) {
+        vibrate()
+        animateButton(button)
+    }
+    
+    private func vibrate() {
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        
+        generator.impactOccurred()
+    }
+    
+    private func animateButton(_ button: UIButton) {
+        UIView.animate(
+            withDuration: 0.15,
+            delay: 0,
+            options: [.allowUserInteraction],
+            animations: {
+            button.transform = CGAffineTransform(scaleX: 1.08, y: 0.95)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.15) {
+                button.transform = CGAffineTransform.identity
+            }
+        })
+    }
+    
+    func hideBlurEffectView(with active: Bool) {
+        blurEffectView.isHidden = active
     }
 }

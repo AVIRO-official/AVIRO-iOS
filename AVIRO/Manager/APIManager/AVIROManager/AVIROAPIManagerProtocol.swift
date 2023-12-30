@@ -41,9 +41,15 @@ protocol AVIROAPIMangerProtocol: APIManagerProtocol {
         with placeModel: AVIROEnrollPlaceDTO,
         completionHandler: @escaping(Result<AVIROChallengeResultDTO, APIError>) -> Void
     )
+    
     func createReview(
         with reviewModel: AVIROEnrollReviewDTO,
         completionHandler: @escaping(Result<AVIROChallengeResultDTO, APIError>) -> Void
+    )
+    
+    func recommendPlace(
+        with infoModel: AVIRORecommendPlaceDTO, 
+        completionHandler: @escaping(Result<AVIRORecommendPlaceResultDTO, APIError>) -> Void
     )
     
     // MARK: Load Refer

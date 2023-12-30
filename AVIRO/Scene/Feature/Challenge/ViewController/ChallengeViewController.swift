@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class ChallengeViewController: UIViewController, AVIROViewController {
+final class ChallengeViewController: UIViewController {
     weak var tabBarDelegate: TabBarDelegate?
     
     private var viewModel: ChallengeViewModel!
@@ -34,6 +34,14 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
         let view = MyInfoView()
         
         return view
+    }()
+    
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        
+        refreshControl.tintColor = .gray3
+        
+        return refreshControl
     }()
         
     static func create(with viewModel: ChallengeViewModel) -> ChallengeViewController {
@@ -148,6 +156,12 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
         navBarAppearance.backgroundColor = .gray7
         self.navigationItem.standardAppearance = navBarAppearance
         self.navigationItem.rightBarButtonItem = rightBarButton
+        
+        scrollView.refreshControl = refreshControl
+        
+        myInfoView.tappedCountButton = { [weak self] in
+            self?.showSimpleToast(with: "coming soon...")
+        }
     }
     
     private func dataBinding() {
@@ -156,10 +170,13 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
                 self?.challengeUserInfoView.isStartIndicator()
             }
         
+        let refeshControlEvent = refreshControl.rx.controlEvent(.valueChanged).asDriver()
+        
         let tappedNavigationBarRightButton = navigationItem.rightBarButtonItem?.rx.tap.asDriver() ?? .empty()
         
         let input = ChallengeViewModel.Input(
-            loadData: viewWillAppearTrigger,
+            whenViewWillAppear: viewWillAppearTrigger,
+            whenRefesh: refeshControlEvent,
             tappedChallengeInfoButton: challengeTitleView.challengeInfoButtonTap,
             tappedNavigationBarRightButton: tappedNavigationBarRightButton
         )
@@ -199,11 +216,15 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
 
         challengeTitleView.updateDate(with: period)
         challengeTitleView.updateTitle(with: title)
+        
+        endRefeshControl()
     }
     
     func bindMyChallengeLevel(with result: AVIROMyChallengeLevelResultDTO) {
         challengeUserInfoView.isEndIndicator()
         challengeUserInfoView.bindData(with: result)
+        
+        endRefeshControl()
     }
     
     func bindMyContributionCount(with result: AVIROMyContributionCountDTO) {
@@ -214,6 +235,12 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
         myInfoView.updateMyPlace(placeCount)
         myInfoView.updateMyReview(reviewCount)
         myInfoView.updateMyStar(starCount)
+        
+        endRefeshControl()
+    }
+    
+    private func endRefeshControl() {
+        scrollView.refreshControl?.endRefreshing()
     }
     
     func pushChallengeInfoViewController() {
@@ -227,7 +254,6 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
         self.present(vc, animated: true)
     }
     
-    // TODO: 수정 예정
     func pushSettingViewController() {
         let vc = SettingViewController()
         
@@ -236,6 +262,8 @@ final class ChallengeViewController: UIViewController, AVIROViewController {
     
     func showErrorAlert() {
         self.showAlert(title: "에러", message: "재시도 해주세요")
+        
+        endRefeshControl()
     }
 }
 

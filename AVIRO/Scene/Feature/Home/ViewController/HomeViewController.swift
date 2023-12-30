@@ -193,7 +193,7 @@ final class HomeViewController: UIViewController, AVIROViewController {
     
     private lazy var isSlideUpView = false
 
-    private lazy var tapGesture = UITapGestureRecognizer()
+    private lazy var whenSlideTapGesture = UITapGestureRecognizer()
     private lazy var upGesture = UISwipeGestureRecognizer()
     private lazy var downGesture = UISwipeGestureRecognizer()
 
@@ -368,8 +368,9 @@ extension HomeViewController: HomeViewProtocol {
     }
     
     func setupGesture() {
-        tapGesture.delegate = self
-
+        whenSlideTapGesture.delegate = self
+        whenSlideTapGesture.addTarget(self, action: #selector(whenSlideTapGesture(_:)))
+        
         upGesture.direction = .up
         downGesture.direction = .down
         
@@ -384,7 +385,7 @@ extension HomeViewController: HomeViewProtocol {
         
         placeView.addGestureRecognizer(upGesture)
         placeView.addGestureRecognizer(downGesture)
-        view.addGestureRecognizer(tapGesture)
+        view.addGestureRecognizer(whenSlideTapGesture)
     }
     
     /// 기본 값 view will appear
@@ -570,6 +571,24 @@ extension HomeViewController: HomeViewProtocol {
                 isSlideUpView = false
             }
         }
+    }
+    
+    @objc private func whenSlideTapGesture(_ gesture: UITapGestureRecognizer) {
+        if isSlideUpView {
+            placeViewFullUp()
+            naverMapView.isHidden = true
+            isSlideUpView = false
+        }
+
+//        print(gesture.view)
+//        if let tappedView = gesture.view,
+//           tappedView == placeView {
+//            if isSlideUpView {
+//                placeViewFullUp()
+//                naverMapView.isHidden = true
+//                isSlideUpView = false
+//            }
+//        }
     }
     
     func homeButtonIsHidden(_ hidden: Bool) {
@@ -1110,18 +1129,20 @@ extension HomeViewController: NMFMapViewTouchDelegate {
 // MARK: AfterHomeViewControllerProtocol
 extension HomeViewController: AfterHomeViewControllerProtocol {
     func showRecommendPlaceAlert(with model: (AfterWriteReviewModel, Bool)) {
-        model.1 ? afterEditReview(with: model.0) : afterUploadReview(with: model.0)
+        if model.1 {
+            afterEditReview(with: model.0)
+        } else {
+            afterUploadReview(with: model.0)
+        }
     }
     
     private func afterUploadReview(with model: AfterWriteReviewModel) {
-        // MARK: Update Review 추가
         updateReview(with: model)
 
         tabBarDelegate?.hideBlurEffectView(with: false)
         blurEffectView.isHidden = false
         recommendPlaceAlertView.isHidden = false
 
-        // TODO: API 연결
         recommendPlaceAlertView.afterTappedRecommendButton = { [weak self] in
             self?.recommendPlaceAlertView.isHidden = true
 
@@ -1131,7 +1152,7 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
                 self?.tabBarDelegate?.hideBlurEffectView(with: true)
                 self?.blurEffectView.isHidden = true
             }
-            
+            self?.presenter.recommendPlace()
         }
         
         recommendPlaceAlertView.afterTappedNoRecommendButton = { [weak self] in

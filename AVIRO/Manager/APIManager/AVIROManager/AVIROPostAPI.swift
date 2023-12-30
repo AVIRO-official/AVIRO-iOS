@@ -45,6 +45,7 @@ struct AVIROPostAPI {
     static let commentUploadPath = "/1/map/add/comment"
     static let commentEditPath = "/1/map/update/comment"
     static let commentReportPath = "/1/map/report/comment"
+    static let afterUploadCommentRecommendPlace = "/1/map/add/recommend"
 
     static let bookmarkPostPath = "/1/map/add/bookmark"
     
@@ -106,6 +107,10 @@ struct AVIROPostAPI {
     // MARK: Comment Report
     mutating func commentReport() -> URLComponents {
         return createURLComponents(path: AVIROPostAPI.commentReportPath)
+    }
+    
+    mutating func placeRecommend() -> URLComponents {
+        return createURLComponents(path: AVIROPostAPI.afterUploadCommentRecommendPlace)
     }
     
     // MARK: Bookmark Enroll/Delete
