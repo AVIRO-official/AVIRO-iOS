@@ -179,6 +179,29 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
         )
     }
     
+    func recommendPlace(
+        with infoModel: AVIRORecommendPlaceDTO,
+        completionHandler: @escaping (Result<AVIRORecommendPlaceResultDTO, APIError>) -> Void
+    ) {
+        guard let url = postAPI.placeRecommend().url else {
+            completionHandler(.failure(.urlError))
+            return
+        }
+        
+        guard let jsonData = try? JSONEncoder().encode(infoModel) else {
+            completionHandler(.failure(.encodingError))
+            return
+        }
+        
+        performRequest(
+            with: url,
+            httpMethod: .post,
+            requestBody: jsonData,
+            headers: postAPI.headers,
+            completionHandler: completionHandler
+        )
+    }
+    
     // MARK: Load Refer
     func loadPlaceSummary(
         with placeId: String,
@@ -663,12 +686,12 @@ extension AVIROAPI {
         headers: [String: String]? = nil,
         completionHandler: @escaping (Result<T, APIError>) -> Void
     ) where T: Decodable {
-        print("before: ", onRequest.count)
+//        print("before: ", onRequest.count)
         guard !onRequest.contains(url) else { return }
         
         onRequest.insert(url)
         
-        print("after: ", onRequest.count)
+//        print("after: ", onRequest.count)
         
         var request = URLRequest(url: url)
         
@@ -683,7 +706,7 @@ extension AVIROAPI {
         
         let task = session.dataTask(with: request) { [weak self] data, response, error in
             defer {
-                print(url)
+//                print(url)
                 self?.onRequest.remove(url)
             }
             

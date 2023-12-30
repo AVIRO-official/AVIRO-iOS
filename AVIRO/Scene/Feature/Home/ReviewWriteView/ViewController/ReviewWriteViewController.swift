@@ -70,8 +70,20 @@ final class ReviewWriteViewController: UIViewController {
         
         label.text = "도움이 돼요 : 맛, 가격, 분위기, 편의시설, 비건프렌들리함 등"
         label.textColor = .gray2
+        label.lineBreakMode = .byCharWrapping
         label.numberOfLines = 0
         label.font = .pretendard(size: 16, weight: .medium)
+        
+        return label
+    }()
+    
+    private lazy var expainTextCountLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = " * 최대 10글자 이상"
+        label.textColor = .gray3
+        label.numberOfLines = 0
+        label.font = .pretendard(size: 12, weight: .medium)
         
         return label
     }()
@@ -140,6 +152,7 @@ final class ReviewWriteViewController: UIViewController {
             placeInfoView,
             reviewTextView,
             placeholderLabel,
+            expainTextCountLabel,
             textViewCountLabel,
             exampleLabel,
             exampleSticy,
@@ -179,11 +192,11 @@ final class ReviewWriteViewController: UIViewController {
             
             placeholderLabel.topAnchor.constraint(
                 equalTo: reviewTextView.topAnchor,
-                constant: 20
+                constant: 18
             ),
             placeholderLabel.leadingAnchor.constraint(
                 equalTo: reviewTextView.leadingAnchor,
-                constant: 20
+                constant: 22
             ),
             placeholderLabel.trailingAnchor.constraint(
                 equalTo: reviewTextView.trailingAnchor,
@@ -197,6 +210,14 @@ final class ReviewWriteViewController: UIViewController {
             textViewCountLabel.trailingAnchor.constraint(
                 equalTo: reviewTextView.trailingAnchor,
                 constant: -16
+            ),
+            
+            expainTextCountLabel.centerYAnchor.constraint(
+                equalTo: textViewCountLabel.centerYAnchor
+            ),
+            expainTextCountLabel.leadingAnchor.constraint(
+                equalTo: reviewTextView.leadingAnchor,
+                constant: 16
             ),
             
             exampleLabel.topAnchor.constraint(
@@ -307,6 +328,7 @@ final class ReviewWriteViewController: UIViewController {
     
     private func dataBinding() {
         let text = reviewTextView.rx.text.asDriver()
+        
         let updateReview = reviewUploadButton.rx
             .controlEvent(.touchUpInside)
             .asDriver()
@@ -325,7 +347,7 @@ final class ReviewWriteViewController: UIViewController {
             .drive(self.rx.updatePlaceInfo)
             .disposed(by: disposeBag)
         
-        output.isEditingTextView
+        output.isShowTextViewPlaceHolder
             .drive(self.rx.isEditing)
             .disposed(by: disposeBag)
         
@@ -394,8 +416,8 @@ final class ReviewWriteViewController: UIViewController {
     }
     
     private func updateButtonEnable(with textCount: Int) {
-        reviewUploadButton.isEnabled = textCount != 0
-        reviewUploadButton.backgroundColor = textCount != 0 ? .keywordBlue : .gray5
+        reviewUploadButton.isEnabled = textCount >= 10
+        reviewUploadButton.backgroundColor = textCount >= 10 ? .keywordBlue : .gray5
     }
     
     private func updateTextViewCountLabel(with textCount: Int) {
@@ -403,11 +425,26 @@ final class ReviewWriteViewController: UIViewController {
         
         let coloredRange = NSRange(location: 0, length: textCountString.count)
         
-        let coloredAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.keywordBlue,
-            NSAttributedString.Key.font: UIFont.pretendard(size: 16, weight: .regular)
-        ]
+        var coloredAttributes: [NSAttributedString.Key: NSObject] = [:]
         
+        switch textCount {
+        case 0:
+            coloredAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.gray3,
+                NSAttributedString.Key.font: UIFont.pretendard(size: 16, weight: .regular)
+            ]
+        case 1...9:
+            coloredAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.warning,
+                NSAttributedString.Key.font: UIFont.pretendard(size: 16, weight: .regular)
+            ]
+        default:
+            coloredAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.keywordBlue,
+                NSAttributedString.Key.font: UIFont.pretendard(size: 16, weight: .regular)
+            ]
+        }
+       
         let grayAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.gray3,
             NSAttributedString.Key.font: UIFont.pretendard(size: 16, weight: .regular)

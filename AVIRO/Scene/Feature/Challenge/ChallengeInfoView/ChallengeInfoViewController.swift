@@ -75,7 +75,7 @@ final class ChallengeInfoViewController: UIViewController {
         
         return btn
     }()
-    
+        
     static func create(with challenge: String) -> ChallengeInfoViewController {
         let vc = ChallengeInfoViewController()
         
@@ -187,7 +187,7 @@ final class ChallengeInfoViewController: UIViewController {
             
         case .ended, .cancelled:
             if translation.y > 0 && velocity.y > 800 {
-                dismiss(animated: true)
+                self.dismiss(animated: true)
             } else {
                 UIView.animate(withDuration: 0.2) {
                     self.view.transform = .identity

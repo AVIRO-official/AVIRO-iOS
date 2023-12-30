@@ -24,3 +24,12 @@ struct AVIRODeleteReveiwDTO: Encodable {
     let commentId: String
     let userId: String
 }
+
+struct AVIRORecommendPlaceDTO: Encodable {
+    let placeId: String
+    let userId: String
+}
+
+struct AVIRORecommendPlaceResultDTO: Decodable {
+    let statusCode: Int
+}

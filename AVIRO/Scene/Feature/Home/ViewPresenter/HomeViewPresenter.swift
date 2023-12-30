@@ -826,37 +826,26 @@ final class HomeViewPresenter: NSObject {
         viewController?.updateMapPlace(changedMarkerModel.mapPlace)
     }
     
-    // TODO: 삭제 예정
-//    func uploadReview(_ postReviewModel: AVIROEnrollReviewDTO) {
-//        AVIROAPIManager().createReview(with: postReviewModel) { [weak self] result in
-//            switch result {
-//            case .success(let model):
-//                if model.statusCode == 200 {
-//                    self?.amplitude.uploadReview(
-//                        with: self?.selectedSummaryModel?.title ?? "",
-//                        review: postReviewModel.content
-//                    )
-////                    self?.viewController?.showToastAlert(message)
-//                }
-//            case .failure(let error):
-//                self?.viewController?.showErrorAlert(with: error.localizedDescription, title: nil)
-//            }
-//        }
-//    }
-//    
-//    func afterEditMyReview(_ postEditReviewModel: AVIROEditReviewDTO) {
-//        
-//        AVIROAPIManager().editReview(with: postEditReviewModel) { [weak self] result in
-//            switch result {
-//            case .success(let model):
-//                if let message = model.message {
-//                    self?.viewController?.showToastAlert(message)
-//                }
-//            case .failure(let error):
-//                self?.viewController?.showErrorAlert(with: error.localizedDescription, title: nil)
-//            }
-//        }
-//    }
+    func recommendPlace() {
+        guard let selectedPlaceId = selectedPlaceId else { return }
+        
+        let recommendModel = AVIRORecommendPlaceDTO(
+            placeId: selectedPlaceId, 
+            userId: MyData.my.id
+        )
+        
+        AVIROAPI.manager.recommendPlace(with: recommendModel) { [weak self] result in
+            switch result {
+            case .success(let model):
+                self?.viewController?.showToastAlert("귀중한 정보 감사합니다!")
+            case .failure(let error):
+                self?.viewController?.showErrorAlert(
+                    with: error.errorDescription ?? "서버 오류",
+                    title: nil
+                )
+            }
+        }
+    }
     
     func deleteMyReview(_ postDeleteReviewModel: AVIRODeleteReveiwDTO) {
         AVIROAPI.manager.deleteReview(with: postDeleteReviewModel) { [weak self] result in
