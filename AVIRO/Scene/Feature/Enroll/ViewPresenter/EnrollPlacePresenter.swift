@@ -125,6 +125,7 @@ final class EnrollPlacePresenter {
         AVIROAPI.manager.createPlaceModel(with: veganModel) { [weak self] result in
             switch result {
             case .success(let resultModel):
+                print(resultModel)
                 if resultModel.statusCode == 200 {
                     self?.amplitude.uploadPlace(with: veganModel.title)
                     
@@ -141,6 +142,7 @@ final class EnrollPlacePresenter {
                     self?.viewController?.pushAlertController()
                 }
             case .failure(let error):
+                print(error)
                 if let error = error.errorDescription {
                     self?.viewController?.showErrorAlert(with: error, title: nil)
                 }

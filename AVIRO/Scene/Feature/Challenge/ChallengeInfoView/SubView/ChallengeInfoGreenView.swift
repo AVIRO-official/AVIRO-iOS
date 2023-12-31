@@ -29,18 +29,6 @@ final class ChallengeInfoGreenView: UIView {
         return label
     }()
     
-    private lazy var subLabel: UILabel = {
-        let label = UILabel()
-        
-        label.text = "* 시즌 한정 보상은 시즌 내에만 볼 수 있어요"
-        label.numberOfLines = 1
-        label.textColor = .gray2
-        label.font = .pretendard(size: 12, weight: .regular)
-        label.textAlignment = .left
-        
-        return label
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -55,8 +43,7 @@ final class ChallengeInfoGreenView: UIView {
     private func setupLayout() {
         [
             explainImage,
-            explainLabel,
-            subLabel
+            explainLabel
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
@@ -69,13 +56,9 @@ final class ChallengeInfoGreenView: UIView {
             explainImage.widthAnchor.constraint(equalToConstant: 60),
             explainImage.heightAnchor.constraint(equalToConstant: 60),
             
-            explainLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 11),
+            explainLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             explainLabel.leadingAnchor.constraint(equalTo: explainImage.trailingAnchor, constant: 10),
-            explainLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            
-            subLabel.topAnchor.constraint(equalTo: explainLabel.bottomAnchor, constant: 4),
-            subLabel.leadingAnchor.constraint(equalTo: explainLabel.leadingAnchor),
-            subLabel.trailingAnchor.constraint(equalTo: explainLabel.trailingAnchor)
+            explainLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
         ])
     }
     

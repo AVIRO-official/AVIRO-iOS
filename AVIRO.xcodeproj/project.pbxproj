@@ -206,7 +206,6 @@
 		C5DBF8382B3A5FEC00668B0D /* AVIROTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DBF8372B3A5FEC00668B0D /* AVIROTabBarController.swift */; };
 		C5DBF83F2B3A6E1000668B0D /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DBF83E2B3A6E1000668B0D /* TabBarButton.swift */; };
 		C5DBF8412B3A787800668B0D /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DBF8402B3A787800668B0D /* CGFloat+Extension.swift */; };
-		C5DBF8432B3A822900668B0D /* AVIROViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DBF8422B3A822900668B0D /* AVIROViewController.swift */; };
 		C5E143A72AB43B8F007AC8C9 /* AVIROResult+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E143A62AB43B8F007AC8C9 /* AVIROResult+DTO.swift */; };
 		C5E306E72A6FB4ED00C11CF7 /* MenuField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E306E62A6FB4ED00C11CF7 /* MenuField.swift */; };
 		C5E430B32A5DADBE00CB67EC /* SecondRegistrationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E430B22A5DADBE00CB67EC /* SecondRegistrationPresenter.swift */; };
@@ -459,7 +458,6 @@
 		C5DBF8372B3A5FEC00668B0D /* AVIROTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROTabBarController.swift; sourceTree = "<group>"; };
 		C5DBF83E2B3A6E1000668B0D /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
 		C5DBF8402B3A787800668B0D /* CGFloat+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extension.swift"; sourceTree = "<group>"; };
-		C5DBF8422B3A822900668B0D /* AVIROViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROViewController.swift; sourceTree = "<group>"; };
 		C5E143A62AB43B8F007AC8C9 /* AVIROResult+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROResult+DTO.swift"; sourceTree = "<group>"; };
 		C5E306E62A6FB4ED00C11CF7 /* MenuField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuField.swift; sourceTree = "<group>"; };
 		C5E430B22A5DADBE00CB67EC /* SecondRegistrationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondRegistrationPresenter.swift; sourceTree = "<group>"; };
@@ -1104,7 +1102,6 @@
 			isa = PBXGroup;
 			children = (
 				C5DBF8372B3A5FEC00668B0D /* AVIROTabBarController.swift */,
-				C5DBF8422B3A822900668B0D /* AVIROViewController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -2188,7 +2185,6 @@
 				C505C1E22B3ACEC00058F115 /* Reactive+Extension.swift in Sources */,
 				C5166E4D2A945228003495AA /* MyData.swift in Sources */,
 				C58B9AAE2A5675B9008AEAC3 /* TutorialViewController.swift in Sources */,
-				C5DBF8432B3A822900668B0D /* AVIROViewController.swift in Sources */,
 				C5FF13552A42C88D0026981D /* AVIROPlaceMenus+DTO.swift in Sources */,
 				C56E7A112A971504009CCAF2 /* ReportCellView.swift in Sources */,
 				C52066332A7E80350038ECCD /* MatchedPlaceCellModel.swift in Sources */,
@@ -2428,7 +2424,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AVIRO/AVIRO.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = C4K2HXA435;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
@@ -2463,7 +2459,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AVIRO/AVIRO.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = C4K2HXA435;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AVIRO/App/Info.plist;

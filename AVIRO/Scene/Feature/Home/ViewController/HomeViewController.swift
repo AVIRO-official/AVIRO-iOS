@@ -66,7 +66,7 @@ private enum Layout {
     }
 }
 
-final class HomeViewController: UIViewController, AVIROViewController {
+final class HomeViewController: UIViewController {
     weak var tabBarDelegate: TabBarDelegate?
     
     lazy var presenter = HomeViewPresenter(viewController: self)
@@ -87,7 +87,7 @@ final class HomeViewController: UIViewController, AVIROViewController {
             northEastLat: 44.35,
             northEastLng: 132
         )
-        
+
         return map
     }()
     
@@ -171,6 +171,31 @@ final class HomeViewController: UIViewController, AVIROViewController {
         return button
     }()
     
+    private lazy var isFectchingindicatorView: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView()
+        
+        indicatorView.style = .medium
+        indicatorView.color = .gray0
+        indicatorView.startAnimating()
+        indicatorView.isHidden = true
+        
+        return indicatorView
+    }()
+    
+    private lazy var isFecthingLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "동기화 중 입니다..."
+        label.textColor = .gray1
+        label.font = .pretendard(size: 12, weight: .semibold)
+        label.textAlignment = .center
+        label.numberOfLines = 1
+        
+        label.isHidden = true
+        
+        return label
+    }()
+    
     private lazy var recommendPlaceAlertView = RecommendPlaceAlertView()
     private lazy var levelUpAlertView = LevelUpAlertView()
     
@@ -182,7 +207,6 @@ final class HomeViewController: UIViewController, AVIROViewController {
         let blurEffect = UIBlurEffect(style: .dark)
         
         view.effect = blurEffect
-//        view.frame = self.view.frame
         view.alpha = 0.6
         
         return view
@@ -222,12 +246,6 @@ final class HomeViewController: UIViewController, AVIROViewController {
         
         presenter.viewWillDisappear()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
-        naverMapView.liteModeEnabled = true
-    }
 }
 
 extension HomeViewController: HomeViewProtocol {
@@ -243,7 +261,9 @@ extension HomeViewController: HomeViewProtocol {
             downBackButton,
             blurEffectView,
             recommendPlaceAlertView,
-            levelUpAlertView
+            levelUpAlertView,
+            isFecthingLabel,
+            isFectchingindicatorView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
@@ -334,7 +354,13 @@ extension HomeViewController: HomeViewProtocol {
             levelUpAlertView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             levelUpAlertView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             levelUpAlertView.heightAnchor.constraint(equalToConstant: 340),
-            levelUpAlertView.widthAnchor.constraint(equalToConstant: 350)
+            levelUpAlertView.widthAnchor.constraint(equalToConstant: 350),
+            
+            isFectchingindicatorView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            isFectchingindicatorView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            
+            isFecthingLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            isFecthingLabel.topAnchor.constraint(equalTo: isFectchingindicatorView.bottomAnchor, constant: 16)
         ])
                         
         searchTextFieldTopConstraint = searchTextField.topAnchor.constraint(
@@ -355,16 +381,6 @@ extension HomeViewController: HomeViewProtocol {
     
     func setupAttribute() {
         view.backgroundColor = .gray7
-        
-//        if let tabBarController = tabBarController as? TabBarViewController {
-//            // home 화면 초기화
-//            tabBarController.homeTabBarButtonTapped = { [weak self] in
-//                self?.presenter.initMarkerState()
-//                self?.whenViewWillAppearInitPlaceView()
-//                self?.afterSearchFieldInit()
-//                self?.naverMapView.isHidden = false
-//            }
-//        }
     }
     
     func setupGesture() {
@@ -388,14 +404,22 @@ extension HomeViewController: HomeViewProtocol {
         view.addGestureRecognizer(whenSlideTapGesture)
     }
     
+    func isFectingData() {
+        isFectchingindicatorView.isHidden = false
+        isFecthingLabel.isHidden = false
+    }
+    
+    func endFectingData() {
+        DispatchQueue.main.async { [weak self] in
+            self?.isFectchingindicatorView.isHidden = true
+            self?.isFecthingLabel.isHidden = true
+        }
+    }
+    
     /// 기본 값 view will appear
     func whenViewWillAppear() {
         navigationController?.navigationBar.isHidden = true
-//        if let tabBarController = self.tabBarController as? TabBarViewController {
-//            tabBarController.hiddenTabBar(false)
-//        }
-//        tabBarDelegate?.setTabBarHidden(with: false)
-
+        
         naverMapView.isHidden = false
     }
     
@@ -409,7 +433,6 @@ extension HomeViewController: HomeViewProtocol {
     func whenAfterPopEditViewController() {
         naverMapView.isHidden = true
     }
-    
     /// location button clicked
     func isSuccessLocation() {
         
@@ -579,16 +602,6 @@ extension HomeViewController: HomeViewProtocol {
             naverMapView.isHidden = true
             isSlideUpView = false
         }
-
-//        print(gesture.view)
-//        if let tappedView = gesture.view,
-//           tappedView == placeView {
-//            if isSlideUpView {
-//                placeViewFullUp()
-//                naverMapView.isHidden = true
-//                isSlideUpView = false
-//            }
-//        }
     }
     
     func homeButtonIsHidden(_ hidden: Bool) {
@@ -996,14 +1009,9 @@ extension HomeViewController {
         placeView.editMenu = { [weak self] in
             self?.presenter.editMenu()
         }
-        
-//        placeView.whenUploadReview = { [weak self] postReviewModel in
-//            self?.presenter.uploadReview(postReviewModel)
-//        }
-//        
+          
         placeView.whenAfterEditReview = { [weak self] _ in
             self?.showToastAlert("수정했습니다.")
-//       self?.presenter.afterEditMyReview(postReviewEditModel)
         }
     
         placeView.reportReview = { [weak self] reportIdModel in
@@ -1014,14 +1022,8 @@ extension HomeViewController {
             self?.showEditMyReviewAlert(commentId, content)
         }
         
-        // TODO: 수정 예정
         placeView.pushReviewWriteView = { [weak self] in
             self?.presenter.pushReviewWriteView()
-            
-//            print(vc)
-//            vc.tabBarDelegate = self?.tabBarDelegate
-//            
-//            self?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
@@ -1068,7 +1070,6 @@ extension HomeViewController: UITextFieldDelegate {
             }
             
             self?.tabBarDelegate?.isHidden = (true, true)
-//            self?.tabBarDelegate?.setTabBarHidden(with: true)
             self?.navigationController?.pushViewController(vc, animated: false)
             
             textField.leftView?.isHidden = false
@@ -1191,6 +1192,7 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
     }
     
     func showLevelUpAlert(with level: Int) {
+        print(level)
         levelUpAlertView.setMainTitle(with: level)
         
         tabBarDelegate?.hideBlurEffectView(with: false)

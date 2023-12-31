@@ -130,7 +130,6 @@ final class ReviewWriteViewModel: ViewModel {
                     content: content
                 )
                 
-                // TODO: 수정 업데이트
                 if let editCommentId = editCommentId {
                     model.commentId = editCommentId
                     
@@ -166,13 +165,10 @@ final class ReviewWriteViewModel: ViewModel {
         )
     }
     
-    private var test = 0
     private func updateReview(with reviewModel: AVIROEnrollReviewDTO) -> Single<(AfterWriteReviewModel, Bool)> {
-        test += 1
-        print(test)
+
         return Single.create { single in
             AVIROAPI.manager.createReview(with: reviewModel) { [weak self] result in
-                print(result)
                 switch result {
                 case .success(let model):
                     if model.statusCode == 200 {

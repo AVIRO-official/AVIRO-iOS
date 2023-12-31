@@ -101,7 +101,7 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
         
         return view
     }()
-    
+            
     var selectedIndex: Int = 0 {
         willSet {
             previousIndex = selectedIndex
@@ -241,8 +241,6 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
     private func deleteView() {
         let previousVC = viewControllers[previousIndex]
         
-//        selectedVCBottomUponViewBottom = nil
-//        selectedVCBottomUponTabViewConstraint = nil
         previousVC.remove()
     }
     
