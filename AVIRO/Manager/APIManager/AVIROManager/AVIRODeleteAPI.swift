@@ -14,16 +14,18 @@ struct AVIRODeleteAPI {
     var host: String? = {
         guard let path = Bundle.main.url(forResource: "API", withExtension: "plist"),
               let dict = NSDictionary(contentsOf: path) as? [String: Any],
-              let host = dict["AVIROHost"] as? String else {
+              let host = dict["AVIRO_Host"] as? String else {
             return nil
         }
         return host
     }()
     
-    let headers = ["Content-Type": "application/json"]
-
+    let headers = [
+        "Content-Type": "application/json",
+        "X-API-KEY": "\(AVIROConfiguration.apikey)"
+    ]
     // MARK: Path
-    static let commentDeletePath = "/prod/map/update/comment"
+    static let commentDeletePath = "/1/map/update/comment"
     
     // MARK: Key
     static let commentId = "commentId"

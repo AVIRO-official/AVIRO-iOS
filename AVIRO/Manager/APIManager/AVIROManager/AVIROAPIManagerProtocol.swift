@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol AVIROAPIMangerProtocol: APIManagerProtocol {
+protocol AVIROAPIMangerProtocol: APIManagerProtocol {    
     // MARK: Marker Refer
     func loadNerbyPlaceModels(
         with mapModel: AVIROMapModelDTO,
@@ -39,11 +39,17 @@ protocol AVIROAPIMangerProtocol: APIManagerProtocol {
     // MARK: Create Refer
     func createPlaceModel(
         with placeModel: AVIROEnrollPlaceDTO,
-        completionHandler: @escaping(Result<AVIROResultDTO, APIError>) -> Void
+        completionHandler: @escaping(Result<AVIROChallengeResultDTO, APIError>) -> Void
     )
+    
     func createReview(
         with reviewModel: AVIROEnrollReviewDTO,
-        completionHandler: @escaping(Result<AVIROResultDTO, APIError>) -> Void
+        completionHandler: @escaping(Result<AVIROChallengeResultDTO, APIError>) -> Void
+    )
+    
+    func recommendPlace(
+        with infoModel: AVIRORecommendPlaceDTO, 
+        completionHandler: @escaping(Result<AVIRORecommendPlaceResultDTO, APIError>) -> Void
     )
     
     // MARK: Load Refer

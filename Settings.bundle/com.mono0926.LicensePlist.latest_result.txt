@@ -1,0 +1,69 @@
+name: AmplitudeSwift, nameSpecified: 
+body: MIT License
+
+Copyrig…
+version: 0.4.14
+
+name: KeychainSwift, nameSpecified: 
+body: The MIT License
+
+Cop…
+version: 20.0.0
+
+name: lottie-ios, nameSpecified: 
+body:                     …
+version: 4.3.3
+
+name: NMapsGeometry, nameSpecified: 
+body: Copyright © 2018 NAV…
+version: 1.0.1
+
+name: NMapsMap, nameSpecified: 
+body: Copyright © 2018 NAV…
+version: 3.17.0
+
+name: Realm, nameSpecified: 
+body:                     …
+version: 10.43.0
+
+name: RealmSwift, nameSpecified: 
+body:                     …
+version: 10.43.0
+
+name: RxBlocking, nameSpecified: 
+body: **The MIT License**
+…
+version: 6.6.0
+
+name: RxCocoa, nameSpecified: 
+body: **The MIT License**
+…
+version: 6.6.0
+
+name: RxRelay, nameSpecified: 
+body: **The MIT License**
+…
+version: 6.6.0
+
+name: RxSwift, nameSpecified: 
+body: **The MIT License**
+…
+version: 6.6.0
+
+name: RxSwift, nameSpecified: 
+body: **The MIT License**
+…
+version: 6.6.0
+
+name: RxTest, nameSpecified: 
+body: **The MIT License**
+…
+version: 6.6.0
+
+name: Toast-Swift, nameSpecified: 
+body: Copyright (c) 2015-2…
+version: 5.0.1
+
+add-version-numbers: false
+
+LicensePlist Version: 3.25.1

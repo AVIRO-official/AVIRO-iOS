@@ -60,14 +60,9 @@ extension UIImage {
     static let requestOptionButton = UIImage(named: "RequestOption")!
     
     // MARK: Tab Bar Icon
-    static let home1 = UIImage(named: "home1")!
-    static let home2 = UIImage(named: "home2")!
-    
-    static let edit1 = UIImage(named: "square1")!
-    static let edit2 = UIImage(named: "square2")!
-    
-    static let user1 = UIImage(named: "user1")!
-    static let user2 = UIImage(named: "user2")!
+    static let homeTab = UIImage(named: "HomeTab")!
+    static let plusTab = UIImage(named: "PlusTab")!
+    static let tropyTab = UIImage(named: "TrophyTab")!
     
     // MARK: Assets Img
     static let apple = UIImage(named: "AppleLogo")!
@@ -118,6 +113,9 @@ extension UIImage {
     static let placeReviw = UIImage(named: "PlaceReview")!
     static let placeIcon = UIImage(named: "PlaceViewMap")!
     static let editInfo = UIImage(named: "Edit")!
+    
+    static let pointExplain = UIImage(named: "Point_explain")!
+    
     /// 최근검색어
     static let timeIcon = UIImage(named: "RecentlyTime")!
     /// place 정보 아이콘
@@ -125,4 +123,14 @@ extension UIImage {
     
     static let mainSearchStore = UIImage(named: "MainSearchStore")!
     static let mainSearchStation = UIImage(named: "MainSearchStation")!
+    
+    static let infoCircle = UIImage(named: "InfoCircle")!
+    static let user2 = UIImage(named: "user2")!
+    
+    // MARK: Challenge
+    static let challengeInfoGreen = UIImage(named: "ChallengeInfoGreen")!
+    static let challengeInfoYellow = UIImage(named: "ChallengeInfoYellow")!
+    static let challengeInfoOrange = UIImage(named: "ChallengeInfoOrange")!
+    static let goldRectangle = UIImage(named: "GoldRectangle")!
+    static let goldTrophy = UIImage(named: "GoldTrophy")
 }

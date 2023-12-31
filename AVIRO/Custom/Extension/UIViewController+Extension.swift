@@ -153,7 +153,7 @@ extension UIViewController {
             )
         }
     }
-        
+            
     // MARK: Back Button
     func setupBack(_ animatied: Bool = false) {
         let backButton = UIButton()
@@ -219,6 +219,22 @@ extension UIViewController {
         ]
         
         applyGradientToView(colors: colors)
+    }
+    
+    // MARK: View Add, Remove
+    func add(child: UIViewController, container: UIView) {
+        addChild(child)
+        child.view.frame = container.bounds
+        container.addSubview(child.view)
+        child.didMove(toParent: self)
+    }
+    
+    func remove() {
+        guard parent != nil else { return }
+        
+        willMove(toParent: nil)
+        removeFromParent()
+        view.removeFromSuperview()
     }
 }
 

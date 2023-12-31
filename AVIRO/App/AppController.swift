@@ -35,11 +35,11 @@ final class AppController {
         window.makeKeyAndVisible()
         
         checkState()
+//        setTabBarView()
     }
     
     // MARK: 불러올 view 확인 메서드
     private func checkState() {
-//        self.setHomeView()
         // 최초 튜토리얼 화면 안 봤을 때
         guard UserDefaults.standard.bool(forKey: UDKey.tutorial.rawValue) else {
             setTutorialView()
@@ -54,7 +54,7 @@ final class AppController {
 
         let userCheck = AVIROAutoLoginWhenAppleUserDTO(refreshToken: userKey)
 
-        AVIROAPIManager().appleUserCheck(with: userCheck) { [weak self] result in
+        AVIROAPI.manager.appleUserCheck(with: userCheck) { [weak self] result in
             switch result {
             case .success(let model):
                 if model.statusCode == 200 {
@@ -66,13 +66,13 @@ final class AppController {
                             userNickname: data.nickname,
                             marketingAgree: data.marketingAgree
                         )
-                        self?.setHomeView()
+                        self?.setTabBarView()
                     }
                 } else {
                     self?.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
                     self?.setLoginView()
                 }
-            case .failure(_):
+            case .failure:
                 self?.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
                 self?.setLoginView()
             }
@@ -97,13 +97,26 @@ final class AppController {
         }
     }
     
-    // MARK: home View
-    private func setHomeView() {
+    // MARK: TabBar View
+    private func setTabBarView() {
         DispatchQueue.main.async { [weak self] in
-            let homeVC = TabBarViewController()
-
-            self?.rootViewController = homeVC
+            let tabBarVC = AVIROTabBarController()
+            tabBarVC.setViewControllers(with: [
+                TabBarType.home,
+                TabBarType.plus,
+                TabBarType.challenge
+            ])
+            
+            tabBarVC.selectedIndex = 0
+            
+            self?.rootViewController = tabBarVC
+            
         }
+//        DispatchQueue.main.async { [weak self] in
+//            let homeVC = TabBarViewController()
+//
+//            self?.rootViewController = homeVC
+//        }
     }
     
 }

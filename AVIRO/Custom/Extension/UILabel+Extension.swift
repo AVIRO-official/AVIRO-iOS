@@ -28,4 +28,26 @@ extension UILabel {
         
         return numberOfLine
     }
+    
+    func setLineSpacing(_ spacing: CGFloat) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = spacing
+
+        let attributedString: NSMutableAttributedString
+        if let labelAttributedText = self.attributedText {
+            attributedString = NSMutableAttributedString(attributedString: labelAttributedText)
+        } else {
+            attributedString = NSMutableAttributedString(string: self.text ?? "")
+        }
+
+        // .paragraphStyle 속성을 전체 텍스트에 적용합니다.
+        attributedString.addAttribute(
+            NSAttributedString.Key.paragraphStyle,
+            value: paragraphStyle,
+            range: NSRange(location: 0, length: attributedString.length)
+        )
+
+        self.attributedText = attributedString
+    }
+
 }

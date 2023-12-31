@@ -75,7 +75,7 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
             time: updateTime
         )
         
-        AVIROAPIManager().loadNerbyPlaceModels(with: mapModel) { result in
+        AVIROAPI.manager.loadNerbyPlaceModels(with: mapModel) { [weak self] result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {
@@ -111,6 +111,7 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
                     let updatedDataRaw = realm.objects(MarkerModelFromRealm.self)
                     let updatedDataArray = Array(updatedDataRaw).map { $0.toAVIROMarkerModel() }
                     
+                    self?.updateTime = TimeUtility.nowDateAndTime()
                     completionHandler(.success(updatedDataArray))
                 } else {
                     completionHandler(.failure(.badRequest))
@@ -133,7 +134,7 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
             time: nil
         )
         
-        AVIROAPIManager().loadNerbyPlaceModels(with: model) { result in
+        AVIROAPI.manager.loadNerbyPlaceModels(with: model) { result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {
@@ -193,7 +194,7 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
             time: updateTime
         )
         
-        AVIROAPIManager().loadNerbyPlaceModels(with: mapModel) { [weak self] result in
+        AVIROAPI.manager.loadNerbyPlaceModels(with: mapModel) { [weak self] result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {

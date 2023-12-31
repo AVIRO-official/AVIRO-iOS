@@ -33,12 +33,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configurationForConnecting connectingSceneSession: UISceneSession,
         options: UIScene.ConnectionOptions
     ) -> UISceneConfiguration {
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+        return UISceneConfiguration(
+            name: "Default Configuration",
+            sessionRole: connectingSceneSession.role
+        )
+    }
+    
+    func application(
+        _ application: UIApplication,
+        supportedInterfaceOrientationsFor window: UIWindow?
+    ) -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
     }
     
     private func setNaverMapAPI() {
-        guard let keyUrl = Bundle.main.url(forResource: "API", withExtension: "plist"),
-              let dictionary = NSDictionary(contentsOf: keyUrl) as? [String: Any] else { return }
+        guard let keyUrl = Bundle.main.url(
+            forResource: "API",
+            withExtension: "plist"
+        ),
+              let dictionary = NSDictionary(
+                contentsOf: keyUrl
+              ) as? [String: Any] else { return }
                 
         let key = (dictionary["NMFAuthManager_Authorization_Key"] as? String)!
         
@@ -46,8 +61,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func setAmplitude() {
-        guard let keyUrl = Bundle.main.url(forResource: "API", withExtension: "plist"),
-              let dictionary = NSDictionary(contentsOf: keyUrl) as? [String: Any] else { return }
+        guard let keyUrl = Bundle.main.url(
+            forResource: "API",
+            withExtension: "plist"
+        ),
+              let dictionary = NSDictionary(
+                contentsOf: keyUrl
+              ) as? [String: Any] else { return }
         
         let key = (dictionary["Amplitude_Key"] as? String)!
         
