@@ -115,8 +115,8 @@ final class LaunchScreenViewController: UIViewController {
     
     private func checkVersion() {
         DispatchQueue.global().async { [weak self] in
-            let latestVersion = SystemUtility().latestVersion() ?? "0.0"
-            let currentVersion = SystemUtility.appVersion ?? "0.0"
+            let latestVersion = SystemUtility().latestVersion() ?? "0.0.0"
+            let currentVersion = SystemUtility.appVersion ?? "0.0.0"
 
             let splitLatestVersion = latestVersion.split(separator: ".").map { $0 }
             let splitCurrentVersion = currentVersion.split(separator: ".").map { $0 }

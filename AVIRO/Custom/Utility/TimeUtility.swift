@@ -14,7 +14,7 @@ final class TimeUtility {
         let formatter = DateFormatter()
         
         formatter.dateFormat = "yyyy.MM.dd"
-        
+
         let formattedDate = formatter.string(from: date)
         
         return formattedDate
@@ -25,10 +25,11 @@ final class TimeUtility {
         let date = Date()
         let formatter = DateFormatter()
         
-        formatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
-
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
         let formattedDateTime = formatter.string(from: date)
         
+        print(formattedDateTime)
         return formattedDateTime
     }
     

@@ -14,11 +14,13 @@ protocol HomeViewProtocol: NSObject {
     func setupLayout()
     func setupAttribute()
     func setupGesture()
-    
+        
     func whenViewWillAppear()
     func whenViewWillAppearOffAllCondition()
     func whenAfterPopEditViewController()
 
+    func isFectingData()
+    func endFectingData()
 //    func keyboardWillShow(notification: NSNotification)
 //    func keyboardWillHide()
 //    
@@ -73,7 +75,7 @@ final class HomeViewPresenter: NSObject {
     var homeMapData: [AVIROMarkerModel]?
     
     private var hasTouchedMarkerBefore = false
-    private var whenShowPlaceAfterActionFromOtherViewController = false
+    private var whenShowPlaceAfterActionFromChildViewController = false
     private var isFirstViewWillappear = true
     private var whenKeepPlaceInfoView = false
     
@@ -132,7 +134,7 @@ final class HomeViewPresenter: NSObject {
     
     func viewWillAppear() {
 //        addKeyboardNotification()
-
+        
         handleMarkerUpdate()
         handleViewWillAppearActions()
     }
@@ -153,8 +155,8 @@ final class HomeViewPresenter: NSObject {
         }
         
         if whenKeepPlaceInfoView { return }
-
-        if !whenShowPlaceAfterActionFromOtherViewController {
+        
+        if !whenShowPlaceAfterActionFromChildViewController {
             viewController?.whenViewWillAppearOffAllCondition()
         }
     }
@@ -167,10 +169,8 @@ final class HomeViewPresenter: NSObject {
     }
     
     func viewWillDisappear() {
-//        removeKeyboardNotification()
-
-        if whenShowPlaceAfterActionFromOtherViewController {
-            whenShowPlaceAfterActionFromOtherViewController.toggle()
+        if whenShowPlaceAfterActionFromChildViewController {
+            whenShowPlaceAfterActionFromChildViewController.toggle()
         }
         
         if !whenKeepPlaceInfoView {
@@ -182,51 +182,18 @@ final class HomeViewPresenter: NSObject {
     func shouldKeepPlaceInfoViewState(_ state: Bool) {
         whenKeepPlaceInfoView = state
     }
-
-//    // MARK: Keyboard에 따른 view 높이 변경 Notification
-//    func addKeyboardNotification() {
-//        NotificationCenter.default.addObserver(
-//            self,
-//            selector: #selector(keyboardWillShow),
-//            name: UIResponder.keyboardWillShowNotification,
-//            object: nil
-//        )
-//        NotificationCenter.default.addObserver(
-//            self,
-//            selector: #selector(keyboardWillHide),
-//            name: UIResponder.keyboardWillHideNotification,
-//            object: nil
-//        )
-//    }
-//    
-//    func removeKeyboardNotification() {
-//        NotificationCenter.default.removeObserver(
-//            self,
-//            name: UIResponder.keyboardWillShowNotification,
-//            object: nil
-//        )
-//        NotificationCenter.default.removeObserver(
-//            self,
-//            name: UIResponder.keyboardWillHideNotification,
-//            object: nil
-//        )
-//    }
-//    
-//    @objc func keyboardWillShow(notification: NSNotification) {
-//        viewController?.keyboardWillShow(notification: notification)
-//    }
-//    
-//    @objc func keyboardWillHide() {
-//        viewController?.keyboardWillHide()
-//    }
     
     // MARK: vegan Data 불러오기
     func loadVeganData() {
+        viewController?.isFectingData()
+        
         markerModelManager.fetchRawData { [weak self] result in
             switch result {
             case .success(let mapDatas):
                 self?.saveMarkers(mapDatas)
+                self?.viewController?.endFectingData()
             case .failure:
+                self?.viewController?.endFectingData()
                 self?.viewController?.showErrorAlertWhenLoadMarker()
             }
         }
@@ -285,7 +252,7 @@ final class HomeViewPresenter: NSObject {
             
             /// 본인이 직접등록한 마커에 대해서 등록 후 -> 바로 표시를 위한 조치
             if CenterCoordinate.shared.isChangedFromEnrollView {
-                self?.whenShowPlaceAfterActionFromOtherViewController = true
+                self?.whenShowPlaceAfterActionFromChildViewController = true
                 
                 self?.whenAfterEnrollPlace()
             }
@@ -301,6 +268,8 @@ final class HomeViewPresenter: NSObject {
         
         guard let markerModel = markerModel,
               let index = index else { return }
+        
+        print(markerModel)
 
         getPlaceSummaryModel(markerModel)
         
@@ -486,7 +455,7 @@ final class HomeViewPresenter: NSObject {
             guard let markerModel = markerModel else { return }
             guard let index = index else { return }
             
-            whenShowPlaceAfterActionFromOtherViewController = true
+            whenShowPlaceAfterActionFromChildViewController = true
                                     
             selectedMarkerIndex = index
             selectedMarkerModel = markerModel

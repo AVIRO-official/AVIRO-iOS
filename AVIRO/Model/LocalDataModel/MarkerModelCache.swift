@@ -60,10 +60,9 @@ final class MarkerModelCache: MarkerModelCacheProtocol {
     /// 앱이 실행 중일때 Marker Model 업데이트 하는 경우 가공된 데이터로 저장
     func updateMarkerModel(_ markerModel: MarkerModel) {
         if let index = markers.firstIndex(where: { $0.placeId == markerModel.placeId }) {
-            
             var updateMarker = markerModel
             
-            DispatchQueue.main.async { [weak self] in
+            DispatchQueue.main.sync { [weak self] in
                 self?.markers[index].marker.position = updateMarker.marker.position
                 
                 self?.markers[index].marker.changeIcon(
@@ -86,7 +85,7 @@ final class MarkerModelCache: MarkerModelCacheProtocol {
     }
     
     private func adjustMarkerCoordinatesWhenOverlapping(for markerModel: MarkerModel) {
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.main.sync { [weak self] in
             guard let self = self else { return }
             
             let samePositionMarkers = self.markers.filter { $0.marker.position == markerModel.marker.position }
@@ -114,7 +113,7 @@ final class MarkerModelCache: MarkerModelCacheProtocol {
     // MARK: DeleteMarkerModel
     /// update간 삭제된 마커데이터 삭제하기
     func deleteMarkerModel(with placeId: String) {
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.main.sync { [weak self] in
             guard let markerModel = self?.markers.first(where: { $0.placeId == placeId })  else { return }
             
             markerModel.marker.mapView = nil

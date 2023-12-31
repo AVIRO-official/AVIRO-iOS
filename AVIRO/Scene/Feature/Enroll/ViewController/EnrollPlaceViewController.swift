@@ -11,7 +11,7 @@ private enum Text: String {
     case error = "에러"
 }
 
-final class EnrollPlaceViewController: UIViewController, AVIROViewController {
+final class EnrollPlaceViewController: UIViewController {
     weak var tabBarDelegate: TabBarDelegate?
     weak var homeViewDelegate: AfterHomeViewControllerProtocol?
     
