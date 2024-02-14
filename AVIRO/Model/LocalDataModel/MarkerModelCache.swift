@@ -11,18 +11,23 @@ import NMapsMap.NMFMarker
 protocol MarkerModelCacheProtocol {
     func getMarkers() -> [NMFMarker]
     func getMarkerModels() -> [MarkerModel]
-    func updateMarkerModelWhenClicked(with markerModel: MarkerModel)
+    
     func getOnlyStarMarkerModels() -> [MarkerModel]
     func getMarker(with marker: NMFMarker) -> (MarkerModel?, Int?)
     func getMarker(with afterSearchModel: MatchedPlaceModel
     ) -> (MarkerModel?, Int?)
     func getMarker(x: Double, y: Double) -> (MarkerModel?, Int?)
-    func setMarkerModel(_ markerModels: [MarkerModel])
-    func updateMarkerModel(_ index: Int, _ markerModel: MarkerModel)
-    func resetAllStarMarkers()
-    func updateWhenStarButton(_ markerModel: [MarkerModel])
-    func updateMarkerModel(_ markerModel: MarkerModel)
     func getUpdatedMarkers() -> [NMFMarker]
+
+    func setMarkerModel(_ markerModels: [MarkerModel])
+    
+    func updateWhenStarButton(_ markerModel: [MarkerModel])
+    func updateMarkerModelWhenClicked(with markerModel: MarkerModel)
+    func updateMarkerModel(_ index: Int, _ markerModel: MarkerModel)
+    func updateMarkerModel(_ markerModel: MarkerModel)
+    
+    func resetAllStarMarkers()
+    
     func deleteMarkerModel(with placeId: String)
     func deleteAllMarkerModel()
 }

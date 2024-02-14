@@ -404,6 +404,8 @@ extension HomeViewController: HomeViewProtocol {
         view.addGestureRecognizer(whenSlideTapGesture)
     }
     
+    
+    /// Fetcing이 진행 중일 때를 알려주는 indicator show
     func isFectingData() {
         isFectchingindicatorView.isHidden = false
         isFecthingLabel.isHidden = false
