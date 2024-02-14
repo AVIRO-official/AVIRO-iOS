@@ -246,7 +246,6 @@ final class HomeSearchPresenter {
                 self?.isLoading = false
 
                 if let error = error.errorDescription {
-                    print(error)
                     self?.viewController?.showErrorAlert(with: error, title: nil)
                 }
             }

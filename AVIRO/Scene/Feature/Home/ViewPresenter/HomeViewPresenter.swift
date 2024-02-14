@@ -269,8 +269,6 @@ final class HomeViewPresenter: NSObject {
         guard let markerModel = markerModel,
               let index = index else { return }
         
-        print(markerModel)
-
         getPlaceSummaryModel(markerModel)
         
         hasTouchedMarkerBefore = true

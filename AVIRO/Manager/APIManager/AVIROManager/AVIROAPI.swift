@@ -709,7 +709,7 @@ extension AVIROAPI {
 //                print(url)
                 self?.onRequest.remove(url)
             }
-            
+
             if let error = error {
                 completionHandler(.failure(.networkError(error)))
                 return

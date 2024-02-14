@@ -14,6 +14,8 @@ final class MarkerModelFromRealm: Object {
     @Persisted var latitude: Double
     @Persisted var longitude: Double
     
+    @Persisted var title: String
+    @Persisted var category: String
     @Persisted var isAll: Bool
     @Persisted var isSome: Bool
     @Persisted var isRequest: Bool
@@ -23,6 +25,8 @@ final class MarkerModelFromRealm: Object {
         placeId: String,
         latitude: Double,
         longitude: Double,
+        title: String,
+        category: String,
         isAll: Bool,
         isSome: Bool,
         isRequest: Bool
@@ -32,6 +36,8 @@ final class MarkerModelFromRealm: Object {
         self.placeId = placeId
         self.latitude = latitude
         self.longitude = longitude
+        self.title = title
+        self.category = category
         self.isAll = isAll
         self.isSome = isSome
         self.isRequest = isRequest
@@ -40,6 +46,8 @@ final class MarkerModelFromRealm: Object {
     func toAVIROMarkerModel() -> AVIROMarkerModel {
         return AVIROMarkerModel(
             placeId: placeId,
+            title: title,
+            category: category,
             x: longitude,
             y: latitude,
             allVegan: isAll,
