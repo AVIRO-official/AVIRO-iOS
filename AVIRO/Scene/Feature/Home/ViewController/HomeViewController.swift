@@ -1194,7 +1194,6 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
     }
     
     func showLevelUpAlert(with level: Int) {
-        print(level)
         levelUpAlertView.setMainTitle(with: level)
         
         tabBarDelegate?.hideBlurEffectView(with: false)

@@ -56,13 +56,14 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
     func fetchRawData(
         completionHandler: @escaping (Result<[AVIROMarkerModel], APIError>) -> Void
     ) {
+        /// 버전
         // realm 마이그레이션 실행
         let config = Realm.Configuration(
             schemaVersion: 1,
             migrationBlock: { migration, oldSchemaVersion in
                 // oldScehemaVersion이 현재 스키마 버전보다 낮은 경우 마이그레이션을 수행
-                if (oldSchemaVersion < 1) {
-                    migration.enumerateObjects(ofType: MarkerModelFromRealm.className()) { oldObject, newObject in
+                if oldSchemaVersion < 1 {
+                    migration.enumerateObjects(ofType: MarkerModelFromRealm.className()) { _, newObject in
                         // 새로운 프로퍼티에 대한 기본값 설정
                         newObject?["title"] = ""
                         newObject?["category"] = ""
@@ -72,12 +73,12 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
         )
         
         Realm.Configuration.defaultConfiguration = config
-        
+        print("realm 위치: ", Realm.Configuration.defaultConfiguration.fileURL!)
         let realm = try! Realm()
-        let storedDataCount = realm.objects(MarkerModelFromRealm.self).count
-        let hasTitleInRealm = realm.objects(MarkerModelFromRealm.self).index
-        
-        if storedDataCount > 0 {
+        let haveStoredData = realm.objects(MarkerModelFromRealm.self).count > 0 ? true : false
+        let hasTitleInRealm = realm.objects(MarkerModelFromRealm.self).filter("title != ''").count > 0 ? true : false
+
+        if haveStoredData && hasTitleInRealm {
             fetchRawDataFromRealm(completionHandler: completionHandler)
         } else {
             fetchRawDataFromServer(completionHandler: completionHandler)
@@ -165,7 +166,7 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
                                 placeId: model.placeId,
                                 latitude: model.y,
                                 longitude: model.x,
-                                title: model.category,
+                                title: model.title,
                                 category: model.category,
                                 isAll: model.allVegan,
                                 isSome: model.someMenuVegan,
