@@ -536,7 +536,7 @@ extension HomeViewController: HomeViewProtocol {
         }
     }
     
-    func updateMapPlace(_ mapPlace: MapPlace) {
+    func updateMapPlace(_ mapPlace: VeganType) {
         placeView.updateMapPlace(mapPlace)
     }
     

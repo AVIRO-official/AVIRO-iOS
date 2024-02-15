@@ -343,7 +343,7 @@ final class PlaceSummaryView: UIView {
         self.reviewsLabel.text = "\(count)개"
     }
     
-    func updateMapPlace(_ mapPlace: MapPlace) {
+    func updateMapPlace(_ mapPlace: VeganType) {
         var placeIconImage: UIImage?
         var whenSlideTopLabelString: String?
         

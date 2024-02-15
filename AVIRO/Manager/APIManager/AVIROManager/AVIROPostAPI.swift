@@ -33,6 +33,7 @@ struct AVIROPostAPI {
         "X-API-KEY": "\(AVIROConfiguration.apikey)"
     ]
     
+    // MARK: - URL Property
     static let placeEnrollPath = "/2/map/add/place"
     static let placeListMatchedAVIROPath = "/2/map/check/place"
     static let placeListReportPath = "/2/map/report/place"
@@ -51,10 +52,10 @@ struct AVIROPostAPI {
     
     static let editMenuPath = "/2/map/update/menu"
     
-    static let appleUserAutoLoginPath = "/1/member/apple"
-    static let appleUserCheckPath = "/1/member"
-    static let appleUserSignUpPath = "/1/member/sign-up"
-    static let appleUserRevokePath = "/1/member/revoke"
+    static let appleUserAutoLoginPath = "/2/member/apple"
+    static let appleUserCheckPath = "/2/member"
+    static let appleUserSignUpPath = "/2/member/sign-up"
+    static let appleUserRevokePath = "/2/member/revoke"
     
     static let userNicnameCheckPath = "/2/member/check"
     static let userNicknameChangeablePath = "/2/member/update/nickname"

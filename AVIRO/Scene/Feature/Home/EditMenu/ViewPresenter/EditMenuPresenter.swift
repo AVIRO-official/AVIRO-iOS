@@ -889,7 +889,7 @@ final class EditMenuPresenter {
               let isRequest = isRequest
         else { return }
         
-        var mapPlace: MapPlace!
+        var mapPlace: VeganType!
         
         if isAll {
             mapPlace = .All

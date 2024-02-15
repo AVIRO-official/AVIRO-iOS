@@ -70,11 +70,14 @@ final class MarkerModelCache: MarkerModelCacheProtocol {
             DispatchQueue.main.sync { [weak self] in
                 self?.markers[index].marker.position = updateMarker.marker.position
                 
+                // 실행 중 변경임으로 changeIcon
                 self?.markers[index].marker.changeIcon(
-                    updateMarker.mapPlace,
-                    updateMarker.isClicked
+                    veganType: updateMarker.veganType,
+                    categoryType: updateMarker.categoryType,
+                    isSelected: updateMarker.isClicked
                 )
-                                
+                              
+                // marker는 class 참조 값이여서 직접 대입 후 변경
                 updateMarker.marker = (self?.markers[index].marker)!
                 
                 self?.markers[index] = updateMarker
