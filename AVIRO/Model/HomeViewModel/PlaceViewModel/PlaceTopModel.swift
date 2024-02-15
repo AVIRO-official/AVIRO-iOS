@@ -8,7 +8,7 @@
 import Foundation
 
 struct PlaceTopModel {
-    let placeState: MapPlace
+    let placeState: VeganType
     let placeTitle: String
     let placeCategory: String
     let distance: String
