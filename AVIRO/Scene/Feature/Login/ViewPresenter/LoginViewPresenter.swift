@@ -76,7 +76,7 @@ final class LoginViewPresenter: NSObject {
             identityToken: model.identityToken,
             authorizationCode: model.authorizationCode
         )
-                
+                        
         AVIROAPI.manager.checkWhenAppleLogin(with: checkAppleLoginModel) { [weak self] result in
             switch result {
             case .success(let success):

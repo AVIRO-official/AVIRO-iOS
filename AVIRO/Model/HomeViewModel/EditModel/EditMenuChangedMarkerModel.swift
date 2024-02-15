@@ -8,7 +8,7 @@
 import Foundation
 
 struct EditMenuChangedMarkerModel {
-    var mapPlace: MapPlace
+    var mapPlace: VeganType
     var isAll: Bool
     var isSome: Bool
     var isRequest: Bool

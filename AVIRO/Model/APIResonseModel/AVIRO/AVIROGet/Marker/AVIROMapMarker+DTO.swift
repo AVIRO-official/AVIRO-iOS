@@ -28,6 +28,8 @@ struct AVIROMapModelResultDataDTO: Decodable {
 
 struct AVIROMarkerModel: Codable, Hashable {
     let placeId: String
+    let title: String
+    let category: String
     let x: Double
     let y: Double
     let allVegan: Bool

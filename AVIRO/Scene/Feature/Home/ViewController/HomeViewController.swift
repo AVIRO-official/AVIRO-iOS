@@ -404,6 +404,8 @@ extension HomeViewController: HomeViewProtocol {
         view.addGestureRecognizer(whenSlideTapGesture)
     }
     
+    
+    /// Fetcing이 진행 중일 때를 알려주는 indicator show
     func isFectingData() {
         isFectchingindicatorView.isHidden = false
         isFecthingLabel.isHidden = false
@@ -534,7 +536,7 @@ extension HomeViewController: HomeViewProtocol {
         }
     }
     
-    func updateMapPlace(_ mapPlace: MapPlace) {
+    func updateMapPlace(_ mapPlace: VeganType) {
         placeView.updateMapPlace(mapPlace)
     }
     
@@ -1192,7 +1194,6 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
     }
     
     func showLevelUpAlert(with level: Int) {
-        print(level)
         levelUpAlertView.setMainTitle(with: level)
         
         tabBarDelegate?.hideBlurEffectView(with: false)

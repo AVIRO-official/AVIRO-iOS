@@ -41,7 +41,7 @@ protocol HomeViewProtocol: NSObject {
     )
     
     func updateMenus(_ menuData: AVIROPlaceMenus?)
-    func updateMapPlace(_ mapPlace: MapPlace)
+    func updateMapPlace(_ mapPlace: VeganType)
     func deleteMyReview(_ commentId: String)
     
     func pushPlaceInfoOpreationHoursViewController(_ models: [EditOperationHoursModel])
@@ -269,8 +269,6 @@ final class HomeViewPresenter: NSObject {
         guard let markerModel = markerModel,
               let index = index else { return }
         
-        print(markerModel)
-
         getPlaceSummaryModel(markerModel)
         
         hasTouchedMarkerBefore = true
@@ -291,17 +289,36 @@ final class HomeViewPresenter: NSObject {
         let latLng = NMGLatLng(lat: data.y, lng: data.x)
         let marker = NMFMarker(position: latLng)
         let placeId = data.placeId
-        var place: MapPlace
+        var veganType: VeganType
+        var categoryType: CategoryType
         
+        // TODO: - String에서 Enum으로 변경 필요 (Network DTO 값을 Domain으로 변경하도록 Refectoring 필요)
+        /// Clean Architecture 적용 하면서 수행
         if data.allVegan {
-            place = MapPlace.All
+            veganType = .All
         } else if data.someMenuVegan {
-            place = MapPlace.Some
+            veganType = .Some
         } else {
-            place = MapPlace.Request
+            veganType = .Request
         }
         
-        marker.makeIcon(place)
+        
+        /// 빵집 / 술집 /
+        if data.category == "빵집" {
+            categoryType = .Bread
+        } else if data.category == "술집" {
+            categoryType = .Bar
+        } else if data.category == "식당" {
+            categoryType = .Restaurant
+        } else if data.category == "카페" {
+            categoryType = .Coffee
+        } else {
+            // 값이 아에 없을때 확인
+            categoryType = .Restaurant
+        }
+        
+        
+        marker.makeIcon(veganType: veganType, categoryType: categoryType)
         marker.touchHandler = { [weak self] _ in
             self?.touchedMarker(marker)
             return true
@@ -310,7 +327,8 @@ final class HomeViewPresenter: NSObject {
         let markerModel =  MarkerModel(
             placeId: placeId,
             marker: marker,
-            mapPlace: place,
+            veganType: veganType,
+            categoryType: categoryType,
             isAll: data.allVegan,
             isSome: data.someMenuVegan,
             isRequest: data.ifRequestVegan
@@ -371,7 +389,7 @@ final class HomeViewPresenter: NSObject {
     
     // MARK: Load Place Sumamry
     private func getPlaceSummaryModel(_ markerModel: MarkerModel) {
-        let mapPlace = markerModel.mapPlace
+        let mapPlace = markerModel.veganType
         let placeX = markerModel.marker.position.lng
         let placeY = markerModel.marker.position.lat
         let placeId = markerModel.placeId
@@ -783,7 +801,7 @@ final class HomeViewPresenter: NSObject {
     func afterEditMenuChangedMarker(_ changedMarkerModel: EditMenuChangedMarkerModel) {
         guard var selectedMarkerModel = selectedMarkerModel else { return }
 
-        selectedMarkerModel.mapPlace = changedMarkerModel.mapPlace
+        selectedMarkerModel.veganType = changedMarkerModel.mapPlace
         selectedMarkerModel.isAll = changedMarkerModel.isAll
         selectedMarkerModel.isSome = changedMarkerModel.isSome
         selectedMarkerModel.isRequest = changedMarkerModel.isRequest
@@ -866,7 +884,7 @@ final class HomeViewPresenter: NSObject {
         
         var image: UIImage!
         
-        switch markerModel.mapPlace {
+        switch markerModel.veganType {
         case .All:
             image = .allCell
         case .Some:
@@ -897,7 +915,7 @@ final class HomeViewPresenter: NSObject {
         
         var image: UIImage!
         
-        switch markerModel.mapPlace {
+        switch markerModel.veganType {
         case .All:
             image = .allCell
         case .Some:

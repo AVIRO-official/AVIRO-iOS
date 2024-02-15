@@ -127,7 +127,7 @@ final class PlaceView: UIView {
         segmentedControlView.refreshMenuData(menuModel)
     }
     
-    func updateMapPlace(_ mapPlace: MapPlace) {
+    func updateMapPlace(_ mapPlace: VeganType) {
         summaryView.updateMapPlace(mapPlace)
     }
     

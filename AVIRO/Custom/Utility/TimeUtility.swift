@@ -29,7 +29,6 @@ final class TimeUtility {
         
         let formattedDateTime = formatter.string(from: date)
         
-        print(formattedDateTime)
         return formattedDateTime
     }
     

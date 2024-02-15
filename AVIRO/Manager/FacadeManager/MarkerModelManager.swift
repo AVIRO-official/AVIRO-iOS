@@ -19,13 +19,14 @@ protocol MarkerModelManagerProtocol {
     func getAllMarkers() -> [NMFMarker]
     func getAllMarkerModel() -> [MarkerModel]
     
-    func updateMarkerModels(with marker: MarkerModel)
-    func updateSelectedMarkerModel(index: Int, model: MarkerModel)
     func getUpdatedMarkers() -> [NMFMarker]
     
     func getMarkerModelFromCoordinates(lat: Double, lng: Double) -> (MarkerModel?, Int?)
     func getMarkerModelFromMarker(with marker: NMFMarker) -> (MarkerModel?, Int?)
     func getMarkerModelFromSerachModel(with searchModel: MatchedPlaceModel) -> (MarkerModel?, Int?)
+    
+    func updateMarkerModels(with marker: MarkerModel)
+    func updateSelectedMarkerModel(index: Int, model: MarkerModel)
     
     func updateMarkerModelWhenClicked(with markerModel: MarkerModel)
     func updateMarkerModelWhenOnStarButton(isTapped: Bool, markerModel: [MarkerModel]?)
@@ -55,10 +56,29 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
     func fetchRawData(
         completionHandler: @escaping (Result<[AVIROMarkerModel], APIError>) -> Void
     ) {
-        let realm = try! Realm()
-        let storedDataCount = realm.objects(MarkerModelFromRealm.self).count
+        /// 버전
+        // realm 마이그레이션 실행
+        let config = Realm.Configuration(
+            schemaVersion: 1,
+            migrationBlock: { migration, oldSchemaVersion in
+                // oldScehemaVersion이 현재 스키마 버전보다 낮은 경우 마이그레이션을 수행
+                if oldSchemaVersion < 1 {
+                    migration.enumerateObjects(ofType: MarkerModelFromRealm.className()) { _, newObject in
+                        // 새로운 프로퍼티에 대한 기본값 설정
+                        newObject?["title"] = ""
+                        newObject?["category"] = ""
+                    }
+                }
+            }
+        )
         
-        if storedDataCount > 0 {
+        Realm.Configuration.defaultConfiguration = config
+        print("realm 위치: ", Realm.Configuration.defaultConfiguration.fileURL!)
+        let realm = try! Realm()
+        let haveStoredData = realm.objects(MarkerModelFromRealm.self).count > 0 ? true : false
+        let hasTitleInRealm = realm.objects(MarkerModelFromRealm.self).filter("title != ''").count > 0 ? true : false
+
+        if haveStoredData && hasTitleInRealm {
             fetchRawDataFromRealm(completionHandler: completionHandler)
         } else {
             fetchRawDataFromServer(completionHandler: completionHandler)
@@ -86,6 +106,8 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
                                 placeId: model.placeId,
                                 latitude: model.y,
                                 longitude: model.x,
+                                title: model.title,
+                                category: model.category,
                                 isAll: model.allVegan,
                                 isSome: model.someMenuVegan,
                                 isRequest: model.ifRequestVegan
@@ -144,6 +166,8 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
                                 placeId: model.placeId,
                                 latitude: model.y,
                                 longitude: model.x,
+                                title: model.title,
+                                category: model.category,
                                 isAll: model.allVegan,
                                 isSome: model.someMenuVegan,
                                 isRequest: model.ifRequestVegan)
@@ -209,6 +233,8 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
                                 placeId: model.placeId,
                                 latitude: model.y,
                                 longitude: model.x,
+                                title: model.title,
+                                category: model.category,
                                 isAll: model.allVegan,
                                 isSome: model.someMenuVegan,
                                 isRequest: model.ifRequestVegan
