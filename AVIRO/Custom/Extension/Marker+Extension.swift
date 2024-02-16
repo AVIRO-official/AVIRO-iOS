@@ -10,6 +10,7 @@ import Foundation
 import NMapsMap
 
 extension NMFMarker {
+    // TODO: - 함수 분리 필요
     func makeIcon(veganType: VeganType, categoryType: CategoryType) {
         switch veganType {
         case .All:
@@ -48,6 +49,7 @@ extension NMFMarker {
         }
     }
     
+    // TODO: - 함수 분리 필요
     func changeIcon(veganType: VeganType, categoryType: CategoryType, isSelected: Bool) {
         switch veganType {
         case .All:

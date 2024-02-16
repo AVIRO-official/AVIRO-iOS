@@ -100,6 +100,26 @@ final class HomeViewController: UIViewController {
         
         return field
     }()
+    
+    private lazy var categoryCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        layout.scrollDirection = .horizontal
+        
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .clear
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(
+            CategoryCollectionViewCell.self,
+            forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier
+        )
+        
+        return collectionView
+    }()
 
     private lazy var loadLocationButton: HomeMapReferButton = {
         let button = HomeMapReferButton()
@@ -256,6 +276,7 @@ extension HomeViewController: HomeViewProtocol {
             loadLocationButton,
             starButton,
             searchTextField,
+            categoryCollectionView,
             placeView,
             flagButton,
             downBackButton,
@@ -309,6 +330,11 @@ extension HomeViewController: HomeViewProtocol {
                 equalTo: naverMapView.trailingAnchor,
                 constant: -Layout.Margin.regular.rawValue
             ),
+            
+            categoryCollectionView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 12),
+            categoryCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
+            categoryCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
+            categoryCollectionView.heightAnchor.constraint(equalToConstant: 41),
             
             placeView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor
@@ -1213,5 +1239,68 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
             self?.blurEffectView.isHidden = true
             self?.levelUpAlertView.isHidden = true
         }
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        
+        if indexPath.row == 4 {
+            return CGSize(width: 36, height: 36)
+        }
+        
+        return CGSize(width: 73, height: 37)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        UIEdgeInsets(top: 2, left: 2, bottom: -2, right: -2)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        6
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegate {
+    
+}
+
+extension HomeViewController: UICollectionViewDataSource {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        presenter.categoryType.count
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: CategoryCollectionViewCell.identifier,
+            for: indexPath
+        ) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
+
+        cell.configure(with: presenter.categoryType[indexPath.row])
+        
+        cell.whenTappedCategoryButtonTapped = { [weak self] type in
+            self?.searchTextField.placeholder = type
+        }
+        
+        return cell
     }
 }

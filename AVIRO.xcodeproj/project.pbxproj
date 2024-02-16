@@ -80,6 +80,7 @@
 		C520663A2A808DC40038ECCD /* PlaceListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52066392A808DC40038ECCD /* PlaceListHeaderView.swift */; };
 		C520663C2A80C0450038ECCD /* CenterCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C520663B2A80C0450038ECCD /* CenterCoordinate.swift */; };
 		C52066412A8129510038ECCD /* KakaoAPISortingQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52066402A8129510038ECCD /* KakaoAPISortingQuery.swift */; };
+		C52651DE2B7FB8B0002038CF /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52651DD2B7FB8B0002038CF /* CategoryCollectionViewCell.swift */; };
 		C528E4BA2A5F9A3E002BD72E /* ThridRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C528E4B92A5F9A3E002BD72E /* ThridRegistrationViewController.swift */; };
 		C528E4BC2A5F9AB6002BD72E /* ThridRegistrationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C528E4BB2A5F9AB6002BD72E /* ThridRegistrationPresenter.swift */; };
 		C528E4BE2A5FB816002BD72E /* TermsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C528E4BD2A5FB816002BD72E /* TermsTableCell.swift */; };
@@ -327,6 +328,7 @@
 		C52066392A808DC40038ECCD /* PlaceListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListHeaderView.swift; sourceTree = "<group>"; };
 		C520663B2A80C0450038ECCD /* CenterCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterCoordinate.swift; sourceTree = "<group>"; };
 		C52066402A8129510038ECCD /* KakaoAPISortingQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAPISortingQuery.swift; sourceTree = "<group>"; };
+		C52651DD2B7FB8B0002038CF /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		C528E4B92A5F9A3E002BD72E /* ThridRegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThridRegistrationViewController.swift; sourceTree = "<group>"; };
 		C528E4BB2A5F9AB6002BD72E /* ThridRegistrationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThridRegistrationPresenter.swift; sourceTree = "<group>"; };
 		C528E4BD2A5FB816002BD72E /* TermsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsTableCell.swift; sourceTree = "<group>"; };
@@ -802,6 +804,14 @@
 			path = APISingleton;
 			sourceTree = "<group>";
 		};
+		C52651DC2B7FB896002038CF /* CategoryCell */ = {
+			isa = PBXGroup;
+			children = (
+				C52651DD2B7FB8B0002038CF /* CategoryCollectionViewCell.swift */,
+			);
+			path = CategoryCell;
+			sourceTree = "<group>";
+		};
 		C52FA3362A175B20005E70DC = {
 			isa = PBXGroup;
 			children = (
@@ -902,6 +912,7 @@
 				C52FA3462A175B20005E70DC /* HomeViewController.swift */,
 				C51AED1C2A8A192D0015FBC2 /* ChangedViewAction+HomeViewController.swift */,
 				C5D8026B2B3C67F300136D0E /* AfterHomeViewControllerProtocol.swift */,
+				C52651DC2B7FB896002038CF /* CategoryCell */,
 				C5D8026D2B3C6E0000136D0E /* AfterUploadAlertView */,
 				C5EB51102A20CC6800B29CC1 /* PlaceDetailView */,
 			);
@@ -2173,6 +2184,7 @@
 				C58FBF942AC2DB6D00AB6EFC /* KakaoKeywordResultDTO.swift in Sources */,
 				C51B09B82A82155200916BBD /* MarkerModelCache.swift in Sources */,
 				C5A9899B2A95A6B50021B7C3 /* BookmarkCache.swift in Sources */,
+				C52651DE2B7FB8B0002038CF /* CategoryCollectionViewCell.swift in Sources */,
 				C520662D2A7CE1CC0038ECCD /* SearchHistoryManager.swift in Sources */,
 				C51AED232A8B7B000015FBC2 /* UIViewController+Extension.swift in Sources */,
 				C51000632ABAE6A200F65C1F /* MenuModel.swift in Sources */,

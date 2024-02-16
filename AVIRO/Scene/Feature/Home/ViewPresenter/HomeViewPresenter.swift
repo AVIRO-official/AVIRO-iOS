@@ -87,6 +87,9 @@ final class HomeViewPresenter: NSObject {
     private var selectedReviewsModel: AVIROReviewsArray?
         
     private var selectedPlaceId: String?
+    
+    // TODO: HomeViewController MVVM 모델 수정 최우선화
+    var categoryType = [ "식당", "카페", "술집", "빵집", "취소"]
         
     init(viewController: HomeViewProtocol,
          markerManager: MarkerModelManagerProtocol = MarkerModelManager(),
