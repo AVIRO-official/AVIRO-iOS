@@ -320,6 +320,12 @@ final class HomeViewPresenter: NSObject {
             categoryType = .Restaurant
         }
         
+        marker.captionText = data.title
+        marker.captionColor = .gray1
+        marker.captionTextSize = 10
+        marker.captionMinZoom = 12
+        marker.captionRequestedWidth = 80
+        marker.captionOffset = 3
         
         marker.makeIcon(veganType: veganType, categoryType: categoryType)
         marker.touchHandler = { [weak self] _ in
