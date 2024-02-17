@@ -15,9 +15,9 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
        
         btn.addTarget(self, action: #selector(categoryButtonTapped(_:)), for: .touchUpInside)
         btn.contentMode = .scaleAspectFill
-        btn.layer.shadowColor = UIColor.gray5.cgColor
-        btn.layer.shadowOpacity = 0.5
-        btn.layer.shadowOffset = CGSize(width: 1, height: 1)
+        btn.layer.shadowColor = UIColor.gray3.cgColor
+        btn.layer.shadowOpacity = 0.3
+        btn.layer.shadowOffset = CGSize(width: 2, height: 2)
         btn.imageView?.contentMode = .scaleAspectFit
 
         return btn
@@ -66,8 +66,8 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     
     func configure(with type: String, state: Bool) {
         self.type = type
-        setupButtonImage(with: type)
         
+        setupButtonImage(with: type)
         if type == "취소" {
             setupCancelButtonState(with: state)
         } else {

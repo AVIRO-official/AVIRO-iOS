@@ -337,7 +337,7 @@ extension HomeViewController: HomeViewProtocol {
             categoryCollectionView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 12),
             categoryCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
             categoryCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
-            categoryCollectionView.heightAnchor.constraint(equalToConstant: 45),
+            categoryCollectionView.heightAnchor.constraint(equalToConstant: 47),
             
             placeView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor
@@ -433,7 +433,6 @@ extension HomeViewController: HomeViewProtocol {
         view.addGestureRecognizer(whenSlideTapGesture)
     }
     
-    
     /// Fetcing이 진행 중일 때를 알려주는 indicator show
     func isFectingData() {
         isFectchingindicatorView.isHidden = false
@@ -452,6 +451,7 @@ extension HomeViewController: HomeViewProtocol {
         navigationController?.navigationBar.isHidden = true
         
         naverMapView.isHidden = false
+        categoryCollectionView.isHidden = false
     }
     
     /// 모든 조건에 해당 사항 없을 때, place view 초기화
@@ -463,6 +463,7 @@ extension HomeViewController: HomeViewProtocol {
     /// Edit 화면에서 돌아올 때
     func whenAfterPopEditViewController() {
         naverMapView.isHidden = true
+        categoryCollectionView.isHidden = true
     }
     /// location button clicked
     func isSuccessLocation() {
@@ -610,6 +611,7 @@ extension HomeViewController: HomeViewProtocol {
                 if isSlideUpView && !placeView.isLoadingDetail {
                     placeViewFullUp()
                     naverMapView.isHidden = true
+                    categoryCollectionView.isHidden = true
                     isSlideUpView = false
                 // view가 아직 slideup 안 되었고, popup일때 가능
                 } else if !isSlideUpView && placeView.placeViewStated == .popup {
@@ -631,6 +633,7 @@ extension HomeViewController: HomeViewProtocol {
         if isSlideUpView {
             placeViewFullUp()
             naverMapView.isHidden = true
+            categoryCollectionView.isHidden = true
             isSlideUpView = false
         }
     }
@@ -1003,6 +1006,7 @@ extension HomeViewController {
     private func handleClosure() {
         placeView.whenFullBack = { [weak self] in
             self?.naverMapView.isHidden = false
+            self?.categoryCollectionView.isHidden = false
             self?.placeViewPopUpAfterInitPlacePopViewHeight()
         }
         
@@ -1114,6 +1118,7 @@ extension HomeViewController: UITextFieldDelegate {
     
     private func afterSearchFieldInit() {
         searchTextField.text = ""
+        searchTextField.placeholder = Text.searchPlaceHolder.rawValue
     }
 }
 
@@ -1325,13 +1330,18 @@ extension HomeViewController: UICollectionViewDataSource {
             } else {
                 selectedCategoriesPlaceHolder.append(type)
             }
-            // 배열에 있는 모든 항목을 콤마로 구분하여 placeholder에 설정합니다.
-            searchTextField.placeholder = selectedCategoriesPlaceHolder.joined(separator: ", ")
+            
+            if selectedCategoriesPlaceHolder.count > 0 {
+                // 배열에 있는 모든 항목을 콤마로 구분하여 placeholder에 설정합니다.
+                searchTextField.placeholder = selectedCategoriesPlaceHolder.joined(separator: ", ")
+            } else {
+                // 모든 type의 선택이 false일 때
+                searchTextField.placeholder = Text.searchPlaceHolder.rawValue
+            }
         }
     }
     
     func deleteCancelButtonFromCategoryCollection() {
-        
         self.categoryCollectionView.performBatchUpdates { [weak self] in
             self?.categoryCollectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
         } completion: { [weak self] _ in
@@ -1343,7 +1353,7 @@ extension HomeViewController: UICollectionViewDataSource {
     func deleteCancelButtonWhenAllCategoryFalse() {
         self.categoryCollectionView.performBatchUpdates { [weak self] in
             self?.categoryCollectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
-        }
+        } 
     }
     
     func updateCancelButtonFromCategoryCollection() {
