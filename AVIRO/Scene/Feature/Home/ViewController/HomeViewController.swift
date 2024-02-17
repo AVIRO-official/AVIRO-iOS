@@ -485,7 +485,6 @@ extension HomeViewController: HomeViewProtocol {
 
     /// 최초 load markers
     func loadMarkers(with markers: [NMFMarker]) {
-        
         markers.forEach {
             $0.mapView = naverMapView
         }
@@ -494,6 +493,17 @@ extension HomeViewController: HomeViewProtocol {
     /// star button clicked
     func afterLoadStarButton(with noStars: [NMFMarker]) {
         noStars.forEach {
+            $0.mapView = nil
+        }
+    }
+    
+    // MARK: - Marker Update
+    func afterClickedCategoryModel(showMarkers: [NMFMarker], hideMarkers: [NMFMarker]) {
+        showMarkers.forEach {
+            $0.mapView = naverMapView
+        }
+        
+        hideMarkers.forEach {
             $0.mapView = nil
         }
     }
@@ -1108,7 +1118,12 @@ extension HomeViewController: UITextFieldDelegate {
             self?.navigationController?.pushViewController(vc, animated: false)
             
             textField.leftView?.isHidden = false
-            textField.placeholder = Text.searchPlaceHolder.rawValue
+            
+            if self?.selectedCategoriesPlaceHolder.isEmpty ?? false {
+                textField.placeholder = Text.searchPlaceHolder.rawValue
+            } else {
+                textField.placeholder = self?.selectedCategoriesPlaceHolder.joined(separator: ", ")
+            }
         }
     }
     
@@ -1118,7 +1133,12 @@ extension HomeViewController: UITextFieldDelegate {
     
     private func afterSearchFieldInit() {
         searchTextField.text = ""
-        searchTextField.placeholder = Text.searchPlaceHolder.rawValue
+        
+        if selectedCategoriesPlaceHolder.isEmpty {
+            searchTextField.placeholder = Text.searchPlaceHolder.rawValue
+        } else {
+            searchTextField.placeholder = selectedCategoriesPlaceHolder.joined(separator: ", ")
+        }
     }
 }
 
@@ -1312,7 +1332,6 @@ extension HomeViewController: UICollectionViewDataSource {
             
         cell.whenCategoryButtonTapped = { [weak self] (selectedType, selectedState) in
             self?.updateSearchTextField(with: selectedType)
-            
             self?.presenter.whenUpdateType = (selectedType, selectedState)
         }
         
