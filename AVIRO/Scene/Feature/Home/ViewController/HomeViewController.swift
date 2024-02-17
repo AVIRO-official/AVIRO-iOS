@@ -91,6 +91,8 @@ final class HomeViewController: UIViewController {
         return map
     }()
     
+    private var selectedCategoriesPlaceHolder: [String] = []
+    
     private lazy var searchTextField: MainField = {
         let field = MainField()
         
@@ -110,6 +112,7 @@ final class HomeViewController: UIViewController {
         layout.scrollDirection = .horizontal
         
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.alwaysBounceHorizontal = true
         collectionView.backgroundColor = .clear
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -332,9 +335,9 @@ extension HomeViewController: HomeViewProtocol {
             ),
             
             categoryCollectionView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 12),
-            categoryCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-            categoryCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-            categoryCollectionView.heightAnchor.constraint(equalToConstant: 41),
+            categoryCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            categoryCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
+            categoryCollectionView.heightAnchor.constraint(equalToConstant: 45),
             
             placeView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor
@@ -1249,7 +1252,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         
-        if indexPath.row == 4 {
+        if presenter.categoryType[indexPath.row].0 == "취소" {
             return CGSize(width: 36, height: 36)
         }
         
@@ -1261,7 +1264,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
-        UIEdgeInsets(top: 2, left: 2, bottom: -2, right: -2)
+        UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
     }
     
     func collectionView(
@@ -1274,7 +1277,9 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension HomeViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath)
+    }
 }
 
 extension HomeViewController: UICollectionViewDataSource {
@@ -1295,12 +1300,55 @@ extension HomeViewController: UICollectionViewDataSource {
             for: indexPath
         ) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
 
-        cell.configure(with: presenter.categoryType[indexPath.row])
+        let type = self.presenter.categoryType[indexPath.row].0
+        let state = self.presenter.categoryType[indexPath.row].1
         
-        cell.whenTappedCategoryButtonTapped = { [weak self] type in
-            self?.searchTextField.placeholder = type
+        cell.configure(with: type, state: state)
+            
+        cell.whenCategoryButtonTapped = { [weak self] (selectedType, selectedState) in
+            self?.updateSearchTextField(with: selectedType)
+            
+            self?.presenter.whenUpdateType = (selectedType, selectedState)
         }
         
         return cell
+    }
+        
+    private func updateSearchTextField(with type: String) {
+        if type == "취소" {
+            searchTextField.placeholder = Text.searchPlaceHolder.rawValue
+            selectedCategoriesPlaceHolder.removeAll()
+        } else {
+            // 선택된 카테고리가 배열에 이미 있다면 제거, 없다면 추가합니다.
+            if let index = selectedCategoriesPlaceHolder.firstIndex(of: type) {
+                selectedCategoriesPlaceHolder.remove(at: index)
+            } else {
+                selectedCategoriesPlaceHolder.append(type)
+            }
+            // 배열에 있는 모든 항목을 콤마로 구분하여 placeholder에 설정합니다.
+            searchTextField.placeholder = selectedCategoriesPlaceHolder.joined(separator: ", ")
+        }
+    }
+    
+    func deleteCancelButtonFromCategoryCollection() {
+        
+        self.categoryCollectionView.performBatchUpdates { [weak self] in
+            self?.categoryCollectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
+        } completion: { [weak self] _ in
+            let indexPaths = (0...3).map { IndexPath(item: $0, section: 0) }
+            self?.categoryCollectionView.reloadItems(at: indexPaths)
+        }
+    }
+    
+    func deleteCancelButtonWhenAllCategoryFalse() {
+        self.categoryCollectionView.performBatchUpdates { [weak self] in
+            self?.categoryCollectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
+        }
+    }
+    
+    func updateCancelButtonFromCategoryCollection() {
+        self.categoryCollectionView.performBatchUpdates { [weak self] in
+            self?.categoryCollectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
+        }
     }
 }

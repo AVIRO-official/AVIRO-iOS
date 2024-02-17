@@ -62,6 +62,11 @@ protocol HomeViewProtocol: NSObject {
     func showAlertWhenDuplicatedReport()
     func showErrorAlert(with error: String, title: String?)
     func showErrorAlertWhenLoadMarker()
+    
+    // MARK: - 24.02.17 2.0 Icon Update - ViewModel Refectoring 전 임시 업데이트
+    func deleteCancelButtonFromCategoryCollection()
+    func deleteCancelButtonWhenAllCategoryFalse()
+    func updateCancelButtonFromCategoryCollection()
 }
 
 final class HomeViewPresenter: NSObject {
@@ -89,8 +94,47 @@ final class HomeViewPresenter: NSObject {
     private var selectedPlaceId: String?
     
     // TODO: HomeViewController MVVM 모델 수정 최우선화
-    var categoryType = [ "식당", "카페", "술집", "빵집", "취소"]
-        
+    // type / selected , cancel / hidden
+    var categoryType = [
+        ("식당", false),
+        ("카페", false),
+        ("술집", false),
+        ("빵집", false)
+    ] {
+        didSet {
+            print(categoryType)
+        }
+    }
+    
+    var whenUpdateType = ("", false) {
+        didSet {
+            print(whenUpdateType)
+            
+            if whenUpdateType.0 == "취소" {
+                for index in 1..<categoryType.count {
+                    categoryType[index].1 = false
+                }
+                categoryType.remove(at: 0)
+                viewController?.deleteCancelButtonFromCategoryCollection()
+            } else {
+                let shouldInsertCancel = self.categoryType.firstIndex(where: { $0.0 == "취소" }) == nil
+                if shouldInsertCancel {
+                    categoryType.insert(("취소", false), at: 0)
+                    viewController?.updateCancelButtonFromCategoryCollection()
+                }
+                
+                if let updatedIndex = categoryType.firstIndex(where: { $0.0 == whenUpdateType.0 }) {
+                    categoryType[updatedIndex].1.toggle()
+                }
+                
+                if !categoryType.contains(where: { $0.1 == true }) {
+                    categoryType.remove(at: 0)
+                    viewController?.deleteCancelButtonWhenAllCategoryFalse()
+                }
+            }
+        }
+    }
+    
     init(viewController: HomeViewProtocol,
          markerManager: MarkerModelManagerProtocol = MarkerModelManager(),
          bookmarkManager: BookmarkFacadeProtocol = BookmarkFacadeManager(),
@@ -305,7 +349,6 @@ final class HomeViewPresenter: NSObject {
             veganType = .Request
         }
         
-        
         /// 빵집 / 술집 /
         if data.category == "빵집" {
             categoryType = .Bread
@@ -321,9 +364,9 @@ final class HomeViewPresenter: NSObject {
         }
         
         marker.captionText = data.title
-        marker.captionColor = .gray1
+        marker.captionColor = .gray0
         marker.captionTextSize = 10
-        marker.captionMinZoom = 12
+        marker.captionMinZoom = 14.5
         marker.captionRequestedWidth = 80
         marker.captionOffset = 3
         
