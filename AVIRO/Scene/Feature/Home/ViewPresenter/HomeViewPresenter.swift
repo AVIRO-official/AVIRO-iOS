@@ -28,8 +28,8 @@ protocol HomeViewProtocol: NSObject {
     func ifDeniedLocation(_ mapCoor: NMGLatLng)
 
     func loadMarkers(with markers: [NMFMarker])
-    func afterLoadStarButton(with noStars: [NMFMarker])
-
+    func afterLoadStarButton(showMarkers: [NMFMarker], hideMarkers: [NMFMarker])
+    
     func moveToCameraWhenNoAVIRO(_ lng: Double, _ lat: Double)
     func moveToCameraWhenHasAVIRO(_ markerModel: MarkerModel, zoomTo: Double?)
     
@@ -628,7 +628,13 @@ final class HomeViewPresenter: NSObject {
                     isTapped: true,
                     markerModel: starMarkersModel
                 )
-                self?.viewController?.afterLoadStarButton(with: noMarkers)
+                
+                let starMarkers = starMarkersModel.map { $0.marker }
+                
+                self?.viewController?.afterLoadStarButton(
+                    showMarkers: starMarkers,
+                    hideMarkers: noMarkers
+                )
             }
         }
     }
