@@ -1108,7 +1108,12 @@ extension HomeViewController: UITextFieldDelegate {
             self?.navigationController?.pushViewController(vc, animated: false)
             
             textField.leftView?.isHidden = false
-            textField.placeholder = Text.searchPlaceHolder.rawValue
+            
+            if self?.selectedCategoriesPlaceHolder.isEmpty ?? false {
+                textField.placeholder = Text.searchPlaceHolder.rawValue
+            } else {
+                textField.placeholder = self?.selectedCategoriesPlaceHolder.joined(separator: ", ")
+            }
         }
     }
     
@@ -1118,7 +1123,12 @@ extension HomeViewController: UITextFieldDelegate {
     
     private func afterSearchFieldInit() {
         searchTextField.text = ""
-        searchTextField.placeholder = Text.searchPlaceHolder.rawValue
+        
+        if selectedCategoriesPlaceHolder.isEmpty {
+            searchTextField.placeholder = Text.searchPlaceHolder.rawValue
+        } else {
+            searchTextField.placeholder = selectedCategoriesPlaceHolder.joined(separator: ", ")
+        }
     }
 }
 
