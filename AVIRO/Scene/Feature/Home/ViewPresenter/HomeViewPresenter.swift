@@ -67,6 +67,8 @@ protocol HomeViewProtocol: NSObject {
     func deleteCancelButtonFromCategoryCollection()
     func deleteCancelButtonWhenAllCategoryFalse()
     func updateCancelButtonFromCategoryCollection()
+    
+    func afterClickedCategoryModel(showMarkers: [NMFMarker], hideMarkers: [NMFMarker])
 }
 
 final class HomeViewPresenter: NSObject {
@@ -93,19 +95,20 @@ final class HomeViewPresenter: NSObject {
         
     private var selectedPlaceId: String?
     
-    // TODO: HomeViewController MVVM 모델 수정 최우선화
+    private var isStarButtonSelected: Bool = false
+    private var selectedCategory: [CategoryType] = []
+    private var showMarkerWhenClickedCategory: [MarkerModel] = []
+    private var hideMarkerWhenClickedCategory: [MarkerModel] = []
+    
     // type / selected , cancel / hidden
     var categoryType = [
         ("식당", false),
         ("카페", false),
         ("술집", false),
         ("빵집", false)
-    ] {
-        didSet {
-            print(categoryType)
-        }
-    }
+    ]
     
+    // TODO: - 문서화 & 리팩토링 필요
     var whenUpdateType = ("", false) {
         didSet {
             print(whenUpdateType)
@@ -116,6 +119,8 @@ final class HomeViewPresenter: NSObject {
                 }
                 categoryType.remove(at: 0)
                 viewController?.deleteCancelButtonFromCategoryCollection()
+                
+                afterCategoryChangedLoadAllMarkers()
             } else {
                 let shouldInsertCancel = self.categoryType.firstIndex(where: { $0.0 == "취소" }) == nil
                 if shouldInsertCancel {
@@ -130,8 +135,24 @@ final class HomeViewPresenter: NSObject {
                 if !categoryType.contains(where: { $0.1 == true }) {
                     categoryType.remove(at: 0)
                     viewController?.deleteCancelButtonWhenAllCategoryFalse()
+                    
+                    afterCategoryChangedLoadAllMarkers()
+                } else {
+                    whenAfterCategoryButtonTapped(with: whenUpdateType.0, state: whenUpdateType.1)
                 }
             }
+        }
+    }
+    
+    private func afterCategoryChangedLoadAllMarkers() {
+        selectedCategory = []
+        showMarkerWhenClickedCategory = []
+        hideMarkerWhenClickedCategory = []
+        
+        let markers = markerModelManager.getAllMarkers()
+        
+        if !isStarButtonSelected {
+            self.viewController?.loadMarkers(with: markers)
         }
     }
     
@@ -366,7 +387,7 @@ final class HomeViewPresenter: NSObject {
         marker.captionText = data.title
         marker.captionColor = .gray0
         marker.captionTextSize = 10
-        marker.captionMinZoom = 14.5
+        marker.captionMinZoom = 14
         marker.captionRequestedWidth = 80
         marker.captionOffset = 3
         
@@ -541,10 +562,48 @@ final class HomeViewPresenter: NSObject {
     
     // MARK: Bookmark Load Method
     func loadBookmark(_ isSelected: Bool) {
+        isStarButtonSelected = isSelected
         if isSelected {
             whenAfterLoadStarButtonTapped()
         } else {
             whenAfterLoadNotStarButtonTapped()
+        }
+    }
+    
+    // MARK: - Changed Marker From Category Method
+    private func whenAfterCategoryButtonTapped(with type: String, state isActived: Bool) {
+        let markersModel = self.markerModelManager.getAllMarkerModel()
+        
+        guard let categoryType = CategoryType(with: type) else { return }
+        
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
+            
+            if isActived {
+                if !selectedCategory.contains(where: { $0 == categoryType }) {
+                    self.selectedCategory.append(categoryType)
+                }
+            } else {
+                self.selectedCategory.removeAll { $0 == categoryType }
+            }
+            
+            self.showMarkerWhenClickedCategory = markersModel.filter { model in
+                self.selectedCategory.contains(model.categoryType)
+            }
+            self.hideMarkerWhenClickedCategory = markersModel.filter { model in
+                !self.selectedCategory.contains(model.categoryType)
+            }
+            
+            let showMarkers = self.showMarkerWhenClickedCategory.map { $0.marker }
+            let hideMarkers = self.hideMarkerWhenClickedCategory.map { $0.marker }
+            
+            DispatchQueue.main.async {
+                if !self.isStarButtonSelected {
+                    self.viewController?.afterClickedCategoryModel(
+                        showMarkers: showMarkers,
+                        hideMarkers: hideMarkers)
+                }
+            }
         }
     }
     
@@ -575,14 +634,24 @@ final class HomeViewPresenter: NSObject {
     }
     
     private func whenAfterLoadNotStarButtonTapped() {
-
         markerModelManager.updateMarkerModelWhenOnStarButton(
             isTapped: false,
             markerModel: nil
         )
-        let markers = markerModelManager.getAllMarkers()
-
-        viewController?.loadMarkers(with: markers)
+        
+        // MARK: - Category 클릭 중 일 때
+        if selectedCategory.count > 0 {
+            let showMarkers = self.showMarkerWhenClickedCategory.map { $0.marker }
+            let hideMarkers = self.hideMarkerWhenClickedCategory.map { $0.marker }
+            
+            self.viewController?.afterClickedCategoryModel(
+                showMarkers: showMarkers,
+                hideMarkers: hideMarkers)
+        } else {
+            let markers = markerModelManager.getAllMarkers()
+            
+            viewController?.loadMarkers(with: markers)
+        }
     }
     
     // MARK: Bookmark Upload & Delete Method

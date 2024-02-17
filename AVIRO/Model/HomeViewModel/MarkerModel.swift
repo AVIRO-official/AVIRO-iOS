@@ -22,6 +22,16 @@ enum CategoryType {
     case Bread
     case Coffee
     case Restaurant
+    
+    init?(with value: String) {
+        switch value {
+        case "식당": self = .Restaurant
+        case "카페": self = .Coffee
+        case "술집": self = .Bar
+        case "빵집": self = .Bread
+        default: return nil
+        }
+    }
 }
 
 // MARK: - Map Icon
