@@ -491,8 +491,12 @@ extension HomeViewController: HomeViewProtocol {
     }
     
     /// star button clicked
-    func afterLoadStarButton(with noStars: [NMFMarker]) {
-        noStars.forEach {
+    func afterLoadStarButton(showMarkers: [NMFMarker], hideMarkers: [NMFMarker]) {
+        showMarkers.forEach {
+            $0.mapView = naverMapView
+        }
+        
+        hideMarkers.forEach {
             $0.mapView = nil
         }
     }
