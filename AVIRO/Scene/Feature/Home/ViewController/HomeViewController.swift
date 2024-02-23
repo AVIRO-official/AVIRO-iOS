@@ -106,7 +106,6 @@ final class HomeViewController: UIViewController {
     private lazy var categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         
-        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         layout.scrollDirection = .horizontal
@@ -1095,13 +1094,15 @@ extension HomeViewController: UIGestureRecognizerDelegate {
 // MARK: UITextFieldDelegate
 extension HomeViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        guard let textField = textField as? MainField else { return false }
         animateTextFieldExpansion(textField: textField)
         return false
     }
     
-    private func animateTextFieldExpansion(textField: UITextField) {
+    private func animateTextFieldExpansion(textField: MainField) {
         textField.placeholder = ""
         textField.text = ""
+        textField.isActiveFranchiseToggleButton = false
         textField.leftView?.isHidden = true
         
         let startingFrame = textField.convert(textField.bounds, to: nil)
@@ -1133,10 +1134,12 @@ extension HomeViewController: UITextFieldDelegate {
     
     private func changedSearchField(with place: String) {
         searchTextField.text = place
+        searchTextField.isActiveFranchiseToggleButton = true
     }
     
     private func afterSearchFieldInit() {
         searchTextField.text = ""
+        searchTextField.isActiveFranchiseToggleButton = true
         
         if selectedCategoriesPlaceHolder.isEmpty {
             searchTextField.placeholder = Text.searchPlaceHolder.rawValue
