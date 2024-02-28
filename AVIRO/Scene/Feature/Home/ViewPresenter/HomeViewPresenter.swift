@@ -458,6 +458,8 @@ final class HomeViewPresenter: NSObject {
                 
         markerModelManager.updateMarkerModelWhenClicked(with: selectedMarkerModel!)
         viewController?.moveToCameraWhenHasAVIRO(validMarkerModel, zoomTo: nil)
+        
+        print("Test")
     }
     
     // MARK: Load Place Sumamry
@@ -485,6 +487,7 @@ final class HomeViewPresenter: NSObject {
                         
                         let placeTopModel = PlaceTopModel(
                             placeState: mapPlace,
+                            category: markerModel.categoryType,
                             placeTitle: place.title,
                             placeCategory: place.category,
                             distance: distanceString,
