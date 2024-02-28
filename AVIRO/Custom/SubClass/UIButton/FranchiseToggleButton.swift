@@ -5,7 +5,6 @@
 //  Created by 전성훈 on 2024/02/23.
 //
 
-
 // MARK: - Toggle button Custom Refectoring 필요
 // TODO: 좀 더 외부에서 프로퍼티 값을 받을 수 있도록 수정 예정
 import UIKit

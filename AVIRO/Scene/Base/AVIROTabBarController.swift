@@ -238,14 +238,13 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
         
         redDotView.backgroundColor = .red
         
+        let redDotSize: CGFloat = 9
         redDotView.layer.cornerRadius = 4.5
         redDotView.clipsToBounds = true
         
-        let redDotSize: CGFloat = 9
-        redDotView.translatesAutoresizingMaskIntoConstraints = false
-        
         guard let imageView = button.imageView else { return }
-        
+        redDotView.translatesAutoresizingMaskIntoConstraints = false
+
         imageView.addSubview(redDotView)
         
         NSLayoutConstraint.activate([

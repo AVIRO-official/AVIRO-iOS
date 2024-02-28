@@ -9,6 +9,7 @@ import Foundation
 
 struct PlaceTopModel {
     let placeState: VeganType
+    let category: CategoryType
     let placeTitle: String
     let placeCategory: String
     let distance: String
