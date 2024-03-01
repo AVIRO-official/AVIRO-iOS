@@ -213,7 +213,7 @@
 		C5DCBC8F2B91CF46003502BA /* AVIROMyBookmarkList+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCBC8E2B91CF46003502BA /* AVIROMyBookmarkList+DTO.swift */; };
 		C5DCBC9A2B91D9E9003502BA /* MyPlaceListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCBC992B91D9E9003502BA /* MyPlaceListViewModel.swift */; };
 		C5DCBC9D2B91D9F5003502BA /* MyPlaceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCBC9C2B91D9F5003502BA /* MyPlaceListViewController.swift */; };
-		C5DCBC9F2B91D9FE003502BA /* MyCommentListVewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCBC9E2B91D9FE003502BA /* MyCommentListVewModel.swift */; };
+		C5DCBC9F2B91D9FE003502BA /* MyCommentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCBC9E2B91D9FE003502BA /* MyCommentListViewModel.swift */; };
 		C5DCBCA12B91DA13003502BA /* MyCommentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCBCA02B91DA13003502BA /* MyCommentListViewController.swift */; };
 		C5DCBCA32B91DA28003502BA /* MyBookmarkListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCBCA22B91DA28003502BA /* MyBookmarkListViewModel.swift */; };
 		C5DCBCA52B91DA36003502BA /* MyBookmarkListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCBCA42B91DA36003502BA /* MyBookmarkListViewController.swift */; };
@@ -476,7 +476,7 @@
 		C5DCBC8E2B91CF46003502BA /* AVIROMyBookmarkList+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROMyBookmarkList+DTO.swift"; sourceTree = "<group>"; };
 		C5DCBC992B91D9E9003502BA /* MyPlaceListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlaceListViewModel.swift; sourceTree = "<group>"; };
 		C5DCBC9C2B91D9F5003502BA /* MyPlaceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlaceListViewController.swift; sourceTree = "<group>"; };
-		C5DCBC9E2B91D9FE003502BA /* MyCommentListVewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentListVewModel.swift; sourceTree = "<group>"; };
+		C5DCBC9E2B91D9FE003502BA /* MyCommentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentListViewModel.swift; sourceTree = "<group>"; };
 		C5DCBCA02B91DA13003502BA /* MyCommentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentListViewController.swift; sourceTree = "<group>"; };
 		C5DCBCA22B91DA28003502BA /* MyBookmarkListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkListViewModel.swift; sourceTree = "<group>"; };
 		C5DCBCA42B91DA36003502BA /* MyBookmarkListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkListViewController.swift; sourceTree = "<group>"; };
@@ -1808,7 +1808,7 @@
 		C5DCBC962B91D9D4003502BA /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				C5DCBC9E2B91D9FE003502BA /* MyCommentListVewModel.swift */,
+				C5DCBC9E2B91D9FE003502BA /* MyCommentListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2204,7 +2204,7 @@
 				C5FD92EB2A9C786600CF4673 /* PublicAPIRequestComponents.swift in Sources */,
 				C58C49C82AC9B67600DE04B7 /* AppleUserLoginModel.swift in Sources */,
 				C58FBF902AC2B83A00AB6EFC /* AVIROAPIManagerProtocol.swift in Sources */,
-				C5DCBC9F2B91D9FE003502BA /* MyCommentListVewModel.swift in Sources */,
+				C5DCBC9F2B91D9FE003502BA /* MyCommentListViewModel.swift in Sources */,
 				C50F6AF52A68FD6300E942F5 /* EnrollPlacePresenter.swift in Sources */,
 				C50DB7572A9B8DF80078B501 /* EditLocationAddressTextView.swift in Sources */,
 				C595ACD12A84A4EB00D35123 /* PlaceSummaryView.swift in Sources */,
