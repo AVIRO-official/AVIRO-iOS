@@ -34,8 +34,8 @@ final class AppController {
         window.backgroundColor = .gray7
         window.makeKeyAndVisible()
         
-        checkState()
-//        setTabBarView()
+//        checkState()
+        setTabBarView()
     }
     
     // MARK: 불러올 view 확인 메서드

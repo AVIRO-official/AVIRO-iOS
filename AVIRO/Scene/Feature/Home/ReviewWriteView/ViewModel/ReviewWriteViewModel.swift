@@ -177,13 +177,15 @@ final class ReviewWriteViewModel: ViewModel {
                             review: reviewModel.content
                         )
                         
+                        guard let myChallengeStatus = model.data else { return }
+                        
                         let resultModel = AfterWriteReviewModel(
                             placeId: self?.placeId ?? "",
                             contentId: reviewModel.commentId,
                             content: reviewModel.content,
                             userId: reviewModel.userId,
-                            levelUp: model.levelUp ?? false,
-                            userLevel: model.userLevel ?? 0
+                            levelUp: myChallengeStatus.levelUp,
+                            userLevel: myChallengeStatus.userLevel
                         )
                         
                         single(.success((resultModel, false)))

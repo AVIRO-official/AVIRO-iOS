@@ -8,6 +8,9 @@
 import RxSwift
 import RxCocoa
 
+// TODO: DTO -> Domain으로 변경 필요
+// Clean Architecture 적용 시 수정
+
 final class ChallengeViewModel: ViewModel {
     var challengeTitle: String = ""
     
@@ -20,8 +23,8 @@ final class ChallengeViewModel: ViewModel {
     
     struct Output {
         let myContributionCountResult: Driver<AVIROMyContributionCountDTO>
-        let challengeInfoResult: Driver<AVIROChallengeInfoDTO>
-        let myChallengeLevelResult: Driver<AVIROMyChallengeLevelResultDTO>
+        let challengeInfoResult: Driver<AVIROChallengeInfoDataDTO>
+        let myChallengeLevelResult: Driver<AVIROMyChallengeLevelDataDTO>
         
         let afterTappedChallengeInfoButton: Driver<Void>
         let afterTappedNavigationBarRightButton: Driver<Void>
@@ -38,7 +41,7 @@ final class ChallengeViewModel: ViewModel {
         let challengeInfoResult = loadInfoTrigger
             .flatMapLatest { [weak self] in
                 guard let self = self else {
-                    return Driver<AVIROChallengeInfoDTO>.empty()
+                    return Driver<AVIROChallengeInfoDataDTO>.empty()
                 }
                 
                 return self.loadChallengeInfoAPI()
@@ -51,7 +54,7 @@ final class ChallengeViewModel: ViewModel {
         let myChallengeLevelResult = loadInfoTrigger
             .flatMapLatest { [weak self] in
                 guard let self = self else {
-                    return Driver<AVIROMyChallengeLevelResultDTO>.empty()
+                    return Driver<AVIROMyChallengeLevelDataDTO>.empty()
                 }
                 
                 return self.loadMyChallengeLevelAPI(userId: MyData.my.id)
@@ -108,12 +111,13 @@ final class ChallengeViewModel: ViewModel {
         }
     }
 
-    private func loadChallengeInfoAPI() -> Single<AVIROChallengeInfoDTO> {
+    private func loadChallengeInfoAPI() -> Single<AVIROChallengeInfoDataDTO> {
         return Single.create { single in
             AVIROAPI.manager.loadChallengeInfo { result in
                 switch result {
-                case .success(let data):
-                    single(.success(data))
+                case .success(let resultModel):
+                    guard let resultData = resultModel.data else { return }
+                    single(.success(resultData))
                 case .failure(let error):
                     single(.failure(error))
                 }
@@ -122,12 +126,13 @@ final class ChallengeViewModel: ViewModel {
         }
     }
     
-    private func loadMyChallengeLevelAPI(userId: String) -> Single<AVIROMyChallengeLevelResultDTO> {
+    private func loadMyChallengeLevelAPI(userId: String) -> Single<AVIROMyChallengeLevelDataDTO> {
         return Single.create { single in
             AVIROAPI.manager.loadMyChallengeLevel(with: userId) { result in
                 switch result {
-                case .success(let data):
-                    single(.success(data))
+                case .success(let resultModel):
+                    guard let resultData = resultModel.data else { return }
+                    single(.success(resultData))
                 case .failure(let error):
                     single(.failure(error))
                 }

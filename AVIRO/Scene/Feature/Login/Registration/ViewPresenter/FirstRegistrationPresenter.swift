@@ -71,12 +71,16 @@ final class FirstRegistrationPresenter {
             switch result {
             case .success(let model):
                 if model.statusCode == 200 {
+                    guard let nicknameIsDuplicatedCheck = model.data else { return }
+                    
                     self?.viewController?.changeSubInfo(
-                        subInfo: model.message,
-                        isVaild: model.isValid ?? false
+                        subInfo: nicknameIsDuplicatedCheck.message,
+                        isVaild: nicknameIsDuplicatedCheck.isValid
                     )
                 } else {
-                    self?.viewController?.showErrorAlert(with: model.message, title: nil)
+                    guard let message = model.message else { return }
+                    
+                    self?.viewController?.showErrorAlert(with: message, title: nil)
                 }
             case .failure(let error):
                 if let error = error.errorDescription {

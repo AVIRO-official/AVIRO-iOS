@@ -91,6 +91,8 @@ final class HomeViewController: UIViewController {
         return map
     }()
     
+    private var selectedCategoriesPlaceHolder: [String] = []
+    
     private lazy var searchTextField: MainField = {
         let field = MainField()
         
@@ -99,6 +101,26 @@ final class HomeViewController: UIViewController {
         field.delegate = self
         
         return field
+    }()
+    
+    private lazy var categoryCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        layout.scrollDirection = .horizontal
+        
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.alwaysBounceHorizontal = true
+        collectionView.backgroundColor = .clear
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(
+            CategoryCollectionViewCell.self,
+            forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier
+        )
+        
+        return collectionView
     }()
 
     private lazy var loadLocationButton: HomeMapReferButton = {
@@ -256,6 +278,7 @@ extension HomeViewController: HomeViewProtocol {
             loadLocationButton,
             starButton,
             searchTextField,
+            categoryCollectionView,
             placeView,
             flagButton,
             downBackButton,
@@ -309,6 +332,11 @@ extension HomeViewController: HomeViewProtocol {
                 equalTo: naverMapView.trailingAnchor,
                 constant: -Layout.Margin.regular.rawValue
             ),
+            
+            categoryCollectionView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 12),
+            categoryCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            categoryCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
+            categoryCollectionView.heightAnchor.constraint(equalToConstant: 47),
             
             placeView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor
@@ -404,7 +432,6 @@ extension HomeViewController: HomeViewProtocol {
         view.addGestureRecognizer(whenSlideTapGesture)
     }
     
-    
     /// Fetcing이 진행 중일 때를 알려주는 indicator show
     func isFectingData() {
         isFectchingindicatorView.isHidden = false
@@ -423,6 +450,7 @@ extension HomeViewController: HomeViewProtocol {
         navigationController?.navigationBar.isHidden = true
         
         naverMapView.isHidden = false
+        categoryCollectionView.isHidden = false
     }
     
     /// 모든 조건에 해당 사항 없을 때, place view 초기화
@@ -434,6 +462,7 @@ extension HomeViewController: HomeViewProtocol {
     /// Edit 화면에서 돌아올 때
     func whenAfterPopEditViewController() {
         naverMapView.isHidden = true
+        categoryCollectionView.isHidden = true
     }
     /// location button clicked
     func isSuccessLocation() {
@@ -455,15 +484,29 @@ extension HomeViewController: HomeViewProtocol {
 
     /// 최초 load markers
     func loadMarkers(with markers: [NMFMarker]) {
-        
         markers.forEach {
             $0.mapView = naverMapView
         }
     }
     
     /// star button clicked
-    func afterLoadStarButton(with noStars: [NMFMarker]) {
-        noStars.forEach {
+    func afterLoadStarButton(showMarkers: [NMFMarker], hideMarkers: [NMFMarker]) {
+        showMarkers.forEach {
+            $0.mapView = naverMapView
+        }
+        
+        hideMarkers.forEach {
+            $0.mapView = nil
+        }
+    }
+    
+    // MARK: - Marker Update
+    func afterClickedCategoryModel(showMarkers: [NMFMarker], hideMarkers: [NMFMarker]) {
+        showMarkers.forEach {
+            $0.mapView = naverMapView
+        }
+        
+        hideMarkers.forEach {
             $0.mapView = nil
         }
     }
@@ -581,6 +624,7 @@ extension HomeViewController: HomeViewProtocol {
                 if isSlideUpView && !placeView.isLoadingDetail {
                     placeViewFullUp()
                     naverMapView.isHidden = true
+                    categoryCollectionView.isHidden = true
                     isSlideUpView = false
                 // view가 아직 slideup 안 되었고, popup일때 가능
                 } else if !isSlideUpView && placeView.placeViewStated == .popup {
@@ -602,6 +646,7 @@ extension HomeViewController: HomeViewProtocol {
         if isSlideUpView {
             placeViewFullUp()
             naverMapView.isHidden = true
+            categoryCollectionView.isHidden = true
             isSlideUpView = false
         }
     }
@@ -974,6 +1019,7 @@ extension HomeViewController {
     private func handleClosure() {
         placeView.whenFullBack = { [weak self] in
             self?.naverMapView.isHidden = false
+            self?.categoryCollectionView.isHidden = false
             self?.placeViewPopUpAfterInitPlacePopViewHeight()
         }
         
@@ -1048,13 +1094,15 @@ extension HomeViewController: UIGestureRecognizerDelegate {
 // MARK: UITextFieldDelegate
 extension HomeViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        guard let textField = textField as? MainField else { return false }
         animateTextFieldExpansion(textField: textField)
         return false
     }
     
-    private func animateTextFieldExpansion(textField: UITextField) {
+    private func animateTextFieldExpansion(textField: MainField) {
         textField.placeholder = ""
         textField.text = ""
+        textField.isActiveFranchiseToggleButton = false
         textField.leftView?.isHidden = true
         
         let startingFrame = textField.convert(textField.bounds, to: nil)
@@ -1075,16 +1123,29 @@ extension HomeViewController: UITextFieldDelegate {
             self?.navigationController?.pushViewController(vc, animated: false)
             
             textField.leftView?.isHidden = false
-            textField.placeholder = Text.searchPlaceHolder.rawValue
+            
+            if self?.selectedCategoriesPlaceHolder.isEmpty ?? false {
+                textField.placeholder = Text.searchPlaceHolder.rawValue
+            } else {
+                textField.placeholder = self?.selectedCategoriesPlaceHolder.joined(separator: ", ")
+            }
         }
     }
     
     private func changedSearchField(with place: String) {
         searchTextField.text = place
+        searchTextField.isActiveFranchiseToggleButton = true
     }
     
     private func afterSearchFieldInit() {
         searchTextField.text = ""
+        searchTextField.isActiveFranchiseToggleButton = true
+        
+        if selectedCategoriesPlaceHolder.isEmpty {
+            searchTextField.placeholder = Text.searchPlaceHolder.rawValue
+        } else {
+            searchTextField.placeholder = selectedCategoriesPlaceHolder.joined(separator: ", ")
+        }
     }
 }
 
@@ -1212,6 +1273,118 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
             self?.tabBarDelegate?.hideBlurEffectView(with: true)
             self?.blurEffectView.isHidden = true
             self?.levelUpAlertView.isHidden = true
+        }
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        
+        if presenter.categoryType[indexPath.row].0 == "취소" {
+            return CGSize(width: 36, height: 36)
+        }
+        
+        return CGSize(width: 73, height: 37)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        6
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath)
+    }
+}
+
+extension HomeViewController: UICollectionViewDataSource {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        presenter.categoryType.count
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: CategoryCollectionViewCell.identifier,
+            for: indexPath
+        ) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
+
+        let type = self.presenter.categoryType[indexPath.row].0
+        let state = self.presenter.categoryType[indexPath.row].1
+        
+        cell.configure(with: type, state: state)
+            
+        cell.whenCategoryButtonTapped = { [weak self] (selectedType, selectedState) in
+            self?.updateSearchTextField(with: selectedType)
+            self?.presenter.whenUpdateType = (selectedType, selectedState)
+        }
+        
+        return cell
+    }
+        
+    private func updateSearchTextField(with type: String) {
+        if type == "취소" {
+            searchTextField.placeholder = Text.searchPlaceHolder.rawValue
+            selectedCategoriesPlaceHolder.removeAll()
+        } else {
+            // 선택된 카테고리가 배열에 이미 있다면 제거, 없다면 추가합니다.
+            if let index = selectedCategoriesPlaceHolder.firstIndex(of: type) {
+                selectedCategoriesPlaceHolder.remove(at: index)
+            } else {
+                selectedCategoriesPlaceHolder.append(type)
+            }
+            
+            if selectedCategoriesPlaceHolder.count > 0 {
+                // 배열에 있는 모든 항목을 콤마로 구분하여 placeholder에 설정합니다.
+                searchTextField.placeholder = selectedCategoriesPlaceHolder.joined(separator: ", ")
+            } else {
+                // 모든 type의 선택이 false일 때
+                searchTextField.placeholder = Text.searchPlaceHolder.rawValue
+            }
+        }
+    }
+    
+    func deleteCancelButtonFromCategoryCollection() {
+        self.categoryCollectionView.performBatchUpdates { [weak self] in
+            self?.categoryCollectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
+        } completion: { [weak self] _ in
+            let indexPaths = (0...3).map { IndexPath(item: $0, section: 0) }
+            self?.categoryCollectionView.reloadItems(at: indexPaths)
+        }
+    }
+    
+    func deleteCancelButtonWhenAllCategoryFalse() {
+        self.categoryCollectionView.performBatchUpdates { [weak self] in
+            self?.categoryCollectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
+        } 
+    }
+    
+    func updateCancelButtonFromCategoryCollection() {
+        self.categoryCollectionView.performBatchUpdates { [weak self] in
+            self?.categoryCollectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
         }
     }
 }

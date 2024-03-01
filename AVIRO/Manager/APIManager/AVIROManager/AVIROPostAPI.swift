@@ -35,7 +35,7 @@ struct AVIROPostAPI {
     
     // MARK: - URL Property
     static let placeEnrollPath = "/2/map/add/place"
-    static let placeListMatchedAVIROPath = "/2/map/check/place"
+    static let placeListMatchedPath = "/2/map/check/place"
     static let placeListReportPath = "/2/map/report/place"
     
     static let editPlaceLocationPath = "/2/map/report/address"
@@ -67,7 +67,7 @@ struct AVIROPostAPI {
     
     // MARK: PlaceList Matched AVIRO
     mutating func placeListMatched() -> URLComponents {
-        return createURLComponents(path: AVIROPostAPI.placeListMatchedAVIROPath)
+        return createURLComponents(path: AVIROPostAPI.placeListMatchedPath)
     }
     
     // MARK: PlaceList Report

@@ -226,7 +226,33 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
                 button.heightAnchor.constraint(equalToConstant: CGFloat.tabBarHeight),
                 button.centerYAnchor.constraint(equalTo: tabBarView.centerYAnchor)
             ])
+            
+            if index == 2 {
+                showUpdatedPoint(with: button)
+            }
         }
+    }
+    
+    private func showUpdatedPoint(with button: UIButton) {
+        let redDotView = UIView()
+        
+        redDotView.backgroundColor = .red
+        
+        let redDotSize: CGFloat = 9
+        redDotView.layer.cornerRadius = 4.5
+        redDotView.clipsToBounds = true
+        
+        guard let imageView = button.imageView else { return }
+        redDotView.translatesAutoresizingMaskIntoConstraints = false
+
+        imageView.addSubview(redDotView)
+        
+        NSLayoutConstraint.activate([
+            redDotView.heightAnchor.constraint(equalToConstant: redDotSize),
+            redDotView.widthAnchor.constraint(equalToConstant: redDotSize),
+            redDotView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 3),
+            redDotView.topAnchor.constraint(equalTo: imageView.topAnchor, constant: -3)
+        ])
     }
     
     private func updateView() {

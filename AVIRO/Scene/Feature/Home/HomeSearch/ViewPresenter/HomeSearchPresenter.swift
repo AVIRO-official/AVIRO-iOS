@@ -276,7 +276,9 @@ final class HomeSearchPresenter {
             switch result {
             case .success(let model):
                 if model.statusCode == 200 {
-                    self?.bindingToTableData(afterMatched: model.body, placeList: placeList)
+                    guard let matchedList = model.data?.placeList else { return }
+                    
+                    self?.bindingToTableData(afterMatched: matchedList, placeList: placeList)
                 } else {
                     self?.isLoading = false
                     self?.isEndCompare = true
