@@ -32,4 +32,5 @@ struct AVIRORecommendPlaceDTO: Encodable {
 
 struct AVIRORecommendPlaceResultDTO: Decodable {
     let statusCode: Int
+    let message: String?
 }
