@@ -56,7 +56,6 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
     func fetchRawData(
         completionHandler: @escaping (Result<[AVIROMarkerModel], APIError>) -> Void
     ) {
-        /// 버전
         // realm 마이그레이션 실행
         let config = Realm.Configuration(
             schemaVersion: 1,

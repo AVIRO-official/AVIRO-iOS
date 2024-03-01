@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol AVIROAPIMangerProtocol: APIManagerProtocol {    
+protocol AVIROAPIMangerProtocol: APIManagerProtocol {
     // MARK: Marker Refer
     func loadNerbyPlaceModels(
         with mapModel: AVIROMapModelDTO,
@@ -48,7 +48,7 @@ protocol AVIROAPIMangerProtocol: APIManagerProtocol {
     )
     
     func recommendPlace(
-        with infoModel: AVIRORecommendPlaceDTO, 
+        with infoModel: AVIRORecommendPlaceDTO,
         completionHandler: @escaping(Result<AVIRORecommendPlaceResultDTO, APIError>) -> Void
     )
     
@@ -115,7 +115,7 @@ protocol AVIROAPIMangerProtocol: APIManagerProtocol {
         with review: AVIRODeleteReveiwDTO,
         completionHandler: @escaping(Result<AVIROResultDTO, APIError>) -> Void
     )
-
+    
     // MARK: User Refer
     func appleUserCheck(
         with user: AVIROAutoLoginWhenAppleUserDTO,
@@ -134,7 +134,7 @@ protocol AVIROAPIMangerProtocol: APIManagerProtocol {
         with user: AVIROAutoLoginWhenAppleUserDTO,
         completionHandler: @escaping(Result<AVIROResultDTO, APIError>) -> Void
     )
-
+    
     func checkNickname(
         with nickname: AVIRONicknameIsDuplicatedCheckDTO,
         completionHandler: @escaping(Result<AVIRONicknameIsDuplicatedCheckResultDTO, APIError>) -> Void
@@ -144,9 +144,33 @@ protocol AVIROAPIMangerProtocol: APIManagerProtocol {
         completionHandler: @escaping(Result<AVIROResultDTO, APIError>) -> Void
     )
     
-    // MARK: My Page
+    // MARK: Challenge / My Page
     func loadMyContributedCount(
         with userId: String,
         completionHandler: @escaping(Result<AVIROMyContributionCountDTO, APIError>) -> Void
+    )
+    
+    func loadChallengeInfo(
+        completionHandler: @escaping (Result<AVIROChallengeInfoDTO, APIError>) -> Void
+    )
+    
+    func loadMyChallengeLevel(
+        with userId: String,
+        completionHandler: @escaping (Result<AVIROMyChallengeLevelResultDTO, APIError>) -> Void
+    )
+    
+    func loadMyPlaceList(
+        with userId: String,
+        completionHandler: @escaping (Result<AVIROMyPlaceListDTO, APIError>) -> Void
+    )
+    
+    func loadMyCommentList(
+        with userId: String,
+        completionHandler: @escaping (Result<AVIROMyCommentListDTO, APIError>) -> Void
+    )
+    
+    func loadMyBookmarkList(
+        with userId: String,
+        completionHandler: @escaping (Result<AVIROMyBookmarkListDTO, APIError>) -> Void
     )
 }

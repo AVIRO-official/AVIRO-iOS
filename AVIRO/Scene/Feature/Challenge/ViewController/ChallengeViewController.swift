@@ -10,6 +10,12 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+enum MyInfoType {
+    case place
+    case review
+    case bookmark
+}
+
 final class ChallengeViewController: UIViewController {
     weak var tabBarDelegate: TabBarDelegate?
     
@@ -141,6 +147,7 @@ final class ChallengeViewController: UIViewController {
     private func setupAttribute() {
         navigationItem.title = "챌린지"
         navigationController?.navigationBar.isHidden = false
+        self.view.backgroundColor = .gray7
         
         let rightBarButton = UIBarButtonItem(
             image: UIImage.user2,
@@ -159,8 +166,8 @@ final class ChallengeViewController: UIViewController {
         
         scrollView.refreshControl = refreshControl
         
-        myInfoView.tappedCountButton = { [weak self] in
-            self?.showSimpleToast(with: "coming soon...")
+        myInfoView.tappedMyInfo = { [weak self] myInfoType in
+            self?.pushMyInfo(with: myInfoType)
         }
     }
     
@@ -243,6 +250,8 @@ final class ChallengeViewController: UIViewController {
         scrollView.refreshControl?.endRefreshing()
     }
     
+    // MARK: - Navigation Method
+
     func pushChallengeInfoViewController() {
         let vc = ChallengeInfoViewController.create(with: viewModel.challengeTitle)
         
@@ -264,6 +273,26 @@ final class ChallengeViewController: UIViewController {
         self.showAlert(title: "에러", message: "재시도 해주세요")
         
         endRefeshControl()
+    }
+    
+    private func pushMyInfo(with myInfoType: MyInfoType) {
+        switch myInfoType {
+        case .place:
+            let viewModel = MyPlaceListViewModel()
+            let vc = MyPlaceListViewController.create(with: viewModel)
+            
+            navigationController?.pushViewController(vc, animated: true)
+        case .review:
+            let viewModel = MyCommentListViewModel()
+            let vc = MyCommentListViewController.create(with: viewModel)
+            
+            navigationController?.pushViewController(vc, animated: true)
+        case .bookmark:
+            let viewModel = MyBookmarkListViewModel()
+            let vc = MyBookmarkListViewController.create(with: viewModel)
+            
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 

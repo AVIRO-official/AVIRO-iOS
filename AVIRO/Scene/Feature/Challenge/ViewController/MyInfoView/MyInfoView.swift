@@ -24,7 +24,7 @@ final class MyInfoView: UIView {
         button.setTitle("0개", for: .normal)
         button.setTitleColor(.gray0, for: .normal)
         button.titleLabel?.font = .pretendard(size: 20, weight: .bold)
-        button.addTarget(self, action: #selector(tappedButton(_:)), for: .touchUpInside)
+        button.isUserInteractionEnabled = false
         
         return button
     }()
@@ -35,6 +35,7 @@ final class MyInfoView: UIView {
         stackView.axis = .vertical
         stackView.spacing = 11
         stackView.alignment = .center
+        stackView.tag = 0
         
         return stackView
     }()
@@ -55,7 +56,7 @@ final class MyInfoView: UIView {
         button.setTitle("0개", for: .normal)
         button.setTitleColor(.gray0, for: .normal)
         button.titleLabel?.font = .pretendard(size: 20, weight: .bold)
-        button.addTarget(self, action: #selector(tappedButton(_:)), for: .touchUpInside)
+        button.isUserInteractionEnabled = false
 
         return button
     }()
@@ -66,6 +67,7 @@ final class MyInfoView: UIView {
         stackView.axis = .vertical
         stackView.spacing = 11
         stackView.alignment = .center
+        stackView.tag = 1
 
         return stackView
     }()
@@ -86,7 +88,7 @@ final class MyInfoView: UIView {
         button.setTitle("0개", for: .normal)
         button.setTitleColor(.gray0, for: .normal)
         button.titleLabel?.font = .pretendard(size: 20, weight: .bold)
-        button.addTarget(self, action: #selector(tappedButton(_:)), for: .touchUpInside)
+        button.isUserInteractionEnabled = false
 
         return button
     }()
@@ -97,7 +99,8 @@ final class MyInfoView: UIView {
         stackView.axis = .vertical
         stackView.spacing = 11
         stackView.alignment = .center
-
+        stackView.tag = 2
+        
         return stackView
     }()
     
@@ -127,7 +130,7 @@ final class MyInfoView: UIView {
         return stackView
     }()
     
-    var tappedCountButton: (() -> Void)?
+    var tappedMyInfo: ((MyInfoType) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -199,6 +202,37 @@ final class MyInfoView: UIView {
     
     private func setupAttribute() {
         self.backgroundColor = .gray7
+        
+        addTapGestureToStackView()
+    }
+    
+    private func addTapGestureToStackView() {
+        let myPlaceTapGesture = UITapGestureRecognizer(target: self, action: #selector(stackViewTapped(_:)))
+        myPlaceStackView.addGestureRecognizer(myPlaceTapGesture)
+        myPlaceStackView.isUserInteractionEnabled = true
+
+        let myReviewTapGesture = UITapGestureRecognizer(target: self, action: #selector(stackViewTapped(_:)))
+        myReviewStackView.addGestureRecognizer(myReviewTapGesture)
+        myReviewStackView.isUserInteractionEnabled = true
+
+        let myStarTapGesture = UITapGestureRecognizer(target: self, action: #selector(stackViewTapped(_:)))
+        myStarStackView.addGestureRecognizer(myStarTapGesture)
+        myStarStackView.isUserInteractionEnabled = true
+    }
+    
+    @objc private func stackViewTapped(_ gesture: UITapGestureRecognizer) {
+        guard let stackView = gesture.view as? UIStackView else { return }
+        
+        switch stackView.tag {
+        case 0:
+            tappedMyInfo?(.place)
+        case 1:
+            tappedMyInfo?(.review)
+        case 2:
+            tappedMyInfo?(.bookmark)
+        default:
+            break
+        }
     }
     
     // TODO: DataBinding 설계 시 삭제 예정
@@ -212,9 +246,5 @@ final class MyInfoView: UIView {
     
     func updateMyStar(_ star: String) {
         myStarButton.setTitle("\(star)개", for: .normal)
-    }
-    
-    @objc private func tappedButton(_ sender: UIButton) {
-        tappedCountButton?()
     }
 }

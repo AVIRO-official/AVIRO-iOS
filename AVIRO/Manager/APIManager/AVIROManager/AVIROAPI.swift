@@ -675,6 +675,45 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler: completionHandler
         )
     }
+    
+    func loadMyPlaceList(with userId: String, completionHandler: @escaping (Result<AVIROMyPlaceListDTO, APIError>) -> Void) {
+        guard let url = requestAPI.getMyPlaceList(userId: userId).url else {
+            completionHandler(.failure(.urlError))
+            return
+        }
+        
+        performRequest(
+            with: url,
+            headers: requestAPI.headers,
+            completionHandler: completionHandler
+        )
+    }
+    
+    func loadMyCommentList(with userId: String, completionHandler: @escaping (Result<AVIROMyCommentListDTO, APIError>) -> Void) {
+        guard let url = requestAPI.getMyCommentList(userId: userId).url else {
+            completionHandler(.failure(.urlError))
+            return
+        }
+        
+        performRequest(
+            with: url,
+            headers: requestAPI.headers,
+            completionHandler: completionHandler
+        )
+    }
+    
+    func loadMyBookmarkList(with userId: String, completionHandler: @escaping (Result<AVIROMyBookmarkListDTO, APIError>) -> Void) {
+        guard let url = requestAPI.getMyBookmarkList(userId: userId).url else {
+            completionHandler(.failure(.urlError))
+            return
+        }
+        
+        performRequest(
+            with: url,
+            headers: requestAPI.headers,
+            completionHandler: completionHandler
+        )
+    }
 }
 
 extension AVIROAPI {
