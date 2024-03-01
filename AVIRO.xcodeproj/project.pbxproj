@@ -208,6 +208,15 @@
 		C5DBF8382B3A5FEC00668B0D /* AVIROTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DBF8372B3A5FEC00668B0D /* AVIROTabBarController.swift */; };
 		C5DBF83F2B3A6E1000668B0D /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DBF83E2B3A6E1000668B0D /* TabBarButton.swift */; };
 		C5DBF8412B3A787800668B0D /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DBF8402B3A787800668B0D /* CGFloat+Extension.swift */; };
+		C5DCBC8B2B91CEE8003502BA /* AVIROMyCommentList+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCBC8A2B91CEE8003502BA /* AVIROMyCommentList+DTO.swift */; };
+		C5DCBC8D2B91CF17003502BA /* AVIROMyPlaceList+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCBC8C2B91CF17003502BA /* AVIROMyPlaceList+DTO.swift */; };
+		C5DCBC8F2B91CF46003502BA /* AVIROMyBookmarkList+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCBC8E2B91CF46003502BA /* AVIROMyBookmarkList+DTO.swift */; };
+		C5DCBC9A2B91D9E9003502BA /* MyPlaceListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCBC992B91D9E9003502BA /* MyPlaceListViewModel.swift */; };
+		C5DCBC9D2B91D9F5003502BA /* MyPlaceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCBC9C2B91D9F5003502BA /* MyPlaceListViewController.swift */; };
+		C5DCBC9F2B91D9FE003502BA /* MyCommentListVewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCBC9E2B91D9FE003502BA /* MyCommentListVewModel.swift */; };
+		C5DCBCA12B91DA13003502BA /* MyCommentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCBCA02B91DA13003502BA /* MyCommentListViewController.swift */; };
+		C5DCBCA32B91DA28003502BA /* MyBookmarkListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCBCA22B91DA28003502BA /* MyBookmarkListViewModel.swift */; };
+		C5DCBCA52B91DA36003502BA /* MyBookmarkListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DCBCA42B91DA36003502BA /* MyBookmarkListViewController.swift */; };
 		C5E143A72AB43B8F007AC8C9 /* AVIROResult+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E143A62AB43B8F007AC8C9 /* AVIROResult+DTO.swift */; };
 		C5E306E72A6FB4ED00C11CF7 /* MenuField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E306E62A6FB4ED00C11CF7 /* MenuField.swift */; };
 		C5E430B32A5DADBE00CB67EC /* SecondRegistrationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E430B22A5DADBE00CB67EC /* SecondRegistrationPresenter.swift */; };
@@ -462,6 +471,15 @@
 		C5DBF8372B3A5FEC00668B0D /* AVIROTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROTabBarController.swift; sourceTree = "<group>"; };
 		C5DBF83E2B3A6E1000668B0D /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
 		C5DBF8402B3A787800668B0D /* CGFloat+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extension.swift"; sourceTree = "<group>"; };
+		C5DCBC8A2B91CEE8003502BA /* AVIROMyCommentList+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROMyCommentList+DTO.swift"; sourceTree = "<group>"; };
+		C5DCBC8C2B91CF17003502BA /* AVIROMyPlaceList+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROMyPlaceList+DTO.swift"; sourceTree = "<group>"; };
+		C5DCBC8E2B91CF46003502BA /* AVIROMyBookmarkList+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROMyBookmarkList+DTO.swift"; sourceTree = "<group>"; };
+		C5DCBC992B91D9E9003502BA /* MyPlaceListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlaceListViewModel.swift; sourceTree = "<group>"; };
+		C5DCBC9C2B91D9F5003502BA /* MyPlaceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlaceListViewController.swift; sourceTree = "<group>"; };
+		C5DCBC9E2B91D9FE003502BA /* MyCommentListVewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentListVewModel.swift; sourceTree = "<group>"; };
+		C5DCBCA02B91DA13003502BA /* MyCommentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentListViewController.swift; sourceTree = "<group>"; };
+		C5DCBCA22B91DA28003502BA /* MyBookmarkListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkListViewModel.swift; sourceTree = "<group>"; };
+		C5DCBCA42B91DA36003502BA /* MyBookmarkListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkListViewController.swift; sourceTree = "<group>"; };
 		C5E143A62AB43B8F007AC8C9 /* AVIROResult+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROResult+DTO.swift"; sourceTree = "<group>"; };
 		C5E306E62A6FB4ED00C11CF7 /* MenuField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuField.swift; sourceTree = "<group>"; };
 		C5E430B22A5DADBE00CB67EC /* SecondRegistrationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondRegistrationPresenter.swift; sourceTree = "<group>"; };
@@ -1444,8 +1462,9 @@
 			children = (
 				C58FBF882AC2A48400AB6EFC /* Marker */,
 				C58FBF892AC2A4A800AB6EFC /* CheckPlace */,
-				C58FBF8A2AC2A4BD00AB6EFC /* Challenge */,
 				C5166E472A930583003495AA /* DetailPlace */,
+				C58FBF8A2AC2A4BD00AB6EFC /* Challenge */,
+				C5DCBC892B91CE9F003502BA /* MyPage */,
 			);
 			path = AVIROGet;
 			sourceTree = "<group>";
@@ -1517,6 +1536,9 @@
 			children = (
 				C5476B632B3036E300F5FC6E /* ViewModel */,
 				C5476B622B3036DA00F5FC6E /* ViewController */,
+				C5DCBC902B91D993003502BA /* MyPlaceList */,
+				C5DCBC912B91D9AB003502BA /* MyCommentList */,
+				C5DCBC922B91D9B5003502BA /* MyBookmarkList */,
 				C562B6DD2B387ABE00CE5D4C /* ChallengeInfoView */,
 				C5476B6F2B31459C00F5FC6E /* Setting */,
 			);
@@ -1720,6 +1742,91 @@
 				C505C1E12B3ACEC00058F115 /* Reactive+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C5DCBC892B91CE9F003502BA /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				C5DCBC8C2B91CF17003502BA /* AVIROMyPlaceList+DTO.swift */,
+				C5DCBC8A2B91CEE8003502BA /* AVIROMyCommentList+DTO.swift */,
+				C5DCBC8E2B91CF46003502BA /* AVIROMyBookmarkList+DTO.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		C5DCBC902B91D993003502BA /* MyPlaceList */ = {
+			isa = PBXGroup;
+			children = (
+				C5DCBC932B91D9C5003502BA /* ViewModel */,
+				C5DCBC942B91D9C9003502BA /* ViewController */,
+			);
+			path = MyPlaceList;
+			sourceTree = "<group>";
+		};
+		C5DCBC912B91D9AB003502BA /* MyCommentList */ = {
+			isa = PBXGroup;
+			children = (
+				C5DCBC962B91D9D4003502BA /* ViewModel */,
+				C5DCBC952B91D9CF003502BA /* ViewController */,
+			);
+			path = MyCommentList;
+			sourceTree = "<group>";
+		};
+		C5DCBC922B91D9B5003502BA /* MyBookmarkList */ = {
+			isa = PBXGroup;
+			children = (
+				C5DCBC982B91D9DB003502BA /* ViewModel */,
+				C5DCBC972B91D9D7003502BA /* ViewController */,
+			);
+			path = MyBookmarkList;
+			sourceTree = "<group>";
+		};
+		C5DCBC932B91D9C5003502BA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C5DCBC992B91D9E9003502BA /* MyPlaceListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C5DCBC942B91D9C9003502BA /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C5DCBC9C2B91D9F5003502BA /* MyPlaceListViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		C5DCBC952B91D9CF003502BA /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C5DCBCA02B91DA13003502BA /* MyCommentListViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		C5DCBC962B91D9D4003502BA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C5DCBC9E2B91D9FE003502BA /* MyCommentListVewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C5DCBC972B91D9D7003502BA /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C5DCBCA42B91DA36003502BA /* MyBookmarkListViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		C5DCBC982B91D9DB003502BA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C5DCBCA22B91DA28003502BA /* MyBookmarkListViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		C5E430AA2A5D13B600CB67EC /* Lottie */ = {
@@ -2097,6 +2204,7 @@
 				C5FD92EB2A9C786600CF4673 /* PublicAPIRequestComponents.swift in Sources */,
 				C58C49C82AC9B67600DE04B7 /* AppleUserLoginModel.swift in Sources */,
 				C58FBF902AC2B83A00AB6EFC /* AVIROAPIManagerProtocol.swift in Sources */,
+				C5DCBC9F2B91D9FE003502BA /* MyCommentListVewModel.swift in Sources */,
 				C50F6AF52A68FD6300E942F5 /* EnrollPlacePresenter.swift in Sources */,
 				C50DB7572A9B8DF80078B501 /* EditLocationAddressTextView.swift in Sources */,
 				C595ACD12A84A4EB00D35123 /* PlaceSummaryView.swift in Sources */,
@@ -2124,6 +2232,7 @@
 				C52066412A8129510038ECCD /* KakaoAPISortingQuery.swift in Sources */,
 				C5351B4D2A19223300116D50 /* KakaoMapRequestAPI.swift in Sources */,
 				C520662F2A7E485B0038ECCD /* MatchedPlaceModel.swift in Sources */,
+				C5DCBC8D2B91CF17003502BA /* AVIROMyPlaceList+DTO.swift in Sources */,
 				C5A201B72A986EDF00A54381 /* EditMenuViewController.swift in Sources */,
 				C5A201C92A98A70800A54381 /* EditHomePageView.swift in Sources */,
 				C5166E492A9305A9003495AA /* AVIROPlaceSummary+DTO.swift in Sources */,
@@ -2135,6 +2244,7 @@
 				C5D93D9F2A581EC800629C39 /* FirstRegistrationViewController.swift in Sources */,
 				C528E4C02A5FF1CB002BD72E /* FinalRegistrationViewController.swift in Sources */,
 				C5FBDA5C2B398264007AC77E /* ChallengeInfoGreenView.swift in Sources */,
+				C5DCBC8F2B91CF46003502BA /* AVIROMyBookmarkList+DTO.swift in Sources */,
 				C5D93DA32A58718300629C39 /* NextPageButton.swift in Sources */,
 				C50DB7512A9B83550078B501 /* ChangeableAddressViewController.swift in Sources */,
 				C5A989992A959E040021B7C3 /* AVIROBookmark+DTO.swift in Sources */,
@@ -2154,6 +2264,7 @@
 				C5A989972A959D920021B7C3 /* AVIROUpdateBookmark+DTO.swift in Sources */,
 				C5E7B7A92A4D3CDF00CA2090 /* AVIROUser+DTO.swift in Sources */,
 				C5A201C32A98A61F00A54381 /* EditLocationBottomView.swift in Sources */,
+				C5DCBC8B2B91CEE8003502BA /* AVIROMyCommentList+DTO.swift in Sources */,
 				C52066232A7CAC910038ECCD /* NoHistoryView.swift in Sources */,
 				C5E306E72A6FB4ED00C11CF7 /* MenuField.swift in Sources */,
 				C5ED46982AAEEFB600F2DA04 /* OperationHoursView.swift in Sources */,
@@ -2180,6 +2291,7 @@
 				C58EC7D62AB1B61500401FF7 /* AVIROEditCommonBeforeAfterDTO.swift in Sources */,
 				C58EC7CE2AB1B57100401FF7 /* AVIROEditOperationTime+DTO.swift in Sources */,
 				C50DB7542A9B838F0078B501 /* ChangeableAddressPresenter.swift in Sources */,
+				C5DCBC9D2B91D9F5003502BA /* MyPlaceListViewController.swift in Sources */,
 				C58EC7D42AB1B5C400401FF7 /* AVIROEditURL+DTO.swift in Sources */,
 				C50F6B022A6BC8E400E942F5 /* EnrollField.swift in Sources */,
 				C552D5342ABE8CA500933D8A /* AVIRODeleteAPI.swift in Sources */,
@@ -2190,6 +2302,7 @@
 				C52651DE2B7FB8B0002038CF /* CategoryCollectionViewCell.swift in Sources */,
 				C520662D2A7CE1CC0038ECCD /* SearchHistoryManager.swift in Sources */,
 				C51AED232A8B7B000015FBC2 /* UIViewController+Extension.swift in Sources */,
+				C5DCBCA52B91DA36003502BA /* MyBookmarkListViewController.swift in Sources */,
 				C51000632ABAE6A200F65C1F /* MenuModel.swift in Sources */,
 				C5C961952A8D9EED0016E2F8 /* PlaceReviewTableViewCell.swift in Sources */,
 				C5A3C3C62A39659B0050AB3D /* LoginViewPresenter.swift in Sources */,
@@ -2220,6 +2333,7 @@
 				C5C290792A85E51000ED5DCE /* PlaceMenuView.swift in Sources */,
 				C54B76612B88B2D10095E110 /* FranchiseToggleButton.swift in Sources */,
 				C5FBDA5A2B398258007AC77E /* ChallengeInfoTopLabelView.swift in Sources */,
+				C5DCBCA32B91DA28003502BA /* MyBookmarkListViewModel.swift in Sources */,
 				C5A201B42A986EC300A54381 /* EditPlaceInfoViewController.swift in Sources */,
 				C51AED1D2A8A192D0015FBC2 /* ChangedViewAction+HomeViewController.swift in Sources */,
 				C51B09BC2A82397800916BBD /* Marker+Extension.swift in Sources */,
@@ -2238,6 +2352,7 @@
 				C56857802A7113C600F52715 /* NormalTableViewCell.swift in Sources */,
 				C52066312A7E4A580038ECCD /* AVIROMainSearchCompare+DTO.swift in Sources */,
 				C5C9619F2A8DEB230016E2F8 /* ReviewWriteButton.swift in Sources */,
+				C5DCBC9A2B91D9E9003502BA /* MyPlaceListViewModel.swift in Sources */,
 				C5E143A72AB43B8F007AC8C9 /* AVIROResult+DTO.swift in Sources */,
 				C505C1E02B3ACCEC0058F115 /* AVIROMyChallengeLevelResult+DTO.swift in Sources */,
 				C5E430B52A5DAE9800CB67EC /* SecondRegistrationViewController.swift in Sources */,
@@ -2275,6 +2390,7 @@
 				C593B6472A4AB3A700D224CE /* PushCommentView.swift in Sources */,
 				C51AED1F2A8B2BC80015FBC2 /* HomeTopButton.swift in Sources */,
 				C5FA0EAC2A94DF39004AD8B4 /* ReportReviewPresenter.swift in Sources */,
+				C5DCBCA12B91DA13003502BA /* MyCommentListViewController.swift in Sources */,
 				C5A201B22A98502500A54381 /* TimeUtility.swift in Sources */,
 				C56295092B31885C0067BBE5 /* ReviewWriteViewModel.swift in Sources */,
 				C5476B6A2B304C8200F5FC6E /* ChallengeTitleView.swift in Sources */,

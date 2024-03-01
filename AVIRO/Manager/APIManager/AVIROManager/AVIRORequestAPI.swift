@@ -42,6 +42,10 @@ struct AVIRORequestAPI {
     static let challengeInfoPath = "/2/mypage/challenge"
     static let myChallengeLevelPath = "/2/mypage/challenge/level"
     
+    static let myPlaceListPath = "/2/mypage/place"
+    static let myCommentListPath = "/2/mypage/comment"
+    static let myBookmarkListPath = "/2/mypage/bookmark"
+    
     // MARK: Key
     static let userId = "userId"
     
@@ -245,6 +249,40 @@ struct AVIRORequestAPI {
         
         return createURLComponents(
             path: AVIRORequestAPI.myChallengeLevelPath,
+            queryItems: queryItems
+        )
+    }
+    
+    // MARK: My Place, Comment, Bookmark List
+    mutating func getMyPlaceList(userId: String) -> URLComponents {
+        let queryItems = [
+            URLQueryItem(name: AVIRORequestAPI.userId, value: userId)
+        ]
+        
+        return createURLComponents(
+            path: AVIRORequestAPI.myPlaceListPath,
+            queryItems: queryItems
+        )
+    }
+    
+    mutating func getMyCommentList(userId: String) -> URLComponents {
+        let queryItems = [
+            URLQueryItem(name: AVIRORequestAPI.userId, value: userId)
+        ]
+        
+        return createURLComponents(
+            path: AVIRORequestAPI.myCommentListPath,
+            queryItems: queryItems
+        )
+    }
+    
+    mutating func getMyBookmarkList(userId: String) -> URLComponents {
+        let queryItems = [
+            URLQueryItem(name: AVIRORequestAPI.userId, value: userId)
+        ]
+        
+        return createURLComponents(
+            path: AVIRORequestAPI.myBookmarkListPath,
             queryItems: queryItems
         )
     }
