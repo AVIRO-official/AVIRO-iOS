@@ -39,12 +39,12 @@ protocol AVIROAPIMangerProtocol: APIManagerProtocol {
     // MARK: Create Refer
     func createPlaceModel(
         with placeModel: AVIROEnrollPlaceDTO,
-        completionHandler: @escaping(Result<AVIROChallengeResultDTO, APIError>) -> Void
+        completionHandler: @escaping(Result<AVIROResultWhenChallengeDTO, APIError>) -> Void
     )
     
     func createReview(
         with reviewModel: AVIROEnrollReviewDTO,
-        completionHandler: @escaping(Result<AVIROChallengeResultDTO, APIError>) -> Void
+        completionHandler: @escaping(Result<AVIROResultWhenChallengeDTO, APIError>) -> Void
     )
     
     func recommendPlace(

@@ -9,11 +9,15 @@ import Foundation
 
 struct AVIROMyChallengeLevelResultDTO: Decodable {
     let statusCode: Int
-    let level: Int?
-    let point: Int?
-    let pointForNext: Int?
-    let total: Int?
-    let userRank: Int?
-    let image: String?
+    let data: AVIROMyChallengeLevelDataDTO?
     let message: String?
+}
+
+struct AVIROMyChallengeLevelDataDTO: Decodable {
+    let level: Int
+    let point: Int
+    let pointForNext: Int
+    let total: Int
+    let userRank: Int
+    let image: String
 }

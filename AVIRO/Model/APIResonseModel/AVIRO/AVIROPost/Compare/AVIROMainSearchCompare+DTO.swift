@@ -19,12 +19,17 @@ struct AVIROForMatchedModel: Encodable {
 
 struct AVIROAfterComparePlaceDTO: Decodable {
     let statusCode: Int
-    let body: [AVIROAfterMatchedModel]
+    let message: String?
+    let data: AVIROAfterMatchedModelList?
+}
+
+struct AVIROAfterMatchedModelList: Decodable {
+    let placeList: [AVIROAfterMatchedModel]
 }
 
 struct AVIROAfterMatchedModel: Decodable {
-    let placeId: String
     let index: Int
+    let placeId: String
     let allVegan: Bool
     let someMenuVegan: Bool
     let ifRequestVegan: Bool

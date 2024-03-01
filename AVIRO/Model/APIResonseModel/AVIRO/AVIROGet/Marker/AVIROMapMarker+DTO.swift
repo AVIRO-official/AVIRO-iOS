@@ -17,7 +17,7 @@ struct AVIROMapModelDTO {
 struct AVIROMapModelResultDTO: Decodable {
     let statusCode: Int
     let data: AVIROMapModelResultDataDTO
-    let message: String?
+//    let message: String?
 }
 
 struct AVIROMapModelResultDataDTO: Decodable {

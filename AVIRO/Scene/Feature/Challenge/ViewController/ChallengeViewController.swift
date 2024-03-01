@@ -209,7 +209,7 @@ final class ChallengeViewController: UIViewController {
         
     }
     
-    func bindChallengeInfo(with result: AVIROChallengeInfoDTO) {
+    func bindChallengeInfo(with result: AVIROChallengeInfoDataDTO) {
         let period = result.period
         let title = result.title
         viewModel.challengeTitle = title
@@ -220,7 +220,7 @@ final class ChallengeViewController: UIViewController {
         endRefeshControl()
     }
     
-    func bindMyChallengeLevel(with result: AVIROMyChallengeLevelResultDTO) {
+    func bindMyChallengeLevel(with result: AVIROMyChallengeLevelDataDTO) {
         challengeUserInfoView.isEndIndicator()
         challengeUserInfoView.bindData(with: result)
         
@@ -274,13 +274,13 @@ extension Reactive where Base: ChallengeViewController {
         }
     }
     
-    var isChallengeInfoResult: Binder<AVIROChallengeInfoDTO> {
+    var isChallengeInfoResult: Binder<AVIROChallengeInfoDataDTO> {
         return Binder(self.base) { base, result in
             base.bindChallengeInfo(with: result)
         }
     }
     
-    var isMyChallengeLevelResult: Binder<AVIROMyChallengeLevelResultDTO> {
+    var isMyChallengeLevelResult: Binder<AVIROMyChallengeLevelDataDTO> {
         return Binder(self.base) { base, result in
             base.bindMyChallengeLevel(with: result)
         }

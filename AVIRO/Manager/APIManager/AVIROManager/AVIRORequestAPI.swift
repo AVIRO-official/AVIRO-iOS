@@ -38,9 +38,9 @@ struct AVIRORequestAPI {
     static let commentPath = "/2/map/load/comment"
     static let operationHourPath = "/2/map/load/timetable"
         
-    static let myContributionCount = "/2/mypage/count"
-    static let challengeInfo = "/2/mypage/challenge"
-    static let myChallengeLevel = "/2/mypage/challenge/level"
+    static let myContributionCountPath = "/2/mypage/count"
+    static let challengeInfoPath = "/2/mypage/challenge"
+    static let myChallengeLevelPath = "/2/mypage/challenge/level"
     
     // MARK: Key
     static let userId = "userId"
@@ -229,13 +229,13 @@ struct AVIRORequestAPI {
         ]
         
         return createURLComponents(
-            path: AVIRORequestAPI.myContributionCount,
+            path: AVIRORequestAPI.myContributionCountPath,
             queryItems: queryItems
         )
     }
     
     mutating func getChallengeInfo() -> URLComponents {
-        return createURLComponents(path: AVIRORequestAPI.challengeInfo)
+        return createURLComponents(path: AVIRORequestAPI.challengeInfoPath)
     }
     
     mutating func getMyChallengeLevel(userId: String) -> URLComponents {
@@ -244,7 +244,7 @@ struct AVIRORequestAPI {
         ]
         
         return createURLComponents(
-            path: AVIRORequestAPI.myChallengeLevel,
+            path: AVIRORequestAPI.myChallengeLevelPath,
             queryItems: queryItems
         )
     }
