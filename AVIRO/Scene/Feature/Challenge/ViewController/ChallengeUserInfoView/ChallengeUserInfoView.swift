@@ -101,13 +101,13 @@ final class ChallengeUserInfoView: UIView {
         indicatorView.isHidden = true
     }
     
-    func bindData(with result: AVIROMyChallengeLevelResultDTO) {
-        let total = result.total ?? 0
-        let rank = result.userRank ?? 0
-        let level = result.level ?? 0
-        let point = result.point ?? 0
-        let pointForNext = result.pointForNext ?? 100
-        let imageURL = URL(string: result.image ?? "")!
+    func bindData(with result: AVIROMyChallengeLevelDataDTO) {
+        let total = result.total
+        let rank = result.userRank
+        let level = result.level
+        let point = result.point
+        let pointForNext = result.pointForNext
+        let imageURL = URL(string: result.image)!
         
         nameLabel.text = "\(MyData.my.nickname)님의 나무"
         

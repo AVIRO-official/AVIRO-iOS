@@ -132,11 +132,14 @@ final class EnrollPlacePresenter {
                     CenterCoordinate.shared.latitude = veganModel.y
                     CenterCoordinate.shared.isChangedFromEnrollView = true
                     
-                    self?.viewController?.popViewController(
-                        level: resultModel.userLevel ?? 0,
-                        isLevelUp: resultModel.levelUp ?? false
-                    )
-                    
+                    print(resultModel.message)
+                    // TODO: - Challenge On/Off 기능 추가시 변경 필요
+                    if let myChallengeStatus = resultModel.data {
+                        self?.viewController?.popViewController(
+                            level: myChallengeStatus.userLevel,
+                            isLevelUp: myChallengeStatus.levelUp
+                        )
+                    }
                 } else {
                     self?.viewController?.pushAlertController()
                 }

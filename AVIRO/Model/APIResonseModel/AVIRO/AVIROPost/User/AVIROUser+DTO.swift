@@ -67,7 +67,12 @@ struct AVIRONicknameIsDuplicatedCheckDTO: Encodable {
 
 struct AVIRONicknameIsDuplicatedCheckResultDTO: Codable {
     let statusCode: Int
-    let isValid: Bool?
+    let data: AVIRONickNameIsDuplicatedCheckResultDataDTO?
+    let message: String?
+}
+
+struct AVIRONickNameIsDuplicatedCheckResultDataDTO: Codable {
+    let isValid: Bool
     let message: String
 }
 

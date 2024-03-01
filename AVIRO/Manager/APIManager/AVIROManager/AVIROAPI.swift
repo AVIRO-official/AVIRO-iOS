@@ -135,7 +135,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
     // MARK: Create Refer
     func createPlaceModel(
         with placeModel: AVIROEnrollPlaceDTO,
-        completionHandler: @escaping (Result<AVIROChallengeResultDTO, APIError>) -> Void
+        completionHandler: @escaping (Result<AVIROResultWhenChallengeDTO, APIError>) -> Void
     ) {
         guard let url = postAPI.placeEnroll().url else {
             completionHandler(.failure(.urlError))
@@ -158,7 +158,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
     
     func createReview(
         with reviewModel: AVIROEnrollReviewDTO,
-        completionHandler: @escaping (Result<AVIROChallengeResultDTO, APIError>) -> Void
+        completionHandler: @escaping (Result<AVIROResultWhenChallengeDTO, APIError>) -> Void
     ) {
         guard let url = postAPI.commentUpload().url else {
             completionHandler(.failure(.urlError))
