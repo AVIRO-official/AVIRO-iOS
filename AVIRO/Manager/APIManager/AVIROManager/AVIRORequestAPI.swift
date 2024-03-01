@@ -30,7 +30,7 @@ struct AVIRORequestAPI {
     static let getBookmarkPath = "/2/map/load/bookmark"
     
     static let checkPlacePath = "/2/map/check/place"
-    static let checkPlaceReport = "/2/map/check/place/report"
+    static let checkPlaceReportPath = "/2/map/check/place/report"
     
     static let placeSummaryPath = "/2/map/load/summary"
     static let placeInfoPath = "/2/map/load/place"
@@ -216,7 +216,7 @@ struct AVIRORequestAPI {
         ]
         
         return createURLComponents(
-            path: AVIRORequestAPI.checkPlaceReport,
+            path: AVIRORequestAPI.checkPlaceReportPath,
             queryItems: queryItems
         )
     }

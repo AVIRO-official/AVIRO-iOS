@@ -790,7 +790,7 @@ final class HomeViewPresenter: NSObject {
             }
         }
     }
-    
+
     func checkReportPlaceDuplecated() {
         guard let placeId = selectedPlaceId else { return }
         
@@ -803,7 +803,7 @@ final class HomeViewPresenter: NSObject {
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {
-                    if success.reported {
+                    if success.data?.reported ?? false {
                         self?.viewController?.showAlertWhenDuplicatedReport()
                     } else {
                         self?.viewController?.showAlertWhenReportPlace()
@@ -954,6 +954,16 @@ final class HomeViewPresenter: NSObject {
         AVIROAPI.manager.recommendPlace(with: recommendModel) { [weak self] result in
             switch result {
             case .success(let model):
+                if model.statusCode == 200 {
+                    if let successMessage = model.message {
+                        self?.viewController?.showToastAlert(successMessage)
+                    } else {
+                        self?.viewController?.showToastAlert("귀중한 정보 감사합니다!")
+                    }
+                } else {
+                    guard let errorMessage = model.message else { return }
+                    self?.viewController?.showToastAlert(errorMessage)
+                }
                 self?.viewController?.showToastAlert("귀중한 정보 감사합니다!")
             case .failure(let error):
                 self?.viewController?.showErrorAlert(

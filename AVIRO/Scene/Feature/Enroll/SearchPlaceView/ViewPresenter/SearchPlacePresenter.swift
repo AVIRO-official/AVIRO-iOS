@@ -181,7 +181,14 @@ final class SearchPlacePresenter: NSObject {
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {
-                    if success.registered {
+                    guard let isRegistered = success.data?.registered else {
+                        if let message = success.message {
+                            self?.viewController?.showErrorAlert(with: message, title: nil)
+                        }
+                        return
+                    }
+                    
+                    if isRegistered {
                         self?.viewController?.pushAlertController()
                     } else {
                         self?.savePlaceModel(selectedItem)
