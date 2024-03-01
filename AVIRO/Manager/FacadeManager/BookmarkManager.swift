@@ -28,8 +28,19 @@ final class BookmarkFacadeManager: BookmarkFacadeProtocol {
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {
-                    let dataArray = success.bookmarks
-                    self?.bookmarkArray.updateAllData(with: dataArray)
+                    guard let bookmarkData = success.data else {
+                        if let errorMessage = success.message {
+                            completionHandler(errorMessage)
+                            return
+                        }
+                        
+                        if let error = APIError.badRequest.errorDescription {
+                            completionHandler(error)
+                        }
+                        
+                        return
+                    }
+                    self?.bookmarkArray.updateAllData(with: bookmarkData.bookmarks)
                 } else {
                     if let error = APIError.badRequest.errorDescription {
                         completionHandler(error)
