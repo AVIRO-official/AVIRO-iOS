@@ -276,21 +276,26 @@ final class ChallengeViewController: UIViewController {
     }
     
     private func pushMyInfo(with myInfoType: MyInfoType) {
+        self.tabBarDelegate?.isHidden = (true, true)
+
         switch myInfoType {
         case .place:
             let viewModel = MyPlaceListViewModel()
             let vc = MyPlaceListViewController.create(with: viewModel)
+            vc.tabBarDelegate = self.tabBarDelegate
             
             navigationController?.pushViewController(vc, animated: true)
         case .review:
             let viewModel = MyCommentListViewModel()
             let vc = MyCommentListViewController.create(with: viewModel)
-            
+            vc.tabBarDelegate = self.tabBarDelegate
+
             navigationController?.pushViewController(vc, animated: true)
         case .bookmark:
             let viewModel = MyBookmarkListViewModel()
             let vc = MyBookmarkListViewController.create(with: viewModel)
-            
+            vc.tabBarDelegate = self.tabBarDelegate
+
             navigationController?.pushViewController(vc, animated: true)
         }
     }

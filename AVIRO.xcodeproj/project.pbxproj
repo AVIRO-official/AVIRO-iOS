@@ -16,6 +16,8 @@
 		C505C1E22B3ACEC00058F115 /* Reactive+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C505C1E12B3ACEC00058F115 /* Reactive+Extension.swift */; };
 		C505EB162ACC048E0057A4F8 /* Berry2.json in Resources */ = {isa = PBXBuildFile; fileRef = C505EB152ACC048E0057A4F8 /* Berry2.json */; };
 		C505EB182ACC5AC50057A4F8 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C505EB172ACC5AC50057A4F8 /* LaunchScreenViewController.swift */; };
+		C50B18CB2B94D147005DECDC /* MyPlaceListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50B18CA2B94D147005DECDC /* MyPlaceListTableViewCell.swift */; };
+		C50B18CD2B94D696005DECDC /* MyPlaceListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50B18CC2B94D696005DECDC /* MyPlaceListModel.swift */; };
 		C50DB7422A99DCDA0078B501 /* PlaceListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DB7402A99DCDA0078B501 /* PlaceListCell.swift */; };
 		C50DB7432A99DCDA0078B501 /* SearchPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DB7412A99DCDA0078B501 /* SearchPlaceViewController.swift */; };
 		C50DB74E2A9B2A8C0078B501 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50DB74D2A9B2A8C0078B501 /* WebKit.framework */; };
@@ -274,6 +276,8 @@
 		C505C1E12B3ACEC00058F115 /* Reactive+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+Extension.swift"; sourceTree = "<group>"; };
 		C505EB152ACC048E0057A4F8 /* Berry2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Berry2.json; sourceTree = "<group>"; };
 		C505EB172ACC5AC50057A4F8 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
+		C50B18CA2B94D147005DECDC /* MyPlaceListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlaceListTableViewCell.swift; sourceTree = "<group>"; };
+		C50B18CC2B94D696005DECDC /* MyPlaceListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlaceListModel.swift; sourceTree = "<group>"; };
 		C50DB7402A99DCDA0078B501 /* PlaceListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceListCell.swift; sourceTree = "<group>"; };
 		C50DB7412A99DCDA0078B501 /* SearchPlaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPlaceViewController.swift; sourceTree = "<group>"; };
 		C50DB74D2A9B2A8C0078B501 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -618,6 +622,22 @@
 				C5B071E32A59B3CB00AE709A /* SubClass */,
 			);
 			path = Custom;
+			sourceTree = "<group>";
+		};
+		C50B18C82B94D11D005DECDC /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		C50B18C92B94D132005DECDC /* PlaceListTable */ = {
+			isa = PBXGroup;
+			children = (
+				C50B18CA2B94D147005DECDC /* MyPlaceListTableViewCell.swift */,
+				C50B18CC2B94D696005DECDC /* MyPlaceListModel.swift */,
+			);
+			path = PlaceListTable;
 			sourceTree = "<group>";
 		};
 		C50DB7372A99D4C80078B501 /* SearchPlaceView */ = {
@@ -1792,6 +1812,7 @@
 		C5DCBC942B91D9C9003502BA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C50B18C92B94D132005DECDC /* PlaceListTable */,
 				C5DCBC9C2B91D9F5003502BA /* MyPlaceListViewController.swift */,
 			);
 			path = ViewController;
@@ -1800,6 +1821,7 @@
 		C5DCBC952B91D9CF003502BA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C50B18C82B94D11D005DECDC /* New Group */,
 				C5DCBCA02B91DA13003502BA /* MyCommentListViewController.swift */,
 			);
 			path = ViewController;
@@ -2185,6 +2207,7 @@
 				C5C20BAC2AD504D500855BBB /* AmplitudeUtility.swift in Sources */,
 				C513854C2AAB3B52001AB827 /* NickNameChangeblePresenter.swift in Sources */,
 				C5D93DA12A581F5A00629C39 /* FirstRegistrationPresenter.swift in Sources */,
+				C50B18CD2B94D696005DECDC /* MyPlaceListModel.swift in Sources */,
 				C567C1502A56611500D4B426 /* TopCell.swift in Sources */,
 				C58FBF842AC26D3E00AB6EFC /* APIManagerProtocol.swift in Sources */,
 				C50F6B042A6BCD6900E942F5 /* CategoryButton.swift in Sources */,
@@ -2359,6 +2382,7 @@
 				C593B64B2A4AEA9800D224CE /* AVIROReview+DTO.swift in Sources */,
 				C5C90EB52AA6D80300AB3668 /* EditOperatingHourView.swift in Sources */,
 				C5C90EAF2AA5B7F300AB3668 /* AVIROEditMenuModel+DTO.swift in Sources */,
+				C50B18CB2B94D147005DECDC /* MyPlaceListTableViewCell.swift in Sources */,
 				C5A201C12A98A5DD00A54381 /* EditLocationTopView.swift in Sources */,
 				C593B64F2A4C490600D224CE /* SettingViewPresenter.swift in Sources */,
 				C5FF13572A42C8970026981D /* AVIROPlaceReviews+DTO.swift in Sources */,

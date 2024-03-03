@@ -20,6 +20,14 @@ final class MyPlaceListViewController: UIViewController {
         let view = UITableView()
         
         view.backgroundColor = .gray6
+        view.separatorStyle = .none
+        view.showsVerticalScrollIndicator = false
+        view.dataSource = self
+        view.delegate = self
+        view.register(
+            MyPlaceListTableViewCell.self,
+            forCellReuseIdentifier: MyPlaceListTableViewCell.identifier
+        )
         
         return view
     }()
@@ -57,6 +65,12 @@ final class MyPlaceListViewController: UIViewController {
         setupAttribute()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.tabBarDelegate?.isHidden = (false, true)
+    }
+    
     private func setupLayout() {
         [
             placeTableView
@@ -66,7 +80,7 @@ final class MyPlaceListViewController: UIViewController {
         }
         
         NSLayoutConstraint.activate([
-            placeTableView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            placeTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             placeTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             placeTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             placeTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
@@ -85,5 +99,36 @@ final class MyPlaceListViewController: UIViewController {
         self.navigationItem.standardAppearance = navBarAppearance
         
         setupBack(true)
+    }
+}
+
+extension MyPlaceListViewController: UITableViewDataSource {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
+        6
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MyPlaceListTableViewCell.identifier, for: indexPath) as? MyPlaceListTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let model = MyPlaceListModel(category: .Bar, all: true, some: false, request: false, title: "테스트", address: "테스트주소입니다", menu: "테스트메뉴테스트메뉴테스트메뉴테스트메뉴테스트메뉴", menuCount: "3", time: "5일 전")
+        cell.configuration(with: model)
+        
+        cell.selectionStyle = .none
+        
+        return cell
+    }
+}
+
+extension MyPlaceListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        142
     }
 }

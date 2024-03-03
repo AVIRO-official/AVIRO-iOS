@@ -32,6 +32,19 @@ enum CategoryType {
         default: return nil
         }
     }
+    
+    var title: String {
+        switch self {
+        case .Bar:
+            "술집"
+        case .Bread:
+            "빵집"
+        case .Coffee:
+            "카페"
+        case .Restaurant:
+            "식당"
+        }
+    }
 }
 
 // MARK: - Map Icon
