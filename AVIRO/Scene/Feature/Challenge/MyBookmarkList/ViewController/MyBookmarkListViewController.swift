@@ -20,6 +20,14 @@ final class MyBookmarkListViewController: UIViewController {
         let view = UITableView()
         
         view.backgroundColor = .gray6
+        view.separatorStyle = .none
+        view.showsVerticalScrollIndicator = false
+        view.dataSource = self
+        view.delegate = self
+        view.register(
+            MyBookmarkListTableViewCell.self,
+            forCellReuseIdentifier: MyBookmarkListTableViewCell.identifier
+        )
         
         return view
     }()
@@ -72,7 +80,7 @@ final class MyBookmarkListViewController: UIViewController {
         }
         
         NSLayoutConstraint.activate([
-            bookmarkTableView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            bookmarkTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             bookmarkTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             bookmarkTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             bookmarkTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
@@ -91,5 +99,42 @@ final class MyBookmarkListViewController: UIViewController {
         self.navigationItem.standardAppearance = navBarAppearance
         
         setupBack(true)
+    }
+}
+
+extension MyBookmarkListViewController: UITableViewDataSource {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
+        6
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: MyBookmarkListTableViewCell.identifier,
+            for: indexPath
+        ) as? MyBookmarkListTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let model = MyBookmarkCellModel(
+            category: .Bar, all: true, some: false, request: false, title: "테스트", address: "테스트주소입니다", menu: "테스트메뉴테스트메뉴테스트메뉴테스트메뉴테스트메뉴", menuCount: "3", time: "5일 전", isStar: true
+        )
+        
+        cell.configuration(with: model)
+        
+        cell.selectionStyle = .none
+        
+        return cell
+    }
+}
+
+extension MyBookmarkListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        142
     }
 }

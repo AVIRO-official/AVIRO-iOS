@@ -118,7 +118,7 @@ extension MyPlaceListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let model = MyPlaceListModel(category: .Bar, all: true, some: false, request: false, title: "테스트", address: "테스트주소입니다", menu: "테스트메뉴테스트메뉴테스트메뉴테스트메뉴테스트메뉴", menuCount: "3", time: "5일 전")
+        let model = MyPlaceCellModel(category: .Bar, all: true, some: false, request: false, title: "테스트", address: "테스트주소입니다", menu: "테스트메뉴테스트메뉴테스트메뉴테스트메뉴테스트메뉴", menuCount: "3", time: "5일 전")
         cell.configuration(with: model)
         
         cell.selectionStyle = .none

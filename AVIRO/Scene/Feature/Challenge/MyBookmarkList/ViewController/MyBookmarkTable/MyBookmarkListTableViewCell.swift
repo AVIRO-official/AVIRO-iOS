@@ -1,5 +1,5 @@
 //
-//  MyPlaceListTableViewCell.swift
+//  MyBookmarkListTableViewCell.swift
 //  AVIRO
 //
 //  Created by 전성훈 on 2024/03/04.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class MyPlaceListTableViewCell: UITableViewCell {
-    static let identifier = MyPlaceListTableViewCell.description()
+final class MyBookmarkListTableViewCell: UITableViewCell {
+    static let identifier = MyBookmarkListTableViewCell.description()
     
     private lazy var iconImageView: UIImageView = {
         let view = UIImageView()
@@ -43,6 +43,16 @@ final class MyPlaceListTableViewCell: UITableViewCell {
         lbl.textColor = .gray0
         
         return lbl
+    }()
+    
+    private lazy var starButton: UIButton = {
+        let btn = UIButton()
+        
+        btn.setImage(.starIconDisable.withTintColor(.gray4), for: .normal)
+        btn.setImage(.starIconClicked, for: .selected)
+        btn.addTarget(self, action: #selector(tappedStarButton(_:)), for: .touchUpInside)
+        
+        return btn
     }()
     
     private lazy var addressLabel: UILabel = {
@@ -149,6 +159,7 @@ final class MyPlaceListTableViewCell: UITableViewCell {
             iconImageView,
             categoryLabel,
             titleLabel,
+            starButton,
             addressLabel,
             menuLabel,
             menuCountLabel,
@@ -171,7 +182,12 @@ final class MyPlaceListTableViewCell: UITableViewCell {
             
             titleLabel.topAnchor.constraint(equalTo: iconImageView.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 14),
-            titleLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -14),
+            titleLabel.trailingAnchor.constraint(equalTo: starButton.leadingAnchor, constant: -14),
+            
+            starButton.topAnchor.constraint(equalTo: iconImageView.topAnchor),
+            starButton.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
+            starButton.widthAnchor.constraint(equalToConstant: 24),
+            starButton.heightAnchor.constraint(equalToConstant: 24),
             
             addressLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 3),
             addressLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
@@ -201,21 +217,32 @@ final class MyPlaceListTableViewCell: UITableViewCell {
         iconImageView.image = nil
         categoryLabel.text = ""
         categoryLabel.backgroundColor = .clear
+        
         titleLabel.text = ""
         addressLabel.text = ""
+        
         menuLabel.text = ""
         menuCountLabel.text = ""
+        
         enrollTimeLabel.text = ""
+        starButton.isSelected = true
     }
     
     // TODO: - 변경 예정
-    func configuration(with model: MyPlaceListModel) {
+    @objc private func tappedStarButton(_ sender: UIButton) {
+        starButton.isSelected.toggle()
+    }
+    
+    // TODO: - 변경 예정
+    func configuration(with model: MyBookmarkCellModel) {
         iconImageView.image = .allBoxBar
         categoryLabel.text = model.category.title
         categoryLabel.backgroundColor = .all
         
         titleLabel.text = model.title
+        starButton.isSelected = model.isStar
         addressLabel.text = model.address
+        
         menuLabel.text = model.menu
         menuCountLabel.text = "외 " + model.menuCount + "개 메뉴"
         enrollTimeLabel.text = model.time

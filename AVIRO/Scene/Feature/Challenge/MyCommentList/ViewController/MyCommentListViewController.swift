@@ -20,6 +20,15 @@ final class MyCommentListViewController: UIViewController {
         let view = UITableView()
         
         view.backgroundColor = .gray6
+        view.separatorStyle = .none
+        view.showsVerticalScrollIndicator = false
+        view.rowHeight = UITableView.automaticDimension
+        view.delegate = self
+        view.dataSource = self
+        view.register(
+            MyCommentListTableViewCell.self,
+            forCellReuseIdentifier: MyCommentListTableViewCell.identifier
+        )
         
         return view
     }()
@@ -92,4 +101,43 @@ final class MyCommentListViewController: UIViewController {
         
         setupBack(true)
     }
+}
+
+extension MyCommentListViewController: UITableViewDataSource {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
+        6
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MyCommentListTableViewCell.identifier, for: indexPath) as? MyCommentListTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let model = MyCommentCellModel(
+            commentId: "test",
+            title: "하하하",
+            category: "test",
+            allVegan: false,
+            someVegan: false,
+            ifRequestVegan: false,
+            date: "1일 전",
+            content: "ㅋㅍㅋㄴㅍawfawf안니왜 왜awdawkfawlkf;lakwf;lkaw;lf왜왜왜왜ㅗ애ㅗ애ㅗ애ㅙㄴ"
+        )
+        
+        cell.configuration(with: model)
+        
+        cell.selectionStyle = .none
+        
+        return cell
+    }
+}
+
+extension MyCommentListViewController: UITableViewDelegate {
+
 }

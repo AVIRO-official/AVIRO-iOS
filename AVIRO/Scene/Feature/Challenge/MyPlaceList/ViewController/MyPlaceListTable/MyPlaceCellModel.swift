@@ -1,5 +1,5 @@
 //
-//  MyPlaceListModel.swift
+//  MyPlaceCellModel.swift
 //  AVIRO
 //
 //  Created by 전성훈 on 2024/03/04.
@@ -9,7 +9,7 @@
 
 import Foundation
 
-struct MyPlaceListModel {
+struct MyPlaceCellModel {
     let category: CategoryType
     let all: Bool
     let some: Bool
