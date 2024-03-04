@@ -16,6 +16,8 @@
 		C505C1E22B3ACEC00058F115 /* Reactive+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C505C1E12B3ACEC00058F115 /* Reactive+Extension.swift */; };
 		C505EB162ACC048E0057A4F8 /* Berry2.json in Resources */ = {isa = PBXBuildFile; fileRef = C505EB152ACC048E0057A4F8 /* Berry2.json */; };
 		C505EB182ACC5AC50057A4F8 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C505EB172ACC5AC50057A4F8 /* LaunchScreenViewController.swift */; };
+		C50B18CB2B94D147005DECDC /* MyPlaceListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50B18CA2B94D147005DECDC /* MyPlaceListTableViewCell.swift */; };
+		C50B18CD2B94D696005DECDC /* MyPlaceCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50B18CC2B94D696005DECDC /* MyPlaceCellModel.swift */; };
 		C50DB7422A99DCDA0078B501 /* PlaceListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DB7402A99DCDA0078B501 /* PlaceListCell.swift */; };
 		C50DB7432A99DCDA0078B501 /* SearchPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DB7412A99DCDA0078B501 /* SearchPlaceViewController.swift */; };
 		C50DB74E2A9B2A8C0078B501 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50DB74D2A9B2A8C0078B501 /* WebKit.framework */; };
@@ -114,6 +116,12 @@
 		C5476B792B314F6F00F5FC6E /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B782B314F6F00F5FC6E /* LicensesViewController.swift */; };
 		C5476B7B2B31516000F5FC6E /* LicenseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B7A2B31516000F5FC6E /* LicenseDetailViewController.swift */; };
 		C547A8BA2A17D8D4004D1339 /* KakaoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C547A8B92A17D8D4004D1339 /* KakaoAPI.swift */; };
+		C54B59172B95F3D000C0B190 /* MyBookmarkListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B59162B95F3D000C0B190 /* MyBookmarkListTableViewCell.swift */; };
+		C54B59192B95F3DA00C0B190 /* MyBookmarkCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B59182B95F3DA00C0B190 /* MyBookmarkCellModel.swift */; };
+		C54B591B2B95F61200C0B190 /* MyCommentCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B591A2B95F61200C0B190 /* MyCommentCellModel.swift */; };
+		C54B591D2B95F61F00C0B190 /* MyCommentListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B591C2B95F61F00C0B190 /* MyCommentListTableViewCell.swift */; };
+		C54B591F2B9606C500C0B190 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B591E2B9606C500C0B190 /* UITextView+Extension.swift */; };
+		C54B59212B961EE000C0B190 /* MyInfoListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B59202B961EE000C0B190 /* MyInfoListHeaderView.swift */; };
 		C54B76612B88B2D10095E110 /* FranchiseToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B76602B88B2D10095E110 /* FranchiseToggleButton.swift */; };
 		C54BC0DB2A2C2D0D00B65439 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */; };
 		C552D5342ABE8CA500933D8A /* AVIRODeleteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */; };
@@ -274,6 +282,8 @@
 		C505C1E12B3ACEC00058F115 /* Reactive+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+Extension.swift"; sourceTree = "<group>"; };
 		C505EB152ACC048E0057A4F8 /* Berry2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Berry2.json; sourceTree = "<group>"; };
 		C505EB172ACC5AC50057A4F8 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
+		C50B18CA2B94D147005DECDC /* MyPlaceListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlaceListTableViewCell.swift; sourceTree = "<group>"; };
+		C50B18CC2B94D696005DECDC /* MyPlaceCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlaceCellModel.swift; sourceTree = "<group>"; };
 		C50DB7402A99DCDA0078B501 /* PlaceListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceListCell.swift; sourceTree = "<group>"; };
 		C50DB7412A99DCDA0078B501 /* SearchPlaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPlaceViewController.swift; sourceTree = "<group>"; };
 		C50DB74D2A9B2A8C0078B501 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -376,6 +386,12 @@
 		C5476B782B314F6F00F5FC6E /* LicensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
 		C5476B7A2B31516000F5FC6E /* LicenseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseDetailViewController.swift; sourceTree = "<group>"; };
 		C547A8B92A17D8D4004D1339 /* KakaoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAPI.swift; sourceTree = "<group>"; };
+		C54B59162B95F3D000C0B190 /* MyBookmarkListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkListTableViewCell.swift; sourceTree = "<group>"; };
+		C54B59182B95F3DA00C0B190 /* MyBookmarkCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkCellModel.swift; sourceTree = "<group>"; };
+		C54B591A2B95F61200C0B190 /* MyCommentCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentCellModel.swift; sourceTree = "<group>"; };
+		C54B591C2B95F61F00C0B190 /* MyCommentListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentListTableViewCell.swift; sourceTree = "<group>"; };
+		C54B591E2B9606C500C0B190 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
+		C54B59202B961EE000C0B190 /* MyInfoListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoListHeaderView.swift; sourceTree = "<group>"; };
 		C54B76602B88B2D10095E110 /* FranchiseToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FranchiseToggleButton.swift; sourceTree = "<group>"; };
 		C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIRODeleteAPI.swift; sourceTree = "<group>"; };
@@ -620,6 +636,25 @@
 			path = Custom;
 			sourceTree = "<group>";
 		};
+		C50B18C82B94D11D005DECDC /* MyCommentListTable */ = {
+			isa = PBXGroup;
+			children = (
+				C54B591C2B95F61F00C0B190 /* MyCommentListTableViewCell.swift */,
+				C54B591A2B95F61200C0B190 /* MyCommentCellModel.swift */,
+			);
+			path = MyCommentListTable;
+			sourceTree = "<group>";
+		};
+		C50B18C92B94D132005DECDC /* MyPlaceListTable */ = {
+			isa = PBXGroup;
+			children = (
+				C50B18CA2B94D147005DECDC /* MyPlaceListTableViewCell.swift */,
+				C50B18CC2B94D696005DECDC /* MyPlaceCellModel.swift */,
+				C54B59202B961EE000C0B190 /* MyInfoListHeaderView.swift */,
+			);
+			path = MyPlaceListTable;
+			sourceTree = "<group>";
+		};
 		C50DB7372A99D4C80078B501 /* SearchPlaceView */ = {
 			isa = PBXGroup;
 			children = (
@@ -710,6 +745,7 @@
 				C59491D22AB0336100880B4B /* UIView+Extension.swift */,
 				C51AED222A8B7B000015FBC2 /* UIViewController+Extension.swift */,
 				C51B09BB2A82397800916BBD /* Marker+Extension.swift */,
+				C54B591E2B9606C500C0B190 /* UITextView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1232,6 +1268,15 @@
 				C5476B7A2B31516000F5FC6E /* LicenseDetailViewController.swift */,
 			);
 			path = LicenseView;
+			sourceTree = "<group>";
+		};
+		C54B59152B95F39900C0B190 /* MyBookmarkTable */ = {
+			isa = PBXGroup;
+			children = (
+				C54B59162B95F3D000C0B190 /* MyBookmarkListTableViewCell.swift */,
+				C54B59182B95F3DA00C0B190 /* MyBookmarkCellModel.swift */,
+			);
+			path = MyBookmarkTable;
 			sourceTree = "<group>";
 		};
 		C54BC0D82A2C2CEE00B65439 /* UIButton */ = {
@@ -1792,6 +1837,7 @@
 		C5DCBC942B91D9C9003502BA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C50B18C92B94D132005DECDC /* MyPlaceListTable */,
 				C5DCBC9C2B91D9F5003502BA /* MyPlaceListViewController.swift */,
 			);
 			path = ViewController;
@@ -1800,6 +1846,7 @@
 		C5DCBC952B91D9CF003502BA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C50B18C82B94D11D005DECDC /* MyCommentListTable */,
 				C5DCBCA02B91DA13003502BA /* MyCommentListViewController.swift */,
 			);
 			path = ViewController;
@@ -1816,6 +1863,7 @@
 		C5DCBC972B91D9D7003502BA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C54B59152B95F39900C0B190 /* MyBookmarkTable */,
 				C5DCBCA42B91DA36003502BA /* MyBookmarkListViewController.swift */,
 			);
 			path = ViewController;
@@ -2172,6 +2220,7 @@
 			files = (
 				C5476B792B314F6F00F5FC6E /* LicensesViewController.swift in Sources */,
 				C5C2907E2A85E69B00ED5DCE /* UnderlineSegmentedControl.swift in Sources */,
+				C54B591B2B95F61200C0B190 /* MyCommentCellModel.swift in Sources */,
 				C5A3C3C42A39658A0050AB3D /* LoginViewController.swift in Sources */,
 				C58EC7CC2AB171C000401FF7 /* UIButton+Extension.swift in Sources */,
 				C5732C732A41778A00CDC499 /* AVIROPostAPI.swift in Sources */,
@@ -2185,6 +2234,7 @@
 				C5C20BAC2AD504D500855BBB /* AmplitudeUtility.swift in Sources */,
 				C513854C2AAB3B52001AB827 /* NickNameChangeblePresenter.swift in Sources */,
 				C5D93DA12A581F5A00629C39 /* FirstRegistrationPresenter.swift in Sources */,
+				C50B18CD2B94D696005DECDC /* MyPlaceCellModel.swift in Sources */,
 				C567C1502A56611500D4B426 /* TopCell.swift in Sources */,
 				C58FBF842AC26D3E00AB6EFC /* APIManagerProtocol.swift in Sources */,
 				C50F6B042A6BCD6900E942F5 /* CategoryButton.swift in Sources */,
@@ -2203,6 +2253,7 @@
 				C52066292A7CD5FC0038ECCD /* HistoryTableModel.swift in Sources */,
 				C5FD92EB2A9C786600CF4673 /* PublicAPIRequestComponents.swift in Sources */,
 				C58C49C82AC9B67600DE04B7 /* AppleUserLoginModel.swift in Sources */,
+				C54B591F2B9606C500C0B190 /* UITextView+Extension.swift in Sources */,
 				C58FBF902AC2B83A00AB6EFC /* AVIROAPIManagerProtocol.swift in Sources */,
 				C5DCBC9F2B91D9FE003502BA /* MyCommentListViewModel.swift in Sources */,
 				C50F6AF52A68FD6300E942F5 /* EnrollPlacePresenter.swift in Sources */,
@@ -2248,6 +2299,7 @@
 				C5D93DA32A58718300629C39 /* NextPageButton.swift in Sources */,
 				C50DB7512A9B83550078B501 /* ChangeableAddressViewController.swift in Sources */,
 				C5A989992A959E040021B7C3 /* AVIROBookmark+DTO.swift in Sources */,
+				C54B591D2B95F61F00C0B190 /* MyCommentListTableViewCell.swift in Sources */,
 				C5476B6E2B30760000F5FC6E /* ChallengeLevelView.swift in Sources */,
 				C51000582AB939A200F65C1F /* NoResultLabel.swift in Sources */,
 				C5D802722B3C6E5E00136D0E /* LevelUpAlertView.swift in Sources */,
@@ -2269,6 +2321,7 @@
 				C5E306E72A6FB4ED00C11CF7 /* MenuField.swift in Sources */,
 				C5ED46982AAEEFB600F2DA04 /* OperationHoursView.swift in Sources */,
 				C51AED212A8B2BDB0015FBC2 /* HomeMapReferButton.swift in Sources */,
+				C54B59212B961EE000C0B190 /* MyInfoListHeaderView.swift in Sources */,
 				C5E430B32A5DADBE00CB67EC /* SecondRegistrationPresenter.swift in Sources */,
 				C5EB510D2A20A4B400B29CC1 /* HomeSearchViewTableViewCell.swift in Sources */,
 				C510005C2AB9C39500F65C1F /* MarkerModelManager.swift in Sources */,
@@ -2298,6 +2351,7 @@
 				C510005E2ABAA3C700F65C1F /* Enum+.swift in Sources */,
 				C58FBF942AC2DB6D00AB6EFC /* KakaoKeywordResultDTO.swift in Sources */,
 				C51B09B82A82155200916BBD /* MarkerModelCache.swift in Sources */,
+				C54B59172B95F3D000C0B190 /* MyBookmarkListTableViewCell.swift in Sources */,
 				C5A9899B2A95A6B50021B7C3 /* BookmarkCache.swift in Sources */,
 				C52651DE2B7FB8B0002038CF /* CategoryCollectionViewCell.swift in Sources */,
 				C520662D2A7CE1CC0038ECCD /* SearchHistoryManager.swift in Sources */,
@@ -2353,12 +2407,14 @@
 				C52066312A7E4A580038ECCD /* AVIROMainSearchCompare+DTO.swift in Sources */,
 				C5C9619F2A8DEB230016E2F8 /* ReviewWriteButton.swift in Sources */,
 				C5DCBC9A2B91D9E9003502BA /* MyPlaceListViewModel.swift in Sources */,
+				C54B59192B95F3DA00C0B190 /* MyBookmarkCellModel.swift in Sources */,
 				C5E143A72AB43B8F007AC8C9 /* AVIROResult+DTO.swift in Sources */,
 				C505C1E02B3ACCEC0058F115 /* AVIROMyChallengeLevelResult+DTO.swift in Sources */,
 				C5E430B52A5DAE9800CB67EC /* SecondRegistrationViewController.swift in Sources */,
 				C593B64B2A4AEA9800D224CE /* AVIROReview+DTO.swift in Sources */,
 				C5C90EB52AA6D80300AB3668 /* EditOperatingHourView.swift in Sources */,
 				C5C90EAF2AA5B7F300AB3668 /* AVIROEditMenuModel+DTO.swift in Sources */,
+				C50B18CB2B94D147005DECDC /* MyPlaceListTableViewCell.swift in Sources */,
 				C5A201C12A98A5DD00A54381 /* EditLocationTopView.swift in Sources */,
 				C593B64F2A4C490600D224CE /* SettingViewPresenter.swift in Sources */,
 				C5FF13572A42C8970026981D /* AVIROPlaceReviews+DTO.swift in Sources */,
