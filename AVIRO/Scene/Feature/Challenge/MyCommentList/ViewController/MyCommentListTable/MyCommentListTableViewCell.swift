@@ -126,6 +126,10 @@ final class MyCommentListTableViewCell: UITableViewCell {
         mainViewHeight?.isActive = true
         
         NSLayoutConstraint.activate([
+            // TODO: 전격 수정 필요
+            // 해당 constarint 값이 필요함
+            // automaticDimension을 적용하려면 cell의 높이값을 알아야함
+            self.contentView.heightAnchor.constraint(equalToConstant: 175),
             mainView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
             mainView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
             mainView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),

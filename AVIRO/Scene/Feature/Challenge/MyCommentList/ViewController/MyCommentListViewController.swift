@@ -23,6 +23,7 @@ final class MyCommentListViewController: UIViewController {
         view.separatorStyle = .none
         view.showsVerticalScrollIndicator = false
         view.rowHeight = UITableView.automaticDimension
+        view.estimatedRowHeight = 100
         view.delegate = self
         view.dataSource = self
         view.register(
