@@ -121,6 +121,7 @@
 		C54B591B2B95F61200C0B190 /* MyCommentCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B591A2B95F61200C0B190 /* MyCommentCellModel.swift */; };
 		C54B591D2B95F61F00C0B190 /* MyCommentListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B591C2B95F61F00C0B190 /* MyCommentListTableViewCell.swift */; };
 		C54B591F2B9606C500C0B190 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B591E2B9606C500C0B190 /* UITextView+Extension.swift */; };
+		C54B59212B961EE000C0B190 /* MyInfoListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B59202B961EE000C0B190 /* MyInfoListHeaderView.swift */; };
 		C54B76612B88B2D10095E110 /* FranchiseToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B76602B88B2D10095E110 /* FranchiseToggleButton.swift */; };
 		C54BC0DB2A2C2D0D00B65439 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */; };
 		C552D5342ABE8CA500933D8A /* AVIRODeleteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */; };
@@ -390,6 +391,7 @@
 		C54B591A2B95F61200C0B190 /* MyCommentCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentCellModel.swift; sourceTree = "<group>"; };
 		C54B591C2B95F61F00C0B190 /* MyCommentListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentListTableViewCell.swift; sourceTree = "<group>"; };
 		C54B591E2B9606C500C0B190 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
+		C54B59202B961EE000C0B190 /* MyInfoListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoListHeaderView.swift; sourceTree = "<group>"; };
 		C54B76602B88B2D10095E110 /* FranchiseToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FranchiseToggleButton.swift; sourceTree = "<group>"; };
 		C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIRODeleteAPI.swift; sourceTree = "<group>"; };
@@ -648,6 +650,7 @@
 			children = (
 				C50B18CA2B94D147005DECDC /* MyPlaceListTableViewCell.swift */,
 				C50B18CC2B94D696005DECDC /* MyPlaceCellModel.swift */,
+				C54B59202B961EE000C0B190 /* MyInfoListHeaderView.swift */,
 			);
 			path = MyPlaceListTable;
 			sourceTree = "<group>";
@@ -2318,6 +2321,7 @@
 				C5E306E72A6FB4ED00C11CF7 /* MenuField.swift in Sources */,
 				C5ED46982AAEEFB600F2DA04 /* OperationHoursView.swift in Sources */,
 				C51AED212A8B2BDB0015FBC2 /* HomeMapReferButton.swift in Sources */,
+				C54B59212B961EE000C0B190 /* MyInfoListHeaderView.swift in Sources */,
 				C5E430B32A5DADBE00CB67EC /* SecondRegistrationPresenter.swift in Sources */,
 				C5EB510D2A20A4B400B29CC1 /* HomeSearchViewTableViewCell.swift in Sources */,
 				C510005C2AB9C39500F65C1F /* MarkerModelManager.swift in Sources */,

@@ -51,14 +51,14 @@ final class MyCommentListTableViewCell: UITableViewCell {
         return lbl
     }()
     
-    private lazy var reviewTextView: UITextView = {
-        let view = UITextView()
+    private lazy var reviewTextView: UILabel = {
+        let view = UILabel()
         
         view.textAlignment = .left
         view.font = .pretendard(size: 15, weight: .regular)
         view.textColor = .gray2
-        view.isScrollEnabled = false
-        view.isEditable = false
+        view.numberOfLines = 0
+        view.lineBreakMode = .byCharWrapping
         
         return view
     }()
@@ -206,7 +206,7 @@ final class MyCommentListTableViewCell: UITableViewCell {
     func whenAfterViewDidLoad() {
         layoutIfNeeded()
         
-        print(reviewTextView.numberOfLine())
+//        print(reviewTextView.numberOfLine())
         let reviewLabelHeight: CGFloat = CGFloat(3 * 24)
         print("Test,", reviewLabelHeight)
         

@@ -26,6 +26,7 @@ final class MyCommentListViewController: UIViewController {
         view.estimatedRowHeight = 100
         view.delegate = self
         view.dataSource = self
+        view.sectionHeaderTopPadding = 0
         view.register(
             MyCommentListTableViewCell.self,
             forCellReuseIdentifier: MyCommentListTableViewCell.identifier
@@ -82,7 +83,7 @@ final class MyCommentListViewController: UIViewController {
         }
         
         NSLayoutConstraint.activate([
-            commentTableView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            commentTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             commentTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             commentTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             commentTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
@@ -137,8 +138,43 @@ extension MyCommentListViewController: UITableViewDataSource {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 48))
+        
+        view.backgroundColor = .gray6
+        
+        let countLabel = UILabel()
+        countLabel.numberOfLines = 1
+        countLabel.font = .pretendard(size: 18, weight: .semibold)
+        countLabel.text = "총 \(6)개의 가게"
+        countLabel.textColor = .gray0
+        countLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(countLabel)
+        
+        NSLayoutConstraint.activate([
+            countLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            countLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            countLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+        ])
+        
+        return view
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let sectionHeaderHeight: CGFloat = 48
+
+        if scrollView.contentOffset.y <= sectionHeaderHeight && scrollView.contentOffset.y >= 0 {
+            scrollView.contentInset = UIEdgeInsets(top: -scrollView.contentOffset.y, left: 0, bottom: 0, right: 0)
+        } else if scrollView.contentOffset.y >= sectionHeaderHeight {
+            scrollView.contentInset = UIEdgeInsets(top: -sectionHeaderHeight, left: 0, bottom: 0, right: 0)
+        }
+    }
 }
 
 extension MyCommentListViewController: UITableViewDelegate {
-
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        48
+    }
 }
