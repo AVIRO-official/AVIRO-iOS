@@ -51,6 +51,7 @@ final class MyCommentListTableViewCell: UITableViewCell {
         return lbl
     }()
     
+    // TODO: - 네이밍 변경 필요
     private lazy var reviewTextView: UILabel = {
         let view = UILabel()
         
@@ -91,6 +92,17 @@ final class MyCommentListTableViewCell: UITableViewCell {
         fatalError()
     }
 
+    private var test: Bool = true
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if test && mainView.frame.height != 0 {
+            test.toggle()
+            print(reviewTextView.countCurrentLines())
+            print(enrollTimeLabel.frame)
+            
+        }
+    }
 
     override func prepareForReuse() {
         super.prepareForReuse()

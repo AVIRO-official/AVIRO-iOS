@@ -30,4 +30,8 @@ struct AVIROMyPlaceDataDTO: Decodable {
     /// '외 n개 메뉴'
     let menuCountExceptOne: Int
     let createdBefore: String
+    
+    func toDomain() -> MyPlaceCellModel {
+        MyPlaceCellModel(with: self)
+    }
 }

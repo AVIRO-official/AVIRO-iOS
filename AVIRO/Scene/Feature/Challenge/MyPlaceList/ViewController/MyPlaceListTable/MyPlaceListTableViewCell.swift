@@ -142,6 +142,7 @@ final class MyPlaceListTableViewCell: UITableViewCell {
             separatorView.topAnchor.constraint(equalTo: mainView.bottomAnchor),
             separatorView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
             separatorView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor),
+            separatorView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
             separatorView.heightAnchor.constraint(equalToConstant: 12)
         ])
         
@@ -208,16 +209,59 @@ final class MyPlaceListTableViewCell: UITableViewCell {
         enrollTimeLabel.text = ""
     }
     
-    // TODO: - 변경 예정
     func configuration(with model: MyPlaceCellModel) {
-        iconImageView.image = .allBoxBar
-        categoryLabel.text = model.category.title
-        categoryLabel.backgroundColor = .all
+        // TODO: - Category Type에서 vegan Type에 따라 image, string 다르게 설정할 수 있는 기능 추가
+        switch model.veganType {
+        case .All:
+            switch model.category {
+            case .Bar:
+                iconImageView.image = .allBoxBar
+            case .Bread:
+                iconImageView.image = .allBoxBread
+            case .Coffee:
+                iconImageView.image = .allBoxCoffee
+            case .Restaurant:
+                iconImageView.image = .allBoxRestaurant
+            }
+            categoryLabel.backgroundColor = .all
+
+        case .Some:
+            switch model.category {
+            case .Bar:
+                iconImageView.image = .someBoxBar
+            case .Bread:
+                iconImageView.image = .someBoxBread
+            case .Coffee:
+                iconImageView.image = .someBoxCoffee
+            case .Restaurant:
+                iconImageView.image = .someBoxRestaurant
+            }
+            categoryLabel.backgroundColor = .some
+
+        case .Request:
+            switch model.category {
+            case .Bar:
+                iconImageView.image = .requestBoxBar
+            case .Bread:
+                iconImageView.image = .requestBoxBread
+            case .Coffee:
+                iconImageView.image = .requestBoxCoffee
+            case .Restaurant:
+                iconImageView.image = .requestBoxRestaurant
+            }
+            categoryLabel.backgroundColor = .request
+        }
         
+        categoryLabel.text = model.category.title
+
         titleLabel.text = model.title
         addressLabel.text = model.address
         menuLabel.text = model.menu
-        menuCountLabel.text = "외 " + model.menuCount + "개 메뉴"
-        enrollTimeLabel.text = model.time
+        
+        if model.menuCount > 0 {
+            menuCountLabel.text = "외 " + String(model.menuCount) + "개 메뉴"
+        }
+        
+        enrollTimeLabel.text = model.createdBefore
     }
 }

@@ -152,6 +152,7 @@ final class MyBookmarkListTableViewCell: UITableViewCell {
             separatorView.topAnchor.constraint(equalTo: mainView.bottomAnchor),
             separatorView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
             separatorView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor),
+            separatorView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
             separatorView.heightAnchor.constraint(equalToConstant: 12)
         ])
         

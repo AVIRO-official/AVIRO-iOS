@@ -22,7 +22,6 @@ final class MyPlaceListViewController: UIViewController {
         view.backgroundColor = .gray6
         view.separatorStyle = .none
         view.showsVerticalScrollIndicator = false
-        view.dataSource = self
         view.delegate = self
         view.sectionHeaderTopPadding = 0
         view.register(
@@ -45,6 +44,29 @@ final class MyPlaceListViewController: UIViewController {
         return lbl
     }()
     
+    private lazy var indicatorView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        
+        view.style = .large
+        view.color = .gray5
+        view.startAnimating()
+        view.isHidden = true
+        
+        return view
+    }()
+    
+    private lazy var blurEffectView: UIVisualEffectView = {
+        let view = UIVisualEffectView()
+        
+        let blurEffect = UIBlurEffect(style: .dark)
+        
+        view.effect = blurEffect
+        view.alpha = 0.6
+        view.isHidden = true
+        
+        return view
+    }()
+    
     // TODO: 지금 후기 등록하기 배경 및 이미지 거꾸로 버전
     private lazy var enrollButton: UIButton = {
         let btn = UIButton()
@@ -55,7 +77,7 @@ final class MyPlaceListViewController: UIViewController {
     static func create(with viewModel: MyPlaceListViewModel) -> MyPlaceListViewController {
         let vc = MyPlaceListViewController()
         vc.viewModel = viewModel
-        
+
         return vc
     }
     
@@ -64,6 +86,7 @@ final class MyPlaceListViewController: UIViewController {
         
         setupLayout()
         setupAttribute()
+        dataBinding()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -100,34 +123,57 @@ final class MyPlaceListViewController: UIViewController {
         self.navigationItem.standardAppearance = navBarAppearance
         
         setupBack(true)
-    }
-}
-
-extension MyPlaceListViewController: UITableViewDataSource {
-    func tableView(
-        _ tableView: UITableView,
-        numberOfRowsInSection section: Int
-    ) -> Int {
-        6
+        
+        /// didScroll이 매우 빠른 연속 이벤트임으로 debounce를 활용해 이벤트 스트림을 안정화 시킴
+        placeTableView.rx.didScroll
+            .debounce(.milliseconds(100), scheduler: MainScheduler.instance)
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(self.rx.whenDidScrollTableView)
+            .disposed(by: disposeBag)
     }
     
-    func tableView(
-        _ tableView: UITableView,
-        cellForRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MyPlaceListTableViewCell.identifier, for: indexPath) as? MyPlaceListTableViewCell else {
-            return UITableViewCell()
-        }
+    private func dataBinding() {
+        let viewWillAppearTrigger = self.rx.viewWillAppear
+            .map { _ in }
+            .asDriver(onErrorDriveWith: .empty())
         
-        let model = MyPlaceCellModel(category: .Bar, all: true, some: false, request: false, title: "테스트", address: "테스트주소입니다", menu: "테스트메뉴테스트메뉴테스트메뉴테스트메뉴테스트메뉴", menuCount: "3", time: "5일 전")
-        cell.configuration(with: model)
+        let input = MyPlaceListViewModel.Input(
+            whenViewWillAppear: viewWillAppearTrigger
+        )
         
-        cell.selectionStyle = .none
+        let output = viewModel.transform(with: input)
         
-        return cell
+        output.myPlaceList
+            .drive(self.rx.isMyPlaceListResult)
+            .disposed(by: disposeBag)
+        
+        output.numberOfPlaces
+            .drive(self.rx.placeListCount)
+            .disposed(by: disposeBag)
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    internal func bindMyPlaceList(with models: [MyPlaceCellModel]) {
+        Driver.just(models)
+             .drive(placeTableView.rx.items(
+                 cellIdentifier: MyPlaceListTableViewCell.identifier,
+                 cellType: MyPlaceListTableViewCell.self)
+             ) { (row, model, cell) in
+                 cell.configuration(with: model)
+                 
+                 cell.selectionStyle = .none
+             }
+             .disposed(by: disposeBag)
+    }
+    
+    internal func bindTableHeaderView(with count: Int) {
+        Driver.just(self.makeHeaderView(with: count))
+              .drive(onNext: { [weak self] headerView in
+                  self?.placeTableView.tableHeaderView = headerView
+              })
+              .disposed(by: disposeBag)
+    }
+    
+    private func makeHeaderView(with count: Int) -> UIView {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 48))
 
         view.backgroundColor = .clear
@@ -135,7 +181,7 @@ extension MyPlaceListViewController: UITableViewDataSource {
         let countLabel = UILabel()
         countLabel.numberOfLines = 1
         countLabel.font = .pretendard(size: 18, weight: .semibold)
-        countLabel.text = "총 \(6)개의 가게"
+        countLabel.text = "총 \(count)개의 가게"
         countLabel.textColor = .gray0
         countLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -150,13 +196,23 @@ extension MyPlaceListViewController: UITableViewDataSource {
         return view
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    internal func adjustHeaderInset() {
         let sectionHeaderHeight: CGFloat = 48
 
-        if scrollView.contentOffset.y <= sectionHeaderHeight && scrollView.contentOffset.y >= 0 {
-            scrollView.contentInset = UIEdgeInsets(top: -scrollView.contentOffset.y, left: 0, bottom: 0, right: 0)
-        } else if scrollView.contentOffset.y >= sectionHeaderHeight {
-            scrollView.contentInset = UIEdgeInsets(top: -sectionHeaderHeight, left: 0, bottom: 0, right: 0)
+        if placeTableView.contentOffset.y <= sectionHeaderHeight && placeTableView.contentOffset.y >= 0 {
+            placeTableView.contentInset = UIEdgeInsets(
+                top: -placeTableView.contentOffset.y,
+                left: 0,
+                bottom: 0,
+                right: 0
+            )
+        } else if placeTableView.contentOffset.y >= sectionHeaderHeight {
+            placeTableView.contentInset = UIEdgeInsets(
+                top: -sectionHeaderHeight,
+                left: 0,
+                bottom: 0,
+                right: 0
+            )
         }
     }
 }
@@ -169,5 +225,24 @@ extension MyPlaceListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         48
     }
+}
 
+extension Reactive where Base: MyPlaceListViewController {
+    var isMyPlaceListResult: Binder<[MyPlaceCellModel]> {
+        return Binder(self.base) { base, result in
+            base.bindMyPlaceList(with: result)
+        }
+    }
+    
+    var placeListCount: Binder<Int> {
+        return Binder(self.base) { base, result in
+            base.bindTableHeaderView(with: result)
+        }
+    }
+    
+    var whenDidScrollTableView: Binder<Void> {
+        return Binder(self.base) { base, _ in
+            base.adjustHeaderInset()
+        }
+    }
 }
