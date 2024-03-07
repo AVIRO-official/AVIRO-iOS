@@ -9,24 +9,14 @@ import UIKit
 
 extension UILabel {
     func countCurrentLines() -> Int {
-        guard let text = self.text else { return 0 }
-        
-        let rect = CGSize(
-            width: self.bounds.width,
-            height: CGFloat.greatestFiniteMagnitude
-        )
-        
-        let labelSize = text.boundingRect(
-            with: rect,
-            options: .usesLineFragmentOrigin,
-            attributes: [
-                NSAttributedString.Key.font: font ?? CFont.font.medium16],
-            context: nil
-        )
-        
-        let numberOfLine = Int(ceil(CGFloat(labelSize.height) / font.lineHeight ))
-        
-        return numberOfLine
+        let text = self.text ?? ""
+
+        let maxSize = CGSize(width: self.frame.width, height: CGFloat.infinity)
+        let textAttributes: [NSAttributedString.Key: Any] = [.font: self.font ?? .pretendard(size: 15, weight: .medium)]
+
+        let rect = text.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: textAttributes, context: nil)
+
+        return Int(ceil(rect.height / self.font.lineHeight))
     }
     
     func setLineSpacing(_ spacing: CGFloat) {

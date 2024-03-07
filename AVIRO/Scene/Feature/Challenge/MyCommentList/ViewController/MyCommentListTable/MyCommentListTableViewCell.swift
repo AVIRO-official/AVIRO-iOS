@@ -9,7 +9,7 @@ import UIKit
 
 final class MyCommentListTableViewCell: UITableViewCell {
     static let identifier = MyCommentListTableViewCell.description()
-    
+        
     private lazy var iconImageView: UIImageView = {
         let view = UIImageView()
         
@@ -80,13 +80,6 @@ final class MyCommentListTableViewCell: UITableViewCell {
         return view
     }()
     
-    private var afterViewDidLoad = true
-    private var mainViewHeight: NSLayoutConstraint?
-    private var reviewHeight: NSLayoutConstraint?
-    
-    private var test1: NSLayoutConstraint?
-    private var test2: NSLayoutConstraint?
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -97,16 +90,8 @@ final class MyCommentListTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError()
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        if afterViewDidLoad {
-            afterViewDidLoad.toggle()
-            whenAfterViewDidLoad()
-        }
-    }
-    
+
+
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -122,27 +107,17 @@ final class MyCommentListTableViewCell: UITableViewCell {
             self.contentView.addSubview($0)
         }
         
-        mainViewHeight = mainView.heightAnchor.constraint(equalToConstant: 225)
-        mainViewHeight?.isActive = true
-        
         NSLayoutConstraint.activate([
-            // TODO: 전격 수정 필요
-            // 해당 constarint 값이 필요함
-            // automaticDimension을 적용하려면 cell의 높이값을 알아야함
-            self.contentView.heightAnchor.constraint(equalToConstant: 175),
             mainView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
             mainView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
             mainView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
-//            mainView.heightAnchor.constraint(equalToConstant: 225),
             
             separatorView.topAnchor.constraint(equalTo: mainView.bottomAnchor),
             separatorView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
             separatorView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor),
+            separatorView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
             separatorView.heightAnchor.constraint(equalToConstant: 12)
         ])
-        
-        reviewHeight = reviewTextView.heightAnchor.constraint(equalToConstant: 132)
-        reviewHeight?.isActive = true
         
         [
             iconImageView,
@@ -174,11 +149,10 @@ final class MyCommentListTableViewCell: UITableViewCell {
             enrollTimeLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             enrollTimeLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
             
-            reviewTextView.topAnchor.constraint(equalTo: enrollTimeLabel.bottomAnchor, constant: 2),
+            reviewTextView.topAnchor.constraint(equalTo: enrollTimeLabel.bottomAnchor, constant: 6),
             reviewTextView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             reviewTextView.trailingAnchor.constraint(equalTo: dotsButton.trailingAnchor),
-            reviewTextView.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -20),
-//            reviewTextView.heightAnchor.constraint(equalToConstant: 132)
+            reviewTextView.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -20)
         ])
     }
     
@@ -187,14 +161,6 @@ final class MyCommentListTableViewCell: UITableViewCell {
     }
     
     private func initConfiguration() {
-        mainViewHeight?.isActive = true
-        reviewHeight?.isActive = true
-        
-        test1?.isActive = false
-        test2?.isActive = false
-        
-        afterViewDidLoad = true
-        
         iconImageView.image = nil
         
         titleLabel.text = ""
@@ -202,38 +168,7 @@ final class MyCommentListTableViewCell: UITableViewCell {
         
         reviewTextView.text = ""
     }
-    
-    func whenAfterViewDidLoad() {
-        layoutIfNeeded()
-        
-//        print(reviewTextView.numberOfLine())
-        let reviewLabelHeight: CGFloat = CGFloat(3 * 24)
-        print("Test,", reviewLabelHeight)
-        
-        reviewHeight?.isActive = false
-        
-        test1 = reviewTextView.heightAnchor.constraint(equalToConstant: reviewLabelHeight)
-        test1?.isActive = true
-        
-//        let titleHeight = titleLabel.frame.height
-//        let enrollTimeHeight = enrollTimeLabel.frame.height
-        let titleHeight: CGFloat = 24
-        let enrollTimeHeight: CGFloat = 17
-        
-        let inset: CGFloat = 20 + 6 + 2 + 20
-        
-        let result: CGFloat = titleHeight + enrollTimeHeight + reviewLabelHeight + inset
-        
-        print(titleHeight)
-        print(result)
-        
-        mainViewHeight?.isActive = false
-        
-        test2 = mainView.heightAnchor.constraint(equalToConstant: result)
-        test2?.isActive = true
-        
-    }
-    
+
     @objc private func tappedDotsButton(_ sender: UIButton) {
         
     }
@@ -246,7 +181,6 @@ final class MyCommentListTableViewCell: UITableViewCell {
         
         reviewTextView.text = model.content
         
-        invalidateIntrinsicContentSize()
-
+        layoutIfNeeded()
     }
 }

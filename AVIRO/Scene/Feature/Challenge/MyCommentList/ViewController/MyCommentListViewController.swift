@@ -129,7 +129,7 @@ extension MyCommentListViewController: UITableViewDataSource {
             someVegan: false,
             ifRequestVegan: false,
             date: "1일 전",
-            content: "ㅋㅍㅋㄴㅍawfawf안니왜 왜awdawkfawlkf;lakwf;lkaw;lf왜왜왜왜ㅗ애ㅗ애ㅗ애ㅙㄴ"
+            content: "짱짱맨!!!!!"
         )
         
         cell.configuration(with: model)
@@ -176,5 +176,9 @@ extension MyCommentListViewController: UITableViewDataSource {
 extension MyCommentListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         48
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
     }
 }
