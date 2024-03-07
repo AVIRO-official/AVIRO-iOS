@@ -649,7 +649,6 @@
 			isa = PBXGroup;
 			children = (
 				C50B18CA2B94D147005DECDC /* MyPlaceListTableViewCell.swift */,
-				C50B18CC2B94D696005DECDC /* MyPlaceCellModel.swift */,
 				C54B59202B961EE000C0B190 /* MyInfoListHeaderView.swift */,
 			);
 			path = MyPlaceListTable;
@@ -1830,6 +1829,7 @@
 			isa = PBXGroup;
 			children = (
 				C5DCBC992B91D9E9003502BA /* MyPlaceListViewModel.swift */,
+				C50B18CC2B94D696005DECDC /* MyPlaceCellModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";

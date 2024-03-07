@@ -1203,7 +1203,7 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
     private func afterUploadReview(with model: AfterWriteReviewModel) {
         updateReview(with: model)
 
-        tabBarDelegate?.hideBlurEffectView(with: false)
+        tabBarDelegate?.activeBlurEffectView(with: true)
         blurEffectView.isHidden = false
         recommendPlaceAlertView.isHidden = false
 
@@ -1213,7 +1213,7 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
             if model.levelUp {
                 self?.showLevelUpAlert(with: model.userLevel)
             } else {
-                self?.tabBarDelegate?.hideBlurEffectView(with: true)
+                self?.tabBarDelegate?.activeBlurEffectView(with: false)
                 self?.blurEffectView.isHidden = true
             }
             self?.presenter.recommendPlace()
@@ -1225,7 +1225,7 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
             if model.levelUp {
                 self?.showLevelUpAlert(with: model.userLevel)
             } else {
-                self?.tabBarDelegate?.hideBlurEffectView(with: true)
+                self?.tabBarDelegate?.activeBlurEffectView(with: true)
                 self?.blurEffectView.isHidden = true
             }
         }
@@ -1257,12 +1257,12 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
     func showLevelUpAlert(with level: Int) {
         levelUpAlertView.setMainTitle(with: level)
         
-        tabBarDelegate?.hideBlurEffectView(with: false)
+        tabBarDelegate?.activeBlurEffectView(with: true)
         blurEffectView.isHidden = false
         levelUpAlertView.isHidden = false
         
         levelUpAlertView.afterTappedCheckButtonTapped = { [weak self] in
-            self?.tabBarDelegate?.hideBlurEffectView(with: true)
+            self?.tabBarDelegate?.activeBlurEffectView(with: false)
             self?.blurEffectView.isHidden = true
             self?.levelUpAlertView.isHidden = true
             
@@ -1270,7 +1270,7 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
         }
         
         levelUpAlertView.afterTappedNoCheckButtonTapped = { [weak self] in
-            self?.tabBarDelegate?.hideBlurEffectView(with: true)
+            self?.tabBarDelegate?.activeBlurEffectView(with: false)
             self?.blurEffectView.isHidden = true
             self?.levelUpAlertView.isHidden = true
         }

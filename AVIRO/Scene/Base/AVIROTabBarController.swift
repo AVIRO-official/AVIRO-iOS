@@ -62,7 +62,7 @@ protocol TabBarDelegate: AnyObject {
     var selectedIndex: Int { get set }
     var isHidden: (isHidden: Bool, isSameNavi: Bool) { get set }
     
-    func hideBlurEffectView(with active: Bool)
+    func activeBlurEffectView(with active: Bool)
 }
 
 final class AVIROTabBarController: UIViewController, TabBarDelegate {
@@ -365,7 +365,7 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
         })
     }
     
-    func hideBlurEffectView(with active: Bool) {
-        blurEffectView.isHidden = active
+    func activeBlurEffectView(with active: Bool) {
+        blurEffectView.isHidden = !active
     }
 }

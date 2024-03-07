@@ -129,7 +129,10 @@ extension MyCommentListViewController: UITableViewDataSource {
             someVegan: false,
             ifRequestVegan: false,
             date: "1일 전",
-            content: "짱짱맨!!!!!"
+            content:
+"""
+짱짱맨!!!!awfa!짱짱맨!!!!awfa!짱짱맨!!!!awfa!짱짱맨!!!!awfa!짱짱맨!!!!awfa!짱짱맨!!!!awfa!짱짱맨!!!!awfa!짱짱맨!!!!awfa!짱짱맨!!!!awfa!짱짱맨!!!!awfa!짱짱맨!!!!awfa!짱짱맨!!!!awfa!짱짱맨!!!!awfa!짱짱맨!!!!awfa!짱짱맨!!!!awfa!
+"""
         )
         
         cell.configuration(with: model)
