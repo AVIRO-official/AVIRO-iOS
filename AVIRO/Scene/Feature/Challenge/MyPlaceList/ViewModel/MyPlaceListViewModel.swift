@@ -21,7 +21,7 @@ final class MyPlaceListViewModel: ViewModel {
     }
     
     func transform(with input: Input) -> Output {
-        let myPlaceListError = PublishSubject<Error>()
+        let myPlaceListError = PublishSubject<APIError>()
         
         let myPlaceListResult = input.whenViewWillAppear
             .flatMapLatest { [weak self] in
@@ -30,8 +30,8 @@ final class MyPlaceListViewModel: ViewModel {
                 }
                 
                 return self.loadMyPlaceList(userId: MyData.my.id)
-                    .asDriver { error in
-                        myPlaceListError.onNext(error)
+                    .asDriver { _ in
+                        myPlaceListError.onNext(APIError.badRequest)
                         return Driver.empty()
                     }
             }
@@ -44,7 +44,9 @@ final class MyPlaceListViewModel: ViewModel {
         return Output(myPlaceList: myPlaceListResult, numberOfPlaces: numberOfPlaces)
     }
     
-    private func loadMyPlaceList(userId: String) -> Single<[MyPlaceCellModel]> {
+    private func loadMyPlaceList(
+        userId: String
+    ) -> Single<[MyPlaceCellModel]> {
         return Single.create { single in
             AVIROAPI.manager.loadMyPlaceList(with: userId) { result in
                 switch result {

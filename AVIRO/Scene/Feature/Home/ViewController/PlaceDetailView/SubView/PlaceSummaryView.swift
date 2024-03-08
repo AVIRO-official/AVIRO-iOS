@@ -309,6 +309,7 @@ final class PlaceSummaryView: UIView {
         var placeIconImage: UIImage?
         var whenSlideTopLabelString: String?
 
+        // TODO: - vegan 또는 category enum refectoring 필요
         switch placeModel.placeState {
         case .All:
             switch placeModel.category {

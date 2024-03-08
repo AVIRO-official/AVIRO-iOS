@@ -12,7 +12,7 @@ import RxCocoa
 
 final class MyCommentListViewModel: ViewModel {
     struct Input {
-        
+    
     }
      
     struct Output {

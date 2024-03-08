@@ -1,15 +1,14 @@
 //
-//  MyPlaceCellModel.swift
+//  MyBookmarkCellModel.swift
 //  AVIRO
 //
-//  Created by 전성훈 on 2024/03/04.
+//  Created by 전성훈 on 2024/03/08.
 //
-
 // MARK: - 추후 모듈화할때 Domain으로 옮길 예정
 
 import Foundation
 
-struct MyPlaceCellModel {
+struct MyBookmarkCellModel {
     var category: CategoryType
     let veganType: VeganType
     let title: String
@@ -17,8 +16,9 @@ struct MyPlaceCellModel {
     let menu: String
     let menuCount: Int
     let createdBefore: String
+    let isStar: Bool
     
-    init(with model: AVIROMyPlaceDataDTO) {
+    init(with model: AVIROMyBookmarkDataDTO) {
         self.category = CategoryType(with: model.category) ?? .Restaurant
         
         if model.allVegan {
@@ -34,5 +34,6 @@ struct MyPlaceCellModel {
         self.menu = model.menu
         self.menuCount = model.menuCountExceptOne
         self.createdBefore = model.createdBefore.relativeDateString()
+        self.isStar = true
     }
 }

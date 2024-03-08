@@ -22,7 +22,6 @@ final class MyBookmarkListViewController: UIViewController {
         view.backgroundColor = .gray6
         view.separatorStyle = .none
         view.showsVerticalScrollIndicator = false
-        view.dataSource = self
         view.delegate = self
         view.sectionHeaderTopPadding = 0
         view.register(
@@ -64,6 +63,7 @@ final class MyBookmarkListViewController: UIViewController {
         
         setupLayout()
         setupAttribute()
+        dataBinding()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -100,48 +100,64 @@ final class MyBookmarkListViewController: UIViewController {
         self.navigationItem.standardAppearance = navBarAppearance
         
         setupBack(true)
-    }
-}
-
-extension MyBookmarkListViewController: UITableViewDataSource {
-    func tableView(
-        _ tableView: UITableView,
-        numberOfRowsInSection section: Int
-    ) -> Int {
-        6
+        
+        bookmarkTableView.rx.didScroll
+            .debounce(.milliseconds(100), scheduler: MainScheduler.instance)
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(self.rx.whenDidScrollTableView)
+            .disposed(by: disposeBag)
     }
     
-    func tableView(
-        _ tableView: UITableView,
-        cellForRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: MyBookmarkListTableViewCell.identifier,
-            for: indexPath
-        ) as? MyBookmarkListTableViewCell else {
-            return UITableViewCell()
-        }
+    private func dataBinding() {
+        let viewWillAppearTrigger = self.rx.viewWillAppear
+            .map { _ in }
+            .asDriver(onErrorDriveWith: .empty())
         
-        let model = MyBookmarkCellModel(
-            category: .Bar, all: true, some: false, request: false, title: "테스트", address: "테스트주소입니다", menu: "테스트메뉴테스트메뉴테스트메뉴테스트메뉴테스트메뉴", menuCount: "3", time: "5일 전", isStar: true
+        let input = MyBookmarkListViewModel.Input(
+            whenViewWillAppear: viewWillAppearTrigger
         )
         
-        cell.configuration(with: model)
+        let output = viewModel.transform(with: input)
         
-        cell.selectionStyle = .none
+        output.myBookmarkList
+            .drive(self.rx.isMyBookmarkList)
+            .disposed(by: disposeBag)
         
-        return cell
+        output.numberOfBookmarks
+            .drive(self.rx.bookmarkListCount)
+            .disposed(by: disposeBag)
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    internal func bindMyBookmarkList(with models: [MyBookmarkCellModel]) {
+        Driver.just(models)
+             .drive(bookmarkTableView.rx.items(
+                 cellIdentifier: MyBookmarkListTableViewCell.identifier,
+                 cellType: MyBookmarkListTableViewCell.self)
+             ) { (row, model, cell) in
+                 cell.configuration(with: model)
+                 
+                 cell.selectionStyle = .none
+             }
+             .disposed(by: disposeBag)
+    }
+    
+    internal func bindTableHeaderView(with count: Int) {
+        Driver.just(self.makeHeaderView(with: count))
+              .drive(onNext: { [weak self] headerView in
+                  self?.bookmarkTableView.tableHeaderView = headerView
+              })
+              .disposed(by: disposeBag)
+    }
+    
+    private func makeHeaderView(with count: Int) -> UIView {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 48))
-        
-        view.backgroundColor = .gray6
+
+        view.backgroundColor = .clear
         
         let countLabel = UILabel()
         countLabel.numberOfLines = 1
         countLabel.font = .pretendard(size: 18, weight: .semibold)
-        countLabel.text = "총 \(6)개의 가게"
+        countLabel.text = "총 \(count)개의 가게"
         countLabel.textColor = .gray0
         countLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -156,16 +172,25 @@ extension MyBookmarkListViewController: UITableViewDataSource {
         return view
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    internal func adjustHeaderInset() {
         let sectionHeaderHeight: CGFloat = 48
 
-        if scrollView.contentOffset.y <= sectionHeaderHeight && scrollView.contentOffset.y >= 0 {
-            scrollView.contentInset = UIEdgeInsets(top: -scrollView.contentOffset.y, left: 0, bottom: 0, right: 0)
-        } else if scrollView.contentOffset.y >= sectionHeaderHeight {
-            scrollView.contentInset = UIEdgeInsets(top: -sectionHeaderHeight, left: 0, bottom: 0, right: 0)
+        if bookmarkTableView.contentOffset.y <= sectionHeaderHeight && bookmarkTableView.contentOffset.y >= 0 {
+            bookmarkTableView.contentInset = UIEdgeInsets(
+                top: -bookmarkTableView.contentOffset.y,
+                left: 0,
+                bottom: 0,
+                right: 0
+            )
+        } else if bookmarkTableView.contentOffset.y >= sectionHeaderHeight {
+            bookmarkTableView.contentInset = UIEdgeInsets(
+                top: -sectionHeaderHeight,
+                left: 0,
+                bottom: 0,
+                right: 0
+            )
         }
     }
-
 }
 
 extension MyBookmarkListViewController: UITableViewDelegate {
@@ -175,5 +200,25 @@ extension MyBookmarkListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         48
+    }
+}
+
+extension Reactive where Base: MyBookmarkListViewController {
+    var isMyBookmarkList: Binder<[MyBookmarkCellModel]> {
+        return Binder(self.base) { base, result in
+            base.bindMyBookmarkList(with: result)
+        }
+    }
+    
+    var bookmarkListCount: Binder<Int> {
+        return Binder(self.base) { base, result in
+            base.bindTableHeaderView(with: result)
+        }
+    }
+    
+    var whenDidScrollTableView: Binder<Void> {
+        return Binder(self.base) { base, _ in
+            base.adjustHeaderInset()
+        }
     }
 }

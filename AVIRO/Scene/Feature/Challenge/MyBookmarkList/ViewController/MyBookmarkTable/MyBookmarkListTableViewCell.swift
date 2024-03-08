@@ -236,16 +236,58 @@ final class MyBookmarkListTableViewCell: UITableViewCell {
     
     // TODO: - 변경 예정
     func configuration(with model: MyBookmarkCellModel) {
-        iconImageView.image = .allBoxBar
+        switch model.veganType {
+        case .All:
+            switch model.category {
+            case .Bar:
+                iconImageView.image = .allBoxBar
+            case .Bread:
+                iconImageView.image = .allBoxBread
+            case .Coffee:
+                iconImageView.image = .allBoxCoffee
+            case .Restaurant:
+                iconImageView.image = .allBoxRestaurant
+            }
+            categoryLabel.backgroundColor = .all
+
+        case .Some:
+            switch model.category {
+            case .Bar:
+                iconImageView.image = .someBoxBar
+            case .Bread:
+                iconImageView.image = .someBoxBread
+            case .Coffee:
+                iconImageView.image = .someBoxCoffee
+            case .Restaurant:
+                iconImageView.image = .someBoxRestaurant
+            }
+            categoryLabel.backgroundColor = .some
+
+        case .Request:
+            switch model.category {
+            case .Bar:
+                iconImageView.image = .requestBoxBar
+            case .Bread:
+                iconImageView.image = .requestBoxBread
+            case .Coffee:
+                iconImageView.image = .requestBoxCoffee
+            case .Restaurant:
+                iconImageView.image = .requestBoxRestaurant
+            }
+            categoryLabel.backgroundColor = .request
+        }
+        
         categoryLabel.text = model.category.title
-        categoryLabel.backgroundColor = .all
-        
+
         titleLabel.text = model.title
-        starButton.isSelected = model.isStar
         addressLabel.text = model.address
-        
         menuLabel.text = model.menu
-        menuCountLabel.text = "외 " + model.menuCount + "개 메뉴"
-        enrollTimeLabel.text = model.time
+        
+        if model.menuCount > 0 {
+            menuCountLabel.text = "외 " + String(model.menuCount) + "개 메뉴"
+        }
+        
+        enrollTimeLabel.text = model.createdBefore
+        starButton.isSelected = model.isStar
     }
 }
