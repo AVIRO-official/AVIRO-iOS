@@ -66,7 +66,7 @@ protocol TabBarDelegate: AnyObject {
 }
 
 final class AVIROTabBarController: UIViewController, TabBarDelegate {
-    private lazy var viewControllers: [UIViewController] = []
+    private lazy var viewControllers: [UINavigationController] = []
     
     private lazy var buttons: [TabBarButton] = []
     private var types: [TabBarType] = []
@@ -267,9 +267,10 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
     private func deleteView() {
         let previousVC = viewControllers[previousIndex]
         
+        previousVC.clearNavigationStackExceptRoot()
         previousVC.remove()
     }
-    
+
     private func setupView() {
         let selectedVC = viewControllers[selectedIndex]
         

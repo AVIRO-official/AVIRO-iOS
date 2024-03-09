@@ -99,6 +99,7 @@
 		C5351B602A19F9A700116D50 /* PlaceListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B5F2A19F9A700116D50 /* PlaceListModel.swift */; };
 		C5351B622A1A083400116D50 /* PlaceListCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B612A1A083400116D50 /* PlaceListCellModel.swift */; };
 		C5351B7A2A1B439000116D50 /* KakaoCoordinateSearchDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B792A1B439000116D50 /* KakaoCoordinateSearchDTO.swift */; };
+		C53833652B9C7B6100ED6A50 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53833642B9C7B6100ED6A50 /* UINavigationController+Extension.swift */; };
 		C53856B12ABC13ED00D52DEC /* AVIROMyContributionCount+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53856B02ABC13ED00D52DEC /* AVIROMyContributionCount+DTO.swift */; };
 		C53893162A5EC0C500CB9A54 /* GenderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53893152A5EC0C500CB9A54 /* GenderButton.swift */; };
 		C53C54D22AD67E8800C3662A /* MarkerModelLocalDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53C54D12AD67E8800C3662A /* MarkerModelLocalDB.swift */; };
@@ -367,6 +368,7 @@
 		C5351B5F2A19F9A700116D50 /* PlaceListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListModel.swift; sourceTree = "<group>"; };
 		C5351B612A1A083400116D50 /* PlaceListCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListCellModel.swift; sourceTree = "<group>"; };
 		C5351B792A1B439000116D50 /* KakaoCoordinateSearchDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoCoordinateSearchDTO.swift; sourceTree = "<group>"; };
+		C53833642B9C7B6100ED6A50 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		C53856B02ABC13ED00D52DEC /* AVIROMyContributionCount+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROMyContributionCount+DTO.swift"; sourceTree = "<group>"; };
 		C53893152A5EC0C500CB9A54 /* GenderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderButton.swift; sourceTree = "<group>"; };
 		C53C54D12AD67E8800C3662A /* MarkerModelLocalDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerModelLocalDB.swift; sourceTree = "<group>"; };
@@ -743,6 +745,7 @@
 				C50E6F6E2A8F10B500703B9E /* UILabel+Extension.swift */,
 				C59491D22AB0336100880B4B /* UIView+Extension.swift */,
 				C51AED222A8B7B000015FBC2 /* UIViewController+Extension.swift */,
+				C53833642B9C7B6100ED6A50 /* UINavigationController+Extension.swift */,
 				C51B09BB2A82397800916BBD /* Marker+Extension.swift */,
 				C54B591E2B9606C500C0B190 /* UITextView+Extension.swift */,
 			);
@@ -2377,6 +2380,7 @@
 				C5FF13532A42C8810026981D /* AVIROPlaceInfo+DTO.swift in Sources */,
 				C5351B5C2A19F60200116D50 /* SearchPlacePresenter.swift in Sources */,
 				C562B6E42B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift in Sources */,
+				C53833652B9C7B6100ED6A50 /* UINavigationController+Extension.swift in Sources */,
 				C513854A2AAB3B13001AB827 /* NickNameChangebleViewController.swift in Sources */,
 				C50E6F6F2A8F10B500703B9E /* UILabel+Extension.swift in Sources */,
 				C52066352A7F3FAE0038ECCD /* HistoryTableViewCell.swift in Sources */,
