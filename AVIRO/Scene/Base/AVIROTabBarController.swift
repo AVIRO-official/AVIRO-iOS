@@ -269,6 +269,7 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
         
         previousVC.clearNavigationStackExceptRoot()
         previousVC.remove()
+        
     }
 
     private func setupView() {
