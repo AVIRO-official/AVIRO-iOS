@@ -9,6 +9,20 @@ import UIKit
 
 import RxSwift
 import RxCocoa
+import RxDataSources
+
+struct BookmarkSection {
+    var items: [Item]
+}
+
+extension BookmarkSection: SectionModelType {
+    typealias Item = MyBookmarkCellModel
+
+    init(original: BookmarkSection, items: [Item]) {
+        self = original
+        self.items = items
+    }
+}
 
 final class MyBookmarkListViewController: UIViewController {
     weak var tabBarDelegate: TabBarDelegate?
@@ -16,13 +30,14 @@ final class MyBookmarkListViewController: UIViewController {
     private var viewModel: MyBookmarkListViewModel!
     private let disposeBag = DisposeBag()
     
+    private let starButtonTapped = PublishSubject<Int>()
+    
     private lazy var bookmarkTableView: UITableView = {
         let view = UITableView()
         
         view.backgroundColor = .gray6
         view.separatorStyle = .none
         view.showsVerticalScrollIndicator = false
-        view.delegate = self
         view.sectionHeaderTopPadding = 0
         view.register(
             MyBookmarkListTableViewCell.self,
@@ -30,6 +45,16 @@ final class MyBookmarkListViewController: UIViewController {
         )
         
         return view
+    }()
+    
+    private lazy var listCountLabel: UILabel = {
+        let lbl = UILabel()
+        
+        lbl.numberOfLines = 1
+        lbl.font = .pretendard(size: 18, weight: .semibold)
+        lbl.textColor = .gray0
+        
+        return lbl
     }()
     
     private lazy var berryImage: UIImageView = {
@@ -53,7 +78,9 @@ final class MyBookmarkListViewController: UIViewController {
 
     static func create(with viewModel: MyBookmarkListViewModel) -> MyBookmarkListViewController {
         let vc = MyBookmarkListViewController()
+        
         vc.viewModel = viewModel
+        vc.dataBinding()
         
         return vc
     }
@@ -63,7 +90,6 @@ final class MyBookmarkListViewController: UIViewController {
         
         setupLayout()
         setupAttribute()
-        dataBinding()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -102,71 +128,85 @@ final class MyBookmarkListViewController: UIViewController {
         setupBack(true)
         
         bookmarkTableView.rx.didScroll
-            .debounce(.milliseconds(100), scheduler: MainScheduler.instance)
+            .debounce(.milliseconds(20), scheduler: MainScheduler.instance)
             .asDriver(onErrorDriveWith: .empty())
             .drive(self.rx.whenDidScrollTableView)
             .disposed(by: disposeBag)
     }
     
     private func dataBinding() {
-        let viewWillAppearTrigger = self.rx.viewWillAppear
+        let viewDidLoadTrigger = self.rx.viewDidLoad
             .map { _ in }
             .asDriver(onErrorDriveWith: .empty())
         
         let input = MyBookmarkListViewModel.Input(
-            whenViewWillAppear: viewWillAppearTrigger
+            whenViewDidLoad: viewDidLoadTrigger,
+            whenBookmarkChangedState: starButtonTapped.asDriver(onErrorJustReturn: 0)
         )
         
         let output = viewModel.transform(with: input)
         
-        output.myBookmarkList
-            .drive(self.rx.isMyBookmarkList)
+        output.whenLoadBookmarks
+            .drive()
+            .disposed(by: disposeBag)
+        
+        output.loadBookmarks
+            .drive(
+                bookmarkTableView.rx.items(
+                    cellIdentifier: MyBookmarkListTableViewCell.identifier,
+                    cellType: MyBookmarkListTableViewCell.self)
+            ) { (row, model, cell) in
+                cell.configuration(with: model)
+                
+                cell.onStarButtonTapped = { [weak self] in
+                    self?.starButtonTapped.onNext(row)
+                }
+                
+                cell.selectionStyle = .none
+            }
+            .disposed(by: disposeBag)
+        
+        output.onErrorEvent
+            .drive()
             .disposed(by: disposeBag)
         
         output.numberOfBookmarks
-            .drive(self.rx.bookmarkListCount)
+            .drive(self.rx.setFirstViewState)
+            .disposed(by: disposeBag)
+        
+        output.whenUpdateBookmarks
+            .drive()
             .disposed(by: disposeBag)
     }
     
-    internal func bindMyBookmarkList(with models: [MyBookmarkCellModel]) {
-        Driver.just(models)
-             .drive(bookmarkTableView.rx.items(
-                 cellIdentifier: MyBookmarkListTableViewCell.identifier,
-                 cellType: MyBookmarkListTableViewCell.self)
-             ) { (row, model, cell) in
-                 cell.configuration(with: model)
-                 
-                 cell.selectionStyle = .none
-             }
-             .disposed(by: disposeBag)
+    internal func bindingTableHeaderView(with count: Int) {
+        guard bookmarkTableView.tableHeaderView != nil else {
+            Driver.just(self.makeTableHeaderView(with: count))
+                .drive(onNext: { [weak self] headerView in
+                    self?.bookmarkTableView.tableHeaderView = headerView
+                })
+                .disposed(by: disposeBag)
+            
+            return
+        }
+        
+        listCountLabel.text = "총 \(count)개의 가게"
     }
     
-    internal func bindTableHeaderView(with count: Int) {
-        Driver.just(self.makeHeaderView(with: count))
-              .drive(onNext: { [weak self] headerView in
-                  self?.bookmarkTableView.tableHeaderView = headerView
-              })
-              .disposed(by: disposeBag)
-    }
-    
-    private func makeHeaderView(with count: Int) -> UIView {
+    private func makeTableHeaderView(with count: Int) -> UIView {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 48))
-
+        
         view.backgroundColor = .clear
         
-        let countLabel = UILabel()
-        countLabel.numberOfLines = 1
-        countLabel.font = .pretendard(size: 18, weight: .semibold)
-        countLabel.text = "총 \(count)개의 가게"
-        countLabel.textColor = .gray0
-        countLabel.translatesAutoresizingMaskIntoConstraints = false
+        listCountLabel.text = "총 \(count)개의 가게"
+        listCountLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(countLabel)
+        view.addSubview(listCountLabel)
         
         NSLayoutConstraint.activate([
-            countLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            countLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            countLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            listCountLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            listCountLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            listCountLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
         
         return view
@@ -174,8 +214,10 @@ final class MyBookmarkListViewController: UIViewController {
     
     internal func adjustHeaderInset() {
         let sectionHeaderHeight: CGFloat = 48
+        
+        let bookmarkYOffset = bookmarkTableView.contentOffset.y
 
-        if bookmarkTableView.contentOffset.y <= sectionHeaderHeight && bookmarkTableView.contentOffset.y >= 0 {
+        if bookmarkYOffset <= sectionHeaderHeight && bookmarkYOffset == 0 {
             bookmarkTableView.contentInset = UIEdgeInsets(
                 top: -bookmarkTableView.contentOffset.y,
                 left: 0,
@@ -184,7 +226,7 @@ final class MyBookmarkListViewController: UIViewController {
             )
         } else if bookmarkTableView.contentOffset.y >= sectionHeaderHeight {
             bookmarkTableView.contentInset = UIEdgeInsets(
-                top: -sectionHeaderHeight,
+                top: 0,
                 left: 0,
                 bottom: 0,
                 right: 0
@@ -193,26 +235,10 @@ final class MyBookmarkListViewController: UIViewController {
     }
 }
 
-extension MyBookmarkListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        142
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        48
-    }
-}
-
 extension Reactive where Base: MyBookmarkListViewController {
-    var isMyBookmarkList: Binder<[MyBookmarkCellModel]> {
+    var setFirstViewState: Binder<Int> {
         return Binder(self.base) { base, result in
-            base.bindMyBookmarkList(with: result)
-        }
-    }
-    
-    var bookmarkListCount: Binder<Int> {
-        return Binder(self.base) { base, result in
-            base.bindTableHeaderView(with: result)
+            base.bindingTableHeaderView(with: result)
         }
     }
     

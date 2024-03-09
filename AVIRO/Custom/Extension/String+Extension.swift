@@ -79,23 +79,32 @@ extension String {
     
     // MARK: 전날 계산기
     func relativeDateString() -> String {
-        guard let date = self.dateFormCustomString() else { return "1일 전" }
+        guard let date = self.dateFormCustomString() else { return self }
+
         let calender = Calendar.current
-        
         let now = Date()
+        let startOfDate = calender.startOfDay(for: date)
         
-        let components = calender.dateComponents([.day, .weekOfYear, .month, .year], from: date, to: now)
+        let components = calender.dateComponents([.day, .weekOfYear, .month, .year], from: startOfDate, to: now)
+
+        var result = "오늘"
         
-        if let day = components.day, day < 32 {
-            return "\(day)일 전"
-        } else if let week = components.weekOfYear, week < 4 {
-            return "\(week)주 전"
-        } else if let month = components.month, month < 13 {
-            return "\(month)개월 전"
-        } else if let year = components.year, year > 0 {
-            return "\(year)년 전"
-        } else {
-            return "오늘"
+        if let day = components.day, day > 0 {
+            result = "\(day)일 전"
         }
+        
+        if let week = components.weekOfYear, week > 0 {
+            result = "\(week)주 전"
+        }
+        
+        if let month = components.month, month > 0 {
+            result = "\(month)개월 전"
+        } 
+        
+        if let year = components.year, year > 0 {
+            result = "\(year)년 전"
+        }
+        
+        return result
     }
 }

@@ -150,6 +150,7 @@ final class MyPlaceListViewController: UIViewController {
         output.numberOfPlaces
             .drive(self.rx.placeListCount)
             .disposed(by: disposeBag)
+        
     }
     
     internal func bindMyPlaceList(with models: [MyPlaceCellModel]) {

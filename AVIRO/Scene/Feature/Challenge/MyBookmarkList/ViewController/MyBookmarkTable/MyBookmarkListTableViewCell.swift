@@ -9,7 +9,7 @@ import UIKit
 
 final class MyBookmarkListTableViewCell: UITableViewCell {
     static let identifier = MyBookmarkListTableViewCell.description()
-    
+        
     private lazy var iconImageView: UIImageView = {
         let view = UIImageView()
         
@@ -116,6 +116,8 @@ final class MyBookmarkListTableViewCell: UITableViewCell {
         
         return view
     }()
+    
+    var onStarButtonTapped: (() -> Void)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -232,6 +234,8 @@ final class MyBookmarkListTableViewCell: UITableViewCell {
     // TODO: - 변경 예정
     @objc private func tappedStarButton(_ sender: UIButton) {
         starButton.isSelected.toggle()
+        
+        onStarButtonTapped?()
     }
     
     // TODO: - 변경 예정

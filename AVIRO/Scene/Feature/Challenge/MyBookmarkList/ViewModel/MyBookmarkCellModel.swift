@@ -9,16 +9,19 @@
 import Foundation
 
 struct MyBookmarkCellModel {
-    var category: CategoryType
+    let placeId: String
+    let category: CategoryType
     let veganType: VeganType
     let title: String
     let address: String
     let menu: String
     let menuCount: Int
     let createdBefore: String
-    let isStar: Bool
+    var isStar: Bool
     
     init(with model: AVIROMyBookmarkDataDTO) {
+        self.placeId = model.placeId
+        
         self.category = CategoryType(with: model.category) ?? .Restaurant
         
         if model.allVegan {
