@@ -93,11 +93,11 @@ final class ChallengeUserInfoView: UIView {
         self.backgroundColor = .gray7
     }
     
-    func isStartIndicator() {
+    func startIndicator() {
         indicatorView.isHidden = false
     }
     
-    func isEndIndicator() {
+    func endIndicator() {
         indicatorView.isHidden = true
     }
     

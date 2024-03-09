@@ -10,29 +10,47 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-// TODO: - Bookmark list가 하나라도 바뀐게 있다면 viewDisAppear할 때 바뀐것만 bookmark update api 호출 (bookmark Manager 활용)
+// TODO: - Bookmark list가 하나라도 바뀐게 있다면 viewWillDisappear할 때 바뀐것만 bookmark update api 호출 (bookmark Manager 활용)
 
 final class MyBookmarkListViewModel: ViewModel {
     
+    private weak var challengeViewModelProtocol: ChallengeViewModelFromChildProtocol!
+    private let bookmarkManager: BookmarkFacadeProtocol!
+    
+    private var cancelledBookmarkList: [String] = []
+    private var onSelectedBookmark: Bool = false
+    
     struct Input {
-        let whenViewDidLoad: Driver<Void>
-        let whenBookmarkChangedState: Driver<Int>
+        let viewDidLoadTrigger: Driver<Void>
+        let viewWillDisAppearTrigger: Driver<Void>
+        let bookmarkStateChangeIndex: Driver<Int>
+        let selectedBookmarkIndex: Driver<Int>
     }
-     
+    
     struct Output {
-        let whenLoadBookmarks: Driver<Bool>
-        let loadBookmarks: Driver<[MyBookmarkCellModel]>
-        let onErrorEvent: Driver<APIError>
-        let numberOfBookmarks: Driver<Int>
-        let whenUpdateBookmarks: Driver<Void>
+        let hasBookmarks: Driver<Bool>
+        let bookmarksData: Driver<[MyBookmarkCellModel]>
+        let bookmarkLoadError: Driver<APIError>
+        let countOfStarredBookmarks: Driver<Int>
+        let bookmarkUpdateComplete: Driver<Void>
+        let selectedBookmark: Driver<String>
+        let deletedBookmarks: Driver<Void>
+    }
+    
+    init(
+        challengeViewModelProtocol: ChallengeViewModelFromChildProtocol,
+        bookmarkManager: BookmarkFacadeManager
+    ) {
+        self.challengeViewModelProtocol = challengeViewModelProtocol
+        self.bookmarkManager = bookmarkManager
     }
     
     func transform(with input: Input) -> Output {
         let bookmarks = BehaviorRelay<[MyBookmarkCellModel]>(value: [])
-
+        
         let bookmarkLoadError = PublishSubject<APIError>()
         
-        let whenLoadBookmarks = input.whenViewDidLoad
+        let hasBookmarks = input.viewDidLoadTrigger
             .flatMapLatest { [weak self] _ -> Driver<[MyBookmarkCellModel]> in
                 guard let self = self else { return Driver.just([]) }
                 
@@ -48,31 +66,71 @@ final class MyBookmarkListViewModel: ViewModel {
             .map { $0.count > 0 ? true : false }
             .asDriver()
         
-        let numberOfBookmarks = bookmarks
+        let countOfStarredBookmarks = bookmarks
             .map { $0.filter { $0.isStar } }
             .map { $0.count }
             .asDriver(onErrorJustReturn: 0)
         
-        let updatedBookmarks = input.whenBookmarkChangedState
-             .do(onNext: { index in
-                 var currentBookmarks = bookmarks.value
-                 if currentBookmarks.indices.contains(index) {
-                     currentBookmarks[index].isStar.toggle()
-                     bookmarks.accept(currentBookmarks)
-                 }
-             })
-             .map { _ in }
-             .asDriver(onErrorDriveWith: .empty())
+        let bookmarkUpdateComplete = input.bookmarkStateChangeIndex
+            .do(onNext: { [weak self] index in
+                guard let self = self else { return }
+                var currentBookmarks = bookmarks.value
+                if currentBookmarks.indices.contains(index) {
+                    let placeId = currentBookmarks[index].placeId
+                    
+                    if let indexOfPlaceId = self.cancelledBookmarkList.firstIndex(of: placeId) {
+                        self.cancelledBookmarkList.remove(at: indexOfPlaceId)
+                    } else {
+                        self.cancelledBookmarkList.append(placeId)
+                    }
+                    
+                    currentBookmarks[index].isStar.toggle()
+                    
+                    bookmarks.accept(currentBookmarks)
+                }
+            })
+            .map { _ in }
+            .asDriver(onErrorDriveWith: .empty())
+        
+        /// result가 "" 이면 index Error
+        let selectedBookmark = input.selectedBookmarkIndex
+            .map { [weak self] index in
+                guard let self = self else { return "" }
+                var result = ""
+                
+                if bookmarks.value.indices.contains(index) {
+                    result = bookmarks.value[index].placeId
+                    self.onSelectedBookmark = true
+                }
+                
+                return result
+            }
+            .asDriver()
+        
+        let deletedBookmarks = input.viewWillDisAppearTrigger
+            .do(onNext: { [weak self] in
+                guard let self = self else { return }
+                if !self.cancelledBookmarkList.isEmpty {
+                    challengeViewModelProtocol.fromChildView = self.onSelectedBookmark ? false : true 
+                    self.bookmarkManager.deleteData(
+                        with: self.cancelledBookmarkList,
+                        completionHandler: { _ in }
+                    )
+                }
+            })
+            .asDriver()
         
         let bookmarksDriver = bookmarks.asDriver()
         let onErrorEventDriver = bookmarkLoadError.asDriver(onErrorJustReturn: .badRequest)
         
         return Output(
-            whenLoadBookmarks: whenLoadBookmarks,
-            loadBookmarks: bookmarksDriver,
-            onErrorEvent: onErrorEventDriver,
-            numberOfBookmarks: numberOfBookmarks,
-            whenUpdateBookmarks: updatedBookmarks
+            hasBookmarks: hasBookmarks,
+            bookmarksData: bookmarksDriver,
+            bookmarkLoadError: onErrorEventDriver,
+            countOfStarredBookmarks: countOfStarredBookmarks,
+            bookmarkUpdateComplete: bookmarkUpdateComplete,
+            selectedBookmark: selectedBookmark,
+            deletedBookmarks: deletedBookmarks
         )
     }
     

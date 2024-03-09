@@ -667,12 +667,14 @@ final class HomeViewPresenter: NSObject {
     func updateBookmark(_ isSelected: Bool) {
         guard let placeId = selectedPlaceId else { return }
         
+        let placeIds = [placeId]
+        
         if isSelected {
-            bookmarkManager.updateData(with: placeId) { [weak self] error in
+            bookmarkManager.updateData(with: placeIds) { [weak self] error in
                 self?.viewController?.showToastAlert(error)
             }
         } else {
-            bookmarkManager.deleteData(with: placeId) { [weak self] error in
+            bookmarkManager.deleteData(with: placeIds) { [weak self] error in
                 self?.viewController?.showToastAlert(error)
             }
         }

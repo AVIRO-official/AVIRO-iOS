@@ -267,9 +267,10 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
     private func deleteView() {
         let previousVC = viewControllers[previousIndex]
         
-        previousVC.clearNavigationStackExceptRoot()
+        /// remove -> clearNavigationStackExceptRoot 순으로 진행해야
+        /// child view들의 lifeCycle 함수들이 정상적으로 호출됨
         previousVC.remove()
-        
+        previousVC.clearNavigationStackExceptRoot()
     }
 
     private func setupView() {

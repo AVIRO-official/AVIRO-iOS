@@ -18,15 +18,14 @@ final class MyInfoView: UIView {
         return label
     }()
     
-    private lazy var myPlaceButton: UIButton = {
-        let button = UIButton()
+    private lazy var myPlaceCountLabel: UILabel = {
+        let lbl = UILabel()
         
-        button.setTitle("0개", for: .normal)
-        button.setTitleColor(.gray0, for: .normal)
-        button.titleLabel?.font = .pretendard(size: 20, weight: .bold)
-        button.isUserInteractionEnabled = false
+        lbl.text = "0개"
+        lbl.textColor = .gray0
+        lbl.font = .pretendard(size: 20, weight: .bold)
         
-        return button
+        return lbl
     }()
     
     private lazy var myPlaceStackView: UIStackView = {
@@ -35,6 +34,7 @@ final class MyInfoView: UIView {
         stackView.axis = .vertical
         stackView.spacing = 11
         stackView.alignment = .center
+        stackView.distribution = .fill
         stackView.tag = 0
         
         return stackView
@@ -50,23 +50,23 @@ final class MyInfoView: UIView {
         return label
     }()
 
-    private lazy var myReviewButton: UIButton = {
-        let button = UIButton()
+    private lazy var myReviewCountLabel: UILabel = {
+        let lbl = UILabel()
         
-        button.setTitle("0개", for: .normal)
-        button.setTitleColor(.gray0, for: .normal)
-        button.titleLabel?.font = .pretendard(size: 20, weight: .bold)
-        button.isUserInteractionEnabled = false
-
-        return button
+        lbl.text = "0개"
+        lbl.textColor = .gray0
+        lbl.font = .pretendard(size: 20, weight: .bold)
+        
+        return lbl
     }()
-    
+
     private lazy var myReviewStackView: UIStackView = {
         let stackView = UIStackView()
        
         stackView.axis = .vertical
         stackView.spacing = 11
         stackView.alignment = .center
+        stackView.distribution = .fill
         stackView.tag = 1
 
         return stackView
@@ -82,15 +82,14 @@ final class MyInfoView: UIView {
         return label
     }()
     
-    private lazy var myStarButton: UIButton = {
-        let button = UIButton()
+    private lazy var myStarCountLabel: UILabel = {
+        let lbl = UILabel()
         
-        button.setTitle("0개", for: .normal)
-        button.setTitleColor(.gray0, for: .normal)
-        button.titleLabel?.font = .pretendard(size: 20, weight: .bold)
-        button.isUserInteractionEnabled = false
-
-        return button
+        lbl.text = "0개"
+        lbl.textColor = .gray0
+        lbl.font = .pretendard(size: 20, weight: .bold)
+        
+        return lbl
     }()
     
     private lazy var myStarStackView: UIStackView = {
@@ -99,6 +98,7 @@ final class MyInfoView: UIView {
         stackView.axis = .vertical
         stackView.spacing = 11
         stackView.alignment = .center
+        stackView.distribution = .fill
         stackView.tag = 2
         
         return stackView
@@ -130,6 +130,42 @@ final class MyInfoView: UIView {
         return stackView
     }()
     
+    private lazy var myPlaceIndicatorView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        
+        view.style = .medium
+        view.backgroundColor = .clear
+        view.color = .gray5
+        view.startAnimating()
+        view.isHidden = true
+        
+        return view
+    }()
+    
+    private lazy var myReviewIndicatorView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        
+        view.style = .medium
+        view.backgroundColor = .clear
+        view.color = .gray5
+        view.startAnimating()
+        view.isHidden = true
+        
+        return view
+    }()
+    
+    private lazy var myStarIndicatorView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        
+        view.style = .medium
+        view.backgroundColor = .clear
+        view.color = .gray5
+        view.startAnimating()
+        view.isHidden = true
+        
+        return view
+    }()
+
     var tappedMyInfo: ((MyInfoType) -> Void)?
     
     override init(frame: CGRect) {
@@ -146,7 +182,7 @@ final class MyInfoView: UIView {
     private func setupLayout() {
         [
             myPlaceLabel,
-            myPlaceButton
+            myPlaceCountLabel
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             myPlaceStackView.addArrangedSubview($0)
@@ -154,7 +190,7 @@ final class MyInfoView: UIView {
         
         [
             myReviewLabel,
-            myReviewButton
+            myReviewCountLabel
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             myReviewStackView.addArrangedSubview($0)
@@ -162,7 +198,7 @@ final class MyInfoView: UIView {
         
         [
             myStarLabel,
-            myStarButton
+            myStarCountLabel
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             myStarStackView.addArrangedSubview($0)
@@ -179,8 +215,15 @@ final class MyInfoView: UIView {
             myStateStackView.addArrangedSubview($0)
         }
         
-        myStateStackView.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(myStateStackView)
+        [
+            myStateStackView,
+            myPlaceIndicatorView,
+            myReviewIndicatorView,
+            myStarIndicatorView
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            self.addSubview($0)
+        }
         
         NSLayoutConstraint.activate([
             myStateStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 12),
@@ -196,7 +239,16 @@ final class MyInfoView: UIView {
             
             myPlaceStackView.widthAnchor.constraint(equalToConstant: 100),
             myReviewStackView.widthAnchor.constraint(equalToConstant: 100),
-            myStarStackView.widthAnchor.constraint(equalToConstant: 100)
+            myStarStackView.widthAnchor.constraint(equalToConstant: 100),
+            
+            myPlaceIndicatorView.centerXAnchor.constraint(equalTo: myPlaceCountLabel.centerXAnchor),
+            myPlaceIndicatorView.centerYAnchor.constraint(equalTo: myPlaceCountLabel.centerYAnchor),
+            
+            myReviewIndicatorView.centerXAnchor.constraint(equalTo: myReviewCountLabel.centerXAnchor),
+            myReviewIndicatorView.centerYAnchor.constraint(equalTo: myReviewCountLabel.centerYAnchor),
+            
+            myStarIndicatorView.centerXAnchor.constraint(equalTo: myStarCountLabel.centerXAnchor),
+            myStarIndicatorView.centerYAnchor.constraint(equalTo: myStarCountLabel.centerYAnchor)
         ])
     }
     
@@ -220,6 +272,26 @@ final class MyInfoView: UIView {
         myStarStackView.isUserInteractionEnabled = true
     }
     
+    func startIndicator() {
+        myPlaceCountLabel.textColor = .gray7
+        myReviewCountLabel.textColor = .gray7
+        myStarCountLabel.textColor = .gray7
+        
+        myPlaceIndicatorView.isHidden = false
+        myReviewIndicatorView.isHidden = false
+        myStarIndicatorView.isHidden = false
+    }
+    
+    func endIndicator() {
+        myPlaceCountLabel.textColor = .gray0
+        myReviewCountLabel.textColor = .gray0
+        myStarCountLabel.textColor = .gray0
+        
+        myPlaceIndicatorView.isHidden = true
+        myReviewIndicatorView.isHidden = true
+        myStarIndicatorView.isHidden = true
+    }
+    
     @objc private func stackViewTapped(_ gesture: UITapGestureRecognizer) {
         guard let stackView = gesture.view as? UIStackView else { return }
         
@@ -235,16 +307,15 @@ final class MyInfoView: UIView {
         }
     }
     
-    // TODO: DataBinding 설계 시 삭제 예정
     func updateMyPlace(_ place: String) {
-        myPlaceButton.setTitle("\(place)개", for: .normal)
+        myPlaceCountLabel.text = "\(place)개"
     }
     
     func updateMyReview(_ review: String) {
-        myReviewButton.setTitle("\(review)개", for: .normal)
+        myReviewCountLabel.text = "\(review)개"
     }
     
     func updateMyStar(_ star: String) {
-        myStarButton.setTitle("\(star)개", for: .normal)
+        myStarCountLabel.text = "\(star)개"
     }
 }

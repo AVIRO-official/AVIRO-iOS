@@ -9,20 +9,6 @@ import UIKit
 
 import RxSwift
 import RxCocoa
-import RxDataSources
-
-struct BookmarkSection {
-    var items: [Item]
-}
-
-extension BookmarkSection: SectionModelType {
-    typealias Item = MyBookmarkCellModel
-
-    init(original: BookmarkSection, items: [Item]) {
-        self = original
-        self.items = items
-    }
-}
 
 final class MyBookmarkListViewController: UIViewController {
     weak var tabBarDelegate: TabBarDelegate?
@@ -31,6 +17,7 @@ final class MyBookmarkListViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     private let starButtonTapped = PublishSubject<Int>()
+    private let selectedBookmark = PublishSubject<Int>()
     
     private lazy var bookmarkTableView: UITableView = {
         let view = UITableView()
@@ -139,18 +126,24 @@ final class MyBookmarkListViewController: UIViewController {
             .map { _ in }
             .asDriver(onErrorDriveWith: .empty())
         
+        let viewWillDisAppearTrigger = self.rx.viewWillDisAppear
+            .map { _ in }
+            .asDriver(onErrorDriveWith: .empty())
+        
         let input = MyBookmarkListViewModel.Input(
-            whenViewDidLoad: viewDidLoadTrigger,
-            whenBookmarkChangedState: starButtonTapped.asDriver(onErrorJustReturn: 0)
+            viewDidLoadTrigger: viewDidLoadTrigger,
+            viewWillDisAppearTrigger: viewWillDisAppearTrigger,
+            bookmarkStateChangeIndex: starButtonTapped.asDriver(onErrorJustReturn: 0),
+            selectedBookmarkIndex: selectedBookmark.asDriver(onErrorJustReturn: 0)
         )
         
         let output = viewModel.transform(with: input)
         
-        output.whenLoadBookmarks
+        output.hasBookmarks
             .drive()
             .disposed(by: disposeBag)
         
-        output.loadBookmarks
+        output.bookmarksData
             .drive(
                 bookmarkTableView.rx.items(
                     cellIdentifier: MyBookmarkListTableViewCell.identifier,
@@ -162,19 +155,36 @@ final class MyBookmarkListViewController: UIViewController {
                     self?.starButtonTapped.onNext(row)
                 }
                 
+                cell.onTouchRelease = { [weak self] in
+                    self?.selectedBookmark.onNext(row)
+                }
+                
                 cell.selectionStyle = .none
             }
             .disposed(by: disposeBag)
         
-        output.onErrorEvent
+        output.bookmarkLoadError
             .drive()
             .disposed(by: disposeBag)
         
-        output.numberOfBookmarks
+        output.countOfStarredBookmarks
             .drive(self.rx.setFirstViewState)
             .disposed(by: disposeBag)
         
-        output.whenUpdateBookmarks
+        output.bookmarkUpdateComplete
+            .drive()
+            .disposed(by: disposeBag)
+        
+        output.selectedBookmark
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    self.tabBarDelegate?.selectedIndex = 0
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        output.deletedBookmarks
             .drive()
             .disposed(by: disposeBag)
     }

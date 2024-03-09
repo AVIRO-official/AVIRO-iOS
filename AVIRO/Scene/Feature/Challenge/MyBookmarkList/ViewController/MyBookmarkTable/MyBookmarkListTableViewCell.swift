@@ -118,7 +118,8 @@ final class MyBookmarkListTableViewCell: UITableViewCell {
     }()
     
     var onStarButtonTapped: (() -> Void)?
-    
+    var onTouchRelease: (() -> Void)?
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -128,6 +129,32 @@ final class MyBookmarkListTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+
+        self.animateTouchResponse(isTouchDown: true)
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+
+        // 애니메이션 진행 중일 경우 완료 후 onTouchRelease 호출
+        if self.isAnimating {
+            self.animateTouchResponse(isTouchDown: false) { [weak self] in
+                self?.onTouchRelease?()
+            }
+        } else {
+            animateTouchResponse(isTouchDown: false)
+            onTouchRelease?()
+        }
+    }
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+
+        self.animateTouchResponse(isTouchDown: false)
     }
     
     override func prepareForReuse() {

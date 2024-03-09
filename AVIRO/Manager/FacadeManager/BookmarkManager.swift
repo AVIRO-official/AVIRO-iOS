@@ -11,8 +11,8 @@ protocol BookmarkFacadeProtocol {
     func fetchAllData(completionHandler: @escaping ((String) -> Void))
     func loadAllData() -> [String]
     func checkData(with placeId: String) -> Bool
-    func updateData(with placeId: String, completionHandler: @escaping ((String) -> Void))
-    func deleteData(with placeId: String, completionHandler: @escaping ((String) -> Void))
+    func updateData(with placeId: [String], completionHandler: @escaping ((String) -> Void))
+    func deleteData(with placeId: [String], completionHandler: @escaping ((String) -> Void))
     func deleteAllData()
 }
 
@@ -63,35 +63,35 @@ final class BookmarkFacadeManager: BookmarkFacadeProtocol {
     }
     
     func updateData(
-        with placeId: String,
+        with placeId: [String],
         completionHandler: @escaping ((String) -> Void)
     ) {
-        self.bookmarkArray.updateData(with: placeId)
-        self.updateBookmark(
-            with: placeId,
-            completionHandler: completionHandler
-        )
+        self.bookmarkArray.updateData(with: placeId) { [weak self] in
+            self?.updateBookmark(
+                completionHandler: completionHandler
+            )
+        }
     }
     
     func deleteData(
-        with placeId: String,
+        with placeId: [String],
         completionHandler: @escaping ((String) -> Void)
     ) {
-        self.bookmarkArray.deleteData(with: placeId)
-        self.updateBookmark(
-            with: placeId,
-            completionHandler: completionHandler
-        )
+        self.bookmarkArray.deleteData(with: placeId) { [weak self] in
+            self?.updateBookmark(
+                completionHandler: completionHandler
+            )
+        }
     }
     
-    private func updateBookmark(with placeId: String, completionHandler: @escaping ((String) -> Void)) {
+    private func updateBookmark(completionHandler: @escaping ((String) -> Void)) {
         let bookmarks = bookmarkArray.loadAllData()
         
         let postModel = AVIROUpdateBookmarkDTO(
             placeList: bookmarks,
             userId: MyData.my.id
         )
-        
+                
         AVIROAPI.manager.createBookmarkModel(with: postModel) { result in
             switch result {
             case .success(let success):
