@@ -11,14 +11,17 @@ import RxSwift
 import RxCocoa
 
 final class MyBookmarkListViewController: UIViewController {
+    // MARK: - Property
     weak var tabBarDelegate: TabBarSettingDelegate?
     
     private var viewModel: MyBookmarkListViewModel!
     private let disposeBag = DisposeBag()
     
+    // MARK: - Stream Property
     private let starButtonTapped = PublishSubject<Int>()
     private let selectedBookmark = PublishSubject<Int>()
     
+    // MARK: - UI Component
     private lazy var bookmarkTableView: UITableView = {
         let view = UITableView()
         
@@ -48,6 +51,7 @@ final class MyBookmarkListViewController: UIViewController {
         let view = UIImageView()
         
         view.image = .enrollCharacter
+        view.isHidden = true
         
         return view
     }()
@@ -60,6 +64,7 @@ final class MyBookmarkListViewController: UIViewController {
         lbl.font = .pretendard(size: 14, weight: .medium)
         lbl.textAlignment = .center
         lbl.numberOfLines = 2
+        lbl.isHidden = true
         
         return lbl
     }()
@@ -68,10 +73,12 @@ final class MyBookmarkListViewController: UIViewController {
         let btn = NoListButton()
         
         btn.setButton("홈으로 이동하기", .btn_home)
+        btn.isHidden = true
         
         return btn
     }()
 
+    // MARK: - Create
     static func create(with viewModel: MyBookmarkListViewModel) -> MyBookmarkListViewController {
         let vc = MyBookmarkListViewController()
         
@@ -81,6 +88,7 @@ final class MyBookmarkListViewController: UIViewController {
         return vc
     }
     
+    // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -88,12 +96,7 @@ final class MyBookmarkListViewController: UIViewController {
         setupAttribute()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        self.tabBarDelegate?.isHidden = (false, true)
-    }
-    
+    // MARK: - Setup Method
     private func setupLayout() {
         [
             bookmarkTableView,
@@ -118,7 +121,9 @@ final class MyBookmarkListViewController: UIViewController {
             noPlaceSubLabel.centerXAnchor.constraint(equalTo: berryImage.centerXAnchor),
             
             noPlaceButton.topAnchor.constraint(equalTo: noPlaceSubLabel.bottomAnchor, constant: 20),
-            noPlaceButton.centerXAnchor.constraint(equalTo: berryImage.centerXAnchor)
+            noPlaceButton.centerXAnchor.constraint(equalTo: berryImage.centerXAnchor),
+            noPlaceButton.widthAnchor.constraint(equalToConstant: 172),
+            noPlaceButton.heightAnchor.constraint(equalToConstant: 48)
         ])
     }
     
@@ -147,20 +152,27 @@ final class MyBookmarkListViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    // MARK: - DataBinding Method
     private func dataBinding() {
         let viewDidLoadTrigger = self.rx.viewDidLoad
             .map { _ in }
             .asDriver(onErrorDriveWith: .empty())
         
         let viewWillDisAppearTrigger = self.rx.viewWillDisAppear
+            .do(onNext: { [weak self] _ in
+                self?.tabBarDelegate?.isHidden = (false, true)
+            })
             .map { _ in }
             .asDriver(onErrorDriveWith: .empty())
+        
+        let bookmarkStateChangeIndex = starButtonTapped.asDriver(onErrorJustReturn: 0)
+        let selectedBookmarkIndex = selectedBookmark.asDriver(onErrorJustReturn: 0)
         
         let input = MyBookmarkListViewModel.Input(
             viewDidLoadTrigger: viewDidLoadTrigger,
             viewWillDisAppearTrigger: viewWillDisAppearTrigger,
-            bookmarkStateChangeIndex: starButtonTapped.asDriver(onErrorJustReturn: 0),
-            selectedBookmarkIndex: selectedBookmark.asDriver(onErrorJustReturn: 0)
+            bookmarkStateChangeIndex: bookmarkStateChangeIndex,
+            selectedBookmarkIndex: selectedBookmarkIndex
         )
         
         let output = viewModel.transform(with: input)
@@ -193,26 +205,16 @@ final class MyBookmarkListViewController: UIViewController {
             .drive()
             .disposed(by: disposeBag)
         
-        output.countOfStarredBookmarks
+        output.numberOfStarredBookmarks
             .drive(self.rx.setTableHeaderView)
             .disposed(by: disposeBag)
         
-        output.bookmarkUpdateComplete
+        output.updatedBookmarks
             .drive()
             .disposed(by: disposeBag)
         
         output.selectedBookmark
-            .drive(onNext: { [weak self] placeId in
-                guard let self = self else { return }
-                // 시간차 이동을 위한 async After
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                    self.tabBarDelegate?.setSelectedIndex(
-                        0,
-                        withKey: TabBarKeys.placeId,
-                        value: placeId
-                    )
-                }
-            })
+            .drive(self.rx.whenDidTappedCell)
             .disposed(by: disposeBag)
         
         output.deletedBookmarks
@@ -220,6 +222,7 @@ final class MyBookmarkListViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    // MARK: - Data Binding Setting Method
     internal func bindingWhenViewDidLoad(with isHiddenTableView: Bool) {
         bookmarkTableView.isHidden = !isHiddenTableView
         
@@ -230,11 +233,9 @@ final class MyBookmarkListViewController: UIViewController {
     
     internal func bindingTableHeaderView(with count: Int) {
         guard bookmarkTableView.tableHeaderView != nil else {
-            Driver.just(self.makeTableHeaderView(with: count))
-                .drive(onNext: { [weak self] headerView in
-                    self?.bookmarkTableView.tableHeaderView = headerView
-                })
-                .disposed(by: disposeBag)
+            let headerView = makeTableHeaderView(with: count)
+            
+            bookmarkTableView.tableHeaderView = headerView
             
             return
         }
@@ -283,6 +284,16 @@ final class MyBookmarkListViewController: UIViewController {
         }
     }
     
+    internal func bookmarkCellDidTapped(with placeId: String) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
+            self?.tabBarDelegate?.setSelectedIndex(
+                0,
+                withKey: TabBarKeys.placeId,
+                value: placeId
+            )
+        }
+    }
+    
     internal func noPlaceButtonTapped() {
         noPlaceButton.animateTouchResponse(isTouchDown: true) { [weak self] in
             self?.noPlaceButton.animateTouchResponse(isTouchDown: false) {
@@ -310,6 +321,12 @@ extension Reactive where Base: MyBookmarkListViewController {
     var whenDidScrollTableView: Binder<Void> {
         return Binder(self.base) { base, _ in
             base.adjustHeaderInset()
+        }
+    }
+    
+    var whenDidTappedCell: Binder<String> {
+        return Binder(self.base) { base, result in
+            base.bookmarkCellDidTapped(with: result)
         }
     }
     

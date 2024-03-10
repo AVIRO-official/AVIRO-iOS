@@ -24,11 +24,6 @@ final class NoListButton: UIButton {
         layer.borderWidth = 2
         self.backgroundColor = .gray7
         self.clipsToBounds = true
-        
-        NSLayoutConstraint.activate([
-            self.widthAnchor.constraint(equalToConstant: 172),
-            self.heightAnchor.constraint(equalToConstant: 48)
-        ])
     }
     
     func setButton(_ title: String,

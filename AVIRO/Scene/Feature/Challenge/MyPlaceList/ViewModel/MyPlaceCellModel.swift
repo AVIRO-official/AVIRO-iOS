@@ -10,7 +10,8 @@
 import Foundation
 
 struct MyPlaceCellModel {
-    var category: CategoryType
+    let placeId: String
+    let category: CategoryType
     let veganType: VeganType
     let title: String
     let address: String
@@ -19,6 +20,8 @@ struct MyPlaceCellModel {
     let createdBefore: String
     
     init(with model: AVIROMyPlaceDataDTO) {
+        self.placeId = model.placeId
+        
         self.category = CategoryType(with: model.category) ?? .Restaurant
         
         if model.allVegan {
