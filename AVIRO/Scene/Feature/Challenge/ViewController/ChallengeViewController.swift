@@ -17,7 +17,7 @@ enum MyInfoType {
 }
 
 final class ChallengeViewController: UIViewController {
-    weak var tabBarDelegate: TabBarDelegate?
+    weak var tabBarDelegate: TabBarSettingDelegate?
     
     private var viewModel: ChallengeViewModel!
     private let disposeBag = DisposeBag()
@@ -63,6 +63,10 @@ final class ChallengeViewController: UIViewController {
         setupLayout()
         setupAttribute()
         dataBinding()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     private func setupLayout() {
@@ -172,11 +176,13 @@ final class ChallengeViewController: UIViewController {
     }
     
     private func dataBinding() {
-        let viewWillAppearTrigger = self.rx.viewWillAppear.map { _ in }.asDriver(onErrorDriveWith: .empty())
+        let viewWillAppearTrigger = self.rx.viewWillAppear.map { _ in }
             .do { [weak self] _ in
-                self?.challengeUserInfoView.isStartIndicator()
+                self?.challengeUserInfoView.startIndicator()
+                self?.myInfoView.startIndicator()
             }
-        
+            .asDriver(onErrorDriveWith: .empty())
+
         let refeshControlEvent = refreshControl.rx.controlEvent(.valueChanged).asDriver()
         
         let tappedNavigationBarRightButton = navigationItem.rightBarButtonItem?.rx.tap.asDriver() ?? .empty()
@@ -228,7 +234,7 @@ final class ChallengeViewController: UIViewController {
     }
     
     func bindMyChallengeLevel(with result: AVIROMyChallengeLevelDataDTO) {
-        challengeUserInfoView.isEndIndicator()
+        challengeUserInfoView.endIndicator()
         challengeUserInfoView.bindData(with: result)
         
         endRefeshControl()
@@ -238,7 +244,8 @@ final class ChallengeViewController: UIViewController {
         let placeCount = String(result.data?.placeCount ?? 0)
         let reviewCount = String(result.data?.commentCount ?? 0)
         let starCount = String(result.data?.bookmarkCount ?? 0)
-        
+                
+        myInfoView.endIndicator()
         myInfoView.updateMyPlace(placeCount)
         myInfoView.updateMyReview(reviewCount)
         myInfoView.updateMyStar(starCount)
@@ -292,7 +299,10 @@ final class ChallengeViewController: UIViewController {
 
             navigationController?.pushViewController(vc, animated: true)
         case .bookmark:
-            let viewModel = MyBookmarkListViewModel()
+            let viewModel = MyBookmarkListViewModel(
+                challengeViewModelProtocol: self.viewModel,
+                bookmarkManager: BookmarkFacadeManager()
+            )
             let vc = MyBookmarkListViewController.create(with: viewModel)
             vc.tabBarDelegate = self.tabBarDelegate
 

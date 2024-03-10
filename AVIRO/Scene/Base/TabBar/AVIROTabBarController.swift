@@ -7,66 +7,8 @@
 
 import UIKit
 
-enum TabBarType: CaseIterable {
-    case home
-    case plus
-    case challenge
-    
-    init?(title: String) {
-        switch title {
-        case "홈":
-            self = .home
-        case "등록하기":
-            self = .plus
-        case "챌린지":
-            self = .challenge
-        default:
-            return nil
-        }
-    }
-    
-    var title: String {
-        switch self {
-        case .home: return "홈"
-        case .plus: return "등록하기"
-        case .challenge: return "챌린지"
-        }
-    }
-    
-    var normalColor: UIColor {
-        switch self {
-        case .home: return .gray4
-        case .plus: return .gray4
-        case .challenge: return .gray4
-        }
-    }
-    
-    var selectedColor: UIColor {
-        switch self {
-        case .home: return .keywordBlue
-        case .plus: return .keywordBlue
-        case .challenge: return .keywordBlue
-        }
-    }
-    
-    var icon: UIImage {
-        switch self {
-        case .home: return UIImage.homeTab
-        case .plus: return UIImage.plusTab
-        case .challenge: return UIImage.tropyTab
-        }
-    }
-}
-
-protocol TabBarDelegate: AnyObject {
-    var selectedIndex: Int { get set }
-    var isHidden: (isHidden: Bool, isSameNavi: Bool) { get set }
-    
-    func activeBlurEffectView(with active: Bool)
-}
-
-final class AVIROTabBarController: UIViewController, TabBarDelegate {
-    private lazy var viewControllers: [UIViewController] = []
+final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
+    private lazy var viewControllers: [UINavigationController] = []
     
     private lazy var buttons: [TabBarButton] = []
     private var types: [TabBarType] = []
@@ -267,9 +209,12 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
     private func deleteView() {
         let previousVC = viewControllers[previousIndex]
         
+        /// remove -> clearNavigationStackExceptRoot 순으로 진행해야
+        /// child view들의 lifeCycle 함수들이 정상적으로 호출됨
         previousVC.remove()
+        previousVC.clearNavigationStackExceptRoot()
     }
-    
+
     private func setupView() {
         let selectedVC = viewControllers[selectedIndex]
         
@@ -363,6 +308,20 @@ final class AVIROTabBarController: UIViewController, TabBarDelegate {
                 button.transform = CGAffineTransform.identity
             }
         })
+    }
+    
+    func setSelectedIndex(
+        _ index: Int,
+        withKey key: String?,
+        value: String?
+    ) {
+        self.selectedIndex = index
+        
+        weak var delegate = viewControllers[index].topViewController as? TabBarInteractionDelegate
+        
+        if let key = key, let delegate = delegate {
+            delegate.handleTabBarInteraction(withKey: key, value: value)
+        }
     }
     
     func activeBlurEffectView(with active: Bool) {

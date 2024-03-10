@@ -12,7 +12,7 @@ private enum Text: String {
 }
 
 final class EditMenuViewController: UIViewController {
-    weak var tabBarDelegate: TabBarDelegate?
+    weak var tabBarDelegate: TabBarSettingDelegate?
     lazy var presenter = EditMenuPresenter(viewController: self)
     
     private lazy var editMenuTopView = EditMenuTopView()

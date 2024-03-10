@@ -67,7 +67,7 @@ private enum Layout {
 }
 
 final class HomeViewController: UIViewController {
-    weak var tabBarDelegate: TabBarDelegate?
+    weak var tabBarDelegate: TabBarSettingDelegate?
     
     lazy var presenter = HomeViewPresenter(viewController: self)
         
@@ -1076,120 +1076,6 @@ extension HomeViewController {
     }
 }
 
-// MARK: TapGestureDelegate
-extension HomeViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(
-        _ gestureRecognizer: UIGestureRecognizer,
-        shouldReceive touch: UITouch
-    ) -> Bool {
-        if touch.view is PushCommentView || touch.view is UITextView || touch.view is UIButton {
-            return false
-        }
-        
-        view.endEditing(true)
-        return true
-    }
-}
-
-// MARK: UITextFieldDelegate
-extension HomeViewController: UITextFieldDelegate {
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        guard let textField = textField as? MainField else { return false }
-        animateTextFieldExpansion(textField: textField)
-        return false
-    }
-    
-    private func animateTextFieldExpansion(textField: MainField) {
-        textField.placeholder = ""
-        textField.text = ""
-        textField.isActiveFranchiseToggleButton = false
-        textField.leftView?.isHidden = true
-        
-        let startingFrame = textField.convert(textField.bounds, to: nil)
-        
-        textField.activeExpansion(from: startingFrame, to: self.view) { [weak self] in
-            let vc = HomeSearchViewController()
-            
-            let presenter = HomeSearchPresenter(viewController: vc)
-            
-            vc.presenter = presenter
-            vc.tabBarDelegate = self?.tabBarDelegate
-            
-            presenter.selectedPlace = { [weak self] place in
-                self?.changedSearchField(with: place)
-            }
-            
-            self?.tabBarDelegate?.isHidden = (true, true)
-            self?.navigationController?.pushViewController(vc, animated: false)
-            
-            textField.leftView?.isHidden = false
-            
-            if self?.selectedCategoriesPlaceHolder.isEmpty ?? false {
-                textField.placeholder = Text.searchPlaceHolder.rawValue
-            } else {
-                textField.placeholder = self?.selectedCategoriesPlaceHolder.joined(separator: ", ")
-            }
-        }
-    }
-    
-    private func changedSearchField(with place: String) {
-        searchTextField.text = place
-        searchTextField.isActiveFranchiseToggleButton = true
-    }
-    
-    private func afterSearchFieldInit() {
-        searchTextField.text = ""
-        searchTextField.isActiveFranchiseToggleButton = true
-        
-        if selectedCategoriesPlaceHolder.isEmpty {
-            searchTextField.placeholder = Text.searchPlaceHolder.rawValue
-        } else {
-            searchTextField.placeholder = selectedCategoriesPlaceHolder.joined(separator: ", ")
-        }
-    }
-}
-
-// MARK: NMFMapViewCameraDelegate
-extension HomeViewController: NMFMapViewCameraDelegate {
-    func mapView(
-        _ mapView: NMFMapView,
-        cameraDidChangeByReason reason: Int,
-        animated: Bool
-    ) {
-        /// 검색 기준을 잡기 위한 지도 중심 좌표 저장 메소드
-        saveCenterCoordinate()
-    }
-    
-    private func saveCenterCoordinate() {
-        let center = naverMapView.cameraPosition.target
-        
-        presenter.saveCenterCoordinate(center)
-    }
-    
-    func mapView(
-        _ mapView: NMFMapView,
-        cameraWillChangeByReason reason: Int,
-        animated: Bool
-    ) {
-        if placeView.placeViewStated == .noShow {
-            afterSearchFieldInit()
-        }
-    }
-    
-}
-
-// MARK: NMFMapViewTouchDelegate
-extension HomeViewController: NMFMapViewTouchDelegate {
-    func mapView(
-        _ mapView: NMFMapView,
-        didTapMap latlng: NMGLatLng,
-        point: CGPoint
-    ) {
-        whenClosedPlaceView()
-        isSlideUpView = false
-    }
-}
-
 // MARK: AfterHomeViewControllerProtocol
 extension HomeViewController: AfterHomeViewControllerProtocol {
     func showRecommendPlaceAlert(with model: (AfterWriteReviewModel, Bool)) {
@@ -1277,6 +1163,131 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
     }
 }
 
+// MARK: TabBarInteractionDelegate
+extension HomeViewController: TabBarInteractionDelegate {
+    func handleTabBarInteraction(withKey key: String?, value: String?) {
+        // MARK: placeId From My Place, BookmarkList
+        if key == TabBarKeys.placeId, let placeId = value {
+            presenter.checkPlaceIdTest(with: placeId)
+        }
+    }
+}
+
+// MARK: TapGestureDelegate
+extension HomeViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldReceive touch: UITouch
+    ) -> Bool {
+        if touch.view is PushCommentView || touch.view is UITextView || touch.view is UIButton {
+            return false
+        }
+        
+        view.endEditing(true)
+        return true
+    }
+}
+
+// MARK: UITextFieldDelegate
+extension HomeViewController: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        guard let textField = textField as? MainField else { return false }
+        animateTextFieldExpansion(textField: textField)
+        return false
+    }
+    
+    private func animateTextFieldExpansion(textField: MainField) {
+        textField.placeholder = ""
+        textField.text = ""
+//        textField.isActiveFranchiseToggleButton = false
+        textField.leftView?.isHidden = true
+        
+        let startingFrame = textField.convert(textField.bounds, to: nil)
+        
+        textField.activeExpansion(from: startingFrame, to: self.view) { [weak self] in
+            let vc = HomeSearchViewController()
+            
+            let presenter = HomeSearchPresenter(viewController: vc)
+            
+            vc.presenter = presenter
+            vc.tabBarDelegate = self?.tabBarDelegate
+            
+            presenter.selectedPlace = { [weak self] place in
+                self?.changedSearchField(with: place)
+            }
+            
+            self?.tabBarDelegate?.isHidden = (true, true)
+            self?.navigationController?.pushViewController(vc, animated: false)
+            
+            textField.leftView?.isHidden = false
+            
+            if self?.selectedCategoriesPlaceHolder.isEmpty ?? false {
+                textField.placeholder = Text.searchPlaceHolder.rawValue
+            } else {
+                textField.placeholder = self?.selectedCategoriesPlaceHolder.joined(separator: ", ")
+            }
+        }
+    }
+    
+    private func changedSearchField(with place: String) {
+        searchTextField.text = place
+//        searchTextField.isActiveFranchiseToggleButton = true
+    }
+    
+    private func afterSearchFieldInit() {
+        searchTextField.text = ""
+//        searchTextField.isActiveFranchiseToggleButton = true
+        
+        if selectedCategoriesPlaceHolder.isEmpty {
+            searchTextField.placeholder = Text.searchPlaceHolder.rawValue
+        } else {
+            searchTextField.placeholder = selectedCategoriesPlaceHolder.joined(separator: ", ")
+        }
+    }
+}
+
+// MARK: NMFMapViewCameraDelegate
+extension HomeViewController: NMFMapViewCameraDelegate {
+    func mapView(
+        _ mapView: NMFMapView,
+        cameraDidChangeByReason reason: Int,
+        animated: Bool
+    ) {
+        /// 검색 기준을 잡기 위한 지도 중심 좌표 저장 메소드
+        saveCenterCoordinate()
+    }
+    
+    private func saveCenterCoordinate() {
+        let center = naverMapView.cameraPosition.target
+        
+        presenter.saveCenterCoordinate(center)
+    }
+    
+    func mapView(
+        _ mapView: NMFMapView,
+        cameraWillChangeByReason reason: Int,
+        animated: Bool
+    ) {
+        if placeView.placeViewStated == .noShow {
+            afterSearchFieldInit()
+        }
+    }
+    
+}
+
+// MARK: NMFMapViewTouchDelegate
+extension HomeViewController: NMFMapViewTouchDelegate {
+    func mapView(
+        _ mapView: NMFMapView,
+        didTapMap latlng: NMGLatLng,
+        point: CGPoint
+    ) {
+        whenClosedPlaceView()
+        isSlideUpView = false
+    }
+}
+
+// MARK: UICollectionViewDelegateFlowLayout
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
@@ -1308,12 +1319,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension HomeViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
-    }
-}
-
+// MARK: UICollectionViewDataSource
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(
         _ collectionView: UICollectionView,

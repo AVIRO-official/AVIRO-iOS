@@ -9,7 +9,7 @@ import UIKit
 
 final class MyBookmarkListTableViewCell: UITableViewCell {
     static let identifier = MyBookmarkListTableViewCell.description()
-    
+        
     private lazy var iconImageView: UIImageView = {
         let view = UIImageView()
         
@@ -117,6 +117,9 @@ final class MyBookmarkListTableViewCell: UITableViewCell {
         return view
     }()
     
+    var onStarButtonTapped: (() -> Void)?
+    var onTouchRelease: (() -> Void)?
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -126,6 +129,32 @@ final class MyBookmarkListTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+
+        self.animateTouchResponse(isTouchDown: true)
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+
+        // 애니메이션 진행 중일 경우 완료 후 onTouchRelease 호출
+        if self.isAnimating {
+            self.animateTouchResponse(isTouchDown: false) { [weak self] in
+                self?.onTouchRelease?()
+            }
+        } else {
+            animateTouchResponse(isTouchDown: false)
+            onTouchRelease?()
+        }
+    }
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+
+        self.animateTouchResponse(isTouchDown: false)
     }
     
     override func prepareForReuse() {
@@ -232,20 +261,64 @@ final class MyBookmarkListTableViewCell: UITableViewCell {
     // TODO: - 변경 예정
     @objc private func tappedStarButton(_ sender: UIButton) {
         starButton.isSelected.toggle()
+        
+        onStarButtonTapped?()
     }
     
     // TODO: - 변경 예정
     func configuration(with model: MyBookmarkCellModel) {
-        iconImageView.image = .allBoxBar
+        switch model.veganType {
+        case .All:
+            switch model.category {
+            case .Bar:
+                iconImageView.image = .allBoxBar
+            case .Bread:
+                iconImageView.image = .allBoxBread
+            case .Coffee:
+                iconImageView.image = .allBoxCoffee
+            case .Restaurant:
+                iconImageView.image = .allBoxRestaurant
+            }
+            categoryLabel.backgroundColor = .all
+
+        case .Some:
+            switch model.category {
+            case .Bar:
+                iconImageView.image = .someBoxBar
+            case .Bread:
+                iconImageView.image = .someBoxBread
+            case .Coffee:
+                iconImageView.image = .someBoxCoffee
+            case .Restaurant:
+                iconImageView.image = .someBoxRestaurant
+            }
+            categoryLabel.backgroundColor = .some
+
+        case .Request:
+            switch model.category {
+            case .Bar:
+                iconImageView.image = .requestBoxBar
+            case .Bread:
+                iconImageView.image = .requestBoxBread
+            case .Coffee:
+                iconImageView.image = .requestBoxCoffee
+            case .Restaurant:
+                iconImageView.image = .requestBoxRestaurant
+            }
+            categoryLabel.backgroundColor = .request
+        }
+        
         categoryLabel.text = model.category.title
-        categoryLabel.backgroundColor = .all
-        
+
         titleLabel.text = model.title
-        starButton.isSelected = model.isStar
         addressLabel.text = model.address
-        
         menuLabel.text = model.menu
-        menuCountLabel.text = "외 " + model.menuCount + "개 메뉴"
-        enrollTimeLabel.text = model.time
+        
+        if model.menuCount > 0 {
+            menuCountLabel.text = "외 " + String(model.menuCount) + "개 메뉴"
+        }
+        
+        enrollTimeLabel.text = model.createdBefore
+        starButton.isSelected = model.isStar
     }
 }

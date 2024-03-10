@@ -9,7 +9,7 @@ import Foundation
 
 struct AVIROMyBookmarkListDTO: Decodable {
     let statusCode: Int
-    let data: AVIROMyPlaceListDataDTO?
+    let data: AVIROMyBookmarkListDataDTO?
     let message: String?
 }
 
@@ -30,4 +30,8 @@ struct AVIROMyBookmarkDataDTO: Decodable {
     /// '외 n개 메뉴'
     let menuCountExceptOne: Int
     let createdBefore: String
+    
+    func toDomain() -> MyBookmarkCellModel {
+        MyBookmarkCellModel(with: self)
+    }
 }

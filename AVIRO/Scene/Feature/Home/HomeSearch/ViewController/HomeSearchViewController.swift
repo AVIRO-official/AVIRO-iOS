@@ -17,7 +17,7 @@ private enum Text: String {
 
 final class HomeSearchViewController: UIViewController {
     lazy var presenter = HomeSearchPresenter(viewController: self)
-    weak var tabBarDelegate: TabBarDelegate?
+    weak var tabBarDelegate: TabBarSettingDelegate?
     
     // MARK: UI Property Definitions
     private lazy var searchField: SearchField = {

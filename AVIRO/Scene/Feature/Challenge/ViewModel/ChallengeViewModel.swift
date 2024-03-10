@@ -11,8 +11,14 @@ import RxCocoa
 // TODO: DTO -> Domain으로 변경 필요
 // Clean Architecture 적용 시 수정
 
-final class ChallengeViewModel: ViewModel {
+protocol ChallengeViewModelProtocol: AnyObject {
+    var whenUpdateBookmarkList: Bool { get set }
+}
+
+final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
     var challengeTitle: String = ""
+    
+    var whenUpdateBookmarkList = false
     
     struct Input {
         let whenViewWillAppear: Driver<Void>
@@ -69,7 +75,6 @@ final class ChallengeViewModel: ViewModel {
                 guard let self = self else {
                     return Driver<AVIROMyContributionCountDTO>.empty()
                 }
-                
                 return self.loadMyContributedCountAPI(userId: MyData.my.id)
                     .asDriver(onErrorRecover: { error in
                         myContributionCountError.onNext(error)
@@ -97,20 +102,33 @@ final class ChallengeViewModel: ViewModel {
         )
     }
     
+    /// 개선 필요
     private func loadMyContributedCountAPI(userId: String) -> Single<AVIROMyContributionCountDTO> {
-        return Single.create { single in
-            AVIROAPI.manager.loadMyContributedCount(with: userId) { result in
-                switch result {
-                case .success(let data):
-                    single(.success(data))
-                case .failure(let error):
-                    single(.failure(error))
+        return Single.create { [weak self] single in
+            guard let self = self else { return Disposables.create() }
+            
+            func makeApiCall() {
+                AVIROAPI.manager.loadMyContributedCount(with: userId) { result in
+                    switch result {
+                    case .success(let data):
+                        single(.success(data))
+                    case .failure(let error):
+                        single(.failure(error))
+                    }
                 }
             }
-            return Disposables.create()
+            
+            if self.whenUpdateBookmarkList {
+                self.whenUpdateBookmarkList.toggle()
+                DispatchQueue.global().asyncAfter(deadline: .now() + 0.8, execute: makeApiCall)
+            } else {
+                makeApiCall()
+            }
+            
+            return Disposables.create()      
         }
     }
-
+    
     private func loadChallengeInfoAPI() -> Single<AVIROChallengeInfoDataDTO> {
         return Single.create { single in
             AVIROAPI.manager.loadChallengeInfo { result in

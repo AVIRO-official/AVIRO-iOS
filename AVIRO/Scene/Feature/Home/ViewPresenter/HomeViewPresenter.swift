@@ -111,8 +111,6 @@ final class HomeViewPresenter: NSObject {
     // TODO: - 문서화 & 리팩토링 필요
     var whenUpdateType = ("", false) {
         didSet {
-            print(whenUpdateType)
-            
             if whenUpdateType.0 == "취소" {
                 for index in 1..<categoryType.count {
                     categoryType[index].1 = false
@@ -563,6 +561,26 @@ final class HomeViewPresenter: NSObject {
         }
     }
     
+    // MARK: PlaceId로 marker 확인
+    func checkPlaceIdTest(with placeId: String) {
+        let (markerModel, index) = markerModelManager.getMarkerModelFromPlaceId(with: placeId)
+        
+        guard let markerModel = markerModel else { return }
+        guard let index = index else { return }
+        
+        whenShowPlaceAfterActionFromChildViewController = true
+                                
+        selectedMarkerIndex = index
+        selectedMarkerModel = markerModel
+        selectedMarkerModel?.isClicked = true
+                    
+        hasTouchedMarkerBefore = true
+        
+        getPlaceSummaryModel(markerModel)
+
+        viewController?.moveToCameraWhenHasAVIRO(markerModel, zoomTo: 14)
+    }
+    
     // MARK: Bookmark Load Method
     func loadBookmark(_ isSelected: Bool) {
         isStarButtonSelected = isSelected
@@ -667,12 +685,14 @@ final class HomeViewPresenter: NSObject {
     func updateBookmark(_ isSelected: Bool) {
         guard let placeId = selectedPlaceId else { return }
         
+        let placeIds = [placeId]
+        
         if isSelected {
-            bookmarkManager.updateData(with: placeId) { [weak self] error in
+            bookmarkManager.updateData(with: placeIds) { [weak self] error in
                 self?.viewController?.showToastAlert(error)
             }
         } else {
-            bookmarkManager.deleteData(with: placeId) { [weak self] error in
+            bookmarkManager.deleteData(with: placeIds) { [weak self] error in
                 self?.viewController?.showToastAlert(error)
             }
         }

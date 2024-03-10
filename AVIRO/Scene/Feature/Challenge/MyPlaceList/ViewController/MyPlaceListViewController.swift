@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 final class MyPlaceListViewController: UIViewController {
-    weak var tabBarDelegate: TabBarDelegate?
+    weak var tabBarDelegate: TabBarSettingDelegate?
 
     private var viewModel: MyPlaceListViewModel!
     private let disposeBag = DisposeBag()
@@ -150,6 +150,7 @@ final class MyPlaceListViewController: UIViewController {
         output.numberOfPlaces
             .drive(self.rx.placeListCount)
             .disposed(by: disposeBag)
+        
     }
     
     internal func bindMyPlaceList(with models: [MyPlaceCellModel]) {

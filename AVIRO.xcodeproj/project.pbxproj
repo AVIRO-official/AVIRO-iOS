@@ -99,6 +99,7 @@
 		C5351B602A19F9A700116D50 /* PlaceListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B5F2A19F9A700116D50 /* PlaceListModel.swift */; };
 		C5351B622A1A083400116D50 /* PlaceListCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B612A1A083400116D50 /* PlaceListCellModel.swift */; };
 		C5351B7A2A1B439000116D50 /* KakaoCoordinateSearchDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B792A1B439000116D50 /* KakaoCoordinateSearchDTO.swift */; };
+		C53833652B9C7B6100ED6A50 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53833642B9C7B6100ED6A50 /* UINavigationController+Extension.swift */; };
 		C53856B12ABC13ED00D52DEC /* AVIROMyContributionCount+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53856B02ABC13ED00D52DEC /* AVIROMyContributionCount+DTO.swift */; };
 		C53893162A5EC0C500CB9A54 /* GenderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53893152A5EC0C500CB9A54 /* GenderButton.swift */; };
 		C53C54D22AD67E8800C3662A /* MarkerModelLocalDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53C54D12AD67E8800C3662A /* MarkerModelLocalDB.swift */; };
@@ -116,8 +117,8 @@
 		C5476B792B314F6F00F5FC6E /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B782B314F6F00F5FC6E /* LicensesViewController.swift */; };
 		C5476B7B2B31516000F5FC6E /* LicenseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B7A2B31516000F5FC6E /* LicenseDetailViewController.swift */; };
 		C547A8BA2A17D8D4004D1339 /* KakaoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C547A8B92A17D8D4004D1339 /* KakaoAPI.swift */; };
+		C549CDD82B9B538500CB6BF5 /* MyBookmarkCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C549CDD72B9B538500CB6BF5 /* MyBookmarkCellModel.swift */; };
 		C54B59172B95F3D000C0B190 /* MyBookmarkListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B59162B95F3D000C0B190 /* MyBookmarkListTableViewCell.swift */; };
-		C54B59192B95F3DA00C0B190 /* MyBookmarkCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B59182B95F3DA00C0B190 /* MyBookmarkCellModel.swift */; };
 		C54B591B2B95F61200C0B190 /* MyCommentCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B591A2B95F61200C0B190 /* MyCommentCellModel.swift */; };
 		C54B591D2B95F61F00C0B190 /* MyCommentListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B591C2B95F61F00C0B190 /* MyCommentListTableViewCell.swift */; };
 		C54B591F2B9606C500C0B190 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B591E2B9606C500C0B190 /* UITextView+Extension.swift */; };
@@ -162,7 +163,7 @@
 		C593B6472A4AB3A700D224CE /* PushCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C593B6462A4AB3A700D224CE /* PushCommentView.swift */; };
 		C593B64B2A4AEA9800D224CE /* AVIROReview+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C593B64A2A4AEA9800D224CE /* AVIROReview+DTO.swift */; };
 		C593B64F2A4C490600D224CE /* SettingViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C593B64E2A4C490600D224CE /* SettingViewPresenter.swift */; };
-		C59491D32AB0336100880B4B /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59491D22AB0336100880B4B /* UIView+Extension.swift */; };
+		C59491D32AB0336100880B4B /* UIView(Animation)+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59491D22AB0336100880B4B /* UIView(Animation)+Extension.swift */; };
 		C595ACCD2A84A1A200D35123 /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C595ACCC2A84A1A200D35123 /* PlaceView.swift */; };
 		C595ACD12A84A4EB00D35123 /* PlaceSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C595ACD02A84A4EB00D35123 /* PlaceSummaryView.swift */; };
 		C5A201B22A98502500A54381 /* TimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A201B12A98502500A54381 /* TimeUtility.swift */; };
@@ -206,6 +207,10 @@
 		C5C9619C2A8DB1D80016E2F8 /* MenuTypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C9619B2A8DB1D80016E2F8 /* MenuTypeLabel.swift */; };
 		C5C9619F2A8DEB230016E2F8 /* ReviewWriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C9619E2A8DEB230016E2F8 /* ReviewWriteButton.swift */; };
 		C5D36D2E2A76031E003328E8 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D36D2D2A76031E003328E8 /* Double+Extension.swift */; };
+		C5D3E15A2B9D887600DBB346 /* AVIROTabBarType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3E1592B9D887600DBB346 /* AVIROTabBarType.swift */; };
+		C5D3E15C2B9D88F200DBB346 /* AVIROTabBarInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3E15B2B9D88F200DBB346 /* AVIROTabBarInteractionDelegate.swift */; };
+		C5D3E15E2B9D890D00DBB346 /* AVIROTabBarSettingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3E15D2B9D890D00DBB346 /* AVIROTabBarSettingDelegate.swift */; };
+		C5D3E1602B9D942400DBB346 /* NoListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3E15F2B9D942400DBB346 /* NoListButton.swift */; };
 		C5D8026C2B3C67F300136D0E /* AfterHomeViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D8026B2B3C67F300136D0E /* AfterHomeViewControllerProtocol.swift */; };
 		C5D802702B3C6E4000136D0E /* RecommendPlaceAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D8026F2B3C6E4000136D0E /* RecommendPlaceAlertView.swift */; };
 		C5D802722B3C6E5E00136D0E /* LevelUpAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D802712B3C6E5E00136D0E /* LevelUpAlertView.swift */; };
@@ -231,7 +236,6 @@
 		C5E430B52A5DAE9800CB67EC /* SecondRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E430B42A5DAE9800CB67EC /* SecondRegistrationViewController.swift */; };
 		C5E7B7A92A4D3CDF00CA2090 /* AVIROUser+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7B7A82A4D3CDF00CA2090 /* AVIROUser+DTO.swift */; };
 		C5EB50EA2A1C705900B29CC1 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EB50E92A1C705900B29CC1 /* SettingViewController.swift */; };
-		C5EB50EC2A1C72C600B29CC1 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EB50EB2A1C72C600B29CC1 /* TabBarViewController.swift */; };
 		C5EB51082A209F6900B29CC1 /* HomeSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EB51072A209F6900B29CC1 /* HomeSearchViewController.swift */; };
 		C5EB510B2A209FD300B29CC1 /* HomeSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EB510A2A209FD300B29CC1 /* HomeSearchPresenter.swift */; };
 		C5EB510D2A20A4B400B29CC1 /* HomeSearchViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EB510C2A20A4B400B29CC1 /* HomeSearchViewTableViewCell.swift */; };
@@ -367,6 +371,7 @@
 		C5351B5F2A19F9A700116D50 /* PlaceListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListModel.swift; sourceTree = "<group>"; };
 		C5351B612A1A083400116D50 /* PlaceListCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListCellModel.swift; sourceTree = "<group>"; };
 		C5351B792A1B439000116D50 /* KakaoCoordinateSearchDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoCoordinateSearchDTO.swift; sourceTree = "<group>"; };
+		C53833642B9C7B6100ED6A50 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		C53856B02ABC13ED00D52DEC /* AVIROMyContributionCount+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROMyContributionCount+DTO.swift"; sourceTree = "<group>"; };
 		C53893152A5EC0C500CB9A54 /* GenderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderButton.swift; sourceTree = "<group>"; };
 		C53C54D12AD67E8800C3662A /* MarkerModelLocalDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerModelLocalDB.swift; sourceTree = "<group>"; };
@@ -386,8 +391,8 @@
 		C5476B782B314F6F00F5FC6E /* LicensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
 		C5476B7A2B31516000F5FC6E /* LicenseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseDetailViewController.swift; sourceTree = "<group>"; };
 		C547A8B92A17D8D4004D1339 /* KakaoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAPI.swift; sourceTree = "<group>"; };
+		C549CDD72B9B538500CB6BF5 /* MyBookmarkCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkCellModel.swift; sourceTree = "<group>"; };
 		C54B59162B95F3D000C0B190 /* MyBookmarkListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkListTableViewCell.swift; sourceTree = "<group>"; };
-		C54B59182B95F3DA00C0B190 /* MyBookmarkCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookmarkCellModel.swift; sourceTree = "<group>"; };
 		C54B591A2B95F61200C0B190 /* MyCommentCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentCellModel.swift; sourceTree = "<group>"; };
 		C54B591C2B95F61F00C0B190 /* MyCommentListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCommentListTableViewCell.swift; sourceTree = "<group>"; };
 		C54B591E2B9606C500C0B190 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
@@ -433,7 +438,7 @@
 		C593B64A2A4AEA9800D224CE /* AVIROReview+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROReview+DTO.swift"; sourceTree = "<group>"; };
 		C593B64C2A4BFD9A00D224CE /* AVIRO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AVIRO.entitlements; sourceTree = "<group>"; };
 		C593B64E2A4C490600D224CE /* SettingViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewPresenter.swift; sourceTree = "<group>"; };
-		C59491D22AB0336100880B4B /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		C59491D22AB0336100880B4B /* UIView(Animation)+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView(Animation)+Extension.swift"; sourceTree = "<group>"; };
 		C595ACCC2A84A1A200D35123 /* PlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceView.swift; sourceTree = "<group>"; };
 		C595ACD02A84A4EB00D35123 /* PlaceSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSummaryView.swift; sourceTree = "<group>"; };
 		C5A201B12A98502500A54381 /* TimeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUtility.swift; sourceTree = "<group>"; };
@@ -477,6 +482,10 @@
 		C5C9619B2A8DB1D80016E2F8 /* MenuTypeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTypeLabel.swift; sourceTree = "<group>"; };
 		C5C9619E2A8DEB230016E2F8 /* ReviewWriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewWriteButton.swift; sourceTree = "<group>"; };
 		C5D36D2D2A76031E003328E8 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		C5D3E1592B9D887600DBB346 /* AVIROTabBarType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROTabBarType.swift; sourceTree = "<group>"; };
+		C5D3E15B2B9D88F200DBB346 /* AVIROTabBarInteractionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROTabBarInteractionDelegate.swift; sourceTree = "<group>"; };
+		C5D3E15D2B9D890D00DBB346 /* AVIROTabBarSettingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROTabBarSettingDelegate.swift; sourceTree = "<group>"; };
+		C5D3E15F2B9D942400DBB346 /* NoListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoListButton.swift; sourceTree = "<group>"; };
 		C5D8026B2B3C67F300136D0E /* AfterHomeViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterHomeViewControllerProtocol.swift; sourceTree = "<group>"; };
 		C5D8026F2B3C6E4000136D0E /* RecommendPlaceAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendPlaceAlertView.swift; sourceTree = "<group>"; };
 		C5D802712B3C6E5E00136D0E /* LevelUpAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelUpAlertView.swift; sourceTree = "<group>"; };
@@ -502,7 +511,6 @@
 		C5E430B42A5DAE9800CB67EC /* SecondRegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondRegistrationViewController.swift; sourceTree = "<group>"; };
 		C5E7B7A82A4D3CDF00CA2090 /* AVIROUser+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROUser+DTO.swift"; sourceTree = "<group>"; };
 		C5EB50E92A1C705900B29CC1 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		C5EB50EB2A1C72C600B29CC1 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		C5EB51072A209F6900B29CC1 /* HomeSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchViewController.swift; sourceTree = "<group>"; };
 		C5EB510A2A209FD300B29CC1 /* HomeSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchPresenter.swift; sourceTree = "<group>"; };
 		C5EB510C2A20A4B400B29CC1 /* HomeSearchViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchViewTableViewCell.swift; sourceTree = "<group>"; };
@@ -741,8 +749,9 @@
 				C5D36D2D2A76031E003328E8 /* Double+Extension.swift */,
 				C58EC7CB2AB171C000401FF7 /* UIButton+Extension.swift */,
 				C50E6F6E2A8F10B500703B9E /* UILabel+Extension.swift */,
-				C59491D22AB0336100880B4B /* UIView+Extension.swift */,
+				C59491D22AB0336100880B4B /* UIView(Animation)+Extension.swift */,
 				C51AED222A8B7B000015FBC2 /* UIViewController+Extension.swift */,
+				C53833642B9C7B6100ED6A50 /* UINavigationController+Extension.swift */,
 				C51B09BB2A82397800916BBD /* Marker+Extension.swift */,
 				C54B591E2B9606C500C0B190 /* UITextView+Extension.swift */,
 			);
@@ -753,6 +762,7 @@
 			isa = PBXGroup;
 			children = (
 				C51385412AAADB0E001AB827 /* EditNickNameButton.swift */,
+				C5D3E15F2B9D942400DBB346 /* NoListButton.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1167,7 +1177,7 @@
 		C54386772B3432F000BD2CAF /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				C5DBF8372B3A5FEC00668B0D /* AVIROTabBarController.swift */,
+				C567C14E2A5658D400D4B426 /* TabBar */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1273,7 +1283,6 @@
 			isa = PBXGroup;
 			children = (
 				C54B59162B95F3D000C0B190 /* MyBookmarkListTableViewCell.swift */,
-				C54B59182B95F3DA00C0B190 /* MyBookmarkCellModel.swift */,
 			);
 			path = MyBookmarkTable;
 			sourceTree = "<group>";
@@ -1371,7 +1380,10 @@
 		C567C14E2A5658D400D4B426 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				C5EB50EB2A1C72C600B29CC1 /* TabBarViewController.swift */,
+				C5D3E1592B9D887600DBB346 /* AVIROTabBarType.swift */,
+				C5D3E15B2B9D88F200DBB346 /* AVIROTabBarInteractionDelegate.swift */,
+				C5D3E15D2B9D890D00DBB346 /* AVIROTabBarSettingDelegate.swift */,
+				C5DBF8372B3A5FEC00668B0D /* AVIROTabBarController.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -1748,7 +1760,6 @@
 				C5EB50ED2A1C76FC00B29CC1 /* Home */,
 				C5351B722A1B369000116D50 /* Enroll */,
 				C5AAEB472B2F044000507C73 /* Challenge */,
-				C567C14E2A5658D400D4B426 /* TabBar */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -1873,6 +1884,7 @@
 			isa = PBXGroup;
 			children = (
 				C5DCBCA22B91DA28003502BA /* MyBookmarkListViewModel.swift */,
+				C549CDD72B9B538500CB6BF5 /* MyBookmarkCellModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2238,6 +2250,7 @@
 				C567C1502A56611500D4B426 /* TopCell.swift in Sources */,
 				C58FBF842AC26D3E00AB6EFC /* APIManagerProtocol.swift in Sources */,
 				C50F6B042A6BCD6900E942F5 /* CategoryButton.swift in Sources */,
+				C5D3E1602B9D942400DBB346 /* NoListButton.swift in Sources */,
 				C58FBF862AC270A200AB6EFC /* APITypes.swift in Sources */,
 				C562B6DF2B387AE200CE5D4C /* ChallengeInfoViewController.swift in Sources */,
 				C5C915492A777F8500C7CB93 /* SearchField.swift in Sources */,
@@ -2377,6 +2390,7 @@
 				C5FF13532A42C8810026981D /* AVIROPlaceInfo+DTO.swift in Sources */,
 				C5351B5C2A19F60200116D50 /* SearchPlacePresenter.swift in Sources */,
 				C562B6E42B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift in Sources */,
+				C53833652B9C7B6100ED6A50 /* UINavigationController+Extension.swift in Sources */,
 				C513854A2AAB3B13001AB827 /* NickNameChangebleViewController.swift in Sources */,
 				C50E6F6F2A8F10B500703B9E /* UILabel+Extension.swift in Sources */,
 				C52066352A7F3FAE0038ECCD /* HistoryTableViewCell.swift in Sources */,
@@ -2404,10 +2418,11 @@
 				C5C290852A86173F00ED5DCE /* PlaceReviewWriteView.swift in Sources */,
 				C51BBAD52A78D53D00BF5B7C /* AVIROCheckPlace+DTO.swift in Sources */,
 				C56857802A7113C600F52715 /* NormalTableViewCell.swift in Sources */,
+				C549CDD82B9B538500CB6BF5 /* MyBookmarkCellModel.swift in Sources */,
 				C52066312A7E4A580038ECCD /* AVIROMainSearchCompare+DTO.swift in Sources */,
 				C5C9619F2A8DEB230016E2F8 /* ReviewWriteButton.swift in Sources */,
+				C5D3E15A2B9D887600DBB346 /* AVIROTabBarType.swift in Sources */,
 				C5DCBC9A2B91D9E9003502BA /* MyPlaceListViewModel.swift in Sources */,
-				C54B59192B95F3DA00C0B190 /* MyBookmarkCellModel.swift in Sources */,
 				C5E143A72AB43B8F007AC8C9 /* AVIROResult+DTO.swift in Sources */,
 				C505C1E02B3ACCEC0058F115 /* AVIROMyChallengeLevelResult+DTO.swift in Sources */,
 				C5E430B52A5DAE9800CB67EC /* SecondRegistrationViewController.swift in Sources */,
@@ -2425,6 +2440,7 @@
 				C50F6AFD2A68FFCB00E942F5 /* EnrollMenuTableView.swift in Sources */,
 				C5351B602A19F9A700116D50 /* PlaceListModel.swift in Sources */,
 				C5476B612B3028FA00F5FC6E /* ChallengeViewController.swift in Sources */,
+				C5D3E15E2B9D890D00DBB346 /* AVIROTabBarSettingDelegate.swift in Sources */,
 				C5A201C52A98A67900A54381 /* EditPhoneView.swift in Sources */,
 				C5732C712A41739000CDC499 /* AVIROAPI.swift in Sources */,
 				C54386792B3432FE00BD2CAF /* ViewModel.swift in Sources */,
@@ -2434,8 +2450,8 @@
 				C56857822A7113CF00F52715 /* RequestTableViewCell.swift in Sources */,
 				C5C2907B2A85E51B00ED5DCE /* PlaceReviewsView.swift in Sources */,
 				C5A201BD2A98708800A54381 /* EditPlaceInfoPresenter.swift in Sources */,
-				C5EB50EC2A1C72C600B29CC1 /* TabBarViewController.swift in Sources */,
-				C59491D32AB0336100880B4B /* UIView+Extension.swift in Sources */,
+				C59491D32AB0336100880B4B /* UIView(Animation)+Extension.swift in Sources */,
+				C5D3E15C2B9D88F200DBB346 /* AVIROTabBarInteractionDelegate.swift in Sources */,
 				C51385502AAD921F001AB827 /* AVIROPlaceReportCheck+DTO.swift in Sources */,
 				C51385472AAAF3BB001AB827 /* SettingCell.swift in Sources */,
 				C568577D2A70E1F600F52715 /* MenuPlusButton.swift in Sources */,
