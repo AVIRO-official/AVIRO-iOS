@@ -207,6 +207,10 @@
 		C5C9619C2A8DB1D80016E2F8 /* MenuTypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C9619B2A8DB1D80016E2F8 /* MenuTypeLabel.swift */; };
 		C5C9619F2A8DEB230016E2F8 /* ReviewWriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C9619E2A8DEB230016E2F8 /* ReviewWriteButton.swift */; };
 		C5D36D2E2A76031E003328E8 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D36D2D2A76031E003328E8 /* Double+Extension.swift */; };
+		C5D3E15A2B9D887600DBB346 /* AVIROTabBarType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3E1592B9D887600DBB346 /* AVIROTabBarType.swift */; };
+		C5D3E15C2B9D88F200DBB346 /* AVIROTabBarInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3E15B2B9D88F200DBB346 /* AVIROTabBarInteractionDelegate.swift */; };
+		C5D3E15E2B9D890D00DBB346 /* AVIROTabBarSettingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3E15D2B9D890D00DBB346 /* AVIROTabBarSettingDelegate.swift */; };
+		C5D3E1602B9D942400DBB346 /* NoListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D3E15F2B9D942400DBB346 /* NoListButton.swift */; };
 		C5D8026C2B3C67F300136D0E /* AfterHomeViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D8026B2B3C67F300136D0E /* AfterHomeViewControllerProtocol.swift */; };
 		C5D802702B3C6E4000136D0E /* RecommendPlaceAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D8026F2B3C6E4000136D0E /* RecommendPlaceAlertView.swift */; };
 		C5D802722B3C6E5E00136D0E /* LevelUpAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D802712B3C6E5E00136D0E /* LevelUpAlertView.swift */; };
@@ -232,7 +236,6 @@
 		C5E430B52A5DAE9800CB67EC /* SecondRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E430B42A5DAE9800CB67EC /* SecondRegistrationViewController.swift */; };
 		C5E7B7A92A4D3CDF00CA2090 /* AVIROUser+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E7B7A82A4D3CDF00CA2090 /* AVIROUser+DTO.swift */; };
 		C5EB50EA2A1C705900B29CC1 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EB50E92A1C705900B29CC1 /* SettingViewController.swift */; };
-		C5EB50EC2A1C72C600B29CC1 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EB50EB2A1C72C600B29CC1 /* TabBarViewController.swift */; };
 		C5EB51082A209F6900B29CC1 /* HomeSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EB51072A209F6900B29CC1 /* HomeSearchViewController.swift */; };
 		C5EB510B2A209FD300B29CC1 /* HomeSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EB510A2A209FD300B29CC1 /* HomeSearchPresenter.swift */; };
 		C5EB510D2A20A4B400B29CC1 /* HomeSearchViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EB510C2A20A4B400B29CC1 /* HomeSearchViewTableViewCell.swift */; };
@@ -479,6 +482,10 @@
 		C5C9619B2A8DB1D80016E2F8 /* MenuTypeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTypeLabel.swift; sourceTree = "<group>"; };
 		C5C9619E2A8DEB230016E2F8 /* ReviewWriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewWriteButton.swift; sourceTree = "<group>"; };
 		C5D36D2D2A76031E003328E8 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		C5D3E1592B9D887600DBB346 /* AVIROTabBarType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROTabBarType.swift; sourceTree = "<group>"; };
+		C5D3E15B2B9D88F200DBB346 /* AVIROTabBarInteractionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROTabBarInteractionDelegate.swift; sourceTree = "<group>"; };
+		C5D3E15D2B9D890D00DBB346 /* AVIROTabBarSettingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROTabBarSettingDelegate.swift; sourceTree = "<group>"; };
+		C5D3E15F2B9D942400DBB346 /* NoListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoListButton.swift; sourceTree = "<group>"; };
 		C5D8026B2B3C67F300136D0E /* AfterHomeViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterHomeViewControllerProtocol.swift; sourceTree = "<group>"; };
 		C5D8026F2B3C6E4000136D0E /* RecommendPlaceAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendPlaceAlertView.swift; sourceTree = "<group>"; };
 		C5D802712B3C6E5E00136D0E /* LevelUpAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelUpAlertView.swift; sourceTree = "<group>"; };
@@ -504,7 +511,6 @@
 		C5E430B42A5DAE9800CB67EC /* SecondRegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondRegistrationViewController.swift; sourceTree = "<group>"; };
 		C5E7B7A82A4D3CDF00CA2090 /* AVIROUser+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROUser+DTO.swift"; sourceTree = "<group>"; };
 		C5EB50E92A1C705900B29CC1 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		C5EB50EB2A1C72C600B29CC1 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		C5EB51072A209F6900B29CC1 /* HomeSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchViewController.swift; sourceTree = "<group>"; };
 		C5EB510A2A209FD300B29CC1 /* HomeSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchPresenter.swift; sourceTree = "<group>"; };
 		C5EB510C2A20A4B400B29CC1 /* HomeSearchViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchViewTableViewCell.swift; sourceTree = "<group>"; };
@@ -756,6 +762,7 @@
 			isa = PBXGroup;
 			children = (
 				C51385412AAADB0E001AB827 /* EditNickNameButton.swift */,
+				C5D3E15F2B9D942400DBB346 /* NoListButton.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1170,7 +1177,7 @@
 		C54386772B3432F000BD2CAF /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				C5DBF8372B3A5FEC00668B0D /* AVIROTabBarController.swift */,
+				C567C14E2A5658D400D4B426 /* TabBar */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1373,7 +1380,10 @@
 		C567C14E2A5658D400D4B426 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				C5EB50EB2A1C72C600B29CC1 /* TabBarViewController.swift */,
+				C5D3E1592B9D887600DBB346 /* AVIROTabBarType.swift */,
+				C5D3E15B2B9D88F200DBB346 /* AVIROTabBarInteractionDelegate.swift */,
+				C5D3E15D2B9D890D00DBB346 /* AVIROTabBarSettingDelegate.swift */,
+				C5DBF8372B3A5FEC00668B0D /* AVIROTabBarController.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -1750,7 +1760,6 @@
 				C5EB50ED2A1C76FC00B29CC1 /* Home */,
 				C5351B722A1B369000116D50 /* Enroll */,
 				C5AAEB472B2F044000507C73 /* Challenge */,
-				C567C14E2A5658D400D4B426 /* TabBar */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -2241,6 +2250,7 @@
 				C567C1502A56611500D4B426 /* TopCell.swift in Sources */,
 				C58FBF842AC26D3E00AB6EFC /* APIManagerProtocol.swift in Sources */,
 				C50F6B042A6BCD6900E942F5 /* CategoryButton.swift in Sources */,
+				C5D3E1602B9D942400DBB346 /* NoListButton.swift in Sources */,
 				C58FBF862AC270A200AB6EFC /* APITypes.swift in Sources */,
 				C562B6DF2B387AE200CE5D4C /* ChallengeInfoViewController.swift in Sources */,
 				C5C915492A777F8500C7CB93 /* SearchField.swift in Sources */,
@@ -2411,6 +2421,7 @@
 				C549CDD82B9B538500CB6BF5 /* MyBookmarkCellModel.swift in Sources */,
 				C52066312A7E4A580038ECCD /* AVIROMainSearchCompare+DTO.swift in Sources */,
 				C5C9619F2A8DEB230016E2F8 /* ReviewWriteButton.swift in Sources */,
+				C5D3E15A2B9D887600DBB346 /* AVIROTabBarType.swift in Sources */,
 				C5DCBC9A2B91D9E9003502BA /* MyPlaceListViewModel.swift in Sources */,
 				C5E143A72AB43B8F007AC8C9 /* AVIROResult+DTO.swift in Sources */,
 				C505C1E02B3ACCEC0058F115 /* AVIROMyChallengeLevelResult+DTO.swift in Sources */,
@@ -2429,6 +2440,7 @@
 				C50F6AFD2A68FFCB00E942F5 /* EnrollMenuTableView.swift in Sources */,
 				C5351B602A19F9A700116D50 /* PlaceListModel.swift in Sources */,
 				C5476B612B3028FA00F5FC6E /* ChallengeViewController.swift in Sources */,
+				C5D3E15E2B9D890D00DBB346 /* AVIROTabBarSettingDelegate.swift in Sources */,
 				C5A201C52A98A67900A54381 /* EditPhoneView.swift in Sources */,
 				C5732C712A41739000CDC499 /* AVIROAPI.swift in Sources */,
 				C54386792B3432FE00BD2CAF /* ViewModel.swift in Sources */,
@@ -2438,8 +2450,8 @@
 				C56857822A7113CF00F52715 /* RequestTableViewCell.swift in Sources */,
 				C5C2907B2A85E51B00ED5DCE /* PlaceReviewsView.swift in Sources */,
 				C5A201BD2A98708800A54381 /* EditPlaceInfoPresenter.swift in Sources */,
-				C5EB50EC2A1C72C600B29CC1 /* TabBarViewController.swift in Sources */,
 				C59491D32AB0336100880B4B /* UIView(Animation)+Extension.swift in Sources */,
+				C5D3E15C2B9D88F200DBB346 /* AVIROTabBarInteractionDelegate.swift in Sources */,
 				C51385502AAD921F001AB827 /* AVIROPlaceReportCheck+DTO.swift in Sources */,
 				C51385472AAAF3BB001AB827 /* SettingCell.swift in Sources */,
 				C568577D2A70E1F600F52715 /* MenuPlusButton.swift in Sources */,

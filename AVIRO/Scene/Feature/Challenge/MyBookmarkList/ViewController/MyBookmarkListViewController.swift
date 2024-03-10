@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 final class MyBookmarkListViewController: UIViewController {
-    weak var tabBarDelegate: TabBarDelegate?
+    weak var tabBarDelegate: TabBarSettingDelegate?
     
     private var viewModel: MyBookmarkListViewModel!
     private let disposeBag = DisposeBag()
@@ -47,18 +47,27 @@ final class MyBookmarkListViewController: UIViewController {
     private lazy var berryImage: UIImageView = {
         let view = UIImageView()
         
+        view.image = .enrollCharacter
+        
         return view
     }()
     
     private lazy var noPlaceSubLabel: UILabel = {
         let lbl = UILabel()
         
+        lbl.text = "아직 즐겨찾기한 가게가 없습니다\n지금 가게를 둘러볼까요?"
+        lbl.textColor = .gray2
+        lbl.font = .pretendard(size: 14, weight: .medium)
+        lbl.textAlignment = .center
+        lbl.numberOfLines = 2
+        
         return lbl
     }()
     
-    // TODO: 지금 후기 등록하기 배경 및 이미지 거꾸로 버전
-    private lazy var enrollButton: UIButton = {
-        let btn = UIButton()
+    private lazy var noPlaceButton: NoListButton = {
+        let btn = NoListButton()
+        
+        btn.setButton("홈으로 이동하기", .btn_home)
         
         return btn
     }()
@@ -87,7 +96,10 @@ final class MyBookmarkListViewController: UIViewController {
     
     private func setupLayout() {
         [
-            bookmarkTableView
+            bookmarkTableView,
+            berryImage,
+            noPlaceSubLabel,
+            noPlaceButton
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview($0)
@@ -97,7 +109,16 @@ final class MyBookmarkListViewController: UIViewController {
             bookmarkTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             bookmarkTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             bookmarkTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            bookmarkTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            bookmarkTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            
+            berryImage.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            berryImage.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -40),
+            
+            noPlaceSubLabel.topAnchor.constraint(equalTo: berryImage.bottomAnchor, constant: 20),
+            noPlaceSubLabel.centerXAnchor.constraint(equalTo: berryImage.centerXAnchor),
+            
+            noPlaceButton.topAnchor.constraint(equalTo: noPlaceSubLabel.bottomAnchor, constant: 20),
+            noPlaceButton.centerXAnchor.constraint(equalTo: berryImage.centerXAnchor)
         ])
     }
     
@@ -118,6 +139,11 @@ final class MyBookmarkListViewController: UIViewController {
             .debounce(.milliseconds(20), scheduler: MainScheduler.instance)
             .asDriver(onErrorDriveWith: .empty())
             .drive(self.rx.whenDidScrollTableView)
+            .disposed(by: disposeBag)
+        
+        noPlaceButton.rx.tap
+            .asDriver()
+            .drive(self.rx.whenDidTappedNoPlaceButton)
             .disposed(by: disposeBag)
     }
     
@@ -140,7 +166,7 @@ final class MyBookmarkListViewController: UIViewController {
         let output = viewModel.transform(with: input)
         
         output.hasBookmarks
-            .drive()
+            .drive(self.rx.hasBookmarks)
             .disposed(by: disposeBag)
         
         output.bookmarksData
@@ -168,7 +194,7 @@ final class MyBookmarkListViewController: UIViewController {
             .disposed(by: disposeBag)
         
         output.countOfStarredBookmarks
-            .drive(self.rx.setFirstViewState)
+            .drive(self.rx.setTableHeaderView)
             .disposed(by: disposeBag)
         
         output.bookmarkUpdateComplete
@@ -176,10 +202,15 @@ final class MyBookmarkListViewController: UIViewController {
             .disposed(by: disposeBag)
         
         output.selectedBookmark
-            .drive(onNext: { [weak self] _ in
+            .drive(onNext: { [weak self] placeId in
                 guard let self = self else { return }
+                // 시간차 이동을 위한 async After
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                    self.tabBarDelegate?.selectedIndex = 0
+                    self.tabBarDelegate?.setSelectedIndex(
+                        0,
+                        withKey: TabBarKeys.placeId,
+                        value: placeId
+                    )
                 }
             })
             .disposed(by: disposeBag)
@@ -187,6 +218,14 @@ final class MyBookmarkListViewController: UIViewController {
         output.deletedBookmarks
             .drive()
             .disposed(by: disposeBag)
+    }
+    
+    internal func bindingWhenViewDidLoad(with isHiddenTableView: Bool) {
+        bookmarkTableView.isHidden = !isHiddenTableView
+        
+        berryImage.isHidden = isHiddenTableView
+        noPlaceSubLabel.isHidden = isHiddenTableView
+        noPlaceButton.isHidden = isHiddenTableView
     }
     
     internal func bindingTableHeaderView(with count: Int) {
@@ -243,10 +282,26 @@ final class MyBookmarkListViewController: UIViewController {
             )
         }
     }
+    
+    internal func noPlaceButtonTapped() {
+        noPlaceButton.animateTouchResponse(isTouchDown: true) { [weak self] in
+            self?.noPlaceButton.animateTouchResponse(isTouchDown: false) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    self?.tabBarDelegate?.selectedIndex = 0
+                }
+            }
+        }
+    }
 }
 
 extension Reactive where Base: MyBookmarkListViewController {
-    var setFirstViewState: Binder<Int> {
+    var hasBookmarks: Binder<Bool> {
+        return Binder(self.base) { base, result in
+            base.bindingWhenViewDidLoad(with: result)
+        }
+    }
+    
+    var setTableHeaderView: Binder<Int> {
         return Binder(self.base) { base, result in
             base.bindingTableHeaderView(with: result)
         }
@@ -255,6 +310,12 @@ extension Reactive where Base: MyBookmarkListViewController {
     var whenDidScrollTableView: Binder<Void> {
         return Binder(self.base) { base, _ in
             base.adjustHeaderInset()
+        }
+    }
+    
+    var whenDidTappedNoPlaceButton: Binder<Void> {
+        return Binder(self.base) { base, _ in
+            base.noPlaceButtonTapped()
         }
     }
 }

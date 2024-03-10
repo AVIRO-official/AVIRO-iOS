@@ -55,7 +55,7 @@ class MainField: UITextField {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupFranchiseToggleButton()
+//        setupFranchiseToggleButton()
         configuration()
         addLeftImage()
     }

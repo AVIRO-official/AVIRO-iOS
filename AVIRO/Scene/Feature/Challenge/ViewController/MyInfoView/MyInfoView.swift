@@ -129,30 +129,7 @@ final class MyInfoView: UIView {
         
         return stackView
     }()
-    
-    private lazy var myPlaceIndicatorView: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView()
-        
-        view.style = .medium
-        view.backgroundColor = .clear
-        view.color = .gray5
-        view.startAnimating()
-        view.isHidden = true
-        
-        return view
-    }()
-    
-    private lazy var myReviewIndicatorView: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView()
-        
-        view.style = .medium
-        view.backgroundColor = .clear
-        view.color = .gray5
-        view.startAnimating()
-        view.isHidden = true
-        
-        return view
-    }()
+
     
     private lazy var myStarIndicatorView: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView()
@@ -217,8 +194,6 @@ final class MyInfoView: UIView {
         
         [
             myStateStackView,
-            myPlaceIndicatorView,
-            myReviewIndicatorView,
             myStarIndicatorView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -240,12 +215,6 @@ final class MyInfoView: UIView {
             myPlaceStackView.widthAnchor.constraint(equalToConstant: 100),
             myReviewStackView.widthAnchor.constraint(equalToConstant: 100),
             myStarStackView.widthAnchor.constraint(equalToConstant: 100),
-            
-            myPlaceIndicatorView.centerXAnchor.constraint(equalTo: myPlaceCountLabel.centerXAnchor),
-            myPlaceIndicatorView.centerYAnchor.constraint(equalTo: myPlaceCountLabel.centerYAnchor),
-            
-            myReviewIndicatorView.centerXAnchor.constraint(equalTo: myReviewCountLabel.centerXAnchor),
-            myReviewIndicatorView.centerYAnchor.constraint(equalTo: myReviewCountLabel.centerYAnchor),
             
             myStarIndicatorView.centerXAnchor.constraint(equalTo: myStarCountLabel.centerXAnchor),
             myStarIndicatorView.centerYAnchor.constraint(equalTo: myStarCountLabel.centerYAnchor)
@@ -273,22 +242,12 @@ final class MyInfoView: UIView {
     }
     
     func startIndicator() {
-        myPlaceCountLabel.textColor = .gray7
-        myReviewCountLabel.textColor = .gray7
         myStarCountLabel.textColor = .gray7
-        
-        myPlaceIndicatorView.isHidden = false
-        myReviewIndicatorView.isHidden = false
         myStarIndicatorView.isHidden = false
     }
     
     func endIndicator() {
-        myPlaceCountLabel.textColor = .gray0
-        myReviewCountLabel.textColor = .gray0
         myStarCountLabel.textColor = .gray0
-        
-        myPlaceIndicatorView.isHidden = true
-        myReviewIndicatorView.isHidden = true
         myStarIndicatorView.isHidden = true
     }
     

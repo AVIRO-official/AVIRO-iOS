@@ -11,14 +11,14 @@ import RxCocoa
 // TODO: DTO -> Domain으로 변경 필요
 // Clean Architecture 적용 시 수정
 
-protocol ChallengeViewModelFromChildProtocol: AnyObject {
-    var fromChildView: Bool { get set }
+protocol ChallengeViewModelProtocol: AnyObject {
+    var whenUpdateBookmarkList: Bool { get set }
 }
 
-final class ChallengeViewModel: ViewModel, ChallengeViewModelFromChildProtocol {
+final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
     var challengeTitle: String = ""
     
-    var fromChildView = false
+    var whenUpdateBookmarkList = false
     
     struct Input {
         let whenViewWillAppear: Driver<Void>
@@ -118,8 +118,8 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelFromChildProtocol {
                 }
             }
             
-            if self.fromChildView {
-                self.fromChildView.toggle()
+            if self.whenUpdateBookmarkList {
+                self.whenUpdateBookmarkList.toggle()
                 DispatchQueue.global().asyncAfter(deadline: .now() + 0.8, execute: makeApiCall)
             } else {
                 makeApiCall()

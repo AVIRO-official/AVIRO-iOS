@@ -111,8 +111,6 @@ final class HomeViewPresenter: NSObject {
     // TODO: - 문서화 & 리팩토링 필요
     var whenUpdateType = ("", false) {
         didSet {
-            print(whenUpdateType)
-            
             if whenUpdateType.0 == "취소" {
                 for index in 1..<categoryType.count {
                     categoryType[index].1 = false
@@ -561,6 +559,26 @@ final class HomeViewPresenter: NSObject {
 
             viewController?.moveToCameraWhenHasAVIRO(markerModel, zoomTo: 14)
         }
+    }
+    
+    // MARK: PlaceId로 marker 확인
+    func checkPlaceIdTest(with placeId: String) {
+        let (markerModel, index) = markerModelManager.getMarkerModelFromPlaceId(with: placeId)
+        
+        guard let markerModel = markerModel else { return }
+        guard let index = index else { return }
+        
+        whenShowPlaceAfterActionFromChildViewController = true
+                                
+        selectedMarkerIndex = index
+        selectedMarkerModel = markerModel
+        selectedMarkerModel?.isClicked = true
+                    
+        hasTouchedMarkerBefore = true
+        
+        getPlaceSummaryModel(markerModel)
+
+        viewController?.moveToCameraWhenHasAVIRO(markerModel, zoomTo: 14)
     }
     
     // MARK: Bookmark Load Method

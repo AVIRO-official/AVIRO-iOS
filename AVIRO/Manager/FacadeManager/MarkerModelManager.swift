@@ -24,6 +24,7 @@ protocol MarkerModelManagerProtocol {
     func getMarkerModelFromCoordinates(lat: Double, lng: Double) -> (MarkerModel?, Int?)
     func getMarkerModelFromMarker(with marker: NMFMarker) -> (MarkerModel?, Int?)
     func getMarkerModelFromSerachModel(with searchModel: MatchedPlaceModel) -> (MarkerModel?, Int?)
+    func getMarkerModelFromPlaceId(with placeId: String) -> (MarkerModel?, Int?)
     
     func updateMarkerModels(with marker: MarkerModel)
     func updateSelectedMarkerModel(index: Int, model: MarkerModel)
@@ -307,6 +308,12 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
     
     func getMarkerModelFromSerachModel(with searchModel: MatchedPlaceModel) -> (MarkerModel?, Int?) {
         let (markerModel, index) = markerModelCache.getMarker(with: searchModel)
+        
+        return (markerModel, index)
+    }
+    
+    func getMarkerModelFromPlaceId(with placeId: String) -> (MarkerModel?, Int?) {
+        let (markerModel, index) = markerModelCache.getMarker(with: placeId)
         
         return (markerModel, index)
     }

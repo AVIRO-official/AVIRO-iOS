@@ -14,7 +14,7 @@ import RxCocoa
 
 final class MyBookmarkListViewModel: ViewModel {
     
-    private weak var challengeViewModelProtocol: ChallengeViewModelFromChildProtocol!
+    private weak var challengeViewModelProtocol: ChallengeViewModelProtocol!
     private let bookmarkManager: BookmarkFacadeProtocol!
     
     private var cancelledBookmarkList: [String] = []
@@ -38,7 +38,7 @@ final class MyBookmarkListViewModel: ViewModel {
     }
     
     init(
-        challengeViewModelProtocol: ChallengeViewModelFromChildProtocol,
+        challengeViewModelProtocol: ChallengeViewModelProtocol,
         bookmarkManager: BookmarkFacadeManager
     ) {
         self.challengeViewModelProtocol = challengeViewModelProtocol
@@ -111,7 +111,9 @@ final class MyBookmarkListViewModel: ViewModel {
             .do(onNext: { [weak self] in
                 guard let self = self else { return }
                 if !self.cancelledBookmarkList.isEmpty {
-                    challengeViewModelProtocol.fromChildView = self.onSelectedBookmark ? false : true 
+                    
+                    challengeViewModelProtocol.whenUpdateBookmarkList = self.onSelectedBookmark ? false : true
+                    
                     self.bookmarkManager.deleteData(
                         with: self.cancelledBookmarkList,
                         completionHandler: { _ in }

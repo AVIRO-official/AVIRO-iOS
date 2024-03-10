@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 final class MyCommentListViewController: UIViewController {
-    weak var tabBarDelegate: TabBarDelegate?
+    weak var tabBarDelegate: TabBarSettingDelegate?
     
     private var viewModel: MyCommentListViewModel!
     private let disposeBag = DisposeBag()

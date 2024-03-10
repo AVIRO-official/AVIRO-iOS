@@ -197,6 +197,11 @@ extension UIImage {
     static let infoCircle = UIImage(named: "InfoCircle")!
     static let user2 = UIImage(named: "user2")!
     
+    // MARK: Asset Ver 1.2 ~
+    static let btn_home = UIImage(named: "Btn_home")!
+    static let btn_pencil = UIImage(named: "Btn_pencil")!
+    static let btn_plus_square = UIImage(named: "Btn_plus_square")!
+    
     // MARK: Challenge
     static let challengeInfoGreen = UIImage(named: "ChallengeInfoGreen")!
     static let challengeInfoYellow = UIImage(named: "ChallengeInfoYellow")!

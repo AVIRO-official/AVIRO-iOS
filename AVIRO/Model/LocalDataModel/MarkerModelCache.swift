@@ -16,6 +16,7 @@ protocol MarkerModelCacheProtocol {
     func getMarker(with marker: NMFMarker) -> (MarkerModel?, Int?)
     func getMarker(with afterSearchModel: MatchedPlaceModel
     ) -> (MarkerModel?, Int?)
+    func getMarker(with placeId: String) -> (MarkerModel?, Int?)
     func getMarker(x: Double, y: Double) -> (MarkerModel?, Int?)
     func getUpdatedMarkers() -> [NMFMarker]
 
@@ -167,6 +168,14 @@ final class MarkerModelCache: MarkerModelCacheProtocol {
             .first(where: {
                 $0.element.placeId == afterSearchModel.placeId
             })?.offset {
+            return (markers[index], index)
+        }
+        
+        return (nil, nil)
+    }
+    
+    func getMarker(with placeId: String) -> (MarkerModel?, Int?) {
+        if let index = markers.enumerated().first(where: { $0.element.placeId == placeId})?.offset {
             return (markers[index], index)
         }
         
