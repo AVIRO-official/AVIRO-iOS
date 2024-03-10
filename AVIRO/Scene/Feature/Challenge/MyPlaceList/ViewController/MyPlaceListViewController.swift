@@ -166,7 +166,7 @@ final class MyPlaceListViewController: UIViewController {
         let selectedPlaceIndex = selectedPlace.asDriver(onErrorJustReturn: 0)
         
         let input = MyPlaceListViewModel.Input(
-            whenViewDidLoadTrigger: viewDidLoadTrigger,
+            viewDidLoadTrigger: viewDidLoadTrigger,
             selectedPlaceIndex: selectedPlaceIndex
         )
         
@@ -178,7 +178,10 @@ final class MyPlaceListViewController: UIViewController {
         
         output.placesData
             .drive(
-                placeTableView.rx.items(cellIdentifier: MyPlaceListTableViewCell.identifier, cellType: MyPlaceListTableViewCell.self)
+                placeTableView.rx.items(
+                    cellIdentifier: MyPlaceListTableViewCell.identifier,
+                    cellType: MyPlaceListTableViewCell.self
+                )
             ) { (row, model, cell) in
                 
                 cell.configuration(with: model)

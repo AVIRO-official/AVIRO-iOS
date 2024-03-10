@@ -12,7 +12,7 @@ import RxCocoa
 
 final class MyPlaceListViewModel: ViewModel {
     struct Input {
-        let whenViewDidLoadTrigger: Driver<Void>
+        let viewDidLoadTrigger: Driver<Void>
         let selectedPlaceIndex: Driver<Int>
     }
      
@@ -28,7 +28,7 @@ final class MyPlaceListViewModel: ViewModel {
         let places = BehaviorRelay<[MyPlaceCellModel]>(value: [])
         let placesLoadError = PublishSubject<APIError>()
         
-        let hasPlaces = input.whenViewDidLoadTrigger
+        let hasPlaces = input.viewDidLoadTrigger
             .flatMapLatest { [weak self] _ -> Driver<[MyPlaceCellModel]> in
                 guard let self = self else { return Driver.just([]) }
                 
@@ -81,6 +81,8 @@ final class MyPlaceListViewModel: ViewModel {
                 switch result {
                 case .success(let data):
                     var model: [MyPlaceCellModel] = []
+                    
+                    print("Current Thread:  \(Thread.current)")
                     
                     guard data.statusCode == 200 else {
                         return single(.failure(APIError.badRequest))

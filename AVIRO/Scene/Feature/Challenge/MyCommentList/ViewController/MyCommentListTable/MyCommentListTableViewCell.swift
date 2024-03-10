@@ -52,7 +52,7 @@ final class MyCommentListTableViewCell: UITableViewCell {
     }()
     
     // TODO: - 네이밍 변경 필요
-    private lazy var reviewTextView: UILabel = {
+    private lazy var reviewLabel: UILabel = {
         let view = UILabel()
         
         view.textAlignment = .left
@@ -81,6 +81,9 @@ final class MyCommentListTableViewCell: UITableViewCell {
         return view
     }()
     
+    var onDotTapped: (() -> Void)?
+    var onTouchRelease: (() -> Void)?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -92,18 +95,33 @@ final class MyCommentListTableViewCell: UITableViewCell {
         fatalError()
     }
 
-    private var test: Bool = true
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        if test && mainView.frame.height != 0 {
-            test.toggle()
-            print(reviewTextView.countCurrentLines())
-            print(enrollTimeLabel.frame)
-            
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+
+        self.animateTouchResponse(isTouchDown: true)
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+
+        // 애니메이션 진행 중일 경우 완료 후 onTouchRelease 호출
+        if self.isAnimating {
+            self.animateTouchResponse(isTouchDown: false) { [weak self] in
+                self?.onTouchRelease?()
+            }
+        } else {
+            animateTouchResponse(isTouchDown: false) { [weak self] in
+                self?.onTouchRelease?()
+            }
         }
     }
 
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+
+        self.animateTouchResponse(isTouchDown: false)
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -136,7 +154,7 @@ final class MyCommentListTableViewCell: UITableViewCell {
             titleLabel,
             dotsButton,
             enrollTimeLabel,
-            reviewTextView
+            reviewLabel
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             mainView.addSubview($0)
@@ -161,10 +179,10 @@ final class MyCommentListTableViewCell: UITableViewCell {
             enrollTimeLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             enrollTimeLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
             
-            reviewTextView.topAnchor.constraint(equalTo: enrollTimeLabel.bottomAnchor, constant: 6),
-            reviewTextView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            reviewTextView.trailingAnchor.constraint(equalTo: dotsButton.trailingAnchor),
-            reviewTextView.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -20)
+            reviewLabel.topAnchor.constraint(equalTo: enrollTimeLabel.bottomAnchor, constant: 6),
+            reviewLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            reviewLabel.trailingAnchor.constraint(equalTo: dotsButton.trailingAnchor),
+            reviewLabel.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -20)
         ])
     }
     
@@ -178,21 +196,53 @@ final class MyCommentListTableViewCell: UITableViewCell {
         titleLabel.text = ""
         enrollTimeLabel.text = ""
         
-        reviewTextView.text = ""
+        reviewLabel.text = ""
     }
 
     @objc private func tappedDotsButton(_ sender: UIButton) {
-        
+        onDotTapped?()
     }
     
     func configuration(with model: MyCommentCellModel) {
-        iconImageView.image = .allBoxBar
+        switch model.veganType {
+        case .All:
+            switch model.category {
+            case .Bar:
+                iconImageView.image = .allBoxBar
+            case .Bread:
+                iconImageView.image = .allBoxBread
+            case .Coffee:
+                iconImageView.image = .allBoxCoffee
+            case .Restaurant:
+                iconImageView.image = .allBoxRestaurant
+            }
+        case .Some:
+            switch model.category {
+            case .Bar:
+                iconImageView.image = .someBoxBar
+            case .Bread:
+                iconImageView.image = .someBoxBread
+            case .Coffee:
+                iconImageView.image = .someBoxCoffee
+            case .Restaurant:
+                iconImageView.image = .someBoxRestaurant
+            }
+        case .Request:
+            switch model.category {
+            case .Bar:
+                iconImageView.image = .requestBoxBar
+            case .Bread:
+                iconImageView.image = .requestBoxBread
+            case .Coffee:
+                iconImageView.image = .requestBoxCoffee
+            case .Restaurant:
+                iconImageView.image = .requestBoxRestaurant
+            }
+        }
         
         titleLabel.text = model.title
-        enrollTimeLabel.text = model.date
+        reviewLabel.text = model.content
         
-        reviewTextView.text = model.content
-        
-        layoutIfNeeded()
+        enrollTimeLabel.text = model.createdBefore
     }
 }

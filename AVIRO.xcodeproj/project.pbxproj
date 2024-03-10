@@ -646,7 +646,6 @@
 			isa = PBXGroup;
 			children = (
 				C54B591C2B95F61F00C0B190 /* MyCommentListTableViewCell.swift */,
-				C54B591A2B95F61200C0B190 /* MyCommentCellModel.swift */,
 			);
 			path = MyCommentListTable;
 			sourceTree = "<group>";
@@ -1864,6 +1863,7 @@
 			isa = PBXGroup;
 			children = (
 				C5DCBC9E2B91D9FE003502BA /* MyCommentListViewModel.swift */,
+				C54B591A2B95F61200C0B190 /* MyCommentCellModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";

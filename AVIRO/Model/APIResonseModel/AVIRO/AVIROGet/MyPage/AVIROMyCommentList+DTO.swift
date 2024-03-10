@@ -9,12 +9,12 @@ import Foundation
 
 struct AVIROMyCommentListDTO: Decodable {
     let statusCode: Int
-    let data: AVIROMyPlaceListDataDTO?
+    let data: AVIROMyCommentListDataDTO?
     let message: String?
 }
 
 struct AVIROMyCommentListDataDTO: Decodable {
-    let placeList: [AVIROMyPlaceDataDTO]?
+    let placeList: [AVIROMyCommentDataDTO]?
 }
 
 struct AVIROMyCommentDataDTO: Decodable {
@@ -25,4 +25,9 @@ struct AVIROMyCommentDataDTO: Decodable {
     let someMenuVegan: Bool
     let ifRequestVegan: Bool
     let content: String
+    let createdBefore: String
+    
+    func toDomain() -> MyCommentCellModel {
+        MyCommentCellModel(with: self)
+    }
 }
