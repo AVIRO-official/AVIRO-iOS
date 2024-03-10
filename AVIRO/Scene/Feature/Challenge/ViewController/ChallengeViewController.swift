@@ -52,7 +52,9 @@ final class ChallengeViewController: UIViewController {
         
     static func create(with viewModel: ChallengeViewModel) -> ChallengeViewController {
         let vc = ChallengeViewController()
+        
         vc.viewModel = viewModel
+        vc.dataBinding()
         
         return vc
     }
@@ -62,11 +64,6 @@ final class ChallengeViewController: UIViewController {
         
         setupLayout()
         setupAttribute()
-        dataBinding()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
     
     private func setupLayout() {
@@ -176,11 +173,12 @@ final class ChallengeViewController: UIViewController {
     }
     
     private func dataBinding() {
-        let viewWillAppearTrigger = self.rx.viewWillAppear.map { _ in }
+        let viewDidAppearTrigger = self.rx.viewDidAppear
             .do { [weak self] _ in
                 self?.challengeUserInfoView.startIndicator()
                 self?.myInfoView.startIndicator()
             }
+            .map { _ in }
             .asDriver(onErrorDriveWith: .empty())
 
         let refeshControlEvent = refreshControl.rx.controlEvent(.valueChanged).asDriver()
@@ -188,7 +186,7 @@ final class ChallengeViewController: UIViewController {
         let tappedNavigationBarRightButton = navigationItem.rightBarButtonItem?.rx.tap.asDriver() ?? .empty()
         
         let input = ChallengeViewModel.Input(
-            whenViewWillAppear: viewWillAppearTrigger,
+            whenViewDidAppear: viewDidAppearTrigger,
             whenRefesh: refeshControlEvent,
             tappedChallengeInfoButton: challengeTitleView.challengeInfoButtonTap,
             tappedNavigationBarRightButton: tappedNavigationBarRightButton
@@ -222,7 +220,7 @@ final class ChallengeViewController: UIViewController {
         
     }
     
-    func bindChallengeInfo(with result: AVIROChallengeInfoDataDTO) {
+    internal func bindChallengeInfo(with result: AVIROChallengeInfoDataDTO) {
         let period = result.period
         let title = result.title
         viewModel.challengeTitle = title
@@ -233,14 +231,14 @@ final class ChallengeViewController: UIViewController {
         endRefeshControl()
     }
     
-    func bindMyChallengeLevel(with result: AVIROMyChallengeLevelDataDTO) {
+    internal func bindMyChallengeLevel(with result: AVIROMyChallengeLevelDataDTO) {
         challengeUserInfoView.endIndicator()
         challengeUserInfoView.bindData(with: result)
         
         endRefeshControl()
     }
     
-    func bindMyContributionCount(with result: AVIROMyContributionCountDTO) {
+    internal func bindMyContributionCount(with result: AVIROMyContributionCountDTO) {
         let placeCount = String(result.data?.placeCount ?? 0)
         let reviewCount = String(result.data?.commentCount ?? 0)
         let starCount = String(result.data?.bookmarkCount ?? 0)

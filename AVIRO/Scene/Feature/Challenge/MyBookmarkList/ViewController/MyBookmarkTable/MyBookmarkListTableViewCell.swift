@@ -146,8 +146,9 @@ final class MyBookmarkListTableViewCell: UITableViewCell {
                 self?.onTouchRelease?()
             }
         } else {
-            animateTouchResponse(isTouchDown: false)
-            onTouchRelease?()
+            animateTouchResponse(isTouchDown: false) { [weak self] in
+                self?.onTouchRelease?()
+            }
         }
     }
 

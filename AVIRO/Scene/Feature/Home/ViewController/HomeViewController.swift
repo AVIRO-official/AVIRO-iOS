@@ -1111,7 +1111,7 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
             if model.levelUp {
                 self?.showLevelUpAlert(with: model.userLevel)
             } else {
-                self?.tabBarDelegate?.activeBlurEffectView(with: true)
+                self?.tabBarDelegate?.activeBlurEffectView(with: false)
                 self?.blurEffectView.isHidden = true
             }
         }

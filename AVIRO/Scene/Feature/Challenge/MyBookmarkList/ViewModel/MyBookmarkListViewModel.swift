@@ -10,8 +10,6 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-// TODO: - Bookmark list가 하나라도 바뀐게 있다면 viewWillDisappear할 때 바뀐것만 bookmark update api 호출 (bookmark Manager 활용)
-
 final class MyBookmarkListViewModel: ViewModel {
     
     private weak var challengeViewModelProtocol: ChallengeViewModelProtocol!
@@ -31,8 +29,8 @@ final class MyBookmarkListViewModel: ViewModel {
         let hasBookmarks: Driver<Bool>
         let bookmarksData: Driver<[MyBookmarkCellModel]>
         let bookmarkLoadError: Driver<APIError>
-        let countOfStarredBookmarks: Driver<Int>
-        let bookmarkUpdateComplete: Driver<Void>
+        let numberOfStarredBookmarks: Driver<Int>
+        let updatedBookmarks: Driver<Void>
         let selectedBookmark: Driver<String>
         let deletedBookmarks: Driver<Void>
     }
@@ -47,7 +45,6 @@ final class MyBookmarkListViewModel: ViewModel {
     
     func transform(with input: Input) -> Output {
         let bookmarks = BehaviorRelay<[MyBookmarkCellModel]>(value: [])
-        
         let bookmarkLoadError = PublishSubject<APIError>()
         
         let hasBookmarks = input.viewDidLoadTrigger
@@ -66,12 +63,12 @@ final class MyBookmarkListViewModel: ViewModel {
             .map { $0.count > 0 ? true : false }
             .asDriver()
         
-        let countOfStarredBookmarks = bookmarks
+        let numberOfStarredBookmarks = bookmarks
             .map { $0.filter { $0.isStar } }
             .map { $0.count }
             .asDriver(onErrorJustReturn: 0)
         
-        let bookmarkUpdateComplete = input.bookmarkStateChangeIndex
+        let updatedBookmarks = input.bookmarkStateChangeIndex
             .do(onNext: { [weak self] index in
                 guard let self = self else { return }
                 var currentBookmarks = bookmarks.value
@@ -129,8 +126,8 @@ final class MyBookmarkListViewModel: ViewModel {
             hasBookmarks: hasBookmarks,
             bookmarksData: bookmarksDriver,
             bookmarkLoadError: onErrorEventDriver,
-            countOfStarredBookmarks: countOfStarredBookmarks,
-            bookmarkUpdateComplete: bookmarkUpdateComplete,
+            numberOfStarredBookmarks: numberOfStarredBookmarks,
+            updatedBookmarks: updatedBookmarks,
             selectedBookmark: selectedBookmark,
             deletedBookmarks: deletedBookmarks
         )

@@ -21,7 +21,7 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
     var whenUpdateBookmarkList = false
     
     struct Input {
-        let whenViewWillAppear: Driver<Void>
+        let whenViewDidAppear: Driver<Void>
         let whenRefesh: Driver<Void>
         let tappedChallengeInfoButton: Driver<Void>
         let tappedNavigationBarRightButton: Driver<Void>
@@ -38,12 +38,14 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
     }
     
     func transform(with input: Input) -> Output {
-        let loadInfoTrigger = Driver.merge(input.whenViewWillAppear, input.whenRefesh)
+        let loadInfoTrigger = Driver.merge(input.whenViewDidAppear, input.whenRefesh)
         
         let challengeInfoError = PublishSubject<Error>()
         let myContributionCountError = PublishSubject<Error>()
         let myChallengeLevelError = PublishSubject<Error>()
         
+        // 3개의 api가 하나의 loadInfoTrigger stream을 받고있어서 간헐적으로 api 호출이 실패함
+        // 순차적으로 api 호출하도록 각각의 result을 연결
         let challengeInfoResult = loadInfoTrigger
             .flatMapLatest { [weak self] in
                 guard let self = self else {
@@ -57,8 +59,8 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
                     })
             }
         
-        let myChallengeLevelResult = loadInfoTrigger
-            .flatMapLatest { [weak self] in
+        let myChallengeLevelResult = challengeInfoResult
+            .flatMapLatest { [weak self] _ in
                 guard let self = self else {
                     return Driver<AVIROMyChallengeLevelDataDTO>.empty()
                 }
@@ -70,8 +72,8 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
                     })
             }
         
-        let myContributionCountResult = loadInfoTrigger
-            .flatMapLatest { [weak self] in
+        let myContributionCountResult = myChallengeLevelResult
+            .flatMapLatest { [weak self] _ in
                 guard let self = self else {
                     return Driver<AVIROMyContributionCountDTO>.empty()
                 }

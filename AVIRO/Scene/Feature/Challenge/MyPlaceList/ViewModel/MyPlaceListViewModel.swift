@@ -12,36 +12,65 @@ import RxCocoa
 
 final class MyPlaceListViewModel: ViewModel {
     struct Input {
-        let whenViewWillAppear: Driver<Void>
+        let viewDidLoadTrigger: Driver<Void>
+        let selectedPlaceIndex: Driver<Int>
     }
      
     struct Output {
-        let myPlaceList: Driver<[MyPlaceCellModel]>
+        let hasPlaces: Driver<Bool>
+        let placesData: Driver<[MyPlaceCellModel]>
+        let placesLoadError: Driver<APIError>
         let numberOfPlaces: Driver<Int>
+        let selectedPlace: Driver<String>
     }
     
     func transform(with input: Input) -> Output {
-        let myPlaceListError = PublishSubject<APIError>()
+        let places = BehaviorRelay<[MyPlaceCellModel]>(value: [])
+        let placesLoadError = PublishSubject<APIError>()
         
-        let myPlaceListResult = input.whenViewWillAppear
-            .flatMapLatest { [weak self] in
-                guard let self = self else {
-                    return Driver<[MyPlaceCellModel]>.empty()
-                }
+        let hasPlaces = input.viewDidLoadTrigger
+            .flatMapLatest { [weak self] _ -> Driver<[MyPlaceCellModel]> in
+                guard let self = self else { return Driver.just([]) }
                 
                 return self.loadMyPlaceList(userId: MyData.my.id)
+                    .do(onSuccess: { currentPlaces in
+                        places.accept(currentPlaces)
+                    })
                     .asDriver { _ in
-                        myPlaceListError.onNext(APIError.badRequest)
+                        placesLoadError.onNext(APIError.badRequest)
                         return Driver.empty()
                     }
             }
+            .map { $0.count > 0 ? true : false }
+            .asDriver()
         
-        let numberOfPlaces = myPlaceListResult
+        let numberOfPlaces = places
             .map { $0.count }
             .asDriver(onErrorJustReturn: 0)
-
+        
+        let selectedPlace = input.selectedPlaceIndex
+            .map { [weak self] index in
+                guard let self = self else { return "" }
+                var result = ""
                 
-        return Output(myPlaceList: myPlaceListResult, numberOfPlaces: numberOfPlaces)
+                if places.value.indices.contains(index) {
+                    result = places.value[index].placeId
+                }
+                
+                return result
+            }
+            .asDriver()
+                
+        let placesDriver = places.asDriver()
+        let onErrorEventDriver = placesLoadError.asDriver(onErrorJustReturn: .badRequest)
+        
+        return Output(
+            hasPlaces: hasPlaces,
+            placesData: placesDriver,
+            placesLoadError: onErrorEventDriver,
+            numberOfPlaces: numberOfPlaces,
+            selectedPlace: selectedPlace
+        )
     }
     
     private func loadMyPlaceList(
@@ -52,6 +81,8 @@ final class MyPlaceListViewModel: ViewModel {
                 switch result {
                 case .success(let data):
                     var model: [MyPlaceCellModel] = []
+                    
+                    print("Current Thread:  \(Thread.current)")
                     
                     guard data.statusCode == 200 else {
                         return single(.failure(APIError.badRequest))
