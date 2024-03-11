@@ -9,6 +9,7 @@ import Foundation
 
 struct MyCommentCellModel {
     let commentId: String
+    let placeId: String
     
     let category: CategoryType
     let veganType: VeganType
@@ -20,6 +21,7 @@ struct MyCommentCellModel {
 
     init(with model: AVIROMyCommentDataDTO) {
         self.commentId = model.commentId
+        self.placeId = model.placeId
         
         self.category = CategoryType(with: model.category) ?? .Restaurant
         

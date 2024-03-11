@@ -49,8 +49,7 @@ final class MyPlaceListViewModel: ViewModel {
             .asDriver(onErrorJustReturn: 0)
         
         let selectedPlace = input.selectedPlaceIndex
-            .map { [weak self] index in
-                guard let self = self else { return "" }
+            .map { index in
                 var result = ""
                 
                 if places.value.indices.contains(index) {
@@ -81,8 +80,6 @@ final class MyPlaceListViewModel: ViewModel {
                 switch result {
                 case .success(let data):
                     var model: [MyPlaceCellModel] = []
-                    
-                    print("Current Thread:  \(Thread.current)")
                     
                     guard data.statusCode == 200 else {
                         return single(.failure(APIError.badRequest))

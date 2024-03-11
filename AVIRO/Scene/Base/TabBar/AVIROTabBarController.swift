@@ -5,9 +5,13 @@
 //  Created by 전성훈 on 2023/12/26.
 //
 
+// TODO: - TabBar도 VC, ViewModel 나눠야 할까?
+
 import UIKit
 
 final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
+
+    
     private lazy var viewControllers: [UINavigationController] = []
     
     private lazy var buttons: [TabBarButton] = []
@@ -312,18 +316,16 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
         })
     }
     
+    // MARK: - Selecetd Index With Key
     func setSelectedIndex(
         _ index: Int,
-        withKey key: String?,
-        value: String?
+        withData data: [String: Any]
     ) {
         self.selectedIndex = index
         
         weak var delegate = viewControllers[index].topViewController as? TabBarInteractionDelegate
         
-        if let key = key, let delegate = delegate {
-            delegate.handleTabBarInteraction(withKey: key, value: value)
-        }
+        delegate?.handleTabBarInteraction(withData: data)
     }
     
     func activeBlurEffectView(with active: Bool) {

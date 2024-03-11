@@ -11,6 +11,6 @@ protocol TabBarSettingDelegate: AnyObject {
     var selectedIndex: Int { get set }
     var isHidden: (isHidden: Bool, isSameNavi: Bool) { get set }
     
-    func setSelectedIndex(_ index: Int, withKey key: String?, value: String?)
+    func setSelectedIndex(_ index: Int, withData data: [String: Any])
     func activeBlurEffectView(with active: Bool)
 }
