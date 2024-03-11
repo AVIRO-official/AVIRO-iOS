@@ -91,7 +91,9 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
         
         let enroll = EnrollPlaceViewController()
         
-        let challengeViewModel = ChallengeViewModel()
+        let bookmarkManager = BookmarkFacadeManager()
+        let challengeViewModel = ChallengeViewModel(bookmarkManager: bookmarkManager)
+        
         let challenge = ChallengeViewController.create(with: challengeViewModel)
         
         home.tabBarDelegate = self

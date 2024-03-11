@@ -16,9 +16,15 @@ protocol ChallengeViewModelProtocol: AnyObject {
 }
 
 final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
+    private var bookmarkManager: BookmarkFacadeProtocol!
+    
     var challengeTitle: String = ""
     
     var whenUpdateBookmarkList = false
+    
+    init(bookmarkManager: BookmarkFacadeProtocol) {
+        self.bookmarkManager = bookmarkManager
+    }
     
     struct Input {
         let whenViewDidAppear: Driver<Void>
@@ -28,7 +34,7 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
     }
     
     struct Output {
-        let myContributionCountResult: Driver<AVIROMyContributionCountDTO>
+        let myContributionCountResult: Driver<AVIROMyActivityCounts>
         let challengeInfoResult: Driver<AVIROChallengeInfoDataDTO>
         let myChallengeLevelResult: Driver<AVIROMyChallengeLevelDataDTO>
         
@@ -44,14 +50,15 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
         let myContributionCountError = PublishSubject<Error>()
         let myChallengeLevelError = PublishSubject<Error>()
         
+        // TODO: - Image 불러오는 API 확인
+        
         // 3개의 api가 하나의 loadInfoTrigger stream을 받고있어서 간헐적으로 api 호출이 실패함
         // 순차적으로 api 호출하도록 각각의 result을 연결
         let challengeInfoResult = loadInfoTrigger
-            .flatMapLatest { [weak self] in
+            .flatMap { [weak self] in
                 guard let self = self else {
                     return Driver<AVIROChallengeInfoDataDTO>.empty()
                 }
-                
                 return self.loadChallengeInfoAPI()
                     .asDriver(onErrorRecover: { error in
                         challengeInfoError.onNext(error)
@@ -60,11 +67,10 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
             }
         
         let myChallengeLevelResult = challengeInfoResult
-            .flatMapLatest { [weak self] _ in
+            .flatMap { [weak self] _ in
                 guard let self = self else {
                     return Driver<AVIROMyChallengeLevelDataDTO>.empty()
                 }
-                
                 return self.loadMyChallengeLevelAPI(userId: MyData.my.id)
                     .asDriver(onErrorRecover: { error in
                         myChallengeLevelError.onNext(error)
@@ -73,9 +79,9 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
             }
         
         let myContributionCountResult = myChallengeLevelResult
-            .flatMapLatest { [weak self] _ in
+            .flatMap { [weak self] _ in
                 guard let self = self else {
-                    return Driver<AVIROMyContributionCountDTO>.empty()
+                    return Driver<AVIROMyActivityCounts>.empty()
                 }
                 return self.loadMyContributedCountAPI(userId: MyData.my.id)
                     .asDriver(onErrorRecover: { error in
@@ -105,7 +111,7 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
     }
     
     /// 개선 필요
-    private func loadMyContributedCountAPI(userId: String) -> Single<AVIROMyContributionCountDTO> {
+    private func loadMyContributedCountAPI(userId: String) -> Single<AVIROMyActivityCounts> {
         return Single.create { [weak self] single in
             guard let self = self else { return Disposables.create() }
             
@@ -113,7 +119,16 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
                 AVIROAPI.manager.loadMyContributedCount(with: userId) { result in
                     switch result {
                     case .success(let data):
-                        single(.success(data))
+                        
+                        guard let resultData = data.data else { return }
+                        
+                        var newModel = AVIROMyActivityCounts(
+                            placeCount: resultData.placeCount,
+                            commentCount: resultData.commentCount,
+                            bookmarkCount: self.bookmarkManager.loadAllData().count
+                        )
+                        
+                        single(.success(newModel))
                     case .failure(let error):
                         single(.failure(error))
                     }
@@ -137,6 +152,7 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
                 switch result {
                 case .success(let resultModel):
                     guard let resultData = resultModel.data else { return }
+                                        
                     single(.success(resultData))
                 case .failure(let error):
                     single(.failure(error))
@@ -152,6 +168,7 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
                 switch result {
                 case .success(let resultModel):
                     guard let resultData = resultModel.data else { return }
+                    
                     single(.success(resultData))
                 case .failure(let error):
                     single(.failure(error))

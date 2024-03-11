@@ -112,7 +112,7 @@ final class MyCommentListViewModel: ViewModel {
                         return single(.failure(APIError.badRequest))
                     }
                     
-                    if let placeList = data.data?.placeList {
+                    if let placeList = data.data?.commentList {
                         placeList.forEach {
                             model.append($0.toDomain())
                         }

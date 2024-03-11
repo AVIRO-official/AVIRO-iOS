@@ -14,7 +14,7 @@ struct AVIROMyCommentListDTO: Decodable {
 }
 
 struct AVIROMyCommentListDataDTO: Decodable {
-    let placeList: [AVIROMyCommentDataDTO]?
+    let commentList: [AVIROMyCommentDataDTO]?
 }
 
 struct AVIROMyCommentDataDTO: Decodable {
