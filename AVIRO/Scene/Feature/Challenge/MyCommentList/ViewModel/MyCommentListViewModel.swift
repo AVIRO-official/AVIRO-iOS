@@ -22,7 +22,7 @@ final class MyCommentListViewModel: ViewModel {
         let reviewsData: Driver<[MyCommentCellModel]>
         let reviewsLoadError: Driver<APIError>
         let numberOfReviews: Driver<Int>
-        let selectedReview: Driver<(String, String)>
+        let selectedReview: Driver<String>
         let deletedReview: Driver<String>
     }
     
@@ -55,10 +55,10 @@ final class MyCommentListViewModel: ViewModel {
                 var result = ""
                 
                 if reviews.value.indices.contains(index) {
-                    result = reviews.value[index].commentId
+                    result = reviews.value[index].placeId
                 }
                 
-                return ("test", result)
+                return result
             }
             .asDriver()
         
@@ -112,7 +112,7 @@ final class MyCommentListViewModel: ViewModel {
                         return single(.failure(APIError.badRequest))
                     }
                     
-                    if let placeList = data.data?.placeList {
+                    if let placeList = data.data?.commentList {
                         placeList.forEach {
                             model.append($0.toDomain())
                         }

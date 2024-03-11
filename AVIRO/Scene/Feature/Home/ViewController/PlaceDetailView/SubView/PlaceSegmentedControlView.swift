@@ -260,6 +260,17 @@ final class PlaceSegmentedControlView: UIView {
         }
     }
     
+    func setSegmentedControlIndex(with index: Int) {
+        segmentedControl.selectedSegmentIndex = index
+        
+        switch index {
+        case 0: activeHomeView()
+        case 1: activeMenuView()
+        case 2: activeReviewView()
+        default: break
+        }
+    }
+    
     /// API 호출 후 선택되면 딜레이 보여서 따로 뺌
     func whenViewPopup() {
         segmentedControl.selectedSegmentIndex = 0

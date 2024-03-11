@@ -82,24 +82,7 @@ extension UIView {
             snapshot.removeFromSuperview()
         })
     }
-    
-    func roundTopCorners(cornerRadius: CGFloat) {
-        self.layoutIfNeeded()
-        self.layer.masksToBounds = true
         
-        let path = UIBezierPath(
-            roundedRect: self.bounds,
-            byRoundingCorners: [.topRight, .topLeft],
-            cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)
-        )
-        
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = self.bounds
-        maskLayer.path = path.cgPath
-        
-        self.layer.mask = maskLayer
-    }
-    
     /// 이 메서드는 사용자가 뷰를 터치하거나 터치를 해제할 때 호출될 수 있으며,
     /// 터치 시 뷰의 크기를 일시적으로 줄였다가 원래대로 되돌리는 효과를 제공합니다.
     /// 애니메이션이 완료되면 `isAnimating` 상태가 업데이트 되며, 필요에 따라

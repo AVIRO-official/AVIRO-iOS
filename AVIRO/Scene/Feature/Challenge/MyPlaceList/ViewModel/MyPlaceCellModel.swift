@@ -39,6 +39,6 @@ struct MyPlaceCellModel {
         self.address = model.shortAddress
         self.menu = model.menu
         self.menuCount = model.menuCountExceptOne
-        self.createdBefore = model.createdBefore.relativeDateString()
+        self.createdBefore = model.createdBefore
     }
 }

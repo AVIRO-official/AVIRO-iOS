@@ -9,8 +9,9 @@ import Foundation
 
 struct TabBarKeys {
     static let placeId = "placeId"
+    static let showReview = "review"
 }
 
 protocol TabBarInteractionDelegate: AnyObject {
-    func handleTabBarInteraction(withKey key: String?, value: String?)
+    func handleTabBarInteraction(withData data: [String: Any])
 }

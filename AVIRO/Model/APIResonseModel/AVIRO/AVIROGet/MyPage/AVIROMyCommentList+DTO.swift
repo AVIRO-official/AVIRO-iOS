@@ -14,11 +14,12 @@ struct AVIROMyCommentListDTO: Decodable {
 }
 
 struct AVIROMyCommentListDataDTO: Decodable {
-    let placeList: [AVIROMyCommentDataDTO]?
+    let commentList: [AVIROMyCommentDataDTO]?
 }
 
 struct AVIROMyCommentDataDTO: Decodable {
     let commentId: String
+    let placeId: String
     let title: String
     let category: String
     let allVegan: Bool

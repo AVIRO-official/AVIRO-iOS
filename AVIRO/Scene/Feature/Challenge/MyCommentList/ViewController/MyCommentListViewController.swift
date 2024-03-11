@@ -285,9 +285,15 @@ final class MyCommentListViewController: UIViewController {
         }
     }
     
-    internal func reviewCellDidTapped() {
+    internal func reviewCellDidTapped(with placeId: String) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
-            self?.tabBarDelegate?.selectedIndex = 0
+            self?.tabBarDelegate?.setSelectedIndex(
+                0,
+                withData: [
+                    TabBarKeys.placeId: placeId,
+                    TabBarKeys.showReview: true
+                ]
+            )
         }
     }
     
@@ -345,10 +351,9 @@ extension Reactive where Base: MyCommentListViewController {
         }
     }
     
-    // TODO: - PlaceId 추가 시 변경 예정
-    var whenDidTappedCell: Binder<(String, String)> {
-        return Binder(self.base) { base, _ in
-            base.reviewCellDidTapped()
+    var whenDidTappedCell: Binder<String> {
+        return Binder(self.base) { base, result in
+            base.reviewCellDidTapped(with: result)
         }
     }
     

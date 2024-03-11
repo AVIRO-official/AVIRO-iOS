@@ -253,7 +253,7 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    
+        print(MyData.my.id)
         presenter.viewWillAppear()
     }
     
@@ -594,6 +594,19 @@ extension HomeViewController: HomeViewProtocol {
         showWebView(with: url)
     }
     
+    private func onPlaceViewSlideUp() {
+        placeViewSlideUp()
+        presenter.getPlaceModelDetail()
+        isSlideUpView = true
+    }
+    
+    private func onPlaceViewFullUp() {
+        placeViewFullUp()
+        naverMapView.isHidden = true
+        categoryCollectionView.isHidden = true
+        isSlideUpView = false
+    }
+    
 //    private func editMyReview(_ commentId: String) {
 //        placeView.editMyReview(commentId)
 //    }
@@ -622,15 +635,10 @@ extension HomeViewController: HomeViewProtocol {
             if !placeView.isLoadingTopView {
                 // view가 slideup되고, detail view가 loading이 끝난 후 가능
                 if isSlideUpView && !placeView.isLoadingDetail {
-                    placeViewFullUp()
-                    naverMapView.isHidden = true
-                    categoryCollectionView.isHidden = true
-                    isSlideUpView = false
+                    onPlaceViewFullUp()
                 // view가 아직 slideup 안 되었고, popup일때 가능
                 } else if !isSlideUpView && placeView.placeViewStated == .popup {
-                    placeViewSlideUp()
-                    presenter.getPlaceModelDetail()
-                    isSlideUpView = true
+                    onPlaceViewSlideUp()
                 }
             }
         } else if gesture.direction == .down {
@@ -644,10 +652,7 @@ extension HomeViewController: HomeViewProtocol {
     
     @objc private func whenSlideTapGesture(_ gesture: UITapGestureRecognizer) {
         if isSlideUpView {
-            placeViewFullUp()
-            naverMapView.isHidden = true
-            categoryCollectionView.isHidden = true
-            isSlideUpView = false
+            onPlaceViewFullUp()
         }
     }
     
@@ -1165,10 +1170,35 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
 
 // MARK: TabBarInteractionDelegate
 extension HomeViewController: TabBarInteractionDelegate {
-    func handleTabBarInteraction(withKey key: String?, value: String?) {
-        // MARK: placeId From My Place, BookmarkList
-        if key == TabBarKeys.placeId, let placeId = value {
-            presenter.checkPlaceIdTest(with: placeId)
+    func handleTabBarInteraction(withData data: [String: Any]) {
+        if let placeId = data[TabBarKeys.placeId] as? String {
+            whenTabBarKeyIsPlaceId(with: placeId)
+        }
+        
+        if let isShow = data[TabBarKeys.showReview] as? Bool, isShow {
+            presenter.afterGetPlaceSummaryModel = { [weak self] in
+                guard let self = self else { return }
+                self.whenTabBarkeyIsShwReview()
+            }
+        }
+    }
+    
+    private func whenTabBarKeyIsPlaceId(with placeId: String) {
+        presenter.checkPlaceIdTest(with: placeId)
+    }
+    
+    private func whenTabBarkeyIsShwReview() {
+        self.onPlaceViewSlideUp()
+        
+        presenter.afterGetPlaceDetailModel = { [weak self] in
+            guard let self = self else { return }
+            self.onPlaceViewFullUp()
+            
+            self.placeView.setSegmentedControlIndex(with: 2)
+            
+            /// 호출 후 초기화 작업 
+            presenter.afterGetPlaceSummaryModel = nil
+            presenter.afterGetPlaceDetailModel = nil
         }
     }
 }

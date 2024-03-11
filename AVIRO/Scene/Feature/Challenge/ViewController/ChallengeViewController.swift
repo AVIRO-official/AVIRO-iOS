@@ -176,7 +176,6 @@ final class ChallengeViewController: UIViewController {
         let viewDidAppearTrigger = self.rx.viewDidAppear
             .do { [weak self] _ in
                 self?.challengeUserInfoView.startIndicator()
-                self?.myInfoView.startIndicator()
             }
             .map { _ in }
             .asDriver(onErrorDriveWith: .empty())
@@ -238,12 +237,11 @@ final class ChallengeViewController: UIViewController {
         endRefeshControl()
     }
     
-    internal func bindMyContributionCount(with result: AVIROMyContributionCountDTO) {
-        let placeCount = String(result.data?.placeCount ?? 0)
-        let reviewCount = String(result.data?.commentCount ?? 0)
-        let starCount = String(result.data?.bookmarkCount ?? 0)
+    internal func bindMyContributionCount(with result: AVIROMyActivityCounts) {
+        let placeCount = String(result.placeCount)
+        let reviewCount = String(result.commentCount)
+        let starCount = String(result.bookmarkCount)
                 
-        myInfoView.endIndicator()
         myInfoView.updateMyPlace(placeCount)
         myInfoView.updateMyReview(reviewCount)
         myInfoView.updateMyStar(starCount)
@@ -310,7 +308,7 @@ final class ChallengeViewController: UIViewController {
 }
 
 extension Reactive where Base: ChallengeViewController {
-    var isMyContributionCountResult: Binder<AVIROMyContributionCountDTO> {
+    var isMyContributionCountResult: Binder<AVIROMyActivityCounts> {
         return Binder(self.base) { base, result in
             base.bindMyContributionCount(with: result)
         }

@@ -109,6 +109,10 @@ final class PlaceView: UIView {
         ])
     }
     
+    func setSegmentedControlIndex(with index: Int) {
+        segmentedControlView.setSegmentedControlIndex(with: index)
+    }
+    
     func topViewHeight() -> CGFloat {
         return summaryView.frame.height
     }

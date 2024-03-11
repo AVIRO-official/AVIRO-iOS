@@ -130,19 +130,6 @@ final class MyInfoView: UIView {
         return stackView
     }()
 
-    
-    private lazy var myStarIndicatorView: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView()
-        
-        view.style = .medium
-        view.backgroundColor = .clear
-        view.color = .gray5
-        view.startAnimating()
-        view.isHidden = true
-        
-        return view
-    }()
-
     var tappedMyInfo: ((MyInfoType) -> Void)?
     
     override init(frame: CGRect) {
@@ -193,8 +180,7 @@ final class MyInfoView: UIView {
         }
         
         [
-            myStateStackView,
-            myStarIndicatorView
+            myStateStackView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
@@ -214,10 +200,7 @@ final class MyInfoView: UIView {
             
             myPlaceStackView.widthAnchor.constraint(equalToConstant: 100),
             myReviewStackView.widthAnchor.constraint(equalToConstant: 100),
-            myStarStackView.widthAnchor.constraint(equalToConstant: 100),
-            
-            myStarIndicatorView.centerXAnchor.constraint(equalTo: myStarCountLabel.centerXAnchor),
-            myStarIndicatorView.centerYAnchor.constraint(equalTo: myStarCountLabel.centerYAnchor)
+            myStarStackView.widthAnchor.constraint(equalToConstant: 100)
         ])
     }
     
@@ -240,17 +223,7 @@ final class MyInfoView: UIView {
         myStarStackView.addGestureRecognizer(myStarTapGesture)
         myStarStackView.isUserInteractionEnabled = true
     }
-    
-    func startIndicator() {
-        myStarCountLabel.textColor = .gray7
-        myStarIndicatorView.isHidden = false
-    }
-    
-    func endIndicator() {
-        myStarCountLabel.textColor = .gray0
-        myStarIndicatorView.isHidden = true
-    }
-    
+
     @objc private func stackViewTapped(_ gesture: UITapGestureRecognizer) {
         guard let stackView = gesture.view as? UIStackView else { return }
         

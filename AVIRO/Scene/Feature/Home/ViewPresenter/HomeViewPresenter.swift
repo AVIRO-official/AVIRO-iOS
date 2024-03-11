@@ -142,6 +142,9 @@ final class HomeViewPresenter: NSObject {
         }
     }
     
+    var afterGetPlaceSummaryModel: (() -> Void)?
+    var afterGetPlaceDetailModel: (() -> Void)?
+    
     private func afterCategoryChangedLoadAllMarkers() {
         selectedCategory = []
         showMarkerWhenClickedCategory = []
@@ -456,8 +459,6 @@ final class HomeViewPresenter: NSObject {
                 
         markerModelManager.updateMarkerModelWhenClicked(with: selectedMarkerModel!)
         viewController?.moveToCameraWhenHasAVIRO(validMarkerModel, zoomTo: nil)
-        
-        print("Test")
     }
     
     // MARK: Load Place Sumamry
@@ -503,6 +504,8 @@ final class HomeViewPresenter: NSObject {
                                 placeId: placeId,
                                 isStar: isStar ?? false
                             )
+                            
+                            self?.afterGetPlaceSummaryModel?()
                         }
                     }
                 } else {
@@ -567,9 +570,7 @@ final class HomeViewPresenter: NSObject {
         
         guard let markerModel = markerModel else { return }
         guard let index = index else { return }
-        
-        whenShowPlaceAfterActionFromChildViewController = true
-                                
+                                        
         selectedMarkerIndex = index
         selectedMarkerModel = markerModel
         selectedMarkerModel?.isClicked = true
@@ -714,6 +715,8 @@ final class HomeViewPresenter: NSObject {
                 menuModel: self?.selectedMenuModel,
                 reviewsModel: self?.selectedReviewsModel
             )
+            
+            self?.afterGetPlaceDetailModel?()
         }
     }
     
