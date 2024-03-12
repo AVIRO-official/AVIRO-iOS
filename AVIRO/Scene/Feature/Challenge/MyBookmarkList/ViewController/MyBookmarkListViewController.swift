@@ -29,6 +29,7 @@ final class MyBookmarkListViewController: UIViewController {
         view.separatorStyle = .none
         view.showsVerticalScrollIndicator = false
         view.sectionHeaderTopPadding = 0
+        view.isHidden = true
         view.register(
             MyBookmarkListTableViewCell.self,
             forCellReuseIdentifier: MyBookmarkListTableViewCell.identifier
@@ -77,13 +78,23 @@ final class MyBookmarkListViewController: UIViewController {
         
         return btn
     }()
+    
+    private lazy var indicatorView: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView()
+        
+        indicatorView.style = .medium
+        indicatorView.color = .gray0
+        indicatorView.startAnimating()
+        indicatorView.isHidden = false
+        
+        return indicatorView
+    }()
 
     // MARK: - Create
     static func create(with viewModel: MyBookmarkListViewModel) -> MyBookmarkListViewController {
         let vc = MyBookmarkListViewController()
         
         vc.viewModel = viewModel
-        vc.dataBinding()
         
         return vc
     }
@@ -94,6 +105,8 @@ final class MyBookmarkListViewController: UIViewController {
         
         setupLayout()
         setupAttribute()
+        
+        dataBinding()
     }
     
     // MARK: - Setup Method
@@ -102,7 +115,8 @@ final class MyBookmarkListViewController: UIViewController {
             bookmarkTableView,
             berryImage,
             noPlaceSubLabel,
-            noPlaceButton
+            noPlaceButton,
+            indicatorView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview($0)
@@ -123,7 +137,10 @@ final class MyBookmarkListViewController: UIViewController {
             noPlaceButton.topAnchor.constraint(equalTo: noPlaceSubLabel.bottomAnchor, constant: 20),
             noPlaceButton.centerXAnchor.constraint(equalTo: berryImage.centerXAnchor),
             noPlaceButton.widthAnchor.constraint(equalToConstant: 172),
-            noPlaceButton.heightAnchor.constraint(equalToConstant: 48)
+            noPlaceButton.heightAnchor.constraint(equalToConstant: 48),
+            
+            indicatorView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            indicatorView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
     }
     
@@ -154,7 +171,7 @@ final class MyBookmarkListViewController: UIViewController {
     
     // MARK: - DataBinding Method
     private func dataBinding() {
-        let viewDidLoadTrigger = self.rx.viewDidLoad
+        let viewDidLoadTrigger = self.rx.viewWillAppear
             .map { _ in }
             .asDriver(onErrorDriveWith: .empty())
         
@@ -224,6 +241,8 @@ final class MyBookmarkListViewController: UIViewController {
     
     // MARK: - Data Binding Setting Method
     internal func bindingWhenViewDidLoad(with isHiddenTableView: Bool) {
+        indicatorView.isHidden = true
+        
         bookmarkTableView.isHidden = !isHiddenTableView
         
         berryImage.isHidden = isHiddenTableView

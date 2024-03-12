@@ -16,10 +16,21 @@ final class ChallengeInfoGreenView: UIView {
         return imageView
     }()
     
+    private lazy var subLabel: UILabel = {
+        let lbl = UILabel()
+        
+        lbl.text = "챌린지에 참여해보세요!"
+        lbl.textColor = .gray2
+        lbl.font = .pretendard(size: 10, weight: .regular)
+        lbl.textAlignment = .left
+        
+        return lbl
+    }()
+    
     private lazy var explainLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "경험치를 모아 레벨업을 해보세요\n무럭무럭 자라는 나무를 볼 수 있어요!"
+        label.text = "더 많은 사람들이\n비건을 선택하는 데 도움이 돼요!"
         label.setLineSpacing(4)
         label.numberOfLines = 2
         label.textColor = .gray0
@@ -43,6 +54,7 @@ final class ChallengeInfoGreenView: UIView {
     private func setupLayout() {
         [
             explainImage,
+            subLabel,
             explainLabel
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -56,9 +68,13 @@ final class ChallengeInfoGreenView: UIView {
             explainImage.widthAnchor.constraint(equalToConstant: 60),
             explainImage.heightAnchor.constraint(equalToConstant: 60),
             
-            explainLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            subLabel.topAnchor.constraint(equalTo: explainImage.topAnchor),
+            subLabel.leadingAnchor.constraint(equalTo: explainImage.trailingAnchor, constant: 10),
+            subLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            
+            explainLabel.topAnchor.constraint(equalTo: subLabel.bottomAnchor, constant: 6),
             explainLabel.leadingAnchor.constraint(equalTo: explainImage.trailingAnchor, constant: 10),
-            explainLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
+            explainLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
         ])
     }
     

@@ -249,8 +249,8 @@
 		C5FA0EAA2A94DB3E004AD8B4 /* ReportReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0EA92A94DB3E004AD8B4 /* ReportReviewViewController.swift */; };
 		C5FA0EAC2A94DF39004AD8B4 /* ReportReviewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0EAB2A94DF39004AD8B4 /* ReportReviewPresenter.swift */; };
 		C5FBDA5A2B398258007AC77E /* ChallengeInfoTopLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FBDA592B398258007AC77E /* ChallengeInfoTopLabelView.swift */; };
-		C5FBDA5C2B398264007AC77E /* ChallengeInfoGreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FBDA5B2B398264007AC77E /* ChallengeInfoGreenView.swift */; };
-		C5FBDA5E2B398270007AC77E /* ChallengeInfoYellowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FBDA5D2B398270007AC77E /* ChallengeInfoYellowView.swift */; };
+		C5FBDA5C2B398264007AC77E /* ChallengeInfoYellowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FBDA5B2B398264007AC77E /* ChallengeInfoYellowView.swift */; };
+		C5FBDA5E2B398270007AC77E /* ChallengeInfoGreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FBDA5D2B398270007AC77E /* ChallengeInfoGreenView.swift */; };
 		C5FBDA602B398280007AC77E /* ChallengeInfoOrangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FBDA5F2B398280007AC77E /* ChallengeInfoOrangeView.swift */; };
 		C5FD92E32A9C6C1E00CF4673 /* EditLocationAddressTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD92E22A9C6C1E00CF4673 /* EditLocationAddressTextTableViewCell.swift */; };
 		C5FD92EB2A9C786600CF4673 /* PublicAPIRequestComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD92EA2A9C786600CF4673 /* PublicAPIRequestComponents.swift */; };
@@ -527,8 +527,8 @@
 		C5FA0EA92A94DB3E004AD8B4 /* ReportReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReviewViewController.swift; sourceTree = "<group>"; };
 		C5FA0EAB2A94DF39004AD8B4 /* ReportReviewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReviewPresenter.swift; sourceTree = "<group>"; };
 		C5FBDA592B398258007AC77E /* ChallengeInfoTopLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoTopLabelView.swift; sourceTree = "<group>"; };
-		C5FBDA5B2B398264007AC77E /* ChallengeInfoGreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoGreenView.swift; sourceTree = "<group>"; };
-		C5FBDA5D2B398270007AC77E /* ChallengeInfoYellowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoYellowView.swift; sourceTree = "<group>"; };
+		C5FBDA5B2B398264007AC77E /* ChallengeInfoYellowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoYellowView.swift; sourceTree = "<group>"; };
+		C5FBDA5D2B398270007AC77E /* ChallengeInfoGreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoGreenView.swift; sourceTree = "<group>"; };
 		C5FBDA5F2B398280007AC77E /* ChallengeInfoOrangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoOrangeView.swift; sourceTree = "<group>"; };
 		C5FD92E22A9C6C1E00CF4673 /* EditLocationAddressTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLocationAddressTextTableViewCell.swift; sourceTree = "<group>"; };
 		C5FD92EA2A9C786600CF4673 /* PublicAPIRequestComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicAPIRequestComponents.swift; sourceTree = "<group>"; };
@@ -1977,8 +1977,8 @@
 			isa = PBXGroup;
 			children = (
 				C5FBDA592B398258007AC77E /* ChallengeInfoTopLabelView.swift */,
-				C5FBDA5B2B398264007AC77E /* ChallengeInfoGreenView.swift */,
-				C5FBDA5D2B398270007AC77E /* ChallengeInfoYellowView.swift */,
+				C5FBDA5B2B398264007AC77E /* ChallengeInfoYellowView.swift */,
+				C5FBDA5D2B398270007AC77E /* ChallengeInfoGreenView.swift */,
 				C5FBDA5F2B398280007AC77E /* ChallengeInfoOrangeView.swift */,
 			);
 			path = SubView;
@@ -2323,7 +2323,7 @@
 				C5C290772A85E4FF00ED5DCE /* PlaceHomeView.swift in Sources */,
 				C5D93D9F2A581EC800629C39 /* FirstRegistrationViewController.swift in Sources */,
 				C528E4C02A5FF1CB002BD72E /* FinalRegistrationViewController.swift in Sources */,
-				C5FBDA5C2B398264007AC77E /* ChallengeInfoGreenView.swift in Sources */,
+				C5FBDA5C2B398264007AC77E /* ChallengeInfoYellowView.swift in Sources */,
 				C5DCBC8F2B91CF46003502BA /* AVIROMyBookmarkList+DTO.swift in Sources */,
 				C5D93DA32A58718300629C39 /* NextPageButton.swift in Sources */,
 				C50DB7512A9B83550078B501 /* ChangeableAddressViewController.swift in Sources */,
@@ -2368,7 +2368,7 @@
 				C5EB50EA2A1C705900B29CC1 /* SettingViewController.swift in Sources */,
 				C5D802702B3C6E4000136D0E /* RecommendPlaceAlertView.swift in Sources */,
 				C510005A2AB998F600F65C1F /* UIImage+Extension.swift in Sources */,
-				C5FBDA5E2B398270007AC77E /* ChallengeInfoYellowView.swift in Sources */,
+				C5FBDA5E2B398270007AC77E /* ChallengeInfoGreenView.swift in Sources */,
 				C5D8E8632A3DEC3900D88A43 /* String+Extension.swift in Sources */,
 				C58EC7D62AB1B61500401FF7 /* AVIROEditCommonBeforeAfterDTO.swift in Sources */,
 				C58EC7CE2AB1B57100401FF7 /* AVIROEditOperationTime+DTO.swift in Sources */,
