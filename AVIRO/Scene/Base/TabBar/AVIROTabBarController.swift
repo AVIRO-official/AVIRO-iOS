@@ -262,12 +262,12 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
         
         if sender.tag == selectedIndex {
             if timer == nil {
-                startTimer(with: sender.tag)
                 selectedIndex = sender.tag
+                startTimer(with: sender.tag)
             }
         } else {
-            timerExpired()
             selectedIndex = sender.tag
+            timerExpired()
         }
     }
     
@@ -275,7 +275,7 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
         var timerInterval: TimeInterval = 1.5
         
         if tag == 2 {
-            timerInterval = 8
+            timerInterval = 3
         }
 
         timer = Timer.scheduledTimer(

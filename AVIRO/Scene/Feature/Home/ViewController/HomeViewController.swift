@@ -1178,7 +1178,9 @@ extension HomeViewController: TabBarInteractionDelegate {
         if let isShow = data[TabBarKeys.showReview] as? Bool, isShow {
             presenter.afterGetPlaceSummaryModel = { [weak self] in
                 guard let self = self else { return }
-                self.whenTabBarkeyIsShwReview()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.whenTabBarkeyIsShwReview()
+                }
             }
         }
     }

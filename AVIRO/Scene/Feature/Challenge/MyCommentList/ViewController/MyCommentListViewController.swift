@@ -28,6 +28,7 @@ final class MyCommentListViewController: UIViewController {
         view.backgroundColor = .gray6
         view.separatorStyle = .none
         view.showsVerticalScrollIndicator = false
+        view.isHidden = true
         view.rowHeight = UITableView.automaticDimension
         view.estimatedRowHeight = 100
         view.sectionHeaderTopPadding = 0
@@ -79,6 +80,17 @@ final class MyCommentListViewController: UIViewController {
         
         return btn
     }()
+    
+    private lazy var indicatorView: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView()
+        
+        indicatorView.style = .medium
+        indicatorView.color = .gray0
+        indicatorView.startAnimating()
+        indicatorView.isHidden = false
+        
+        return indicatorView
+    }()
 
     // MARK: - Create
     
@@ -113,7 +125,8 @@ final class MyCommentListViewController: UIViewController {
             commentTableView,
             berryImage,
             noPlaceSubLabel,
-            noPlaceButton
+            noPlaceButton,
+            indicatorView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview($0)
@@ -136,7 +149,10 @@ final class MyCommentListViewController: UIViewController {
             noPlaceButton.topAnchor.constraint(equalTo: noPlaceSubLabel.bottomAnchor, constant: 20),
             noPlaceButton.centerXAnchor.constraint(equalTo: berryImage.centerXAnchor),
             noPlaceButton.widthAnchor.constraint(equalToConstant: 172),
-            noPlaceButton.heightAnchor.constraint(equalToConstant: 48)
+            noPlaceButton.heightAnchor.constraint(equalToConstant: 48),
+            
+            indicatorView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            indicatorView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
     }
     
@@ -225,6 +241,8 @@ final class MyCommentListViewController: UIViewController {
     
     // MARK: - Data Binding Setting Method
     internal func bindingWhenViewDidLoad(with isHiddenTableView: Bool) {
+        indicatorView.isHidden = true
+
         commentTableView.isHidden = !isHiddenTableView
         
         berryImage.isHidden = isHiddenTableView

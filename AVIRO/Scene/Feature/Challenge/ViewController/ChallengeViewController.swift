@@ -22,6 +22,8 @@ final class ChallengeViewController: UIViewController {
     private var viewModel: ChallengeViewModel!
     private let disposeBag = DisposeBag()
     
+    private let whenTappedRightNaivagionBar = PublishSubject<Void>()
+    
     private lazy var scrollView = UIScrollView()
     
     private lazy var challengeTitleView: ChallengeTitleView = {
@@ -54,7 +56,6 @@ final class ChallengeViewController: UIViewController {
         let vc = ChallengeViewController()
         
         vc.viewModel = viewModel
-        vc.dataBinding()
         
         return vc
     }
@@ -64,6 +65,8 @@ final class ChallengeViewController: UIViewController {
         
         setupLayout()
         setupAttribute()
+        
+        dataBinding()
     }
     
     private func setupLayout() {
@@ -157,7 +160,10 @@ final class ChallengeViewController: UIViewController {
             action: nil
         )
         rightBarButton.tintColor = .gray1
-
+        rightBarButton.rx.tap
+            .bind(to: whenTappedRightNaivagionBar)
+            .disposed(by: disposeBag)
+        
         let navBarAppearance = UINavigationBarAppearance()
         
         navBarAppearance.shadowColor = nil
@@ -173,7 +179,7 @@ final class ChallengeViewController: UIViewController {
     }
     
     private func dataBinding() {
-        let viewDidAppearTrigger = self.rx.viewDidAppear
+        let viewWillAppearTrigger = self.rx.viewWillAppear
             .do { [weak self] _ in
                 self?.challengeUserInfoView.startIndicator()
             }
@@ -182,10 +188,10 @@ final class ChallengeViewController: UIViewController {
 
         let refeshControlEvent = refreshControl.rx.controlEvent(.valueChanged).asDriver()
         
-        let tappedNavigationBarRightButton = navigationItem.rightBarButtonItem?.rx.tap.asDriver() ?? .empty()
+        let tappedNavigationBarRightButton = whenTappedRightNaivagionBar.asDriver(onErrorDriveWith: .empty())
         
         let input = ChallengeViewModel.Input(
-            whenViewDidAppear: viewDidAppearTrigger,
+            whenViewWillAppear: viewWillAppearTrigger,
             whenRefesh: refeshControlEvent,
             tappedChallengeInfoButton: challengeTitleView.challengeInfoButtonTap,
             tappedNavigationBarRightButton: tappedNavigationBarRightButton

@@ -39,5 +39,15 @@ extension UILabel {
 
         self.attributedText = attributedString
     }
-
+    
+    func setMultipleColors(fullText: String, coloredParts: [String: UIColor]) {
+        let attributedString = NSMutableAttributedString(string: fullText)
+        
+        for (text, color) in coloredParts {
+            let range = (fullText as NSString).range(of: text)
+            attributedString.addAttribute(.foregroundColor, value: color, range: range)
+        }
+        
+        self.attributedText = attributedString
+    }
 }

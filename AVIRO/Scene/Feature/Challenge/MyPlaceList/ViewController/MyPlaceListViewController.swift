@@ -27,6 +27,7 @@ final class MyPlaceListViewController: UIViewController {
         view.backgroundColor = .gray6
         view.separatorStyle = .none
         view.showsVerticalScrollIndicator = false
+        view.isHidden = true
         view.sectionHeaderTopPadding = 0
         view.register(
             MyPlaceListTableViewCell.self,
@@ -77,6 +78,17 @@ final class MyPlaceListViewController: UIViewController {
         return btn
     }()
     
+    private lazy var indicatorView: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView()
+        
+        indicatorView.style = .medium
+        indicatorView.color = .gray0
+        indicatorView.startAnimating()
+        indicatorView.isHidden = false
+        
+        return indicatorView
+    }()
+    
     // MARK: - create
     static func create(with viewModel: MyPlaceListViewModel) -> MyPlaceListViewController {
         let vc = MyPlaceListViewController()
@@ -107,7 +119,8 @@ final class MyPlaceListViewController: UIViewController {
             placeTableView,
             berryImage,
             noPlaceSubLabel,
-            noPlaceButton
+            noPlaceButton,
+            indicatorView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview($0)
@@ -128,7 +141,10 @@ final class MyPlaceListViewController: UIViewController {
             noPlaceButton.topAnchor.constraint(equalTo: noPlaceSubLabel.bottomAnchor, constant: 20),
             noPlaceButton.centerXAnchor.constraint(equalTo: berryImage.centerXAnchor),
             noPlaceButton.widthAnchor.constraint(equalToConstant: 188),
-            noPlaceButton.heightAnchor.constraint(equalToConstant: 48)
+            noPlaceButton.heightAnchor.constraint(equalToConstant: 48),
+            
+            indicatorView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            indicatorView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
     }
     
@@ -209,6 +225,8 @@ final class MyPlaceListViewController: UIViewController {
     
     // MARK: - Data Binding Setting Method
     internal func bindingWhenViewDidLoad(with isHiddenTableView: Bool) {
+        indicatorView.isHidden = true
+        
         placeTableView.isHidden = !isHiddenTableView
         
         berryImage.isHidden = isHiddenTableView

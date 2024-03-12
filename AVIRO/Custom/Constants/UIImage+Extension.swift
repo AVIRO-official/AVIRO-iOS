@@ -128,7 +128,7 @@ extension UIImage {
     
     // cancel Category
     static let cancelCategory = UIImage(named: "Cancel_btn")!
-    
+        
     // MARK: Tab Bar Icon
     static let homeTab = UIImage(named: "HomeTab")!
     static let plusTab = UIImage(named: "PlusTab")!
@@ -203,9 +203,9 @@ extension UIImage {
     static let btn_plus_square = UIImage(named: "Btn_plus_square")!
     
     // MARK: Challenge
-    static let challengeInfoGreen = UIImage(named: "ChallengeInfoGreen")!
-    static let challengeInfoYellow = UIImage(named: "ChallengeInfoYellow")!
-    static let challengeInfoOrange = UIImage(named: "ChallengeInfoOrange")!
+    static let challengeInfoGreen = UIImage(named: "Challenge_Info_Green")!
+    static let challengeInfoYellow = UIImage(named: "Challenge_Info_Yellow")!
+    static let challengeInfoOrange = UIImage(named: "Challenge_Info_Orange")!
     static let goldRectangle = UIImage(named: "GoldRectangle")!
     static let goldTrophy = UIImage(named: "GoldTrophy")
 }

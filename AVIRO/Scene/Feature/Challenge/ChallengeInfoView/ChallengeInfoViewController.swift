@@ -22,44 +22,33 @@ final class ChallengeInfoViewController: UIViewController {
         return view
     }()
     
-    private lazy var greenView: ChallengeInfoGreenView = {
-        let view = ChallengeInfoGreenView()
-        
-        return view
-    }()
-    
     private lazy var yellowView: ChallengeInfoYellowView = {
         let view = ChallengeInfoYellowView()
         
         return view
     }()
     
+    private lazy var greenView: ChallengeInfoGreenView = {
+        let view = ChallengeInfoGreenView()
+        
+        return view
+    }()
+    
+    
     private lazy var orangeView: ChallengeInfoOrangeView = {
         let view = ChallengeInfoOrangeView()
         
         return view
     }()
-    
+        
     private lazy var helpfulLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "어비로에 새로운 정보를 등록하면, 더 많은 사람들이 비건을 선택하는 데 도움이 돼요."
+        label.text = "출처 : Peter Scarborough 「Vegans, vegetarians, fish-eaters and meat-eaters in the UK show discrepant environmental impacts」 「Naturefood」, 20 July 2023"
         label.setLineSpacing(4)
         label.textColor = .gray2
         label.numberOfLines = 2
-        label.font = .pretendard(size: 14, weight: .regular)
-        
-        return label
-    }()
-    
-    private lazy var baseLabel: UILabel = {
-        let label = UILabel()
-        
-        label.text = "비건 채식은 육류가 포함된 식단보다 탄소 배출을 75%나 적게 하고, 생물 다양성 파괴를 66%까지 줄여요"
-        label.setLineSpacing(4)
-        label.textColor = .gray2
-        label.numberOfLines = 2
-        label.font = .pretendard(size: 14, weight: .regular)
+        label.font = .pretendard(size: 9.5, weight: .regular)
         
         return label
     }()
@@ -70,8 +59,8 @@ final class ChallengeInfoViewController: UIViewController {
         btn.setTitle("이해했어요", for: .normal)
         btn.setTitleColor(.gray7, for: .normal)
         btn.titleLabel?.font = .pretendard(size: 16, weight: .semibold)
-        btn.backgroundColor = .main
-        btn.layer.cornerRadius = 28
+        btn.backgroundColor = .keywordBlue
+        btn.layer.cornerRadius = 15
         
         return btn
     }()
@@ -98,7 +87,6 @@ final class ChallengeInfoViewController: UIViewController {
             yellowView,
             orangeView,
             helpfulLabel,
-            baseLabel,
             dismissButton
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -126,18 +114,14 @@ final class ChallengeInfoViewController: UIViewController {
             orangeView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30),
             orangeView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -30),
             
-            helpfulLabel.topAnchor.constraint(equalTo: orangeView.bottomAnchor, constant: 8),
+            helpfulLabel.topAnchor.constraint(equalTo: orangeView.bottomAnchor, constant: 15),
             helpfulLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30),
             helpfulLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -30),
             
-            baseLabel.topAnchor.constraint(equalTo: helpfulLabel.bottomAnchor, constant: 8),
-            baseLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 31),
-            baseLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -31),
-          
-            dismissButton.topAnchor.constraint(equalTo: baseLabel.bottomAnchor, constant: 31),
-            dismissButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 31),
+            dismissButton.topAnchor.constraint(equalTo: helpfulLabel.bottomAnchor, constant: 20),
+            dismissButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30),
             dismissButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -30),
-            dismissButton.heightAnchor.constraint(equalToConstant: 55)
+            dismissButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     

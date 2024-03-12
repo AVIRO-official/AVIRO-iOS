@@ -27,7 +27,7 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
     }
     
     struct Input {
-        let whenViewDidAppear: Driver<Void>
+        let whenViewWillAppear: Driver<Void>
         let whenRefesh: Driver<Void>
         let tappedChallengeInfoButton: Driver<Void>
         let tappedNavigationBarRightButton: Driver<Void>
@@ -44,7 +44,7 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
     }
     
     func transform(with input: Input) -> Output {
-        let loadInfoTrigger = Driver.merge(input.whenViewDidAppear, input.whenRefesh)
+        let loadInfoTrigger = Driver.merge(input.whenViewWillAppear, input.whenRefesh)
         
         let challengeInfoError = PublishSubject<Error>()
         let myContributionCountError = PublishSubject<Error>()
