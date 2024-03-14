@@ -103,8 +103,8 @@ final class MyPlaceListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupLayout()
         setupAttribute()
+        setupLayout()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

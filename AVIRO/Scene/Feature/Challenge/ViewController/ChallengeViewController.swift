@@ -56,6 +56,7 @@ final class ChallengeViewController: UIViewController {
         let vc = ChallengeViewController()
         
         vc.viewModel = viewModel
+        vc.dataBinding()
         
         return vc
     }
@@ -63,12 +64,11 @@ final class ChallengeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupLayout()
         setupAttribute()
+        setupLayout()
         
-        dataBinding()
     }
-    
+
     private func setupLayout() {
         [
             scrollView
@@ -151,6 +151,7 @@ final class ChallengeViewController: UIViewController {
     private func setupAttribute() {
         navigationItem.title = "챌린지"
         navigationController?.navigationBar.isHidden = false
+        
         self.view.backgroundColor = .gray7
         
         let rightBarButton = UIBarButtonItem(
@@ -176,10 +177,11 @@ final class ChallengeViewController: UIViewController {
         myInfoView.tappedMyInfo = { [weak self] myInfoType in
             self?.pushMyInfo(with: myInfoType)
         }
+        
     }
     
     private func dataBinding() {
-        let viewWillAppearTrigger = self.rx.viewWillAppear
+        let viewWillAppearTrigger = self.rx.viewDidLoad
             .do { [weak self] _ in
                 self?.challengeUserInfoView.startIndicator()
             }

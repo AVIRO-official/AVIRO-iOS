@@ -253,7 +253,6 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print(MyData.my.id)
         presenter.viewWillAppear()
     }
     
@@ -265,7 +264,7 @@ final class HomeViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         presenter.viewWillDisappear()
     }
 }
@@ -442,6 +441,7 @@ extension HomeViewController: HomeViewProtocol {
         DispatchQueue.main.async { [weak self] in
             self?.isFectchingindicatorView.isHidden = true
             self?.isFecthingLabel.isHidden = true
+            self?.tabBarDelegate?.afterFetchingData = true
         }
     }
     

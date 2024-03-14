@@ -8,6 +8,7 @@
 import Foundation
 
 protocol TabBarSettingDelegate: AnyObject {
+    var afterFetchingData: Bool { get set }
     var selectedIndex: Int { get set }
     var isHidden: (isHidden: Bool, isSameNavi: Bool) { get set }
     

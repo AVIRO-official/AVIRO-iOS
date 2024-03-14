@@ -10,8 +10,6 @@
 import UIKit
 
 final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
-
-    
     private lazy var viewControllers: [UINavigationController] = []
     
     private lazy var buttons: [TabBarButton] = []
@@ -47,6 +45,8 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
         
         return view
     }()
+    
+    var afterFetchingData: Bool = false
             
     var selectedIndex: Int = 0 {
         willSet {
@@ -84,8 +84,8 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupLayout()
         setupAttribute()
+        setupLayout()
     }
     
     func setViewControllers(with types: [TabBarType]) {
@@ -94,7 +94,7 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
         let home = HomeViewController()
         
         let enroll = EnrollPlaceViewController()
-        
+    
         let bookmarkManager = BookmarkFacadeManager()
         let challengeViewModel = ChallengeViewModel(bookmarkManager: bookmarkManager)
         
@@ -219,6 +219,7 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
         /// child view들의 lifeCycle 함수들이 정상적으로 호출됨
         previousVC.remove()
         previousVC.clearNavigationStackExceptRoot()
+
     }
 
     private func setupView() {
@@ -258,15 +259,25 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
     }
     
     @objc private func tabBarButtonTapped(_ sender: TabBarButton) {
-        afterTappedButton(sender)
-        
-        if sender.tag == selectedIndex {
+        checkAfterFetching(with: sender.tag)
+    }
+    
+    private func checkAfterFetching(with index: Int) {
+        if afterFetchingData {
+            whenSelectedIndex(with: index)
+        } else {
+            showSimpleToast(with: "데이터 동기화 중 입니다!", position: .top)
+        }
+    }
+    
+    private func whenSelectedIndex(with index: Int) {
+        if index == selectedIndex {
             if timer == nil {
-                selectedIndex = sender.tag
-                startTimer(with: sender.tag)
+                selectedIndex = index
+                startTimer(with: index)
             }
         } else {
-            selectedIndex = sender.tag
+            selectedIndex = index
             timerExpired()
         }
     }
