@@ -54,7 +54,7 @@ final class AppController {
 
         let userCheck = AVIROAutoLoginWhenAppleUserDTO(refreshToken: userKey)
 
-        AVIROAPI.manager.appleUserCheck(with: userCheck) { [weak self] result in
+        AVIROAPI.manager.checkAppleUserWhenInitiate(with: userCheck) { [weak self] result in
             switch result {
             case .success(let model):
                 if model.statusCode == 200 {

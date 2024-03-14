@@ -36,13 +36,13 @@ enum CategoryType {
     var title: String {
         switch self {
         case .Bar:
-            "술집"
+            return "술집"
         case .Bread:
-            "빵집"
+            return "빵집"
         case .Coffee:
-            "카페"
+            return "카페"
         case .Restaurant:
-            "식당"
+            return "식당"
         }
     }
 }

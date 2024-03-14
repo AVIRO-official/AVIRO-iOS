@@ -1199,8 +1199,8 @@ extension HomeViewController: TabBarInteractionDelegate {
             self.placeView.setSegmentedControlIndex(with: 2)
             
             /// 호출 후 초기화 작업 
-            presenter.afterGetPlaceSummaryModel = nil
-            presenter.afterGetPlaceDetailModel = nil
+            self.presenter.afterGetPlaceSummaryModel = nil
+            self.presenter.afterGetPlaceDetailModel = nil
         }
     }
 }

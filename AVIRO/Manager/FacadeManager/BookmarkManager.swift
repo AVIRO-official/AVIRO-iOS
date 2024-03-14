@@ -92,7 +92,7 @@ final class BookmarkFacadeManager: BookmarkFacadeProtocol {
             userId: MyData.my.id
         )
                 
-        AVIROAPI.manager.createBookmarkModel(with: postModel) { result in
+        AVIROAPI.manager.overwriteBookmarks(with: postModel) { result in
             switch result {
             case .success(let success):
                 if success.statusCode != 200 {
