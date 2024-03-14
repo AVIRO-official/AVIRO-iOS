@@ -95,6 +95,7 @@ final class MyBookmarkListViewController: UIViewController {
         let vc = MyBookmarkListViewController()
         
         vc.viewModel = viewModel
+        vc.dataBinding()
         
         return vc
     }
@@ -103,10 +104,8 @@ final class MyBookmarkListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupLayout()
         setupAttribute()
-        
-        dataBinding()
+        setupLayout()
     }
     
     // MARK: - Setup Method
@@ -171,7 +170,7 @@ final class MyBookmarkListViewController: UIViewController {
     
     // MARK: - DataBinding Method
     private func dataBinding() {
-        let viewDidLoadTrigger = self.rx.viewWillAppear
+        let viewDidLoadTrigger = self.rx.viewDidLoad
             .map { _ in }
             .asDriver(onErrorDriveWith: .empty())
         

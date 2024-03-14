@@ -178,6 +178,10 @@ final class HomeViewPresenter: NSObject {
     }
     
     func viewDidLoad() {
+        viewController?.setupAttribute()
+        viewController?.setupGesture()
+        viewController?.setupLayout()
+        
         locationManager.delegate = self
         
         MyCoordinate.shared.afterFirstLoadLocation = { [weak self] in
@@ -185,11 +189,6 @@ final class HomeViewPresenter: NSObject {
         }
             
         setNotification()
-        
-        viewController?.setupLayout()
-        viewController?.setupAttribute()
-        viewController?.setupGesture()
-                
     }
     
     private func setNotification() {

@@ -157,7 +157,6 @@ extension SettingViewController: MyPageViewProtocol {
     
     func switchIsLoading(with loading: Bool) {
         DispatchQueue.main.async { [weak self] in
-            print("Test")
             self?.indicatorView.isHidden = !loading
             self?.blurEffectView.isHidden = !loading
         }

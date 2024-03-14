@@ -101,22 +101,14 @@ final class AppController {
     private func setTabBarView() {
         DispatchQueue.main.async { [weak self] in
             let tabBarVC = AVIROTabBarController()
+            
             tabBarVC.setViewControllers(with: [
                 TabBarType.home,
                 TabBarType.plus,
                 TabBarType.challenge
             ])
-            
-            tabBarVC.selectedIndex = 0
-            
             self?.rootViewController = tabBarVC
-            
+            tabBarVC.selectedIndex = 0
         }
-//        DispatchQueue.main.async { [weak self] in
-//            let homeVC = TabBarViewController()
-//
-//            self?.rootViewController = homeVC
-//        }
     }
-    
 }

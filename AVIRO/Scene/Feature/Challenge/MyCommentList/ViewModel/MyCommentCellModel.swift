@@ -36,6 +36,6 @@ struct MyCommentCellModel {
         self.title = model.title
         self.content = model.content
         
-        self.createdBefore = model.createdBefore.relativeDateString()
+        self.createdBefore = model.createdBefore
     }
 }
