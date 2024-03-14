@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		07B07E7D2181EE7FE8658FF3 /* Pods_AVIRO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 666C79719FFC2B1B1010E863 /* Pods_AVIRO.framework */; };
+		62166DEE2BA2E92300F05D40 /* API.plist in Resources */ = {isa = PBXBuildFile; fileRef = 62166DED2BA2E92300F05D40 /* API.plist */; };
 		BAABB6DFC862FB737E319364 /* libPods-AVIROTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 145E32B416F8757C584E1EC5 /* libPods-AVIROTests.a */; };
 		C50367F52A1795D10020C6BB /* HomeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50367F42A1795D10020C6BB /* HomeViewPresenter.swift */; };
 		C505C1DA2B3AC0070058F115 /* AVIROConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C505C1D92B3AC0070058F115 /* AVIROConfiguration.swift */; };
@@ -106,7 +107,6 @@
 		C541521D2AC125E100F39826 /* TutorialTopLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C541521C2AC125E100F39826 /* TutorialTopLabel.swift */; };
 		C54386762B33F05500BD2CAF /* ReviewPushView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54386752B33F05500BD2CAF /* ReviewPushView.swift */; };
 		C54386792B3432FE00BD2CAF /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54386782B3432FE00BD2CAF /* ViewModel.swift */; };
-		C54657882ABF2DBA003A0BCB /* API.plist in Resources */ = {isa = PBXBuildFile; fileRef = C54657872ABF2DBA003A0BCB /* API.plist */; };
 		C5476B4D2B2F1F1F00F5FC6E /* AVIROTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B4C2B2F1F1F00F5FC6E /* AVIROTests.swift */; };
 		C5476B612B3028FA00F5FC6E /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B602B3028FA00F5FC6E /* ChallengeViewController.swift */; };
 		C5476B682B303BE800F5FC6E /* MyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B672B303BE800F5FC6E /* MyInfoView.swift */; };
@@ -280,6 +280,7 @@
 		1F4D9C82B45E94A145093777 /* Pods-AVIRO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVIRO.release.xcconfig"; path = "Target Support Files/Pods-AVIRO/Pods-AVIRO.release.xcconfig"; sourceTree = "<group>"; };
 		209280C6A805DB12C44C7A1C /* Pods-AVIROTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVIROTests.debug.xcconfig"; path = "Target Support Files/Pods-AVIROTests/Pods-AVIROTests.debug.xcconfig"; sourceTree = "<group>"; };
 		543A0041DDDA86D0223E371E /* Pods-AVIRO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVIRO.debug.xcconfig"; path = "Target Support Files/Pods-AVIRO/Pods-AVIRO.debug.xcconfig"; sourceTree = "<group>"; };
+		62166DED2BA2E92300F05D40 /* API.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = API.plist; sourceTree = "<group>"; };
 		666C79719FFC2B1B1010E863 /* Pods_AVIRO.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AVIRO.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C50367F42A1795D10020C6BB /* HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenter.swift; sourceTree = "<group>"; };
 		C505C1D92B3AC0070058F115 /* AVIROConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROConfiguration.swift; sourceTree = "<group>"; };
@@ -381,7 +382,6 @@
 		C54386752B33F05500BD2CAF /* ReviewPushView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPushView.swift; sourceTree = "<group>"; };
 		C54386782B3432FE00BD2CAF /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		C54657862ABF2D82003A0BCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		C54657872ABF2DBA003A0BCB /* API.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = API.plist; path = ../AVIRO/AVIRO/App/API.plist; sourceTree = SOURCE_ROOT; };
 		C5476B4A2B2F1F1F00F5FC6E /* AVIROTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AVIROTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5476B4C2B2F1F1F00F5FC6E /* AVIROTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROTests.swift; sourceTree = "<group>"; };
 		C5476B602B3028FA00F5FC6E /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
@@ -598,7 +598,7 @@
 				C52FA34B2A175B20005E70DC /* Assets.xcassets */,
 				C52FA34D2A175B20005E70DC /* LaunchScreen.storyboard */,
 				C52FA3502A175B20005E70DC /* Info.plist */,
-				C54657872ABF2DBA003A0BCB /* API.plist */,
+				62166DED2BA2E92300F05D40 /* API.plist */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -2143,7 +2143,7 @@
 				C510004C2AB5F76600F65C1F /* Pretendard-Light.otf in Resources */,
 				C52FA34C2A175B20005E70DC /* Assets.xcassets in Resources */,
 				C510004E2AB5F76600F65C1F /* Pretendard-Medium.otf in Resources */,
-				C54657882ABF2DBA003A0BCB /* API.plist in Resources */,
+				62166DEE2BA2E92300F05D40 /* API.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

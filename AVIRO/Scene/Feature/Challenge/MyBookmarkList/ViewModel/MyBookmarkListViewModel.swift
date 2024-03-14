@@ -109,7 +109,7 @@ final class MyBookmarkListViewModel: ViewModel {
                 guard let self = self else { return }
                 if !self.cancelledBookmarkList.isEmpty {
                     
-                    challengeViewModelProtocol.whenUpdateBookmarkList = self.onSelectedBookmark ? false : true
+                    self.challengeViewModelProtocol.whenUpdateBookmarkList = self.onSelectedBookmark ? false : true
                     
                     self.bookmarkManager.deleteData(
                         with: self.cancelledBookmarkList,
@@ -137,7 +137,7 @@ final class MyBookmarkListViewModel: ViewModel {
         userId: String
     ) -> Single<[MyBookmarkCellModel]> {
         return Single.create { single in
-            AVIROAPI.manager.loadMyBookmarkList(with: userId) { result in
+            AVIROAPI.manager.loadBookmarksFromUser(with: userId) { result in
                 switch result {
                 case .success(let data):
                     var model: [MyBookmarkCellModel] = []

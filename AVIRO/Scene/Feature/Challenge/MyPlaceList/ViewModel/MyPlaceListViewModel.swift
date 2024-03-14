@@ -76,7 +76,7 @@ final class MyPlaceListViewModel: ViewModel {
         userId: String
     ) -> Single<[MyPlaceCellModel]> {
         return Single.create { single in
-            AVIROAPI.manager.loadMyPlaceList(with: userId) { result in
+            AVIROAPI.manager.loadPlacesFromUser(with: userId) { result in
                 switch result {
                 case .success(let data):
                     var model: [MyPlaceCellModel] = []
