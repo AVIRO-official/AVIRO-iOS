@@ -130,7 +130,7 @@ final class ReviewWriteViewModel: ViewModel {
                     content: content
                 )
                 
-                if let editCommentId = editCommentId {
+                if let editCommentId = self.editCommentId {
                     model.commentId = editCommentId
                     
                     return self.editReview(with: model)

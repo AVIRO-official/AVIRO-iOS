@@ -103,7 +103,7 @@ final class MyCommentListViewModel: ViewModel {
     
     private func loadMyReviews(userId: String) -> Single<[MyCommentCellModel]> {
         return Single.create { single in
-            AVIROAPI.manager.loadMyCommentList(with: userId) { response in
+            AVIROAPI.manager.loadReviewsFromUser(with: userId) { response in
                 switch response {
                 case .success(let data):
                     var model: [MyCommentCellModel] = []

@@ -602,7 +602,7 @@ final class HomeViewPresenter: NSObject {
             guard let self = self else { return }
             
             if isActived {
-                if !selectedCategory.contains(where: { $0 == categoryType }) {
+                if !self.selectedCategory.contains(where: { $0 == categoryType }) {
                     self.selectedCategory.append(categoryType)
                 }
             } else {

@@ -116,7 +116,7 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
             guard let self = self else { return Disposables.create() }
             
             func makeApiCall() {
-                AVIROAPI.manager.loadMyContributedCount(with: userId) { result in
+                AVIROAPI.manager.loadUserContributedCount(with: userId) { result in
                     switch result {
                     case .success(let data):
                         
@@ -164,7 +164,7 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
     
     private func loadMyChallengeLevelAPI(userId: String) -> Single<AVIROMyChallengeLevelDataDTO> {
         return Single.create { single in
-            AVIROAPI.manager.loadMyChallengeLevel(with: userId) { result in
+            AVIROAPI.manager.loadUserChallengeInfo(with: userId) { result in
                 switch result {
                 case .success(let resultModel):
                     guard let resultData = resultModel.data else { return }
