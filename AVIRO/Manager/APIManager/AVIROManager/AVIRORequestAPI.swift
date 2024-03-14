@@ -10,6 +10,12 @@ import Foundation
 struct AVIRORequestAPI {
     static let scheme = "https"
         
+    var apiVersion: String
+    
+    init(apiVersion: Int) {
+        self.apiVersion = "/\(apiVersion)/"
+    }
+    
     var host: String? = {
         guard let path = Bundle.main.url(forResource: "API", withExtension: "plist"),
               let dict = NSDictionary(contentsOf: path) as? [String: Any],
@@ -37,9 +43,11 @@ struct AVIRORequestAPI {
     static let menuInfoPath = "/2/map/load/menu"
     static let commentPath = "/2/map/load/comment"
     static let operationHourPath = "/2/map/load/timetable"
-        
-    static let myContributionCountPath = "/2/mypage/count"
+
     static let challengeInfoPath = "/2/mypage/challenge"
+    static let challengeComment = "/2/mypage/challenge/comment"
+    
+    static let myContributionCountPath = "/2/mypage/count"
     static let myChallengeLevelPath = "/2/mypage/challenge/level"
     
     static let myPlaceListPath = "/2/mypage/place"
@@ -251,6 +259,10 @@ struct AVIRORequestAPI {
             path: AVIRORequestAPI.myChallengeLevelPath,
             queryItems: queryItems
         )
+    }
+    
+    mutating func getChallengeComment() -> URLComponents {
+        return createURLComponents(path: AVIRORequestAPI.challengeComment)
     }
     
     // MARK: My Place, Comment, Bookmark List

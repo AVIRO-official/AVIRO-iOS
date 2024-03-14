@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		07B07E7D2181EE7FE8658FF3 /* Pods_AVIRO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 666C79719FFC2B1B1010E863 /* Pods_AVIRO.framework */; };
+		6206A6562BA3C48A00056560 /* AVIROChallengeCommentDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6206A6552BA3C48A00056560 /* AVIROChallengeCommentDTO.swift */; };
 		62166DEE2BA2E92300F05D40 /* API.plist in Resources */ = {isa = PBXBuildFile; fileRef = 62166DED2BA2E92300F05D40 /* API.plist */; };
 		BAABB6DFC862FB737E319364 /* libPods-AVIROTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 145E32B416F8757C584E1EC5 /* libPods-AVIROTests.a */; };
 		C50367F52A1795D10020C6BB /* HomeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50367F42A1795D10020C6BB /* HomeViewPresenter.swift */; };
@@ -280,6 +281,7 @@
 		1F4D9C82B45E94A145093777 /* Pods-AVIRO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVIRO.release.xcconfig"; path = "Target Support Files/Pods-AVIRO/Pods-AVIRO.release.xcconfig"; sourceTree = "<group>"; };
 		209280C6A805DB12C44C7A1C /* Pods-AVIROTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVIROTests.debug.xcconfig"; path = "Target Support Files/Pods-AVIROTests/Pods-AVIROTests.debug.xcconfig"; sourceTree = "<group>"; };
 		543A0041DDDA86D0223E371E /* Pods-AVIRO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVIRO.debug.xcconfig"; path = "Target Support Files/Pods-AVIRO/Pods-AVIRO.debug.xcconfig"; sourceTree = "<group>"; };
+		6206A6552BA3C48A00056560 /* AVIROChallengeCommentDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROChallengeCommentDTO.swift; sourceTree = "<group>"; };
 		62166DED2BA2E92300F05D40 /* API.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = API.plist; sourceTree = "<group>"; };
 		666C79719FFC2B1B1010E863 /* Pods_AVIRO.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AVIRO.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C50367F42A1795D10020C6BB /* HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenter.swift; sourceTree = "<group>"; };
@@ -1474,6 +1476,7 @@
 				C53856B02ABC13ED00D52DEC /* AVIROMyContributionCount+DTO.swift */,
 				C505C1DC2B3ACCC40058F115 /* AVIROChallengeInfoResult+DTO.swift */,
 				C505C1DF2B3ACCEC0058F115 /* AVIROMyChallengeLevelResult+DTO.swift */,
+				6206A6552BA3C48A00056560 /* AVIROChallengeCommentDTO.swift */,
 			);
 			path = Challenge;
 			sourceTree = "<group>";
@@ -2394,6 +2397,7 @@
 				C50DB7432A99DCDA0078B501 /* SearchPlaceViewController.swift in Sources */,
 				C5FD92F22A9C805700CF4673 /* PublicXMLParserDelegate.swift in Sources */,
 				C505C1E22B3ACEC00058F115 /* Reactive+Extension.swift in Sources */,
+				6206A6562BA3C48A00056560 /* AVIROChallengeCommentDTO.swift in Sources */,
 				C5166E4D2A945228003495AA /* MyData.swift in Sources */,
 				C58B9AAE2A5675B9008AEAC3 /* TutorialViewController.swift in Sources */,
 				C5FF13552A42C88D0026981D /* AVIROPlaceMenus+DTO.swift in Sources */,
