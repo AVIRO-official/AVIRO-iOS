@@ -5,8 +5,6 @@
 //  Created by 전성훈 on 2023/12/26.
 //
 
-// TODO: - TabBar도 VC, ViewModel 나눠야 할까?
-
 import UIKit
 
 final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
