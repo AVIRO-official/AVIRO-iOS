@@ -146,11 +146,11 @@ final class PlaceListHeaderView: UIView {
         )
         
         centerLocation.setValue(
-            isTop ? UIColor.main : UIColor.gray0,
+            isTop ? UIColor.keywordBlue : UIColor.gray1,
             forKey: "titleTextColor"
         )
         myLocation.setValue(
-            isTop ? UIColor.gray0 : UIColor.main,
+            isTop ? UIColor.gray1 : UIColor.keywordBlue,
             forKey: "titleTextColor"
         )
         cancel.setValue(
@@ -217,11 +217,11 @@ final class PlaceListHeaderView: UIView {
         )
         
         accurancy.setValue(
-            isTop ? UIColor.main : UIColor.gray0,
+            isTop ? UIColor.keywordBlue : UIColor.gray1,
             forKey: "titleTextColor"
         )
         distance.setValue(
-            isTop ? UIColor.gray0 : UIColor.main,
+            isTop ? UIColor.gray1 : UIColor.keywordBlue,
             forKey: "titleTextColor"
         )
         cancel.setValue(

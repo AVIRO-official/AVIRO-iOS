@@ -1,5 +1,5 @@
 ////
-////  FirstPopupViewController.swift
+////  WellcomeViewController.swift
 ////  AVIRO
 ////
 ////  Created by 전성훈 on 2024/03/11.
@@ -7,7 +7,9 @@
 //
 import UIKit
 
-final class FirstPopupViewController: UIViewController {
+// MARK: - 기능 추가시 MVVM으로 Refectoring
+
+final class WellcomeViewController: UIViewController {
     private lazy var imageCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         
@@ -19,20 +21,36 @@ final class FirstPopupViewController: UIViewController {
 //        collectionView.dataSource = self
 //        collectionView.delegate = self
         collectionView.register(
-            FirstPopupCollectionViewCell.self,
-            forCellWithReuseIdentifier: FirstPopupCollectionViewCell.identifier
+            WellcomeCollectionViewCell.self,
+            forCellWithReuseIdentifier: WellcomeCollectionViewCell.identifier
         )
         
         return collectionView
     }()
     
-    private lazy var checkButton: UIButton = {
+    private lazy var noShowButton: UIButton = {
         let btn = UIButton()
+        
+        btn.backgroundColor = .clear
+        btn.setTitle(<#T##String?#>, for: <#T##UIControl.State#>)
         
         return btn
     }()
     
-//    private lazy var noMoreShowUntilTomorrowButton:
+    private lazy var closeButton: UIButton = {
+        let btn = UIButton()
+        
+        btn.backgroundColor = .clear
+        btn.setTitle("닫기", for: .normal)
+        btn.setTitleColor(.gray7, for: .normal)
+        btn.addTarget(
+            self,
+            action: #selector(closeButtonTapped(_:)),
+            for: .touchUpInside
+        )
+        
+        return btn
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +61,14 @@ final class FirstPopupViewController: UIViewController {
     }
     
     private func setupAttribute() {
+        
+    }
+    
+    @objc private func noShowButtonTapped(_ sender: UIButton) {
+        
+    }
+    
+    @objc private func closeButtonTapped(_ sender: UIButton) {
         
     }
 }
