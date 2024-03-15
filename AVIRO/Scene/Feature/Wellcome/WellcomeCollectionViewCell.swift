@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class FirstPopupCollectionViewCell: UICollectionViewCell {
-    static let identifier = FirstPopupCollectionViewCell.description()
+final class WellcomeCollectionViewCell: UICollectionViewCell {
+    static let identifier = WellcomeCollectionViewCell.description()
     
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
@@ -18,6 +18,12 @@ final class FirstPopupCollectionViewCell: UICollectionViewCell {
         
         return view
     }()
+    
+    private lazy var checkButton: UIButton = {
+        let btn = UIButton()
+        
+        return btn
+    }() 
     
     override init(frame: CGRect) {
         super.init(frame: frame)

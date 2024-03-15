@@ -14,7 +14,7 @@ private enum AniKeyPath: String {
 // MARK: - Animaiton Extension
 extension UIView {
     private struct AssociatedKeys {
-        static var isAnimating = "UIViewIsAnimating"
+        static var isAnimating: UInt8 = 0 
     }
     
     var isAnimating: Bool {

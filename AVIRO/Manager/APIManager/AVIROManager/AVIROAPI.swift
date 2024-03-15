@@ -14,7 +14,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
     var session: URLSession
     
     var postAPI = AVIROPostAPI()
-    var requestAPI = AVIRORequestAPI()
+    var requestAPI = AVIRORequestAPI(apiVersion: 2)
     var deleteAPI = AVIRODeleteAPI()
     
     private init(session: URLSession = .shared) {
@@ -619,6 +619,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
     // MARK: - My Page / Challenge
     /*
      - GET Challenge / loadChallengeInfo
+     - GET Challenge Comment / loadChallengeComment
      - GET User Challenge / loadUserChallengeInfo
      - GET User Contributed List Count / loadUserContributedCount
      - GET Places (user) / loadPlacesFromUser
@@ -635,6 +636,20 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             return
         }
 
+        performRequest(
+            with: url,
+            headers: requestAPI.headers,
+            completionHandler: completionHandler
+        )
+    }
+    
+    // MARK: GET Challenge Comment
+    func loadChallengeComment(completionHandler: @escaping (Result<AVIROChallengeCommentDataDTO, APIError>) -> Void) {
+        guard let url = requestAPI.getChallengeComment().url else {
+            completionHandler(.failure(.urlError))
+            return
+        }
+        
         performRequest(
             with: url,
             headers: requestAPI.headers,
