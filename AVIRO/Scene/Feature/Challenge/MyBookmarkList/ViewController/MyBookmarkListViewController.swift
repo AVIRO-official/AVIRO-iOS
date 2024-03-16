@@ -12,7 +12,7 @@ import RxCocoa
 
 final class MyBookmarkListViewController: UIViewController {
     // MARK: - Property
-    weak var tabBarDelegate: TabBarSettingDelegate?
+    weak var tabBarDelegate: TabBarFromSubVCDelegate?
     
     private var viewModel: MyBookmarkListViewModel!
     private let disposeBag = DisposeBag()

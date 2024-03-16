@@ -10,6 +10,8 @@ import UIKit
 // MARK: - 기능 추가시 MVVM으로 Refectoring
 
 final class WellcomeViewController: UIViewController {
+    var tabBarDelegate: TabBarFromSubVCDelegate?
+    
     private var images: [URL] = [] {
         didSet {
             imageCollectionView.reloadData()
@@ -35,11 +37,23 @@ final class WellcomeViewController: UIViewController {
         return collectionView
     }()
     
+    private lazy var failureLabel: UILabel = {
+        let lbl = UILabel()
+       
+        lbl.text = "이미지 로딩에 실패했습니다"
+        lbl.numberOfLines = 2
+        lbl.textColor = .gray2
+        lbl.font = .pretendard(size: 16, weight: .semibold)
+        lbl.isHidden = true
+        
+        return lbl
+    }()
+    
     private lazy var noShowButton: UIButton = {
         let btn = UIButton()
         
         btn.backgroundColor = .clear
-        btn.setTitle("24시간 보지 않기", for: .normal)
+        btn.setTitle("오늘 하루 보지 않기", for: .normal)
         btn.setTitleColor(.gray7, for: .normal)
         btn.titleLabel?.font = .pretendard(size: 18, weight: .medium)
         btn.titleEdgeInsets = .init(top: 0, left: 0, bottom: -10, right: 0)
@@ -97,8 +111,14 @@ final class WellcomeViewController: UIViewController {
     static func create() -> WellcomeViewController {
         let vc = WellcomeViewController()
         
+        vc.dataBinding()
+        
         return vc
     }
+    
+    var didNoShowButtonTapped: (() -> Void)?
+    var didCloseButtonTapped: (() -> Void)?
+    var didCheckButtonTapped: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,7 +141,8 @@ final class WellcomeViewController: UIViewController {
         
         [
             imageCollectionView,
-            bottomStackView
+            bottomStackView,
+            failureLabel
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview($0)
@@ -136,7 +157,10 @@ final class WellcomeViewController: UIViewController {
             bottomStackView.topAnchor.constraint(equalTo: imageCollectionView.bottomAnchor),
             bottomStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30.5),
             bottomStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -30.5),
-            bottomStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            bottomStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            
+            failureLabel.centerXAnchor.constraint(equalTo: imageCollectionView.centerXAnchor),
+            failureLabel.centerYAnchor.constraint(equalTo: imageCollectionView.centerYAnchor)
         ])
     }
     
@@ -144,7 +168,7 @@ final class WellcomeViewController: UIViewController {
         self.view.backgroundColor = .clear
     }
     
-    private func dataBinding() {
+    func dataBinding() {
         AVIROAPI.manager.loadWellcomeImagesURL { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -152,23 +176,28 @@ final class WellcomeViewController: UIViewController {
                 case .success(let data):
                     if let imageURL = data.data?.imageUrl {
                         guard let url = URL(string: imageURL) else { return }
-                        
                         let urlArray = [url]
+                        self.urlLoadFail(with: false)
+                        
                         self.images = urlArray
                     }
                 case .failure(let error):
-                    break
+                    self.urlLoadFail(with: true)
                 }
             }
         }
     }
     
+    private func urlLoadFail(with isFail: Bool) {
+        failureLabel.isHidden = !isFail
+    }
+    
     @objc private func noShowButtonTapped(_ sender: UIButton) {
-        
+        didNoShowButtonTapped?()
     }
     
     @objc private func closeButtonTapped(_ sender: UIButton) {
-        
+        didCloseButtonTapped?()
     }
 }
 
@@ -200,6 +229,10 @@ extension WellcomeViewController: UICollectionViewDataSource {
         ) as? WellcomeCollectionViewCell else { return UICollectionViewCell() }
         
         cell.configure(with: images[indexPath.row])
+        
+        cell.didCheckButtonTapped = { [weak self] in
+            self?.didCheckButtonTapped?()
+        }
         
         return cell
     }

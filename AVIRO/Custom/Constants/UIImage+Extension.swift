@@ -11,6 +11,7 @@ extension UIImage {
     // MARK: - Launch Screen
     static let launchtitle = UIImage(named: "LaunchTitle")!
     static let launchBG = UIImage(named: "Launchbg")!
+    static let launchAVIRO = UIImage(named: "aviro")!
     
     // MARK: - Screen Shot
     static let screen1 = UIImage(named: "Contents 1")

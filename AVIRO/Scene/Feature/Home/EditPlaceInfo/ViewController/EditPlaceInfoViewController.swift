@@ -22,7 +22,7 @@ private enum Text: String {
 }
 
 final class EditPlaceInfoViewController: UIViewController {
-    weak var tabBarDelegate: TabBarSettingDelegate?
+    weak var tabBarDelegate: TabBarFromSubVCDelegate?
     lazy var presenter = EditPlaceInfoPresenter(viewController: self)
     
     private let items = [

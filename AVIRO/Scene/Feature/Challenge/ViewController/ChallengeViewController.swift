@@ -17,7 +17,7 @@ enum MyInfoType {
 }
 
 final class ChallengeViewController: UIViewController {
-    weak var tabBarDelegate: TabBarSettingDelegate?
+    weak var tabBarDelegate: TabBarFromSubVCDelegate?
     
     private var viewModel: ChallengeViewModel!
     private let disposeBag = DisposeBag()

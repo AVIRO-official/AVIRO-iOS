@@ -12,7 +12,7 @@ import RxCocoa
 
 final class MyCommentListViewController: UIViewController {
     // MARK: - Property
-    weak var tabBarDelegate: TabBarSettingDelegate?
+    weak var tabBarDelegate: TabBarFromSubVCDelegate?
     
     private var viewModel: MyCommentListViewModel!
     private let disposeBag = DisposeBag()

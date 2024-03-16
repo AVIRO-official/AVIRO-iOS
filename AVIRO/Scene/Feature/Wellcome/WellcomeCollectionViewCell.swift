@@ -43,6 +43,8 @@ final class WellcomeCollectionViewCell: UICollectionViewCell {
         return btn
     }() 
     
+    var didCheckButtonTapped: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -101,7 +103,7 @@ final class WellcomeCollectionViewCell: UICollectionViewCell {
             
             if let _ = error {
                 DispatchQueue.main.async {
-                    self.imageLoageFail()
+                    self.imageLoadFail()
                 }
             }
             
@@ -113,11 +115,11 @@ final class WellcomeCollectionViewCell: UICollectionViewCell {
         }.resume()
     }
     
-    private func imageLoageFail() {
+    private func imageLoadFail() {
         failureLabel.isHidden = false
     }
     
     @objc private func checkButtonTapped(_ sender: UIButton) {
-        
+        didCheckButtonTapped?()
     }
 }

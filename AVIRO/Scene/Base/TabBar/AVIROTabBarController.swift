@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
+final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
     
     private lazy var viewControllers: [UINavigationController] = []
     private var wellcomeViewController: WellcomeViewController?
@@ -52,6 +52,7 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
        
         view.backgroundColor = .clear
         view.isHidden = true
+        
         wellcomeViewController = WellcomeViewController.create()
         
         if let wellcomeVC = wellcomeViewController {
@@ -191,6 +192,23 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
         
         setupButtons()
         checkWellcomeShow()
+        
+        wellcomeViewController?.tabBarDelegate = self
+        
+        wellcomeViewController?.didNoShowButtonTapped = { [weak self] in
+            UserDefaults.standard.set(Date(), forKey: UDKey.hideUntil.rawValue)
+            
+            self?.removeWellcomVC()
+        }
+        
+        wellcomeViewController?.didCloseButtonTapped = { [weak self] in
+            self?.removeWellcomVC()
+        }
+        
+        wellcomeViewController?.didCheckButtonTapped = { [weak self] in
+            self?.selectedIndex = 2
+            self?.removeWellcomVC()
+        }
     }
     
     private func setupButtons() {
@@ -244,15 +262,35 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
     }
     // MARK: - Wellcome VC
     private func checkWellcomeShow() {
-        showWellcomeVC()
+        guard let compareDate = UserDefaults.standard.object(
+            forKey: UDKey.hideUntil.rawValue
+        ) as? Date else {
+            showWellcomeVC()
+            return
+        }
+        
+        let components = Calendar.current.dateComponents(
+            [.hour],
+            from: compareDate,
+            to: Date()
+        )
+        
+        if let hoursPassed = components.hour, hoursPassed >= 24 {
+            showWellcomeVC()
+        }
     }
     
     private func showWellcomeVC() {
         blurView.isHidden = false
         wellcomeView.isHidden = false
-        
     }
     
+    private func removeWellcomVC() {
+        blurView.isHidden = true
+        wellcomeView.isHidden = true
+
+        wellcomeViewController?.remove()
+    }
     
     // MARK: - TabBar Click After
     private func updateView() {
@@ -320,7 +358,10 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
             afterTappedButton(sender)
             whenSelectedIndex(with: sender.tag)
         } else {
-            showSimpleToast(with: "데이터 동기화 중 입니다!", position: .top)
+            showSimpleToast(
+                with: "데이터 동기화 중 입니다!",
+                position: .top
+            )
         }
     }
     
@@ -388,7 +429,7 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
     ) {
         self.selectedIndex = index
         
-        weak var delegate = viewControllers[index].topViewController as? TabBarInteractionDelegate
+        weak var delegate = viewControllers[index].topViewController as? TabBarToSubVCDelegate
         
         delegate?.handleTabBarInteraction(withData: data)
     }
