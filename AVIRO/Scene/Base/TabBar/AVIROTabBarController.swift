@@ -192,23 +192,6 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
         
         setupButtons()
         checkWellcomeShow()
-        
-        wellcomeViewController?.tabBarDelegate = self
-        
-        wellcomeViewController?.didNoShowButtonTapped = { [weak self] in
-            UserDefaults.standard.set(Date(), forKey: UDKey.hideUntil.rawValue)
-            
-            self?.removeWellcomVC()
-        }
-        
-        wellcomeViewController?.didCloseButtonTapped = { [weak self] in
-            self?.removeWellcomVC()
-        }
-        
-        wellcomeViewController?.didCheckButtonTapped = { [weak self] in
-            self?.selectedIndex = 2
-            self?.removeWellcomVC()
-        }
     }
     
     private func setupButtons() {
@@ -281,8 +264,27 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
     }
     
     private func showWellcomeVC() {
-        blurView.isHidden = false
-        wellcomeView.isHidden = false
+        wellcomeViewController?.tabBarDelegate = self
+        wellcomeViewController?.dataBinding() { [weak self] in
+            
+            self?.wellcomeViewController?.didNoShowButtonTapped = {
+                UserDefaults.standard.set(Date(), forKey: UDKey.hideUntil.rawValue)
+                
+                self?.removeWellcomVC()
+            }
+            
+            self?.wellcomeViewController?.didCloseButtonTapped = {
+                self?.removeWellcomVC()
+            }
+            
+            self?.wellcomeViewController?.didCheckButtonTapped = {
+                self?.selectedIndex = 2
+                self?.removeWellcomVC()
+            }
+            
+            self?.blurView.isHidden = false
+            self?.wellcomeView.isHidden = false
+        }
     }
     
     private func removeWellcomVC() {

@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if let vc = self.window?.rootViewController as? LaunchScreenViewController {
             vc.afterLaunchScreenEnd = {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     AppController.shared.show(in: window)
                 }
             }

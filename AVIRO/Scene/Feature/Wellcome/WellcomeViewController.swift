@@ -111,7 +111,7 @@ final class WellcomeViewController: UIViewController {
     static func create() -> WellcomeViewController {
         let vc = WellcomeViewController()
         
-        vc.dataBinding()
+//        vc.dataBinding()
         
         return vc
     }
@@ -125,8 +125,6 @@ final class WellcomeViewController: UIViewController {
         
         setupAttribute()
         setupLayout()
-        
-        dataBinding()
     }
     
     private func setupLayout() {
@@ -168,7 +166,7 @@ final class WellcomeViewController: UIViewController {
         self.view.backgroundColor = .clear
     }
     
-    func dataBinding() {
+    func dataBinding(completionHandler: @escaping () -> Void) {
         AVIROAPI.manager.loadWellcomeImagesURL { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -180,9 +178,11 @@ final class WellcomeViewController: UIViewController {
                         self.urlLoadFail(with: false)
                         
                         self.images = urlArray
+                        completionHandler()
                     }
-                case .failure(let error):
+                case .failure(let _):
                     self.urlLoadFail(with: true)
+                    completionHandler()
                 }
             }
         }
