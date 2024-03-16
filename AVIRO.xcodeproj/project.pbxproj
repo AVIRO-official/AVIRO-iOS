@@ -96,7 +96,7 @@
 		C52FA34F2A175B20005E70DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C52FA34D2A175B20005E70DC /* LaunchScreen.storyboard */; };
 		C5351B4D2A19223300116D50 /* KakaoMapRequestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B4C2A19223300116D50 /* KakaoMapRequestAPI.swift */; };
 		C5351B502A19225A00116D50 /* KakaoKeywordPlace+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B4F2A19225A00116D50 /* KakaoKeywordPlace+DTO.swift */; };
-		C5351B542A19A7B100116D50 /* MyCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B532A19A7B100116D50 /* MyCoordinate.swift */; };
+		C5351B542A19A7B100116D50 /* UserCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B532A19A7B100116D50 /* UserCoordinate.swift */; };
 		C5351B5C2A19F60200116D50 /* SearchPlacePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B5B2A19F60200116D50 /* SearchPlacePresenter.swift */; };
 		C5351B602A19F9A700116D50 /* PlaceListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B5F2A19F9A700116D50 /* PlaceListModel.swift */; };
 		C5351B622A1A083400116D50 /* PlaceListCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B612A1A083400116D50 /* PlaceListCellModel.swift */; };
@@ -137,6 +137,7 @@
 		C562B6DF2B387AE200CE5D4C /* ChallengeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6DE2B387AE200CE5D4C /* ChallengeInfoViewController.swift */; };
 		C562B6E22B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */; };
 		C562B6E42B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */; };
+		C564DAB32BA57240002174B4 /* AVIROWellcome+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C564DAB22BA57240002174B4 /* AVIROWellcome+DTO.swift */; };
 		C567C1502A56611500D4B426 /* TopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C567C14F2A56611500D4B426 /* TopCell.swift */; };
 		C568577D2A70E1F600F52715 /* MenuPlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568577C2A70E1F600F52715 /* MenuPlusButton.swift */; };
 		C56857802A7113C600F52715 /* NormalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568577F2A7113C600F52715 /* NormalTableViewCell.swift */; };
@@ -371,7 +372,7 @@
 		C5351B4A2A1919F700116D50 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C5351B4C2A19223300116D50 /* KakaoMapRequestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapRequestAPI.swift; sourceTree = "<group>"; };
 		C5351B4F2A19225A00116D50 /* KakaoKeywordPlace+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KakaoKeywordPlace+DTO.swift"; sourceTree = "<group>"; };
-		C5351B532A19A7B100116D50 /* MyCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoordinate.swift; sourceTree = "<group>"; };
+		C5351B532A19A7B100116D50 /* UserCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoordinate.swift; sourceTree = "<group>"; };
 		C5351B5B2A19F60200116D50 /* SearchPlacePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacePresenter.swift; sourceTree = "<group>"; };
 		C5351B5F2A19F9A700116D50 /* PlaceListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListModel.swift; sourceTree = "<group>"; };
 		C5351B612A1A083400116D50 /* PlaceListCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListCellModel.swift; sourceTree = "<group>"; };
@@ -414,6 +415,7 @@
 		C562B6DE2B387AE200CE5D4C /* ChallengeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoViewController.swift; sourceTree = "<group>"; };
 		C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoPresentationAnimator.swift; sourceTree = "<group>"; };
 		C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoPresentaionDelegate.swift; sourceTree = "<group>"; };
+		C564DAB22BA57240002174B4 /* AVIROWellcome+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROWellcome+DTO.swift"; sourceTree = "<group>"; };
 		C567C14F2A56611500D4B426 /* TopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCell.swift; sourceTree = "<group>"; };
 		C568577C2A70E1F600F52715 /* MenuPlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPlusButton.swift; sourceTree = "<group>"; };
 		C568577F2A7113C600F52715 /* NormalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalTableViewCell.swift; sourceTree = "<group>"; };
@@ -860,7 +862,7 @@
 		C520663E2A80C6220038ECCD /* CoordinateSingleton */ = {
 			isa = PBXGroup;
 			children = (
-				C5351B532A19A7B100116D50 /* MyCoordinate.swift */,
+				C5351B532A19A7B100116D50 /* UserCoordinate.swift */,
 				C520663B2A80C0450038ECCD /* CenterCoordinate.swift */,
 			);
 			path = CoordinateSingleton;
@@ -1381,6 +1383,14 @@
 			path = AnimationCustom;
 			sourceTree = "<group>";
 		};
+		C564DAB12BA571A7002174B4 /* ETC */ = {
+			isa = PBXGroup;
+			children = (
+				C564DAB22BA57240002174B4 /* AVIROWellcome+DTO.swift */,
+			);
+			path = ETC;
+			sourceTree = "<group>";
+		};
 		C567C14D2A5658C700D4B426 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -1536,6 +1546,7 @@
 				C5166E472A930583003495AA /* DetailPlace */,
 				C58FBF8A2AC2A4BD00AB6EFC /* Challenge */,
 				C5DCBC892B91CE9F003502BA /* MyPage */,
+				C564DAB12BA571A7002174B4 /* ETC */,
 			);
 			path = AVIROGet;
 			sourceTree = "<group>";
@@ -2324,6 +2335,7 @@
 				C5C90EB92AA78D0200AB3668 /* EditOperationHourChangebleView.swift in Sources */,
 				C5A201C72A98A6D200A54381 /* EditOperatingHoursView.swift in Sources */,
 				C5C290772A85E4FF00ED5DCE /* PlaceHomeView.swift in Sources */,
+				C564DAB32BA57240002174B4 /* AVIROWellcome+DTO.swift in Sources */,
 				C5D93D9F2A581EC800629C39 /* FirstRegistrationViewController.swift in Sources */,
 				C528E4C02A5FF1CB002BD72E /* FinalRegistrationViewController.swift in Sources */,
 				C5FBDA5C2B398264007AC77E /* ChallengeInfoYellowView.swift in Sources */,
@@ -2367,7 +2379,7 @@
 				C5C90EB22AA5EC9E00AB3668 /* EditMenuChangedMarkerModel.swift in Sources */,
 				C51B09BA2A8215D800916BBD /* MarkerModel.swift in Sources */,
 				C52FA3452A175B20005E70DC /* SceneDelegate.swift in Sources */,
-				C5351B542A19A7B100116D50 /* MyCoordinate.swift in Sources */,
+				C5351B542A19A7B100116D50 /* UserCoordinate.swift in Sources */,
 				C5EB50EA2A1C705900B29CC1 /* SettingViewController.swift in Sources */,
 				C5D802702B3C6E4000136D0E /* RecommendPlaceAlertView.swift in Sources */,
 				C510005A2AB998F600F65C1F /* UIImage+Extension.swift in Sources */,

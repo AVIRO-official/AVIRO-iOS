@@ -212,8 +212,8 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
         completionHandler: @escaping (Result<[AVIROMarkerModel], APIError>) -> Void
     ) {
         let mapModel = AVIROMapModelDTO(
-            longitude: MyCoordinate.shared.longitudeString,
-            latitude: MyCoordinate.shared.latitudeString,
+            longitude: UserCoordinate.shared.longitudeString,
+            latitude: UserCoordinate.shared.latitudeString,
             wide: "0.0",
             time: updateTime
         )

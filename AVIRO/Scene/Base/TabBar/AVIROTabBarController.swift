@@ -8,7 +8,9 @@
 import UIKit
 
 final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
+    
     private lazy var viewControllers: [UINavigationController] = []
+    private var wellcomeViewController: WellcomeViewController?
     
     private lazy var buttons: [TabBarButton] = []
     private var types: [TabBarType] = []
@@ -33,13 +35,41 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
         return view
     }()
     
-    private lazy var blurEffectView: UIVisualEffectView = {
+    private lazy var tabBarBlurView: UIVisualEffectView = {
         let view = UIVisualEffectView()
         
         let blurEffect = UIBlurEffect(style: .dark)
         
         view.effect = blurEffect
-        view.alpha = 0.6
+        view.alpha = 0.3
+        view.isHidden = true
+        
+        return view
+    }()
+    
+    private lazy var wellcomeView: UIView = {
+        let view = UIView()
+       
+        view.backgroundColor = .clear
+        view.isHidden = true
+        wellcomeViewController = WellcomeViewController.create()
+        
+        if let wellcomeVC = wellcomeViewController {
+            add(child: wellcomeVC, container: view)
+            view.addSubview(wellcomeVC.view)
+        }
+        
+        return view
+    }()
+    
+    private lazy var blurView: UIVisualEffectView = {
+        let view = UIVisualEffectView()
+        
+        let blurEffect = UIBlurEffect(style: .dark)
+        
+        view.effect = blurEffect
+        view.alpha = 0.3
+        view.isHidden = true
         
         return view
     }()
@@ -82,8 +112,8 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupAttribute()
         setupLayout()
+        setupAttribute()
     }
     
     func setViewControllers(with types: [TabBarType]) {
@@ -115,11 +145,14 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
         ])
     }
     
+    // MARK: - TabBat Setup
     private func setupLayout() {
         [
             tabBarView,
             bottomInsetView,
-            blurEffectView
+            tabBarBlurView,
+            blurView,
+            wellcomeView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview($0)
@@ -136,19 +169,28 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
             bottomInsetView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             bottomInsetView.topAnchor.constraint(equalTo: tabBarView.bottomAnchor),
             
-            blurEffectView.topAnchor.constraint(equalTo: tabBarView.topAnchor),
-            blurEffectView.leadingAnchor.constraint(equalTo: tabBarView.leadingAnchor),
-            blurEffectView.trailingAnchor.constraint(equalTo: tabBarView.trailingAnchor),
-            blurEffectView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            tabBarBlurView.topAnchor.constraint(equalTo: tabBarView.topAnchor),
+            tabBarBlurView.leadingAnchor.constraint(equalTo: tabBarView.leadingAnchor),
+            tabBarBlurView.trailingAnchor.constraint(equalTo: tabBarView.trailingAnchor),
+            tabBarBlurView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            
+            blurView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            blurView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            blurView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            blurView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            
+            wellcomeView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            wellcomeView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            wellcomeView.widthAnchor.constraint(equalToConstant: 280),
+            wellcomeView.heightAnchor.constraint(equalToConstant: 415)
         ])
-        
-        blurEffectView.isHidden = true
-        
-        setupButtons()
     }
     
     private func setupAttribute() {
         self.view.backgroundColor = .clear
+        
+        setupButtons()
+        checkWellcomeShow()
     }
     
     private func setupButtons() {
@@ -200,7 +242,19 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
             redDotView.topAnchor.constraint(equalTo: imageView.topAnchor, constant: -3)
         ])
     }
+    // MARK: - Wellcome VC
+    private func checkWellcomeShow() {
+        showWellcomeVC()
+    }
     
+    private func showWellcomeVC() {
+        blurView.isHidden = false
+        wellcomeView.isHidden = false
+        
+    }
+    
+    
+    // MARK: - TabBar Click After
     private func updateView() {
         deleteView()
         setupView()
@@ -220,6 +274,7 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
 
     }
 
+    // TODO: - Refectoring 필요
     private func setupView() {
         let selectedVC = viewControllers[selectedIndex]
         
@@ -257,12 +312,13 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
     }
     
     @objc private func tabBarButtonTapped(_ sender: TabBarButton) {
-        checkAfterFetching(with: sender.tag)
+        checkAfterFetching(with: sender)
     }
     
-    private func checkAfterFetching(with index: Int) {
+    private func checkAfterFetching(with sender: TabBarButton) {
         if afterFetchingData {
-            whenSelectedIndex(with: index)
+            afterTappedButton(sender)
+            whenSelectedIndex(with: sender.tag)
         } else {
             showSimpleToast(with: "데이터 동기화 중 입니다!", position: .top)
         }
@@ -338,6 +394,6 @@ final class AVIROTabBarController: UIViewController, TabBarSettingDelegate {
     }
     
     func activeBlurEffectView(with active: Bool) {
-        blurEffectView.isHidden = !active
+        tabBarBlurView.isHidden = !active
     }
 }

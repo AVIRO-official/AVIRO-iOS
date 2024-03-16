@@ -66,8 +66,8 @@ final class SearchPlacePresenter: NSObject {
         currentPage = 1
         
         let query = query
-        let longitude = MyCoordinate.shared.longitudeString
-        let latitude = MyCoordinate.shared.latitudeString
+        let longitude = UserCoordinate.shared.longitudeString
+        let latitude = UserCoordinate.shared.latitudeString
         
         let model = KakaoKeywordSearchDTO(
             query: query,
@@ -127,8 +127,8 @@ final class SearchPlacePresenter: NSObject {
         currentPage += 1
         
         let query = query
-        let longitude = MyCoordinate.shared.longitudeString
-        let latitude = MyCoordinate.shared.latitudeString
+        let longitude = UserCoordinate.shared.longitudeString
+        let latitude = UserCoordinate.shared.latitudeString
         
         let model = KakaoKeywordSearchDTO(
             query: query,

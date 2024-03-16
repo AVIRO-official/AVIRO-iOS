@@ -12,7 +12,6 @@ final class CenterCoordinate {
     static let shared = CenterCoordinate()
     
     var latitude: Double?
-    
     var longitude: Double?
     
     var isChangedFromEnrollView = false

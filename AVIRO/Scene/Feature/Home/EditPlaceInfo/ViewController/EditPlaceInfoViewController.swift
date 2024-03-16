@@ -283,7 +283,7 @@ extension EditPlaceInfoViewController: EditPlaceInfoProtocol {
         
         blurEffectView.effect = blurEffectStyle
         blurEffectView.frame = view.bounds
-        blurEffectView.alpha = 0.6
+        blurEffectView.alpha = 0.3
         blurEffectView.isHidden = true
         operationHourChangebleView.isHidden = true
     }

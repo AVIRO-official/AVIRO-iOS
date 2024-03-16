@@ -56,7 +56,6 @@ final class ChallengeViewController: UIViewController {
         let vc = ChallengeViewController()
         
         vc.viewModel = viewModel
-        vc.dataBinding()
         
         return vc
     }
@@ -67,6 +66,7 @@ final class ChallengeViewController: UIViewController {
         setupAttribute()
         setupLayout()
         
+        dataBinding()
     }
 
     private func setupLayout() {
@@ -177,11 +177,10 @@ final class ChallengeViewController: UIViewController {
         myInfoView.tappedMyInfo = { [weak self] myInfoType in
             self?.pushMyInfo(with: myInfoType)
         }
-        
     }
     
     private func dataBinding() {
-        let viewWillAppearTrigger = self.rx.viewDidLoad
+        let viewWillAppearTrigger = self.rx.viewWillAppear
             .do { [weak self] _ in
                 self?.challengeUserInfoView.startIndicator()
             }
@@ -224,7 +223,6 @@ final class ChallengeViewController: UIViewController {
         output.error
             .drive(self.rx.isError)
             .disposed(by: disposeBag)
-        
     }
     
     internal func bindChallengeInfo(with result: AVIROChallengeInfoDataDTO) {

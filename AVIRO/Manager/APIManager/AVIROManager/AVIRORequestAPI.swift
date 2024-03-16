@@ -54,6 +54,8 @@ struct AVIRORequestAPI {
     static let myCommentListPath = "/2/mypage/comment"
     static let myBookmarkListPath = "/2/mypage/bookmark"
     
+    static let wellcomeImagesPath = "/2/map/load/popup"
+    
     // MARK: Key
     static let userId = "userId"
     
@@ -297,6 +299,11 @@ struct AVIRORequestAPI {
             path: AVIRORequestAPI.myBookmarkListPath,
             queryItems: queryItems
         )
+    }
+    
+    // MARK: GET WellcomeImages URL
+    mutating func getWellcomImagesURL() -> URLComponents {
+        return createURLComponents(path: AVIRORequestAPI.wellcomeImagesPath)
     }
 }
 

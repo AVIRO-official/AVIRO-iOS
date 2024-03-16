@@ -58,7 +58,6 @@ private enum Layout {
         case topButtonToView = 18
         case medium = 20
         case large = 30
-        case largeToView = 40
     }
     
     enum Size: CGFloat {
@@ -229,7 +228,7 @@ final class HomeViewController: UIViewController {
         let blurEffect = UIBlurEffect(style: .dark)
         
         view.effect = blurEffect
-        view.alpha = 0.6
+        view.alpha = 0.3
         
         return view
     }()
@@ -296,8 +295,7 @@ extension HomeViewController: HomeViewProtocol {
                 equalTo: view.topAnchor
             ),
             naverMapView.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                constant: Layout.Margin.largeToView.rawValue
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor
             ),
             naverMapView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor
