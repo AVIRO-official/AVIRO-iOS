@@ -58,7 +58,6 @@ private enum Layout {
         case topButtonToView = 18
         case medium = 20
         case large = 30
-        case largeToView = 40
     }
     
     enum Size: CGFloat {
@@ -67,7 +66,7 @@ private enum Layout {
 }
 
 final class HomeViewController: UIViewController {
-    weak var tabBarDelegate: TabBarSettingDelegate?
+    weak var tabBarDelegate: TabBarFromSubVCDelegate?
     
     lazy var presenter = HomeViewPresenter(viewController: self)
         
@@ -229,7 +228,7 @@ final class HomeViewController: UIViewController {
         let blurEffect = UIBlurEffect(style: .dark)
         
         view.effect = blurEffect
-        view.alpha = 0.6
+        view.alpha = 0.3
         
         return view
     }()
@@ -296,8 +295,7 @@ extension HomeViewController: HomeViewProtocol {
                 equalTo: view.topAnchor
             ),
             naverMapView.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                constant: Layout.Margin.largeToView.rawValue
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor
             ),
             naverMapView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor
@@ -1169,7 +1167,7 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
 }
 
 // MARK: TabBarInteractionDelegate
-extension HomeViewController: TabBarInteractionDelegate {
+extension HomeViewController: TabBarToSubVCDelegate {
     func handleTabBarInteraction(withData data: [String: Any]) {
         if let placeId = data[TabBarKeys.placeId] as? String {
             whenTabBarKeyIsPlaceId(with: placeId)
@@ -1406,6 +1404,7 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func deleteCancelButtonFromCategoryCollection() {
+//        self.categoryCollectionView.reloadData()
         self.categoryCollectionView.performBatchUpdates { [weak self] in
             self?.categoryCollectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
         } completion: { [weak self] _ in
@@ -1415,12 +1414,14 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func deleteCancelButtonWhenAllCategoryFalse() {
+//        self.categoryCollectionView.reloadData()
         self.categoryCollectionView.performBatchUpdates { [weak self] in
             self?.categoryCollectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
         } 
     }
     
     func updateCancelButtonFromCategoryCollection() {
+//        self.categoryCollectionView.reloadData()
         self.categoryCollectionView.performBatchUpdates { [weak self] in
             self?.categoryCollectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
         }

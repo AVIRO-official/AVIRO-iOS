@@ -12,7 +12,7 @@ import RxCocoa
 
 final class MyPlaceListViewController: UIViewController {
     // MARK: - Property
-    weak var tabBarDelegate: TabBarSettingDelegate?
+    weak var tabBarDelegate: TabBarFromSubVCDelegate?
 
     private var viewModel: MyPlaceListViewModel!
     private let disposeBag = DisposeBag()

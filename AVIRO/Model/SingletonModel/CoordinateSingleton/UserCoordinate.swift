@@ -8,8 +8,8 @@
 import Foundation
 
 /// 경도(x:Longitude) 위도(y:latitude)
-final class MyCoordinate {
-    static let shared = MyCoordinate()
+final class UserCoordinate {
+    static let shared = UserCoordinate()
     
     var latitude: Double?
     var longitude: Double?

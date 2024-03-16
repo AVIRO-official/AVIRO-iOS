@@ -276,7 +276,6 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
         )
     }
 
-        
     // MARK: - Detail Info Refer
     /*
      - GET Summary / loadPlaceSummary
@@ -893,6 +892,27 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             httpMethod: .post,
             requestBody: jsonData,
             headers: postAPI.headers,
+            completionHandler: completionHandler
+        )
+    }
+    
+    // - MARK: ETC
+    /*
+     - GET Wellcome Images URL / loadWellcomeImagesURL
+     */
+    
+    // MARK: Get wellcomeImagesURL
+    func loadWellcomeImagesURL(
+        completionHandler: @escaping (Result<AVIROWellcomeDTO, APIError>) -> Void
+    ) {
+        guard let url = requestAPI.getWellcomImagesURL().url else {
+            completionHandler(.failure(.urlError))
+            return
+        }
+        
+        performRequest(
+            with: url,
+            headers: requestAPI.headers,
             completionHandler: completionHandler
         )
     }

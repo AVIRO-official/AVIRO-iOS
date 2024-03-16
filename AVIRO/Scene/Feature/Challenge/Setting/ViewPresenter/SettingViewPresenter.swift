@@ -99,7 +99,7 @@ final class SettingViewPresenter {
         markerManager.deleteAllMarker()
         
         MyData.my.whenLogout()
-        MyCoordinate.shared.isFirstLoadLocation = false
+        UserCoordinate.shared.isFirstLoadLocation = false
         
         self.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
         
@@ -120,7 +120,7 @@ final class SettingViewPresenter {
                     self?.bookmarkManager.deleteAllData()
                     
                     MyData.my.whenLogout()
-                    MyCoordinate.shared.isFirstLoadLocation = false
+                    UserCoordinate.shared.isFirstLoadLocation = false
                     self?.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
                     self?.amplitude.withdrawalUser()
                     

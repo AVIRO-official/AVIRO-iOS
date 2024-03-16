@@ -12,6 +12,6 @@ struct TabBarKeys {
     static let showReview = "review"
 }
 
-protocol TabBarInteractionDelegate: AnyObject {
+protocol TabBarToSubVCDelegate: AnyObject {
     func handleTabBarInteraction(withData data: [String: Any])
 }

@@ -57,6 +57,7 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
     func fetchRawData(
         completionHandler: @escaping (Result<[AVIROMarkerModel], APIError>) -> Void
     ) {
+        // TODO: - 전 버전이  1.2.1이면 이제 필요 없음
         // realm 마이그레이션 실행
         let config = Realm.Configuration(
             schemaVersion: 1,
@@ -73,7 +74,7 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
         )
         
         Realm.Configuration.defaultConfiguration = config
-        print("realm 위치: ", Realm.Configuration.defaultConfiguration.fileURL!)
+
         let realm = try! Realm()
         let haveStoredData = realm.objects(MarkerModelFromRealm.self).count > 0 ? true : false
         let hasTitleInRealm = realm.objects(MarkerModelFromRealm.self).filter("title != ''").count > 0 ? true : false
@@ -83,6 +84,7 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
         } else {
             fetchRawDataFromServer(completionHandler: completionHandler)
         }
+        
     }
     
     private func fetchRawDataFromRealm(
@@ -212,8 +214,8 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
         completionHandler: @escaping (Result<[AVIROMarkerModel], APIError>) -> Void
     ) {
         let mapModel = AVIROMapModelDTO(
-            longitude: MyCoordinate.shared.longitudeString,
-            latitude: MyCoordinate.shared.latitudeString,
+            longitude: UserCoordinate.shared.longitudeString,
+            latitude: UserCoordinate.shared.latitudeString,
             wide: "0.0",
             time: updateTime
         )

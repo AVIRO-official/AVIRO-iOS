@@ -209,8 +209,8 @@ final class HomeSearchPresenter {
         let whichLocation = KakaoAPISortingQuery.shared.coordinate
         
         if whichLocation == KakaoSerachCoordinate.MyCoordinate {
-            longitude = MyCoordinate.shared.longitude ?? 0.0
-            latitude = MyCoordinate.shared.latitude ?? 0.0
+            longitude = UserCoordinate.shared.longitude ?? 0.0
+            latitude = UserCoordinate.shared.latitude ?? 0.0
         } else {
             longitude = CenterCoordinate.shared.longitude ?? 0.0
             latitude = CenterCoordinate.shared.latitude ?? 0.0

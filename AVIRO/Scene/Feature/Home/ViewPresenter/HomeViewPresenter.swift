@@ -184,7 +184,7 @@ final class HomeViewPresenter: NSObject {
         
         locationManager.delegate = self
         
-        MyCoordinate.shared.afterFirstLoadLocation = { [weak self] in
+        UserCoordinate.shared.afterFirstLoadLocation = { [weak self] in
             self?.loadVeganData()
         }
             
@@ -1130,11 +1130,11 @@ extension HomeViewPresenter: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         
-        MyCoordinate.shared.latitude = location.coordinate.latitude
-        MyCoordinate.shared.longitude = location.coordinate.longitude
+        UserCoordinate.shared.latitude = location.coordinate.latitude
+        UserCoordinate.shared.longitude = location.coordinate.longitude
 
-        if !MyCoordinate.shared.isFirstLoadLocation {
-            MyCoordinate.shared.isFirstLoadLocation = true
+        if !UserCoordinate.shared.isFirstLoadLocation {
+            UserCoordinate.shared.isFirstLoadLocation = true
         }
         
         locationManager.stopUpdatingLocation()
@@ -1143,11 +1143,11 @@ extension HomeViewPresenter: CLLocationManagerDelegate {
     }
     
     private func ifDeniedLocation() {
-        MyCoordinate.shared.latitude = DefaultCoordinate.lat.rawValue
-        MyCoordinate.shared.longitude = DefaultCoordinate.lng.rawValue
+        UserCoordinate.shared.latitude = DefaultCoordinate.lat.rawValue
+        UserCoordinate.shared.longitude = DefaultCoordinate.lng.rawValue
 
-        if !MyCoordinate.shared.isFirstLoadLocation {
-            MyCoordinate.shared.isFirstLoadLocation = true
+        if !UserCoordinate.shared.isFirstLoadLocation {
+            UserCoordinate.shared.isFirstLoadLocation = true
         }
         
         let mapCoor = NMGLatLng(lat: DefaultCoordinate.lat.rawValue, lng: DefaultCoordinate.lng.rawValue)
