@@ -236,7 +236,19 @@ final class HomeViewController: UIViewController {
     private(set) var placeViewTopConstraint: NSLayoutConstraint?
     private(set) var searchTextFieldTopConstraint: NSLayoutConstraint?
     
-    private lazy var isSlideUpView = false
+    private var isSlideUpView = false {
+        didSet {
+            print("isSlide: ", isSlideUpView)
+            print("isFull: ",isFullUpView)
+            
+            let isHidden = (isSlideUpView || isFullUpView)
+
+            searchTextField.isHidden = isHidden
+            categoryCollectionView.isHidden = isHidden
+        }
+    }
+    
+    private var isFullUpView = false
 
     private lazy var whenSlideTapGesture = UITapGestureRecognizer()
     private lazy var upGesture = UISwipeGestureRecognizer()
@@ -252,6 +264,8 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
         presenter.viewWillAppear()
     }
     
@@ -448,7 +462,9 @@ extension HomeViewController: HomeViewProtocol {
         navigationController?.navigationBar.isHidden = true
         
         naverMapView.isHidden = false
-        categoryCollectionView.isHidden = false
+        
+        isFullUpView = false
+        isSlideUpView = false
     }
     
     /// 모든 조건에 해당 사항 없을 때, place view 초기화
@@ -541,7 +557,10 @@ extension HomeViewController: HomeViewProtocol {
     
     private func popupPlaceView() {
         placeViewPopUp()
+
+        isFullUpView = false
         isSlideUpView = false
+
         placeView.isLoadingTopView = true
     }
     
@@ -595,13 +614,17 @@ extension HomeViewController: HomeViewProtocol {
     private func onPlaceViewSlideUp() {
         placeViewSlideUp()
         presenter.getPlaceModelDetail()
+        
+        isFullUpView = false
         isSlideUpView = true
     }
     
     private func onPlaceViewFullUp() {
         placeViewFullUp()
+        
         naverMapView.isHidden = true
-        categoryCollectionView.isHidden = true
+        
+        isFullUpView = true
         isSlideUpView = false
     }
     
@@ -611,6 +634,8 @@ extension HomeViewController: HomeViewProtocol {
     
     @objc private func downBackButtonTapped(_ sender: UIButton) {
         placeViewPopUpAfterInitPlacePopViewHeight()
+                
+        isFullUpView = false
         isSlideUpView = false
     }
     
@@ -643,6 +668,8 @@ extension HomeViewController: HomeViewProtocol {
             // view가 slideup일때만 down gesture 가능
             if isSlideUpView {
                 placeViewPopUpAfterInitPlacePopViewHeight()
+                
+                isFullUpView = false
                 isSlideUpView = false
             }
         }
@@ -1022,8 +1049,11 @@ extension HomeViewController {
     private func handleClosure() {
         placeView.whenFullBack = { [weak self] in
             self?.naverMapView.isHidden = false
-            self?.categoryCollectionView.isHidden = false
+
             self?.placeViewPopUpAfterInitPlacePopViewHeight()
+            
+            self?.isFullUpView = false
+            self?.isSlideUpView = false
         }
         
         placeView.whenShareTapped = { [weak self] shareObject in

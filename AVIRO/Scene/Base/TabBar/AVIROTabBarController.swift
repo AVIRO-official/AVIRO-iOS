@@ -107,9 +107,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
     
     private var selectedVCBottomUponTabViewConstraint: NSLayoutConstraint?
     private var selectedVCBottomUponViewBottom: NSLayoutConstraint?
-    
-    private var timer: Timer?
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -265,8 +263,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
     
     private func showWellcomeVC() {
         wellcomeViewController?.tabBarDelegate = self
-        wellcomeViewController?.dataBinding() { [weak self] in
-            
+        wellcomeViewController?.dataBinding { [weak self] in
             self?.wellcomeViewController?.didNoShowButtonTapped = {
                 UserDefaults.standard.set(Date(), forKey: UDKey.hideUntil.rawValue)
                 
@@ -368,35 +365,9 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
     }
     
     private func whenSelectedIndex(with index: Int) {
-        if index == selectedIndex {
-            if timer == nil {
-                selectedIndex = index
-                startTimer(with: index)
-            }
-        } else {
-            selectedIndex = index
-            timerExpired()
-        }
-    }
-    
-    private func startTimer(with tag: Int) {
-        var timerInterval: TimeInterval = 1.5
+        guard index != selectedIndex else { return }
         
-        if tag == 2 {
-            timerInterval = 3
-        }
-
-        timer = Timer.scheduledTimer(
-            withTimeInterval: timerInterval,
-            repeats: false,
-            block: { [weak self] _ in
-            self?.timerExpired()
-        })
-    }
-    
-    private func timerExpired() {
-        timer?.invalidate()
-        timer = nil
+        selectedIndex = index
     }
     
     private func afterTappedButton(_ button: UIButton) {
