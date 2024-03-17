@@ -122,7 +122,7 @@ final class SettingViewPresenter {
                     MyData.my.whenLogout()
                     UserCoordinate.shared.isFirstLoadLocation = false
                     self?.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
-                    self?.amplitude.withdrawalUser()
+                    self?.amplitude.withdrawal()
                     
                     DispatchQueue.main.async {
                         self?.markerManager.deleteAllMarker()

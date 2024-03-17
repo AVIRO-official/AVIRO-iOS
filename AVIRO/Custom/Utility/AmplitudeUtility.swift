@@ -11,34 +11,57 @@ import AmplitudeSwift
 
 // MARK: Amplitude
 enum AMType: String {
-    case signUp = "Sign Up"
-    case withdrawal = "Withdrawal"
+    case signUp = "user_sign up"
+    case withdrawal = "user_withdrawal"
+    case userLogin = "user_login"
+    case userLogout = "user_logout"
     
-    case login = "Login"
-    case logout = "Logout"
+    case placeUpload = "place_upload"
+    case reviewUpload = "review_upload"
     
-    case requestPlaceInfo = "Request to Edit Place Info"
+    case placeEdit = "place_edit"
+    case placeSearch = "place_serach"
+    case placePresent = "place_present"
+    case menuEdit = "menu_edit"
     
-    case searchHSV = "Search In HomeSearchView"
+    case challPresent = "chall_present"
+    case placeListPresent = "placeList_present"
+    case reviewListPresent = "reviewList_present"
+    case bookmarkListPresent = "bookmarkList_present"
+    case levelupDidMove = "level_up_didMove"
+    case levelupDidNotMove = "level_up_didNotMove"
     
-    case popupPlace = "Pop Up"
-    
-    case afterUploadPlace = "Upload Place"
-    case afterUploadReview = "Upload Review"
-    case afterEditMenu = "Edit Menu Table"
+    case wellcomeClick = "wellcome_click"
+    case wellcomeNoShow = "wellcome_noShow"
+    case wellcomeClose = "wellcome_close"
 }
 
 protocol AmplitudeProtocol {
-    func setupUser(with userId: String)
-    func withdrawalUser()
+    func signUp(with userId: String)
+    func withdrawal()
     func login()
     func logout()
-    func popupPlace(with place: String)
-    func editMenu(with place: String, beforeMenus: [AVIROMenu], afterMenus: [AVIROMenu])
-    func searchPlace(with query: String)
-    func uploadPlace(with place: String)
-    func uploadReview(with place: String, review: String)
-    func requestEditPlace(with place: String)
+    
+    func placeUpload(with place: String)
+    func reviewUpload(with place: String, review: String)
+    
+    func placePresent(with place: String)
+    func placeSearch(with query: String)
+
+    func placeEdit(with place: String)
+    func menuEdit(with place: String, beforeMenus: [AVIROMenu], afterMenus: [AVIROMenu])
+    
+    func challengePresent()
+    func placeListPresent()
+    func reviewListPresent()
+    func bookmarkListPresent()
+    
+    func levelupDidMove(with level: Int)
+    func levelupDidNotMove(with level: Int)
+    
+    func wellcomeClick()
+    func wellcomeNoShow()
+    func wellcomeClose()
 }
 
 final class AmplitudeUtility: AmplitudeProtocol {
@@ -55,13 +78,13 @@ final class AmplitudeUtility: AmplitudeProtocol {
     }
     
     // MARK: Setup User
-    func setupUser(with userId: String) {
+    func signUp(with userId: String) {
         amplitude?.setUserId(userId: userId)
         amplitude?.track(eventType: AMType.signUp.rawValue)
     }
     
     // MARK: Withdrawal User
-    func withdrawalUser() {
+    func withdrawal() {
         amplitude?.track(eventType: AMType.withdrawal.rawValue)
     }
     
@@ -74,24 +97,24 @@ final class AmplitudeUtility: AmplitudeProtocol {
         identify.set(property: "version", value: SystemUtility.appVersion ?? "")
         
         amplitude?.identify(identify: identify)
-        amplitude?.track(eventType: AMType.login.rawValue)
+        amplitude?.track(eventType: AMType.userLogin.rawValue)
     }
     
     // MARK: Logout
     func logout() {
-        amplitude?.track(eventType: AMType.logout.rawValue)
+        amplitude?.track(eventType: AMType.userLogout.rawValue)
     }
     
     // MARK: Popup Place
-    func popupPlace(with place: String) {
+    func placePresent(with place: String) {
         amplitude?.track(
-            eventType: AMType.popupPlace.rawValue,
+            eventType: AMType.placePresent.rawValue,
             eventProperties: ["Place": place]
         )
     }
     
     // MARK: Edit Menu
-    func editMenu(with place: String, beforeMenus: [AVIROMenu], afterMenus: [AVIROMenu]) {
+    func menuEdit(with place: String, beforeMenus: [AVIROMenu], afterMenus: [AVIROMenu]) {
         var beforeMenusString = ""
         
         for (index, menu) in beforeMenus.enumerated() {
@@ -107,7 +130,7 @@ final class AmplitudeUtility: AmplitudeProtocol {
         }
         
         amplitude?.track(
-            eventType: AMType.afterEditMenu.rawValue,
+            eventType: AMType.menuEdit.rawValue,
             eventProperties: [
                 "Place": place,
                 "BeforeChangedMenuArray": beforeMenusString,
@@ -117,25 +140,25 @@ final class AmplitudeUtility: AmplitudeProtocol {
     }
     
     // MARK: Search Place
-    func searchPlace(with query: String) {
+    func placeSearch(with query: String) {
         amplitude?.track(
-            eventType: AMType.searchHSV.rawValue,
+            eventType: AMType.placeSearch.rawValue,
             eventProperties: ["Query": query]
         )
     }
     
     // MARK: Upload Place
-    func uploadPlace(with place: String) {
+    func placeUpload(with place: String) {
         amplitude?.track(
-            eventType: AMType.afterUploadPlace.rawValue,
+            eventType: AMType.placeUpload.rawValue,
             eventProperties: ["Place": place]
         )
     }
     
     // MARK: Upload Review
-    func uploadReview(with place: String, review: String) {
+    func reviewUpload(with place: String, review: String) {
         amplitude?.track(
-            eventType: AMType.afterUploadReview.rawValue,
+            eventType: AMType.reviewUpload.rawValue,
             eventProperties: [
                 "Place": place,
                 "Review": review
@@ -144,53 +167,87 @@ final class AmplitudeUtility: AmplitudeProtocol {
     }
     
     // MARK: Request Edit Place
-    func requestEditPlace(with place: String) {
+    func placeEdit(with place: String) {
         amplitude?.track(
-            eventType: AMType.requestPlaceInfo.rawValue,
+            eventType: AMType.placeEdit.rawValue,
             eventProperties: ["Place": place]
         )
+    }
+    
+    func challengePresent() {
+        amplitude?.track(eventType: AMType.challPresent.rawValue)
+    }
+    
+    func placeListPresent() {
+        amplitude?.track(eventType: AMType.placeListPresent.rawValue)
+    }
+    
+    func reviewListPresent() {
+        amplitude?.track(eventType: AMType.reviewListPresent.rawValue)
+    }
+    
+    func bookmarkListPresent() {
+        amplitude?.track(eventType: AMType.bookmarkListPresent.rawValue)
+    }
+    
+    func levelupDidMove(with level: Int) {
+        amplitude?.track(
+            eventType: AMType.levelupDidMove.rawValue,
+            eventProperties: ["level": level]
+        )
+    }
+    
+    func levelupDidNotMove(with level: Int) {
+        amplitude?.track(
+            eventType: AMType.levelupDidMove.rawValue,
+            eventProperties: ["level": level]
+        )
+    }
+    
+    func wellcomeClick() {
+        amplitude?.track(eventType: AMType.wellcomeClick.rawValue)
+    }
+    
+    func wellcomeNoShow() {
+        amplitude?.track(eventType: AMType.wellcomeNoShow.rawValue)
+    }
+    
+    func wellcomeClose() {
+        amplitude?.track(eventType: AMType.wellcomeClose.rawValue)
     }
 }
 
 final class AmplitudeUtilityDummy: AmplitudeProtocol {
-    func setupUser(with userId: String) {
-        return
-    }
+    func signUp(with userId: String) { return }
+    func withdrawal() { return }
+    func login() { return }
+    func logout() { return }
     
-    func withdrawalUser() {
-        return
-    }
+    func placeUpload(with place: String) { return }
+    func reviewUpload(
+        with place: String,
+        review: String
+    ) { return }
+
+    func placePresent(with place: String) { return }
+    func placeSearch(with query: String) { return }
     
-    func login() {
-        return
-    }
+    func placeEdit(with place: String) { return }
+    func menuEdit(
+        with place: String,
+        beforeMenus: [AVIROMenu],
+        afterMenus: [AVIROMenu]
+    ) { return }
     
-    func logout() {
-        return
-    }
+    func challengePresent() { return }
+    func placeListPresent() { return }
+    func reviewListPresent() { return }
+    func bookmarkListPresent() { return }
     
-    func popupPlace(with place: String) {
-        return
-    }
+    func levelupDidMove(with level: Int) { return }
+    func levelupDidNotMove(with level: Int) { return }
     
-    func editMenu(with place: String, beforeMenus: [AVIROMenu], afterMenus: [AVIROMenu]) {
-        return
-    }
-    
-    func searchPlace(with query: String) {
-        return
-    }
-    
-    func uploadPlace(with place: String) {
-        return
-    }
-    
-    func uploadReview(with place: String, review: String) {
-        return
-    }
-    
-    func requestEditPlace(with place: String) {
-        return
-    }
-    
+    func wellcomeClick() { return }
+    func wellcomeNoShow() { return }
+    func wellcomeClose() { return }
 }

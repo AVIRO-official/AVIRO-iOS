@@ -238,9 +238,6 @@ final class HomeViewController: UIViewController {
     
     private var isSlideUpView = false {
         didSet {
-            print("isSlide: ", isSlideUpView)
-            print("isFull: ",isFullUpView)
-            
             let isHidden = (isSlideUpView || isFullUpView)
 
             searchTextField.isHidden = isHidden
@@ -1181,14 +1178,19 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
         levelUpAlertView.isHidden = false
         
         levelUpAlertView.afterTappedCheckButtonTapped = { [weak self] in
+            self?.presenter.afterLevelUpViewCheckTapped(with: level)
+            
             self?.tabBarDelegate?.activeBlurEffectView(with: false)
             self?.blurEffectView.isHidden = true
             self?.levelUpAlertView.isHidden = true
             
             self?.tabBarDelegate?.selectedIndex = 2
+            
         }
         
         levelUpAlertView.afterTappedNoCheckButtonTapped = { [weak self] in
+            self?.presenter.afterLevelUpViewNocheckTapped(with: level)
+            
             self?.tabBarDelegate?.activeBlurEffectView(with: false)
             self?.blurEffectView.isHidden = true
             self?.levelUpAlertView.isHidden = true
@@ -1203,7 +1205,7 @@ extension HomeViewController: TabBarToSubVCDelegate {
             whenTabBarKeyIsPlaceId(with: placeId)
         }
         
-        if let isShow = data[TabBarKeys.showReview] as? Bool, isShow {
+        if let isShowReview = data[TabBarKeys.showReview] as? Bool, isShowReview {
             presenter.afterGetPlaceSummaryModel = { [weak self] in
                 guard let self = self else { return }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -1219,6 +1221,7 @@ extension HomeViewController: TabBarToSubVCDelegate {
     
     private func whenTabBarkeyIsShwReview() {
         self.onPlaceViewSlideUp()
+        self.view.isUserInteractionEnabled = false
         
         presenter.afterGetPlaceDetailModel = { [weak self] in
             guard let self = self else { return }
@@ -1229,6 +1232,7 @@ extension HomeViewController: TabBarToSubVCDelegate {
             /// 호출 후 초기화 작업 
             self.presenter.afterGetPlaceSummaryModel = nil
             self.presenter.afterGetPlaceDetailModel = nil
+            self.view.isUserInteractionEnabled = true
         }
     }
 }

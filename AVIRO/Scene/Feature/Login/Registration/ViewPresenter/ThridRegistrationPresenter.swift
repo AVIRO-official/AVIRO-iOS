@@ -77,7 +77,7 @@ final class ThridRegistrationPresenter {
                         self?.keyChain.set(
                             userInfoModel.refreshToken,
                             forKey: KeychainKey.appleRefreshToken.rawValue)
-                        self?.amplitude.setupUser(with: data.userId)
+                        self?.amplitude.signUp(with: data.userId)
                         
                         MyData.my.whenLogin(
                             userId: data.userId,

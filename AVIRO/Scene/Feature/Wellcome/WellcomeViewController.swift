@@ -12,6 +12,8 @@ import UIKit
 final class WellcomeViewController: UIViewController {
     var tabBarDelegate: TabBarFromSubVCDelegate?
     
+    private var amplitude: AmplitudeProtocol?
+    
     private var images: [URL] = [] {
         didSet {
             imageCollectionView.reloadData()
@@ -166,7 +168,7 @@ final class WellcomeViewController: UIViewController {
         self.view.backgroundColor = .clear
     }
     
-    func dataBinding(completionHandler: @escaping () -> Void) {
+    func loadWellcomeImage(completionHandler: @escaping () -> Void) {
         AVIROAPI.manager.loadWellcomeImagesURL { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {

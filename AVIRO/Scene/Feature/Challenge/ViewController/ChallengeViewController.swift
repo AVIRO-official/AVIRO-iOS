@@ -22,7 +22,8 @@ final class ChallengeViewController: UIViewController {
     private var viewModel: ChallengeViewModel!
     private let disposeBag = DisposeBag()
     
-    private let whenTappedRightNaivagionBar = PublishSubject<Void>()
+    private let rightNaivagtionBarTapped = PublishSubject<Void>()
+    private let userInfoListTapped = PublishSubject<MyInfoType>()
     
     private lazy var scrollView = UIScrollView()
     
@@ -162,7 +163,7 @@ final class ChallengeViewController: UIViewController {
         )
         rightBarButton.tintColor = .gray1
         rightBarButton.rx.tap
-            .bind(to: whenTappedRightNaivagionBar)
+            .bind(to: rightNaivagtionBarTapped)
             .disposed(by: disposeBag)
         
         let navBarAppearance = UINavigationBarAppearance()
@@ -175,7 +176,7 @@ final class ChallengeViewController: UIViewController {
         scrollView.refreshControl = refreshControl
         
         myInfoView.tappedMyInfo = { [weak self] myInfoType in
-            self?.pushMyInfo(with: myInfoType)
+            self?.userInfoListTapped.onNext(myInfoType)
         }
     }
     
@@ -187,15 +188,27 @@ final class ChallengeViewController: UIViewController {
             .map { _ in }
             .asDriver(onErrorDriveWith: .empty())
 
-        let refeshControlEvent = refreshControl.rx.controlEvent(.valueChanged).asDriver()
+        let refeshControlEvent = refreshControl.rx.controlEvent(.valueChanged)
+            .asDriver()
         
-        let tappedNavigationBarRightButton = whenTappedRightNaivagionBar.asDriver(onErrorDriveWith: .empty())
+        let onRightNavigationBarButtonTapped = rightNaivagtionBarTapped
+            .asDriver(onErrorDriveWith: .empty())
+        
+        let onUserInfoListTapped = userInfoListTapped
+            .do { [weak self] myInfoType in
+                guard let self = self else { return }
+                
+                self.pushMyInfo(with: myInfoType)
+                
+            }
+            .asDriver(onErrorDriveWith: .empty())
         
         let input = ChallengeViewModel.Input(
             whenViewWillAppear: viewWillAppearTrigger,
             whenRefesh: refeshControlEvent,
-            tappedChallengeInfoButton: challengeTitleView.challengeInfoButtonTap,
-            tappedNavigationBarRightButton: tappedNavigationBarRightButton
+            onChallengeInfoButtonTapped: challengeTitleView.challengeInfoButtonTap,
+            onRightNavigationBarButtonTapped: onRightNavigationBarButtonTapped,
+            onUserInfoListTapped: onUserInfoListTapped
         )
         
         let output = viewModel.transform(with: input)
@@ -218,6 +231,10 @@ final class ChallengeViewController: UIViewController {
         
         output.afterTappedNavigationBarRightButton
             .drive(self.rx.isPushSettingViewController)
+            .disposed(by: disposeBag)
+        
+        output.afterUserInfoListTapped
+            .drive()
             .disposed(by: disposeBag)
         
         output.error
