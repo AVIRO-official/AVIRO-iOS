@@ -36,4 +36,11 @@ extension Reactive where Base: UIViewController {
         }
         return ControlEvent(events: source)
     }
+    
+    var viewDidLayoutSubviews: ControlEvent<Bool> {
+        let source = methodInvoked(#selector(Base.viewDidLayoutSubviews)).map {
+            $0.first as? Bool ?? false
+        }
+        return ControlEvent(events: source)
+    }
 }

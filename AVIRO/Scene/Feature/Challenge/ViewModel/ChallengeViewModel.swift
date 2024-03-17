@@ -8,23 +8,48 @@
 import RxSwift
 import RxCocoa
 
-final class ChallengeViewModel: ViewModel {
+// TODO: DTO -> Domain으로 변경 필요
+// Clean Architecture 적용 시 수정
+
+protocol ChallengeViewModelProtocol: AnyObject {
+    var whenUpdateBookmarkList: Bool { get set }
+}
+
+final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
+    private var amplitude: AmplitudeProtocol!
+    private var bookmarkManager: BookmarkFacadeProtocol!
+    
     var challengeTitle: String = ""
+    
+    var whenUpdateBookmarkList = false
+    
+    init(
+        amplitude: AmplitudeProtocol,
+        bookmarkManager: BookmarkFacadeProtocol
+    ) {
+        self.amplitude = amplitude
+        self.bookmarkManager = bookmarkManager
+    }
     
     struct Input {
         let whenViewWillAppear: Driver<Void>
+        
         let whenRefesh: Driver<Void>
-        let tappedChallengeInfoButton: Driver<Void>
-        let tappedNavigationBarRightButton: Driver<Void>
+        let onChallengeInfoButtonTapped: Driver<Void>
+        let onRightNavigationBarButtonTapped: Driver<Void>
+        
+        let onUserInfoListTapped: Driver<MyInfoType>
     }
     
     struct Output {
-        let myContributionCountResult: Driver<AVIROMyContributionCountDTO>
-        let challengeInfoResult: Driver<AVIROChallengeInfoDTO>
-        let myChallengeLevelResult: Driver<AVIROMyChallengeLevelResultDTO>
+        let myContributionCountResult: Driver<AVIROMyActivityCounts>
+        let challengeInfoResult: Driver<AVIROChallengeInfoDataDTO>
+        let myChallengeLevelResult: Driver<AVIROMyChallengeLevelDataDTO>
         
         let afterTappedChallengeInfoButton: Driver<Void>
         let afterTappedNavigationBarRightButton: Driver<Void>
+        let afterUserInfoListTapped: Driver<Void>
+        
         let error: Driver<APIError>
     }
     
@@ -34,12 +59,16 @@ final class ChallengeViewModel: ViewModel {
         let challengeInfoError = PublishSubject<Error>()
         let myContributionCountError = PublishSubject<Error>()
         let myChallengeLevelError = PublishSubject<Error>()
-        
+                
+        // 3개의 api가 하나의 loadInfoTrigger stream을 받고있어서 간헐적으로 api 호출이 실패함
+        // 순차적으로 api 호출하도록 각각의 result을 연결
         let challengeInfoResult = loadInfoTrigger
-            .flatMapLatest { [weak self] in
+            .flatMap { [weak self] in
                 guard let self = self else {
-                    return Driver<AVIROChallengeInfoDTO>.empty()
+                    return Driver<AVIROChallengeInfoDataDTO>.empty()
                 }
+                
+                self.amplitude.challengePresent()
                 
                 return self.loadChallengeInfoAPI()
                     .asDriver(onErrorRecover: { error in
@@ -48,12 +77,11 @@ final class ChallengeViewModel: ViewModel {
                     })
             }
         
-        let myChallengeLevelResult = loadInfoTrigger
-            .flatMapLatest { [weak self] in
+        let myChallengeLevelResult = challengeInfoResult
+            .flatMap { [weak self] _ in
                 guard let self = self else {
-                    return Driver<AVIROMyChallengeLevelResultDTO>.empty()
+                    return Driver<AVIROMyChallengeLevelDataDTO>.empty()
                 }
-                
                 return self.loadMyChallengeLevelAPI(userId: MyData.my.id)
                     .asDriver(onErrorRecover: { error in
                         myChallengeLevelError.onNext(error)
@@ -61,28 +89,47 @@ final class ChallengeViewModel: ViewModel {
                     })
             }
         
-        let myContributionCountResult = loadInfoTrigger
-            .flatMapLatest { [weak self] in
+        let myContributionCountResult = myChallengeLevelResult
+            .flatMap { [weak self] _ in
                 guard let self = self else {
-                    return Driver<AVIROMyContributionCountDTO>.empty()
+                    return Driver<AVIROMyActivityCounts>.empty()
                 }
-                
                 return self.loadMyContributedCountAPI(userId: MyData.my.id)
                     .asDriver(onErrorRecover: { error in
                         myContributionCountError.onNext(error)
                         return Driver.empty()
-                    })  
+                    })
             }
         
-        let combinedError = Observable.merge(challengeInfoError, myContributionCountError, myChallengeLevelError)
+        let combinedError = Observable.merge(
+            challengeInfoError,
+            myContributionCountError,
+            myChallengeLevelError
+        )
             .map { error -> APIError in
                 return (error as? APIError) ?? APIError.badRequest
             }
             .asDriver(onErrorDriveWith: Driver.empty())
         
-        let afterTappedChallengeInfoButton = input.tappedChallengeInfoButton
+        let afterTappedChallengeInfoButton = input.onChallengeInfoButtonTapped
+        let afterTappedNavigationBarRightButton = input.onRightNavigationBarButtonTapped
         
-        let afterTappedNavigationBarRightButton = input.tappedNavigationBarRightButton
+        let afterUserInfoListTapped = input.onUserInfoListTapped
+            .map { [weak self] infoType in
+                guard let self = self else { return }
+                
+                switch infoType {
+                case .place:
+                    self.amplitude.placeListPresent()
+                case .review:
+                    self.amplitude.reviewListPresent()
+                case .bookmark:
+                    self.amplitude.bookmarkListPresent()
+                }
+                
+                return
+            }
+            .asDriver()
         
         return Output(
             myContributionCountResult: myContributionCountResult,
@@ -90,30 +137,56 @@ final class ChallengeViewModel: ViewModel {
             myChallengeLevelResult: myChallengeLevelResult,
             afterTappedChallengeInfoButton: afterTappedChallengeInfoButton,
             afterTappedNavigationBarRightButton: afterTappedNavigationBarRightButton,
+            afterUserInfoListTapped: afterUserInfoListTapped,
+            
             error: combinedError
         )
     }
     
-    private func loadMyContributedCountAPI(userId: String) -> Single<AVIROMyContributionCountDTO> {
-        return Single.create { single in
-            AVIROAPI.manager.loadMyContributedCount(with: userId) { result in
-                switch result {
-                case .success(let data):
-                    single(.success(data))
-                case .failure(let error):
-                    single(.failure(error))
+    /// 개선 필요
+    private func loadMyContributedCountAPI(userId: String) -> Single<AVIROMyActivityCounts> {
+        return Single.create { [weak self] single in
+            guard let self = self else { return Disposables.create() }
+            
+            func makeApiCall() {
+                AVIROAPI.manager.loadUserContributedCount(with: userId) { result in
+                    switch result {
+                    case .success(let data):
+                        
+                        guard let resultData = data.data else { return }
+                        
+                        let newModel = AVIROMyActivityCounts(
+                            placeCount: resultData.placeCount,
+                            commentCount: resultData.commentCount,
+                            bookmarkCount: self.bookmarkManager.loadAllData().count
+                        )
+                        
+                        single(.success(newModel))
+                    case .failure(let error):
+                        single(.failure(error))
+                    }
                 }
             }
-            return Disposables.create()
+            
+            if self.whenUpdateBookmarkList {
+                self.whenUpdateBookmarkList.toggle()
+                DispatchQueue.global().asyncAfter(deadline: .now() + 0.8, execute: makeApiCall)
+            } else {
+                makeApiCall()
+            }
+            
+            return Disposables.create()      
         }
     }
-
-    private func loadChallengeInfoAPI() -> Single<AVIROChallengeInfoDTO> {
+    
+    private func loadChallengeInfoAPI() -> Single<AVIROChallengeInfoDataDTO> {
         return Single.create { single in
             AVIROAPI.manager.loadChallengeInfo { result in
                 switch result {
-                case .success(let data):
-                    single(.success(data))
+                case .success(let resultModel):
+                    guard let resultData = resultModel.data else { return }
+                                        
+                    single(.success(resultData))
                 case .failure(let error):
                     single(.failure(error))
                 }
@@ -122,12 +195,14 @@ final class ChallengeViewModel: ViewModel {
         }
     }
     
-    private func loadMyChallengeLevelAPI(userId: String) -> Single<AVIROMyChallengeLevelResultDTO> {
+    private func loadMyChallengeLevelAPI(userId: String) -> Single<AVIROMyChallengeLevelDataDTO> {
         return Single.create { single in
-            AVIROAPI.manager.loadMyChallengeLevel(with: userId) { result in
+            AVIROAPI.manager.loadUserChallengeInfo(with: userId) { result in
                 switch result {
-                case .success(let data):
-                    single(.success(data))
+                case .success(let resultModel):
+                    guard let resultData = resultModel.data else { return }
+                    
+                    single(.success(resultData))
                 case .failure(let error):
                     single(.failure(error))
                 }

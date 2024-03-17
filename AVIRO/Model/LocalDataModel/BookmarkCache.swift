@@ -11,8 +11,8 @@ protocol BookmarkDataProtocol {
     func updateAllData(with list: [String])
     func loadAllData() -> [String]
     func checkData(with placeId: String) -> Bool
-    func updateData(with placeId: String)
-    func deleteData(with placeId: String)
+    func updateData(with placeIds: [String], compeltionHandler: @escaping (() -> Void))
+    func deleteData(with placeIds: [String], compeltionHandler: @escaping (() -> Void))
     func deleteAllBookmark()
 }
 
@@ -35,16 +35,24 @@ final class BookmarkCache: BookmarkDataProtocol {
         bookmarkList.contains(placeId)
     }
     
-    func updateData(with placeId: String) {
-        if !bookmarkList.contains(placeId) {
-            bookmarkList.append(placeId)
+    func updateData(with placeIds: [String], compeltionHandler: @escaping (() -> Void)) {
+        placeIds.forEach { placeId in
+            if !bookmarkList.contains(placeId) {
+                bookmarkList.append(placeId)
+            }
         }
+        
+        compeltionHandler()
     }
     
-    func deleteData(with placeId: String) {
-        if let index = bookmarkList.firstIndex(of: placeId) {
-            bookmarkList.remove(at: index)
+    func deleteData(with placeIds: [String], compeltionHandler: @escaping (() -> Void)) {
+        placeIds.forEach { placeId in
+            if let index = bookmarkList.firstIndex(of: placeId) {
+                bookmarkList.remove(at: index)
+            }
         }
+        
+        compeltionHandler()
     }
     
     func deleteAllBookmark() {

@@ -12,7 +12,7 @@ private enum Text: String {
 }
 
 final class EnrollPlaceViewController: UIViewController {
-    weak var tabBarDelegate: TabBarDelegate?
+    weak var tabBarDelegate: TabBarFromSubVCDelegate?
     weak var homeViewDelegate: AfterHomeViewControllerProtocol?
     
     lazy var presenter = EnrollPlacePresenter(viewController: self)

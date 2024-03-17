@@ -58,7 +58,6 @@ private enum Layout {
         case topButtonToView = 18
         case medium = 20
         case large = 30
-        case largeToView = 40
     }
     
     enum Size: CGFloat {
@@ -67,7 +66,7 @@ private enum Layout {
 }
 
 final class HomeViewController: UIViewController {
-    weak var tabBarDelegate: TabBarDelegate?
+    weak var tabBarDelegate: TabBarFromSubVCDelegate?
     
     lazy var presenter = HomeViewPresenter(viewController: self)
         
@@ -91,6 +90,8 @@ final class HomeViewController: UIViewController {
         return map
     }()
     
+    private var selectedCategoriesPlaceHolder: [String] = []
+    
     private lazy var searchTextField: MainField = {
         let field = MainField()
         
@@ -99,6 +100,26 @@ final class HomeViewController: UIViewController {
         field.delegate = self
         
         return field
+    }()
+    
+    private lazy var categoryCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        layout.scrollDirection = .horizontal
+        
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.alwaysBounceHorizontal = true
+        collectionView.backgroundColor = .clear
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(
+            CategoryCollectionViewCell.self,
+            forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier
+        )
+        
+        return collectionView
     }()
 
     private lazy var loadLocationButton: HomeMapReferButton = {
@@ -207,7 +228,7 @@ final class HomeViewController: UIViewController {
         let blurEffect = UIBlurEffect(style: .dark)
         
         view.effect = blurEffect
-        view.alpha = 0.6
+        view.alpha = 0.3
         
         return view
     }()
@@ -215,7 +236,16 @@ final class HomeViewController: UIViewController {
     private(set) var placeViewTopConstraint: NSLayoutConstraint?
     private(set) var searchTextFieldTopConstraint: NSLayoutConstraint?
     
-    private lazy var isSlideUpView = false
+    private var isSlideUpView = false {
+        didSet {
+            let isHidden = (isSlideUpView || isFullUpView)
+
+            searchTextField.isHidden = isHidden
+            categoryCollectionView.isHidden = isHidden
+        }
+    }
+    
+    private var isFullUpView = false
 
     private lazy var whenSlideTapGesture = UITapGestureRecognizer()
     private lazy var upGesture = UISwipeGestureRecognizer()
@@ -231,7 +261,8 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    
+        
+        
         presenter.viewWillAppear()
     }
     
@@ -243,7 +274,7 @@ final class HomeViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         presenter.viewWillDisappear()
     }
 }
@@ -256,6 +287,7 @@ extension HomeViewController: HomeViewProtocol {
             loadLocationButton,
             starButton,
             searchTextField,
+            categoryCollectionView,
             placeView,
             flagButton,
             downBackButton,
@@ -274,8 +306,7 @@ extension HomeViewController: HomeViewProtocol {
                 equalTo: view.topAnchor
             ),
             naverMapView.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                constant: Layout.Margin.largeToView.rawValue
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor
             ),
             naverMapView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor
@@ -309,6 +340,11 @@ extension HomeViewController: HomeViewProtocol {
                 equalTo: naverMapView.trailingAnchor,
                 constant: -Layout.Margin.regular.rawValue
             ),
+            
+            categoryCollectionView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 12),
+            categoryCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            categoryCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
+            categoryCollectionView.heightAnchor.constraint(equalToConstant: 47),
             
             placeView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor
@@ -404,6 +440,7 @@ extension HomeViewController: HomeViewProtocol {
         view.addGestureRecognizer(whenSlideTapGesture)
     }
     
+    /// Fetcing이 진행 중일 때를 알려주는 indicator show
     func isFectingData() {
         isFectchingindicatorView.isHidden = false
         isFecthingLabel.isHidden = false
@@ -413,6 +450,7 @@ extension HomeViewController: HomeViewProtocol {
         DispatchQueue.main.async { [weak self] in
             self?.isFectchingindicatorView.isHidden = true
             self?.isFecthingLabel.isHidden = true
+            self?.tabBarDelegate?.afterFetchingData = true
         }
     }
     
@@ -421,6 +459,9 @@ extension HomeViewController: HomeViewProtocol {
         navigationController?.navigationBar.isHidden = true
         
         naverMapView.isHidden = false
+        
+        isFullUpView = false
+        isSlideUpView = false
     }
     
     /// 모든 조건에 해당 사항 없을 때, place view 초기화
@@ -432,6 +473,7 @@ extension HomeViewController: HomeViewProtocol {
     /// Edit 화면에서 돌아올 때
     func whenAfterPopEditViewController() {
         naverMapView.isHidden = true
+        categoryCollectionView.isHidden = true
     }
     /// location button clicked
     func isSuccessLocation() {
@@ -453,15 +495,29 @@ extension HomeViewController: HomeViewProtocol {
 
     /// 최초 load markers
     func loadMarkers(with markers: [NMFMarker]) {
-        
         markers.forEach {
             $0.mapView = naverMapView
         }
     }
     
     /// star button clicked
-    func afterLoadStarButton(with noStars: [NMFMarker]) {
-        noStars.forEach {
+    func afterLoadStarButton(showMarkers: [NMFMarker], hideMarkers: [NMFMarker]) {
+        showMarkers.forEach {
+            $0.mapView = naverMapView
+        }
+        
+        hideMarkers.forEach {
+            $0.mapView = nil
+        }
+    }
+    
+    // MARK: - Marker Update
+    func afterClickedCategoryModel(showMarkers: [NMFMarker], hideMarkers: [NMFMarker]) {
+        showMarkers.forEach {
+            $0.mapView = naverMapView
+        }
+        
+        hideMarkers.forEach {
             $0.mapView = nil
         }
     }
@@ -498,7 +554,10 @@ extension HomeViewController: HomeViewProtocol {
     
     private func popupPlaceView() {
         placeViewPopUp()
+
+        isFullUpView = false
         isSlideUpView = false
+
         placeView.isLoadingTopView = true
     }
     
@@ -534,7 +593,7 @@ extension HomeViewController: HomeViewProtocol {
         }
     }
     
-    func updateMapPlace(_ mapPlace: MapPlace) {
+    func updateMapPlace(_ mapPlace: VeganType) {
         placeView.updateMapPlace(mapPlace)
     }
     
@@ -549,12 +608,31 @@ extension HomeViewController: HomeViewProtocol {
         showWebView(with: url)
     }
     
+    private func onPlaceViewSlideUp() {
+        placeViewSlideUp()
+        presenter.getPlaceModelDetail()
+        
+        isFullUpView = false
+        isSlideUpView = true
+    }
+    
+    private func onPlaceViewFullUp() {
+        placeViewFullUp()
+        
+        naverMapView.isHidden = true
+        
+        isFullUpView = true
+        isSlideUpView = false
+    }
+    
 //    private func editMyReview(_ commentId: String) {
 //        placeView.editMyReview(commentId)
 //    }
     
     @objc private func downBackButtonTapped(_ sender: UIButton) {
         placeViewPopUpAfterInitPlacePopViewHeight()
+                
+        isFullUpView = false
         isSlideUpView = false
     }
     
@@ -577,20 +655,18 @@ extension HomeViewController: HomeViewProtocol {
             if !placeView.isLoadingTopView {
                 // view가 slideup되고, detail view가 loading이 끝난 후 가능
                 if isSlideUpView && !placeView.isLoadingDetail {
-                    placeViewFullUp()
-                    naverMapView.isHidden = true
-                    isSlideUpView = false
+                    onPlaceViewFullUp()
                 // view가 아직 slideup 안 되었고, popup일때 가능
                 } else if !isSlideUpView && placeView.placeViewStated == .popup {
-                    placeViewSlideUp()
-                    presenter.getPlaceModelDetail()
-                    isSlideUpView = true
+                    onPlaceViewSlideUp()
                 }
             }
         } else if gesture.direction == .down {
             // view가 slideup일때만 down gesture 가능
             if isSlideUpView {
                 placeViewPopUpAfterInitPlacePopViewHeight()
+                
+                isFullUpView = false
                 isSlideUpView = false
             }
         }
@@ -598,9 +674,7 @@ extension HomeViewController: HomeViewProtocol {
     
     @objc private func whenSlideTapGesture(_ gesture: UITapGestureRecognizer) {
         if isSlideUpView {
-            placeViewFullUp()
-            naverMapView.isHidden = true
-            isSlideUpView = false
+            onPlaceViewFullUp()
         }
     }
     
@@ -972,7 +1046,11 @@ extension HomeViewController {
     private func handleClosure() {
         placeView.whenFullBack = { [weak self] in
             self?.naverMapView.isHidden = false
+
             self?.placeViewPopUpAfterInitPlacePopViewHeight()
+            
+            self?.isFullUpView = false
+            self?.isSlideUpView = false
         }
         
         placeView.whenShareTapped = { [weak self] shareObject in
@@ -1028,6 +1106,137 @@ extension HomeViewController {
     }
 }
 
+// MARK: AfterHomeViewControllerProtocol
+extension HomeViewController: AfterHomeViewControllerProtocol {
+    func showRecommendPlaceAlert(with model: (AfterWriteReviewModel, Bool)) {
+        if model.1 {
+            afterEditReview(with: model.0)
+        } else {
+            afterUploadReview(with: model.0)
+        }
+    }
+    
+    private func afterUploadReview(with model: AfterWriteReviewModel) {
+        updateReview(with: model)
+
+        tabBarDelegate?.activeBlurEffectView(with: true)
+        blurEffectView.isHidden = false
+        recommendPlaceAlertView.isHidden = false
+
+        recommendPlaceAlertView.afterTappedRecommendButton = { [weak self] in
+            self?.recommendPlaceAlertView.isHidden = true
+
+            if model.levelUp {
+                self?.showLevelUpAlert(with: model.userLevel)
+            } else {
+                self?.tabBarDelegate?.activeBlurEffectView(with: false)
+                self?.blurEffectView.isHidden = true
+            }
+            self?.presenter.recommendPlace()
+        }
+        
+        recommendPlaceAlertView.afterTappedNoRecommendButton = { [weak self] in
+            self?.recommendPlaceAlertView.isHidden = true
+
+            if model.levelUp {
+                self?.showLevelUpAlert(with: model.userLevel)
+            } else {
+                self?.tabBarDelegate?.activeBlurEffectView(with: false)
+                self?.blurEffectView.isHidden = true
+            }
+        }
+        
+    }
+    
+    private func updateReview(with model: AfterWriteReviewModel) {
+        let resultModel = AVIROEnrollReviewDTO(
+            commentId: model.contentId,
+            placeId: model.placeId,
+            userId: model.userId,
+            content: model.content
+        )
+        
+        placeView.updateReview(with: resultModel)
+    }
+    
+    private func afterEditReview(with model: AfterWriteReviewModel) {
+        let resultModel = AVIROEnrollReviewDTO(
+            commentId: model.contentId,
+            placeId: model.placeId,
+            userId: model.userId,
+            content: model.content
+        )
+        
+        placeView.editMyReview(with: resultModel)
+    }
+    
+    func showLevelUpAlert(with level: Int) {
+        levelUpAlertView.setMainTitle(with: level)
+        
+        tabBarDelegate?.activeBlurEffectView(with: true)
+        blurEffectView.isHidden = false
+        levelUpAlertView.isHidden = false
+        
+        levelUpAlertView.afterTappedCheckButtonTapped = { [weak self] in
+            self?.presenter.afterLevelUpViewCheckTapped(with: level)
+            
+            self?.tabBarDelegate?.activeBlurEffectView(with: false)
+            self?.blurEffectView.isHidden = true
+            self?.levelUpAlertView.isHidden = true
+            
+            self?.tabBarDelegate?.selectedIndex = 2
+            
+        }
+        
+        levelUpAlertView.afterTappedNoCheckButtonTapped = { [weak self] in
+            self?.presenter.afterLevelUpViewNocheckTapped(with: level)
+            
+            self?.tabBarDelegate?.activeBlurEffectView(with: false)
+            self?.blurEffectView.isHidden = true
+            self?.levelUpAlertView.isHidden = true
+        }
+    }
+}
+
+// MARK: TabBarInteractionDelegate
+extension HomeViewController: TabBarToSubVCDelegate {
+    func handleTabBarInteraction(withData data: [String: Any]) {
+        if let placeId = data[TabBarKeys.placeId] as? String {
+            whenTabBarKeyIsPlaceId(with: placeId)
+        }
+        
+        if let isShowReview = data[TabBarKeys.showReview] as? Bool, isShowReview {
+            presenter.afterGetPlaceSummaryModel = { [weak self] in
+                guard let self = self else { return }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.whenTabBarkeyIsShwReview()
+                }
+            }
+        }
+    }
+    
+    private func whenTabBarKeyIsPlaceId(with placeId: String) {
+        presenter.checkPlaceIdTest(with: placeId)
+    }
+    
+    private func whenTabBarkeyIsShwReview() {
+        self.onPlaceViewSlideUp()
+        self.view.isUserInteractionEnabled = false
+        
+        presenter.afterGetPlaceDetailModel = { [weak self] in
+            guard let self = self else { return }
+            self.onPlaceViewFullUp()
+            
+            self.placeView.setSegmentedControlIndex(with: 2)
+            
+            /// 호출 후 초기화 작업 
+            self.presenter.afterGetPlaceSummaryModel = nil
+            self.presenter.afterGetPlaceDetailModel = nil
+            self.view.isUserInteractionEnabled = true
+        }
+    }
+}
+
 // MARK: TapGestureDelegate
 extension HomeViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(
@@ -1046,13 +1255,15 @@ extension HomeViewController: UIGestureRecognizerDelegate {
 // MARK: UITextFieldDelegate
 extension HomeViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        guard let textField = textField as? MainField else { return false }
         animateTextFieldExpansion(textField: textField)
         return false
     }
     
-    private func animateTextFieldExpansion(textField: UITextField) {
+    private func animateTextFieldExpansion(textField: MainField) {
         textField.placeholder = ""
         textField.text = ""
+//        textField.isActiveFranchiseToggleButton = false
         textField.leftView?.isHidden = true
         
         let startingFrame = textField.convert(textField.bounds, to: nil)
@@ -1073,16 +1284,29 @@ extension HomeViewController: UITextFieldDelegate {
             self?.navigationController?.pushViewController(vc, animated: false)
             
             textField.leftView?.isHidden = false
-            textField.placeholder = Text.searchPlaceHolder.rawValue
+            
+            if self?.selectedCategoriesPlaceHolder.isEmpty ?? false {
+                textField.placeholder = Text.searchPlaceHolder.rawValue
+            } else {
+                textField.placeholder = self?.selectedCategoriesPlaceHolder.joined(separator: ", ")
+            }
         }
     }
     
     private func changedSearchField(with place: String) {
         searchTextField.text = place
+//        searchTextField.isActiveFranchiseToggleButton = true
     }
     
     private func afterSearchFieldInit() {
         searchTextField.text = ""
+//        searchTextField.isActiveFranchiseToggleButton = true
+        
+        if selectedCategoriesPlaceHolder.isEmpty {
+            searchTextField.placeholder = Text.searchPlaceHolder.rawValue
+        } else {
+            searchTextField.placeholder = selectedCategoriesPlaceHolder.joined(separator: ", ")
+        }
     }
 }
 
@@ -1127,90 +1351,113 @@ extension HomeViewController: NMFMapViewTouchDelegate {
     }
 }
 
-// MARK: AfterHomeViewControllerProtocol
-extension HomeViewController: AfterHomeViewControllerProtocol {
-    func showRecommendPlaceAlert(with model: (AfterWriteReviewModel, Bool)) {
-        if model.1 {
-            afterEditReview(with: model.0)
-        } else {
-            afterUploadReview(with: model.0)
-        }
-    }
-    
-    private func afterUploadReview(with model: AfterWriteReviewModel) {
-        updateReview(with: model)
-
-        tabBarDelegate?.hideBlurEffectView(with: false)
-        blurEffectView.isHidden = false
-        recommendPlaceAlertView.isHidden = false
-
-        recommendPlaceAlertView.afterTappedRecommendButton = { [weak self] in
-            self?.recommendPlaceAlertView.isHidden = true
-
-            if model.levelUp {
-                self?.showLevelUpAlert(with: model.userLevel)
-            } else {
-                self?.tabBarDelegate?.hideBlurEffectView(with: true)
-                self?.blurEffectView.isHidden = true
-            }
-            self?.presenter.recommendPlace()
+// MARK: UICollectionViewDelegateFlowLayout
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        
+        if presenter.categoryType[indexPath.row].0 == "취소" {
+            return CGSize(width: 36, height: 36)
         }
         
-        recommendPlaceAlertView.afterTappedNoRecommendButton = { [weak self] in
-            self?.recommendPlaceAlertView.isHidden = true
+        return CGSize(width: 73, height: 37)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        6
+    }
+}
 
-            if model.levelUp {
-                self?.showLevelUpAlert(with: model.userLevel)
-            } else {
-                self?.tabBarDelegate?.hideBlurEffectView(with: true)
-                self?.blurEffectView.isHidden = true
-            }
-        }
-        
+// MARK: UICollectionViewDataSource
+extension HomeViewController: UICollectionViewDataSource {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        presenter.categoryType.count
     }
     
-    private func updateReview(with model: AfterWriteReviewModel) {
-        let resultModel = AVIROEnrollReviewDTO(
-            commentId: model.contentId,
-            placeId: model.placeId,
-            userId: model.userId,
-            content: model.content
-        )
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: CategoryCollectionViewCell.identifier,
+            for: indexPath
+        ) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
+
+        let type = self.presenter.categoryType[indexPath.row].0
+        let state = self.presenter.categoryType[indexPath.row].1
         
-        placeView.updateReview(with: resultModel)
-    }
-    
-    private func afterEditReview(with model: AfterWriteReviewModel) {
-        let resultModel = AVIROEnrollReviewDTO(
-            commentId: model.contentId,
-            placeId: model.placeId,
-            userId: model.userId,
-            content: model.content
-        )
-        
-        placeView.editMyReview(with: resultModel)
-    }
-    
-    func showLevelUpAlert(with level: Int) {
-        print(level)
-        levelUpAlertView.setMainTitle(with: level)
-        
-        tabBarDelegate?.hideBlurEffectView(with: false)
-        blurEffectView.isHidden = false
-        levelUpAlertView.isHidden = false
-        
-        levelUpAlertView.afterTappedCheckButtonTapped = { [weak self] in
-            self?.tabBarDelegate?.hideBlurEffectView(with: true)
-            self?.blurEffectView.isHidden = true
-            self?.levelUpAlertView.isHidden = true
+        cell.configure(with: type, state: state)
             
-            self?.tabBarDelegate?.selectedIndex = 2
+        cell.whenCategoryButtonTapped = { [weak self] (selectedType, selectedState) in
+            self?.updateSearchTextField(with: selectedType)
+            self?.presenter.whenUpdateType = (selectedType, selectedState)
         }
         
-        levelUpAlertView.afterTappedNoCheckButtonTapped = { [weak self] in
-            self?.tabBarDelegate?.hideBlurEffectView(with: true)
-            self?.blurEffectView.isHidden = true
-            self?.levelUpAlertView.isHidden = true
+        return cell
+    }
+        
+    private func updateSearchTextField(with type: String) {
+        if type == "취소" {
+            searchTextField.placeholder = Text.searchPlaceHolder.rawValue
+            selectedCategoriesPlaceHolder.removeAll()
+        } else {
+            // 선택된 카테고리가 배열에 이미 있다면 제거, 없다면 추가합니다.
+            if let index = selectedCategoriesPlaceHolder.firstIndex(of: type) {
+                selectedCategoriesPlaceHolder.remove(at: index)
+            } else {
+                selectedCategoriesPlaceHolder.append(type)
+            }
+            
+            if selectedCategoriesPlaceHolder.count > 0 {
+                // 배열에 있는 모든 항목을 콤마로 구분하여 placeholder에 설정합니다.
+                searchTextField.placeholder = selectedCategoriesPlaceHolder.joined(separator: ", ")
+            } else {
+                // 모든 type의 선택이 false일 때
+                searchTextField.placeholder = Text.searchPlaceHolder.rawValue
+            }
+        }
+    }
+    
+    func deleteCancelButtonFromCategoryCollection() {
+//        self.categoryCollectionView.reloadData()
+        self.categoryCollectionView.performBatchUpdates { [weak self] in
+            self?.categoryCollectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
+        } completion: { [weak self] _ in
+            let indexPaths = (0...3).map { IndexPath(item: $0, section: 0) }
+            self?.categoryCollectionView.reloadItems(at: indexPaths)
+        }
+    }
+    
+    func deleteCancelButtonWhenAllCategoryFalse() {
+//        self.categoryCollectionView.reloadData()
+        self.categoryCollectionView.performBatchUpdates { [weak self] in
+            self?.categoryCollectionView.deleteItems(at: [IndexPath(item: 0, section: 0)])
+        } 
+    }
+    
+    func updateCancelButtonFromCategoryCollection() {
+//        self.categoryCollectionView.reloadData()
+        self.categoryCollectionView.performBatchUpdates { [weak self] in
+            self?.categoryCollectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
         }
     }
 }

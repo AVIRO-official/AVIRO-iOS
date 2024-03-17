@@ -24,9 +24,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.rootViewController = LaunchScreenViewController()
         self.window?.makeKeyAndVisible()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            if let vc = self.window?.rootViewController as? LaunchScreenViewController, !vc.isUpdateAlertShown {
-                AppController.shared.show(in: window)
+        if let vc = self.window?.rootViewController as? LaunchScreenViewController {
+            vc.afterLaunchScreenEnd = {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    AppController.shared.show(in: window)
+                }
             }
         }
     }

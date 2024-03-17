@@ -19,13 +19,15 @@ protocol MarkerModelManagerProtocol {
     func getAllMarkers() -> [NMFMarker]
     func getAllMarkerModel() -> [MarkerModel]
     
-    func updateMarkerModels(with marker: MarkerModel)
-    func updateSelectedMarkerModel(index: Int, model: MarkerModel)
     func getUpdatedMarkers() -> [NMFMarker]
     
     func getMarkerModelFromCoordinates(lat: Double, lng: Double) -> (MarkerModel?, Int?)
     func getMarkerModelFromMarker(with marker: NMFMarker) -> (MarkerModel?, Int?)
     func getMarkerModelFromSerachModel(with searchModel: MatchedPlaceModel) -> (MarkerModel?, Int?)
+    func getMarkerModelFromPlaceId(with placeId: String) -> (MarkerModel?, Int?)
+    
+    func updateMarkerModels(with marker: MarkerModel)
+    func updateSelectedMarkerModel(index: Int, model: MarkerModel)
     
     func updateMarkerModelWhenClicked(with markerModel: MarkerModel)
     func updateMarkerModelWhenOnStarButton(isTapped: Bool, markerModel: [MarkerModel]?)
@@ -55,14 +57,34 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
     func fetchRawData(
         completionHandler: @escaping (Result<[AVIROMarkerModel], APIError>) -> Void
     ) {
-        let realm = try! Realm()
-        let storedDataCount = realm.objects(MarkerModelFromRealm.self).count
+        // TODO: - 전 버전이  1.2.1이면 이제 필요 없음
+        // realm 마이그레이션 실행
+        let config = Realm.Configuration(
+            schemaVersion: 1,
+            migrationBlock: { migration, oldSchemaVersion in
+                // oldScehemaVersion이 현재 스키마 버전보다 낮은 경우 마이그레이션을 수행
+                if oldSchemaVersion < 1 {
+                    migration.enumerateObjects(ofType: MarkerModelFromRealm.className()) { _, newObject in
+                        // 새로운 프로퍼티에 대한 기본값 설정
+                        newObject?["title"] = ""
+                        newObject?["category"] = ""
+                    }
+                }
+            }
+        )
         
-        if storedDataCount > 0 {
+        Realm.Configuration.defaultConfiguration = config
+
+        let realm = try! Realm()
+        let haveStoredData = realm.objects(MarkerModelFromRealm.self).count > 0 ? true : false
+        let hasTitleInRealm = realm.objects(MarkerModelFromRealm.self).filter("title != ''").count > 0 ? true : false
+
+        if haveStoredData && hasTitleInRealm {
             fetchRawDataFromRealm(completionHandler: completionHandler)
         } else {
             fetchRawDataFromServer(completionHandler: completionHandler)
         }
+        
     }
     
     private func fetchRawDataFromRealm(
@@ -86,6 +108,8 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
                                 placeId: model.placeId,
                                 latitude: model.y,
                                 longitude: model.x,
+                                title: model.title,
+                                category: model.category,
                                 isAll: model.allVegan,
                                 isSome: model.someMenuVegan,
                                 isRequest: model.ifRequestVegan
@@ -144,6 +168,8 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
                                 placeId: model.placeId,
                                 latitude: model.y,
                                 longitude: model.x,
+                                title: model.title,
+                                category: model.category,
                                 isAll: model.allVegan,
                                 isSome: model.someMenuVegan,
                                 isRequest: model.ifRequestVegan)
@@ -188,8 +214,8 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
         completionHandler: @escaping (Result<[AVIROMarkerModel], APIError>) -> Void
     ) {
         let mapModel = AVIROMapModelDTO(
-            longitude: MyCoordinate.shared.longitudeString,
-            latitude: MyCoordinate.shared.latitudeString,
+            longitude: UserCoordinate.shared.longitudeString,
+            latitude: UserCoordinate.shared.latitudeString,
             wide: "0.0",
             time: updateTime
         )
@@ -209,6 +235,8 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
                                 placeId: model.placeId,
                                 latitude: model.y,
                                 longitude: model.x,
+                                title: model.title,
+                                category: model.category,
                                 isAll: model.allVegan,
                                 isSome: model.someMenuVegan,
                                 isRequest: model.ifRequestVegan
@@ -282,6 +310,12 @@ final class MarkerModelManager: MarkerModelManagerProtocol {
     
     func getMarkerModelFromSerachModel(with searchModel: MatchedPlaceModel) -> (MarkerModel?, Int?) {
         let (markerModel, index) = markerModelCache.getMarker(with: searchModel)
+        
+        return (markerModel, index)
+    }
+    
+    func getMarkerModelFromPlaceId(with placeId: String) -> (MarkerModel?, Int?) {
+        let (markerModel, index) = markerModelCache.getMarker(with: placeId)
         
         return (markerModel, index)
     }

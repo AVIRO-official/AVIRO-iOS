@@ -10,11 +10,20 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+enum MyInfoType {
+    case place
+    case review
+    case bookmark
+}
+
 final class ChallengeViewController: UIViewController {
-    weak var tabBarDelegate: TabBarDelegate?
+    weak var tabBarDelegate: TabBarFromSubVCDelegate?
     
     private var viewModel: ChallengeViewModel!
     private let disposeBag = DisposeBag()
+    
+    private let rightNaivagtionBarTapped = PublishSubject<Void>()
+    private let userInfoListTapped = PublishSubject<MyInfoType>()
     
     private lazy var scrollView = UIScrollView()
     
@@ -46,6 +55,7 @@ final class ChallengeViewController: UIViewController {
         
     static func create(with viewModel: ChallengeViewModel) -> ChallengeViewController {
         let vc = ChallengeViewController()
+        
         vc.viewModel = viewModel
         
         return vc
@@ -54,11 +64,12 @@ final class ChallengeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupLayout()
         setupAttribute()
+        setupLayout()
+        
         dataBinding()
     }
-    
+
     private func setupLayout() {
         [
             scrollView
@@ -142,6 +153,8 @@ final class ChallengeViewController: UIViewController {
         navigationItem.title = "챌린지"
         navigationController?.navigationBar.isHidden = false
         
+        self.view.backgroundColor = .gray7
+        
         let rightBarButton = UIBarButtonItem(
             image: UIImage.user2,
             style: .done,
@@ -149,7 +162,10 @@ final class ChallengeViewController: UIViewController {
             action: nil
         )
         rightBarButton.tintColor = .gray1
-
+        rightBarButton.rx.tap
+            .bind(to: rightNaivagtionBarTapped)
+            .disposed(by: disposeBag)
+        
         let navBarAppearance = UINavigationBarAppearance()
         
         navBarAppearance.shadowColor = nil
@@ -159,26 +175,40 @@ final class ChallengeViewController: UIViewController {
         
         scrollView.refreshControl = refreshControl
         
-        myInfoView.tappedCountButton = { [weak self] in
-            self?.showSimpleToast(with: "coming soon...")
+        myInfoView.tappedMyInfo = { [weak self] myInfoType in
+            self?.userInfoListTapped.onNext(myInfoType)
         }
     }
     
     private func dataBinding() {
-        let viewWillAppearTrigger = self.rx.viewWillAppear.map { _ in }.asDriver(onErrorDriveWith: .empty())
+        let viewWillAppearTrigger = self.rx.viewWillAppear
             .do { [weak self] _ in
-                self?.challengeUserInfoView.isStartIndicator()
+                self?.challengeUserInfoView.startIndicator()
             }
+            .map { _ in }
+            .asDriver(onErrorDriveWith: .empty())
+
+        let refeshControlEvent = refreshControl.rx.controlEvent(.valueChanged)
+            .asDriver()
         
-        let refeshControlEvent = refreshControl.rx.controlEvent(.valueChanged).asDriver()
+        let onRightNavigationBarButtonTapped = rightNaivagtionBarTapped
+            .asDriver(onErrorDriveWith: .empty())
         
-        let tappedNavigationBarRightButton = navigationItem.rightBarButtonItem?.rx.tap.asDriver() ?? .empty()
+        let onUserInfoListTapped = userInfoListTapped
+            .do { [weak self] myInfoType in
+                guard let self = self else { return }
+                
+                self.pushMyInfo(with: myInfoType)
+                
+            }
+            .asDriver(onErrorDriveWith: .empty())
         
         let input = ChallengeViewModel.Input(
             whenViewWillAppear: viewWillAppearTrigger,
             whenRefesh: refeshControlEvent,
-            tappedChallengeInfoButton: challengeTitleView.challengeInfoButtonTap,
-            tappedNavigationBarRightButton: tappedNavigationBarRightButton
+            onChallengeInfoButtonTapped: challengeTitleView.challengeInfoButtonTap,
+            onRightNavigationBarButtonTapped: onRightNavigationBarButtonTapped,
+            onUserInfoListTapped: onUserInfoListTapped
         )
         
         let output = viewModel.transform(with: input)
@@ -203,13 +233,16 @@ final class ChallengeViewController: UIViewController {
             .drive(self.rx.isPushSettingViewController)
             .disposed(by: disposeBag)
         
+        output.afterUserInfoListTapped
+            .drive()
+            .disposed(by: disposeBag)
+        
         output.error
             .drive(self.rx.isError)
             .disposed(by: disposeBag)
-        
     }
     
-    func bindChallengeInfo(with result: AVIROChallengeInfoDTO) {
+    internal func bindChallengeInfo(with result: AVIROChallengeInfoDataDTO) {
         let period = result.period
         let title = result.title
         viewModel.challengeTitle = title
@@ -220,18 +253,18 @@ final class ChallengeViewController: UIViewController {
         endRefeshControl()
     }
     
-    func bindMyChallengeLevel(with result: AVIROMyChallengeLevelResultDTO) {
-        challengeUserInfoView.isEndIndicator()
+    internal func bindMyChallengeLevel(with result: AVIROMyChallengeLevelDataDTO) {
+        challengeUserInfoView.endIndicator()
         challengeUserInfoView.bindData(with: result)
         
         endRefeshControl()
     }
     
-    func bindMyContributionCount(with result: AVIROMyContributionCountDTO) {
-        let placeCount = String(result.data?.placeCount ?? 0)
-        let reviewCount = String(result.data?.commentCount ?? 0)
-        let starCount = String(result.data?.bookmarkCount ?? 0)
-        
+    internal func bindMyContributionCount(with result: AVIROMyActivityCounts) {
+        let placeCount = String(result.placeCount)
+        let reviewCount = String(result.commentCount)
+        let starCount = String(result.bookmarkCount)
+                
         myInfoView.updateMyPlace(placeCount)
         myInfoView.updateMyReview(reviewCount)
         myInfoView.updateMyStar(starCount)
@@ -243,6 +276,8 @@ final class ChallengeViewController: UIViewController {
         scrollView.refreshControl?.endRefreshing()
     }
     
+    // MARK: - Navigation Method
+
     func pushChallengeInfoViewController() {
         let vc = ChallengeInfoViewController.create(with: viewModel.challengeTitle)
         
@@ -265,22 +300,50 @@ final class ChallengeViewController: UIViewController {
         
         endRefeshControl()
     }
+    
+    private func pushMyInfo(with myInfoType: MyInfoType) {
+        self.tabBarDelegate?.isHidden = (true, true)
+
+        switch myInfoType {
+        case .place:
+            let viewModel = MyPlaceListViewModel()
+            let vc = MyPlaceListViewController.create(with: viewModel)
+            vc.tabBarDelegate = self.tabBarDelegate
+            
+            navigationController?.pushViewController(vc, animated: true)
+        case .review:
+            let viewModel = MyCommentListViewModel()
+            let vc = MyCommentListViewController.create(with: viewModel)
+            vc.tabBarDelegate = self.tabBarDelegate
+
+            navigationController?.pushViewController(vc, animated: true)
+        case .bookmark:
+            let viewModel = MyBookmarkListViewModel(
+                challengeViewModelProtocol: self.viewModel,
+                bookmarkManager: BookmarkFacadeManager()
+            )
+            let vc = MyBookmarkListViewController.create(with: viewModel)
+            vc.tabBarDelegate = self.tabBarDelegate
+
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 }
 
 extension Reactive where Base: ChallengeViewController {
-    var isMyContributionCountResult: Binder<AVIROMyContributionCountDTO> {
+    var isMyContributionCountResult: Binder<AVIROMyActivityCounts> {
         return Binder(self.base) { base, result in
             base.bindMyContributionCount(with: result)
         }
     }
     
-    var isChallengeInfoResult: Binder<AVIROChallengeInfoDTO> {
+    var isChallengeInfoResult: Binder<AVIROChallengeInfoDataDTO> {
         return Binder(self.base) { base, result in
             base.bindChallengeInfo(with: result)
         }
     }
     
-    var isMyChallengeLevelResult: Binder<AVIROMyChallengeLevelResultDTO> {
+    var isMyChallengeLevelResult: Binder<AVIROMyChallengeLevelDataDTO> {
         return Binder(self.base) { base, result in
             base.bindMyChallengeLevel(with: result)
         }

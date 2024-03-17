@@ -13,9 +13,49 @@ class MainField: UITextField {
     private var verticalPadding: CGFloat = 15
     private var imageViewSize: CGFloat = 24
         
+    private var franchiseToggleButton: FranchiseToggleButton?
+    
+    var isActiveFranchiseToggleButton: Bool = false {
+        didSet {
+            franchiseSwitchView.isHidden = !isActiveFranchiseToggleButton
+        }
+    }
+    
+    private lazy var franchiseSwitchView: UIView = {
+        let view = UIView()
+        
+        franchiseToggleButton = FranchiseToggleButton()
+        guard let franchiseToggleButton = franchiseToggleButton else {
+            return UIView()
+        }
+        
+        view.backgroundColor = .clear
+        view.addSubview(franchiseToggleButton)
+        franchiseToggleButton.translatesAutoresizingMaskIntoConstraints = false
+        franchiseToggleButton.layer.cornerRadius = 16.5
+        
+        NSLayoutConstraint.activate([
+            franchiseToggleButton.widthAnchor.constraint(equalToConstant: 105),
+            franchiseToggleButton.heightAnchor.constraint(equalToConstant: 33),
+            franchiseToggleButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            franchiseToggleButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleFranchiseButton))
+        view.addGestureRecognizer(tapGesture)
+        
+        return view
+    }()
+    
+    @objc private func toggleFranchiseButton() {
+        franchiseToggleButton?.isSelected.toggle()
+    }
+    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+//        setupFranchiseToggleButton()
         configuration()
         addLeftImage()
     }
@@ -40,10 +80,32 @@ class MainField: UITextField {
         return bounds.inset(by: inset)
     }
     
+    private func setupFranchiseToggleButton() {
+        self.addSubview(franchiseSwitchView)
+        franchiseSwitchView.translatesAutoresizingMaskIntoConstraints = false
+        
+        franchiseToggleButton?.layer.shadowColor = UIColor.gray2.cgColor
+        franchiseToggleButton?.layer.shadowRadius = 2
+        franchiseToggleButton?.layer.shadowOpacity = 0.1
+        franchiseToggleButton?.layer.shadowOffset = CGSize(width: 2, height: 2)
+        
+        NSLayoutConstraint.activate([
+            franchiseSwitchView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8.8),
+            franchiseSwitchView.topAnchor.constraint(equalTo: self.topAnchor),
+            franchiseSwitchView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            franchiseSwitchView.widthAnchor.constraint(equalToConstant: 108)
+        ])
+    }
+    
     private func configuration() {
+        self.layer.shadowColor = UIColor.gray2.cgColor
+        self.layer.shadowRadius = 2
+        self.layer.shadowOpacity = 0.1
+        self.layer.shadowOffset = CGSize(width: 2, height: 2)
+
         self.textColor = .gray0
         self.font = CFont.font.medium18
-        self.backgroundColor = .gray6
+        self.backgroundColor = .gray7
         self.layer.cornerRadius = 10
     }
     

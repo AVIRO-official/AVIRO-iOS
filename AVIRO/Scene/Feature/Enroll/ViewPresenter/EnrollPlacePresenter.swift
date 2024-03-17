@@ -125,24 +125,24 @@ final class EnrollPlacePresenter {
         AVIROAPI.manager.createPlaceModel(with: veganModel) { [weak self] result in
             switch result {
             case .success(let resultModel):
-                print(resultModel)
                 if resultModel.statusCode == 200 {
-                    self?.amplitude.uploadPlace(with: veganModel.title)
+                    self?.amplitude.placeUpload(with: veganModel.title)
                     
                     CenterCoordinate.shared.longitude = veganModel.x
                     CenterCoordinate.shared.latitude = veganModel.y
                     CenterCoordinate.shared.isChangedFromEnrollView = true
                     
-                    self?.viewController?.popViewController(
-                        level: resultModel.userLevel ?? 0,
-                        isLevelUp: resultModel.levelUp ?? false
-                    )
-                    
+                    // TODO: - Challenge On/Off 기능 추가시 변경 필요
+                    if let myChallengeStatus = resultModel.data {
+                        self?.viewController?.popViewController(
+                            level: myChallengeStatus.userLevel,
+                            isLevelUp: myChallengeStatus.levelUp
+                        )
+                    }
                 } else {
                     self?.viewController?.pushAlertController()
                 }
             case .failure(let error):
-                print(error)
                 if let error = error.errorDescription {
                     self?.viewController?.showErrorAlert(with: error, title: nil)
                 }

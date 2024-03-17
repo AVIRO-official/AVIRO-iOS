@@ -28,8 +28,8 @@ protocol HomeViewProtocol: NSObject {
     func ifDeniedLocation(_ mapCoor: NMGLatLng)
 
     func loadMarkers(with markers: [NMFMarker])
-    func afterLoadStarButton(with noStars: [NMFMarker])
-
+    func afterLoadStarButton(showMarkers: [NMFMarker], hideMarkers: [NMFMarker])
+    
     func moveToCameraWhenNoAVIRO(_ lng: Double, _ lat: Double)
     func moveToCameraWhenHasAVIRO(_ markerModel: MarkerModel, zoomTo: Double?)
     
@@ -41,7 +41,7 @@ protocol HomeViewProtocol: NSObject {
     )
     
     func updateMenus(_ menuData: AVIROPlaceMenus?)
-    func updateMapPlace(_ mapPlace: MapPlace)
+    func updateMapPlace(_ mapPlace: VeganType)
     func deleteMyReview(_ commentId: String)
     
     func pushPlaceInfoOpreationHoursViewController(_ models: [EditOperationHoursModel])
@@ -62,6 +62,13 @@ protocol HomeViewProtocol: NSObject {
     func showAlertWhenDuplicatedReport()
     func showErrorAlert(with error: String, title: String?)
     func showErrorAlertWhenLoadMarker()
+    
+    // MARK: - 24.02.17 2.0 Icon Update - ViewModel Refectoring 전 임시 업데이트
+    func deleteCancelButtonFromCategoryCollection()
+    func deleteCancelButtonWhenAllCategoryFalse()
+    func updateCancelButtonFromCategoryCollection()
+    
+    func afterClickedCategoryModel(showMarkers: [NMFMarker], hideMarkers: [NMFMarker])
 }
 
 final class HomeViewPresenter: NSObject {
@@ -87,7 +94,69 @@ final class HomeViewPresenter: NSObject {
     private var selectedReviewsModel: AVIROReviewsArray?
         
     private var selectedPlaceId: String?
+    
+    private var isStarButtonSelected: Bool = false
+    private var selectedCategory: [CategoryType] = []
+    private var showMarkerWhenClickedCategory: [MarkerModel] = []
+    private var hideMarkerWhenClickedCategory: [MarkerModel] = []
+    
+    // type / selected , cancel / hidden
+    var categoryType = [
+        ("식당", false),
+        ("카페", false),
+        ("술집", false),
+        ("빵집", false)
+    ]
+    
+    // TODO: - 문서화 & 리팩토링 필요
+    var whenUpdateType = ("", false) {
+        didSet {
+            if whenUpdateType.0 == "취소" {
+                for index in 1..<categoryType.count {
+                    categoryType[index].1 = false
+                }
+                categoryType.remove(at: 0)
+                viewController?.deleteCancelButtonFromCategoryCollection()
+                
+                afterCategoryChangedLoadAllMarkers()
+            } else {
+                let shouldInsertCancel = self.categoryType.firstIndex(where: { $0.0 == "취소" }) == nil
+                if shouldInsertCancel {
+                    categoryType.insert(("취소", false), at: 0)
+                    viewController?.updateCancelButtonFromCategoryCollection()
+                }
+                
+                if let updatedIndex = categoryType.firstIndex(where: { $0.0 == whenUpdateType.0 }) {
+                    categoryType[updatedIndex].1.toggle()
+                }
+                
+                if !categoryType.contains(where: { $0.1 == true }) {
+                    categoryType.remove(at: 0)
+                    viewController?.deleteCancelButtonWhenAllCategoryFalse()
+                    
+                    afterCategoryChangedLoadAllMarkers()
+                } else {
+                    whenAfterCategoryButtonTapped(with: whenUpdateType.0, state: whenUpdateType.1)
+                }
+            }
+        }
+    }
+    
+    var afterGetPlaceSummaryModel: (() -> Void)?
+    var afterGetPlaceDetailModel: (() -> Void)?
+    
+    private func afterCategoryChangedLoadAllMarkers() {
+        selectedCategory = []
+        showMarkerWhenClickedCategory = []
+        hideMarkerWhenClickedCategory = []
         
+        let markers = markerModelManager.getAllMarkers()
+        
+        if !isStarButtonSelected {
+            self.viewController?.loadMarkers(with: markers)
+        }
+    }
+    
     init(viewController: HomeViewProtocol,
          markerManager: MarkerModelManagerProtocol = MarkerModelManager(),
          bookmarkManager: BookmarkFacadeProtocol = BookmarkFacadeManager(),
@@ -109,18 +178,17 @@ final class HomeViewPresenter: NSObject {
     }
     
     func viewDidLoad() {
+        viewController?.setupAttribute()
+        viewController?.setupGesture()
+        viewController?.setupLayout()
+        
         locationManager.delegate = self
         
-        MyCoordinate.shared.afterFirstLoadLocation = { [weak self] in
+        UserCoordinate.shared.afterFirstLoadLocation = { [weak self] in
             self?.loadVeganData()
         }
             
         setNotification()
-        
-        viewController?.setupLayout()
-        viewController?.setupAttribute()
-        viewController?.setupGesture()
-                
     }
     
     private func setNotification() {
@@ -269,8 +337,6 @@ final class HomeViewPresenter: NSObject {
         guard let markerModel = markerModel,
               let index = index else { return }
         
-        print(markerModel)
-
         getPlaceSummaryModel(markerModel)
         
         hasTouchedMarkerBefore = true
@@ -291,17 +357,41 @@ final class HomeViewPresenter: NSObject {
         let latLng = NMGLatLng(lat: data.y, lng: data.x)
         let marker = NMFMarker(position: latLng)
         let placeId = data.placeId
-        var place: MapPlace
+        var veganType: VeganType
+        var categoryType: CategoryType
         
+        // TODO: - String에서 Enum으로 변경 필요 (Network DTO 값을 Domain으로 변경하도록 Refectoring 필요)
+        /// Clean Architecture 적용 하면서 수행
         if data.allVegan {
-            place = MapPlace.All
+            veganType = .All
         } else if data.someMenuVegan {
-            place = MapPlace.Some
+            veganType = .Some
         } else {
-            place = MapPlace.Request
+            veganType = .Request
         }
         
-        marker.makeIcon(place)
+        /// 빵집 / 술집 /
+        if data.category == "빵집" {
+            categoryType = .Bread
+        } else if data.category == "술집" {
+            categoryType = .Bar
+        } else if data.category == "식당" {
+            categoryType = .Restaurant
+        } else if data.category == "카페" {
+            categoryType = .Coffee
+        } else {
+            // 값이 아에 없을때 확인
+            categoryType = .Restaurant
+        }
+        
+        marker.captionText = data.title
+        marker.captionColor = .gray0
+        marker.captionTextSize = 10
+        marker.captionMinZoom = 14
+        marker.captionRequestedWidth = 80
+        marker.captionOffset = 3
+        
+        marker.makeIcon(veganType: veganType, categoryType: categoryType)
         marker.touchHandler = { [weak self] _ in
             self?.touchedMarker(marker)
             return true
@@ -310,7 +400,8 @@ final class HomeViewPresenter: NSObject {
         let markerModel =  MarkerModel(
             placeId: placeId,
             marker: marker,
-            mapPlace: place,
+            veganType: veganType,
+            categoryType: categoryType,
             isAll: data.allVegan,
             isSome: data.someMenuVegan,
             isRequest: data.ifRequestVegan
@@ -371,7 +462,7 @@ final class HomeViewPresenter: NSObject {
     
     // MARK: Load Place Sumamry
     private func getPlaceSummaryModel(_ markerModel: MarkerModel) {
-        let mapPlace = markerModel.mapPlace
+        let mapPlace = markerModel.veganType
         let placeX = markerModel.marker.position.lng
         let placeY = markerModel.marker.position.lat
         let placeId = markerModel.placeId
@@ -394,6 +485,7 @@ final class HomeViewPresenter: NSObject {
                         
                         let placeTopModel = PlaceTopModel(
                             placeState: mapPlace,
+                            category: markerModel.categoryType,
                             placeTitle: place.title,
                             placeCategory: place.category,
                             distance: distanceString,
@@ -401,7 +493,7 @@ final class HomeViewPresenter: NSObject {
                             address: place.address
                         )
                         
-                        self?.amplitude.popupPlace(with: place.title)
+                        self?.amplitude.placePresent(with: place.title)
                         
                         DispatchQueue.main.async {
                             let isStar = self?.bookmarkManager.checkData(with: placeId)
@@ -411,6 +503,8 @@ final class HomeViewPresenter: NSObject {
                                 placeId: placeId,
                                 isStar: isStar ?? false
                             )
+                            
+                            self?.afterGetPlaceSummaryModel?()
                         }
                     }
                 } else {
@@ -469,12 +563,68 @@ final class HomeViewPresenter: NSObject {
         }
     }
     
+    // MARK: PlaceId로 marker 확인
+    func checkPlaceIdTest(with placeId: String) {
+        let (markerModel, index) = markerModelManager.getMarkerModelFromPlaceId(with: placeId)
+        
+        guard let markerModel = markerModel else { return }
+        guard let index = index else { return }
+                                        
+        selectedMarkerIndex = index
+        selectedMarkerModel = markerModel
+        selectedMarkerModel?.isClicked = true
+                    
+        hasTouchedMarkerBefore = true
+        
+        getPlaceSummaryModel(markerModel)
+
+        viewController?.moveToCameraWhenHasAVIRO(markerModel, zoomTo: 14)
+    }
+    
     // MARK: Bookmark Load Method
     func loadBookmark(_ isSelected: Bool) {
+        isStarButtonSelected = isSelected
         if isSelected {
             whenAfterLoadStarButtonTapped()
         } else {
             whenAfterLoadNotStarButtonTapped()
+        }
+    }
+    
+    // MARK: - Changed Marker From Category Method
+    private func whenAfterCategoryButtonTapped(with type: String, state isActived: Bool) {
+        let markersModel = self.markerModelManager.getAllMarkerModel()
+        
+        guard let categoryType = CategoryType(with: type) else { return }
+        
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
+            
+            if isActived {
+                if !self.selectedCategory.contains(where: { $0 == categoryType }) {
+                    self.selectedCategory.append(categoryType)
+                }
+            } else {
+                self.selectedCategory.removeAll { $0 == categoryType }
+            }
+            
+            self.showMarkerWhenClickedCategory = markersModel.filter { model in
+                self.selectedCategory.contains(model.categoryType)
+            }
+            self.hideMarkerWhenClickedCategory = markersModel.filter { model in
+                !self.selectedCategory.contains(model.categoryType)
+            }
+            
+            let showMarkers = self.showMarkerWhenClickedCategory.map { $0.marker }
+            let hideMarkers = self.hideMarkerWhenClickedCategory.map { $0.marker }
+            
+            DispatchQueue.main.async {
+                if !self.isStarButtonSelected {
+                    self.viewController?.afterClickedCategoryModel(
+                        showMarkers: showMarkers,
+                        hideMarkers: hideMarkers)
+                }
+            }
         }
     }
     
@@ -499,32 +649,50 @@ final class HomeViewPresenter: NSObject {
                     isTapped: true,
                     markerModel: starMarkersModel
                 )
-                self?.viewController?.afterLoadStarButton(with: noMarkers)
+                
+                let starMarkers = starMarkersModel.map { $0.marker }
+                
+                self?.viewController?.afterLoadStarButton(
+                    showMarkers: starMarkers,
+                    hideMarkers: noMarkers
+                )
             }
         }
     }
     
     private func whenAfterLoadNotStarButtonTapped() {
-
         markerModelManager.updateMarkerModelWhenOnStarButton(
             isTapped: false,
             markerModel: nil
         )
-        let markers = markerModelManager.getAllMarkers()
-
-        viewController?.loadMarkers(with: markers)
+        
+        // MARK: - Category 클릭 중 일 때
+        if selectedCategory.count > 0 {
+            let showMarkers = self.showMarkerWhenClickedCategory.map { $0.marker }
+            let hideMarkers = self.hideMarkerWhenClickedCategory.map { $0.marker }
+            
+            self.viewController?.afterClickedCategoryModel(
+                showMarkers: showMarkers,
+                hideMarkers: hideMarkers)
+        } else {
+            let markers = markerModelManager.getAllMarkers()
+            
+            viewController?.loadMarkers(with: markers)
+        }
     }
     
     // MARK: Bookmark Upload & Delete Method
     func updateBookmark(_ isSelected: Bool) {
         guard let placeId = selectedPlaceId else { return }
         
+        let placeIds = [placeId]
+        
         if isSelected {
-            bookmarkManager.updateData(with: placeId) { [weak self] error in
+            bookmarkManager.updateData(with: placeIds) { [weak self] error in
                 self?.viewController?.showToastAlert(error)
             }
         } else {
-            bookmarkManager.deleteData(with: placeId) { [weak self] error in
+            bookmarkManager.deleteData(with: placeIds) { [weak self] error in
                 self?.viewController?.showToastAlert(error)
             }
         }
@@ -546,6 +714,8 @@ final class HomeViewPresenter: NSObject {
                 menuModel: self?.selectedMenuModel,
                 reviewsModel: self?.selectedReviewsModel
             )
+            
+            self?.afterGetPlaceDetailModel?()
         }
     }
     
@@ -642,7 +812,7 @@ final class HomeViewPresenter: NSObject {
             }
         }
     }
-    
+
     func checkReportPlaceDuplecated() {
         guard let placeId = selectedPlaceId else { return }
         
@@ -655,7 +825,7 @@ final class HomeViewPresenter: NSObject {
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {
-                    if success.reported {
+                    if success.data?.reported ?? false {
                         self?.viewController?.showAlertWhenDuplicatedReport()
                     } else {
                         self?.viewController?.showAlertWhenReportPlace()
@@ -771,7 +941,7 @@ final class HomeViewPresenter: NSObject {
               let place = selectedSummaryModel?.title
         else { return }
         
-        amplitude.editMenu(
+        amplitude.menuEdit(
             with: place,
             beforeMenus: beforeMenus,
             afterMenus: menuArray
@@ -783,7 +953,7 @@ final class HomeViewPresenter: NSObject {
     func afterEditMenuChangedMarker(_ changedMarkerModel: EditMenuChangedMarkerModel) {
         guard var selectedMarkerModel = selectedMarkerModel else { return }
 
-        selectedMarkerModel.mapPlace = changedMarkerModel.mapPlace
+        selectedMarkerModel.veganType = changedMarkerModel.mapPlace
         selectedMarkerModel.isAll = changedMarkerModel.isAll
         selectedMarkerModel.isSome = changedMarkerModel.isSome
         selectedMarkerModel.isRequest = changedMarkerModel.isRequest
@@ -806,6 +976,16 @@ final class HomeViewPresenter: NSObject {
         AVIROAPI.manager.recommendPlace(with: recommendModel) { [weak self] result in
             switch result {
             case .success(let model):
+                if model.statusCode == 200 {
+                    if let successMessage = model.message {
+                        self?.viewController?.showToastAlert(successMessage)
+                    } else {
+                        self?.viewController?.showToastAlert("귀중한 정보 감사합니다!")
+                    }
+                } else {
+                    guard let errorMessage = model.message else { return }
+                    self?.viewController?.showToastAlert(errorMessage)
+                }
                 self?.viewController?.showToastAlert("귀중한 정보 감사합니다!")
             case .failure(let error):
                 self?.viewController?.showErrorAlert(
@@ -866,7 +1046,7 @@ final class HomeViewPresenter: NSObject {
         
         var image: UIImage!
         
-        switch markerModel.mapPlace {
+        switch markerModel.veganType {
         case .All:
             image = .allCell
         case .Some:
@@ -897,7 +1077,7 @@ final class HomeViewPresenter: NSObject {
         
         var image: UIImage!
         
-        switch markerModel.mapPlace {
+        switch markerModel.veganType {
         case .All:
             image = .allCell
         case .Some:
@@ -916,6 +1096,14 @@ final class HomeViewPresenter: NSObject {
         )
         
         viewController?.pushReviewWriteView(with: viewModel)
+    }
+    
+    func afterLevelUpViewCheckTapped(with level: Int) {
+        amplitude.levelupDidMove(with: level)
+    }
+    
+    func afterLevelUpViewNocheckTapped(with level: Int) {
+        amplitude.levelupDidNotMove(with: level)
     }
 }
 
@@ -950,11 +1138,11 @@ extension HomeViewPresenter: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         
-        MyCoordinate.shared.latitude = location.coordinate.latitude
-        MyCoordinate.shared.longitude = location.coordinate.longitude
+        UserCoordinate.shared.latitude = location.coordinate.latitude
+        UserCoordinate.shared.longitude = location.coordinate.longitude
 
-        if !MyCoordinate.shared.isFirstLoadLocation {
-            MyCoordinate.shared.isFirstLoadLocation = true
+        if !UserCoordinate.shared.isFirstLoadLocation {
+            UserCoordinate.shared.isFirstLoadLocation = true
         }
         
         locationManager.stopUpdatingLocation()
@@ -963,11 +1151,11 @@ extension HomeViewPresenter: CLLocationManagerDelegate {
     }
     
     private func ifDeniedLocation() {
-        MyCoordinate.shared.latitude = DefaultCoordinate.lat.rawValue
-        MyCoordinate.shared.longitude = DefaultCoordinate.lng.rawValue
+        UserCoordinate.shared.latitude = DefaultCoordinate.lat.rawValue
+        UserCoordinate.shared.longitude = DefaultCoordinate.lng.rawValue
 
-        if !MyCoordinate.shared.isFirstLoadLocation {
-            MyCoordinate.shared.isFirstLoadLocation = true
+        if !UserCoordinate.shared.isFirstLoadLocation {
+            UserCoordinate.shared.isFirstLoadLocation = true
         }
         
         let mapCoor = NMGLatLng(lat: DefaultCoordinate.lat.rawValue, lng: DefaultCoordinate.lng.rawValue)

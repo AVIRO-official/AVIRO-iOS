@@ -8,6 +8,20 @@
 import UIKit
 
 extension UIColor {
+    convenience init(hex: String, alpha: CGFloat = 1.0) {
+        var hexFormatted: String = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+        hexFormatted = hexFormatted.replacingOccurrences(of: "#", with: "")
+
+        var hexValue: UInt64 = 0
+        Scanner(string: hexFormatted).scanHexInt64(&hexValue)
+
+        let red = CGFloat((hexValue & 0xFF0000) >> 16) / 255.0
+        let green = CGFloat((hexValue & 0x00FF00) >> 8) / 255.0
+        let blue = CGFloat(hexValue & 0x0000FF) / 255.0
+
+        self.init(red: red, green: green, blue: blue, alpha: alpha)
+    }
+    
     // MARK: MAIN
     /// GREEN
     static let all = UIColor(named: "GREEN")!

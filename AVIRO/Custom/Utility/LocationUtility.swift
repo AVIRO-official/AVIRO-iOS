@@ -13,8 +13,8 @@ final class LocationUtility {
     x_lng: Double,
     y_lat: Double
    ) -> Double {
-        guard let latitude = MyCoordinate.shared.latitude,
-              let longitude = MyCoordinate.shared.longitude else {
+        guard let latitude = UserCoordinate.shared.latitude,
+              let longitude = UserCoordinate.shared.longitude else {
             let calculatedDistance = distanceBetweenPoints(
                 lat1: DefaultCoordinate.lat.rawValue,
                 lon1: DefaultCoordinate.lng.rawValue,

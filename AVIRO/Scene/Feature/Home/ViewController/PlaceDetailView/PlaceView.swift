@@ -109,6 +109,10 @@ final class PlaceView: UIView {
         ])
     }
     
+    func setSegmentedControlIndex(with index: Int) {
+        segmentedControlView.setSegmentedControlIndex(with: index)
+    }
+    
     func topViewHeight() -> CGFloat {
         return summaryView.frame.height
     }
@@ -127,7 +131,7 @@ final class PlaceView: UIView {
         segmentedControlView.refreshMenuData(menuModel)
     }
     
-    func updateMapPlace(_ mapPlace: MapPlace) {
+    func updateMapPlace(_ mapPlace: VeganType) {
         summaryView.updateMapPlace(mapPlace)
     }
     

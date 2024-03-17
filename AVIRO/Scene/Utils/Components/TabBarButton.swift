@@ -12,6 +12,7 @@ final class TabBarButton: UIButton {
     init(tabBarType: TabBarType) {
         super.init(frame: .zero)
         var config = defaultButtonConfig()
+        
         config.attributedTitle = AttributedString(
             tabBarType.title,
             attributes: AttributeContainer([

@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 final class ReviewWriteViewController: UIViewController {
-    weak var tabBarDelegate: TabBarDelegate?
+    weak var tabBarDelegate: TabBarFromSubVCDelegate?
     weak var homeViewDelegate: AfterHomeViewControllerProtocol?
     
     private var viewModel: ReviewWriteViewModel!

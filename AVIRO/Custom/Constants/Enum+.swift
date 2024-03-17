@@ -16,7 +16,7 @@ enum APP: String {
 // MARK: UserDefaults Key
 enum UDKey: String {
     case tutorial
-    case loadOnce
+    case hideUntil
     case timeForUpdate
 }
 
@@ -74,80 +74,6 @@ enum Gender: String, Codable {
             self = .other
         default:
             return nil
-        }
-    }
-}
-
-// MARK: Map Marker
-enum MapPlace {
-    case All
-    case Some
-    case Request
-}
-
-enum MapIcon {
-    case allMap
-    case allMapClicked
-    case allMapStar
-    case allMapStarClicked
-    
-    case someMap
-    case someMapClicked
-    case someMapStar
-    case someMapStarClicked
-    
-    case requestMap
-    case requestMapClicked
-    case requestMapStar
-    case requestMapStarClicked
-    
-    private static let allMapImage = NMFOverlayImage(image: .allIcon)
-    private static let someMapImage = NMFOverlayImage(image: .someIcon)
-    private static let requestMapImage = NMFOverlayImage(image: .requestIcon)
-    
-    private static let allMapClickedImage = NMFOverlayImage(image: .allIconClicked)
-    private static let someMapClickedImage = NMFOverlayImage(image: .someIconClicked)
-    private static let requestMapClickedImage = NMFOverlayImage(image: .requestIconClicked)
-    
-    private static let allMapStarImage = NMFOverlayImage(image: .allIconStar)
-    private static let someMapStarImage = NMFOverlayImage(image: .someIconStar)
-    private static let requestMapStarImage = NMFOverlayImage(image: .requestIconStar)
-    
-    private static let allMapStarClickedImage = NMFOverlayImage(image: .allIconStarClicked)
-    private static let someMapStarClickedImage = NMFOverlayImage(image: .someIconStarClicked)
-    private static let requestMapStarClickedImage = NMFOverlayImage(image: .requestIconStarClicked)
-    
-    var image: NMFOverlayImage {
-        switch self {
-        case .allMap:
-            return MapIcon.allMapImage
-        case .allMapClicked:
-            return MapIcon.allMapClickedImage
-            
-        case .someMap:
-            return MapIcon.someMapImage
-        case .someMapClicked:
-            return MapIcon.someMapClickedImage
-            
-        case .requestMap:
-            return MapIcon.requestMapImage
-        case .requestMapClicked:
-            return MapIcon.requestMapClickedImage
-            
-        case .allMapStar:
-            return MapIcon.allMapStarImage
-        case .allMapStarClicked:
-            return MapIcon.allMapStarClickedImage
-            
-        case .someMapStar:
-            return MapIcon.someMapStarImage
-        case .someMapStarClicked:
-            return MapIcon.someMapStarClickedImage
-            
-        case .requestMapStar:
-            return MapIcon.requestMapStarImage
-        case .requestMapStarClicked:
-            return MapIcon.requestMapStarClickedImage
         }
     }
 }

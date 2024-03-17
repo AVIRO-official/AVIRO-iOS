@@ -1,6 +1,0 @@
-module Pods_AVIROTests {
-  umbrella header "Pods-AVIROTests-umbrella.h"
-
-  export *
-  module * { export * }
-}

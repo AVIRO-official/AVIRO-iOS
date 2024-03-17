@@ -7,13 +7,14 @@ target 'AVIRO' do
   use_frameworks!
 
 pod 'NMapsMap'
-pod 'KeychainSwift'
-pod 'lottie-ios'
-pod 'RealmSwift'
-pod 'Toast-Swift'
+pod 'KeychainSwift', '21.0.0'
+pod 'lottie-ios', '4.4.1'
+pod 'RealmSwift', '10.48.0'
+pod 'Toast-Swift', '5.1.0'
 pod 'AmplitudeSwift', '~> 0.4.14'
 pod 'RxSwift', '6.6.0'
 pod 'RxCocoa', '6.6.0'
+pod 'RxDataSources', '~> 5.0' 
 
   # Pods for AVIRO
 

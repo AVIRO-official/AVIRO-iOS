@@ -11,18 +11,24 @@ import NMapsMap.NMFMarker
 protocol MarkerModelCacheProtocol {
     func getMarkers() -> [NMFMarker]
     func getMarkerModels() -> [MarkerModel]
-    func updateMarkerModelWhenClicked(with markerModel: MarkerModel)
+    
     func getOnlyStarMarkerModels() -> [MarkerModel]
     func getMarker(with marker: NMFMarker) -> (MarkerModel?, Int?)
     func getMarker(with afterSearchModel: MatchedPlaceModel
     ) -> (MarkerModel?, Int?)
+    func getMarker(with placeId: String) -> (MarkerModel?, Int?)
     func getMarker(x: Double, y: Double) -> (MarkerModel?, Int?)
-    func setMarkerModel(_ markerModels: [MarkerModel])
-    func updateMarkerModel(_ index: Int, _ markerModel: MarkerModel)
-    func resetAllStarMarkers()
-    func updateWhenStarButton(_ markerModel: [MarkerModel])
-    func updateMarkerModel(_ markerModel: MarkerModel)
     func getUpdatedMarkers() -> [NMFMarker]
+
+    func setMarkerModel(_ markerModels: [MarkerModel])
+    
+    func updateWhenStarButton(_ markerModel: [MarkerModel])
+    func updateMarkerModelWhenClicked(with markerModel: MarkerModel)
+    func updateMarkerModel(_ index: Int, _ markerModel: MarkerModel)
+    func updateMarkerModel(_ markerModel: MarkerModel)
+    
+    func resetAllStarMarkers()
+    
     func deleteMarkerModel(with placeId: String)
     func deleteAllMarkerModel()
 }
@@ -65,11 +71,14 @@ final class MarkerModelCache: MarkerModelCacheProtocol {
             DispatchQueue.main.sync { [weak self] in
                 self?.markers[index].marker.position = updateMarker.marker.position
                 
+                // 실행 중 변경임으로 changeIcon
                 self?.markers[index].marker.changeIcon(
-                    updateMarker.mapPlace,
-                    updateMarker.isClicked
+                    veganType: updateMarker.veganType,
+                    categoryType: updateMarker.categoryType,
+                    isSelected: updateMarker.isClicked
                 )
-                                
+                              
+                // marker는 class 참조 값이여서 직접 대입 후 변경
                 updateMarker.marker = (self?.markers[index].marker)!
                 
                 self?.markers[index] = updateMarker
@@ -159,6 +168,14 @@ final class MarkerModelCache: MarkerModelCacheProtocol {
             .first(where: {
                 $0.element.placeId == afterSearchModel.placeId
             })?.offset {
+            return (markers[index], index)
+        }
+        
+        return (nil, nil)
+    }
+    
+    func getMarker(with placeId: String) -> (MarkerModel?, Int?) {
+        if let index = markers.enumerated().first(where: { $0.element.placeId == placeId})?.offset {
             return (markers[index], index)
         }
         

@@ -9,6 +9,11 @@ import Foundation
 
 struct AVIROChallengeInfoDTO: Decodable {
     let statusCode: Int
+    let data: AVIROChallengeInfoDataDTO?
+    let message: String?
+}
+
+struct AVIROChallengeInfoDataDTO: Decodable {
     let period: String
     let title: String
 }

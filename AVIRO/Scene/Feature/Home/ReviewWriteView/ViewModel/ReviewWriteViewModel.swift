@@ -130,7 +130,7 @@ final class ReviewWriteViewModel: ViewModel {
                     content: content
                 )
                 
-                if let editCommentId = editCommentId {
+                if let editCommentId = self.editCommentId {
                     model.commentId = editCommentId
                     
                     return self.editReview(with: model)
@@ -172,18 +172,20 @@ final class ReviewWriteViewModel: ViewModel {
                 switch result {
                 case .success(let model):
                     if model.statusCode == 200 {
-                        self?.amplitude.uploadReview(
+                        self?.amplitude.reviewUpload(
                             with: self?.placeTitle ?? "",
                             review: reviewModel.content
                         )
+                        
+                        guard let myChallengeStatus = model.data else { return }
                         
                         let resultModel = AfterWriteReviewModel(
                             placeId: self?.placeId ?? "",
                             contentId: reviewModel.commentId,
                             content: reviewModel.content,
                             userId: reviewModel.userId,
-                            levelUp: model.levelUp ?? false,
-                            userLevel: model.userLevel ?? 0
+                            levelUp: myChallengeStatus.levelUp,
+                            userLevel: myChallengeStatus.userLevel
                         )
                         
                         single(.success((resultModel, false)))

@@ -22,7 +22,7 @@ private enum Text: String {
 }
 
 final class EditPlaceInfoViewController: UIViewController {
-    weak var tabBarDelegate: TabBarDelegate?
+    weak var tabBarDelegate: TabBarFromSubVCDelegate?
     lazy var presenter = EditPlaceInfoPresenter(viewController: self)
     
     private let items = [
@@ -283,7 +283,7 @@ extension EditPlaceInfoViewController: EditPlaceInfoProtocol {
         
         blurEffectView.effect = blurEffectStyle
         blurEffectView.frame = view.bounds
-        blurEffectView.alpha = 0.6
+        blurEffectView.alpha = 0.3
         blurEffectView.isHidden = true
         operationHourChangebleView.isHidden = true
     }

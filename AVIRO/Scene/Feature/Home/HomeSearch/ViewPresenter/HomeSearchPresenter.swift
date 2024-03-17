@@ -177,7 +177,7 @@ final class HomeSearchPresenter {
         query: String,
         completion: @escaping ([PlaceListModel]) -> Void
     ) {
-        amplitude.searchPlace(with: query)
+        amplitude.placeSearch(with: query)
         
         currentPage = 1
         isEnding = false
@@ -209,8 +209,8 @@ final class HomeSearchPresenter {
         let whichLocation = KakaoAPISortingQuery.shared.coordinate
         
         if whichLocation == KakaoSerachCoordinate.MyCoordinate {
-            longitude = MyCoordinate.shared.longitude ?? 0.0
-            latitude = MyCoordinate.shared.latitude ?? 0.0
+            longitude = UserCoordinate.shared.longitude ?? 0.0
+            latitude = UserCoordinate.shared.latitude ?? 0.0
         } else {
             longitude = CenterCoordinate.shared.longitude ?? 0.0
             latitude = CenterCoordinate.shared.latitude ?? 0.0
@@ -246,7 +246,6 @@ final class HomeSearchPresenter {
                 self?.isLoading = false
 
                 if let error = error.errorDescription {
-                    print(error)
                     self?.viewController?.showErrorAlert(with: error, title: nil)
                 }
             }
@@ -277,7 +276,9 @@ final class HomeSearchPresenter {
             switch result {
             case .success(let model):
                 if model.statusCode == 200 {
-                    self?.bindingToTableData(afterMatched: model.body, placeList: placeList)
+                    guard let matchedList = model.data?.placeList else { return }
+                    
+                    self?.bindingToTableData(afterMatched: matchedList, placeList: placeList)
                 } else {
                     self?.isLoading = false
                     self?.isEndCompare = true

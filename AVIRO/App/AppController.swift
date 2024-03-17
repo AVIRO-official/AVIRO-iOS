@@ -16,6 +16,7 @@ final class AppController {
     private var userKey: String?
 
     private let keychain = KeychainSwift()
+    private let amplitude = AmplitudeUtility()
     
     private var window: UIWindow!
     private var rootViewController: UIViewController? {
@@ -54,7 +55,7 @@ final class AppController {
 
         let userCheck = AVIROAutoLoginWhenAppleUserDTO(refreshToken: userKey)
 
-        AVIROAPI.manager.appleUserCheck(with: userCheck) { [weak self] result in
+        AVIROAPI.manager.checkAppleUserWhenInitiate(with: userCheck) { [weak self] result in
             switch result {
             case .success(let model):
                 if model.statusCode == 200 {
@@ -100,23 +101,20 @@ final class AppController {
     // MARK: TabBar View
     private func setTabBarView() {
         DispatchQueue.main.async { [weak self] in
-            let tabBarVC = AVIROTabBarController()
-            tabBarVC.setViewControllers(with: [
-                TabBarType.home,
-                TabBarType.plus,
-                TabBarType.challenge
-            ])
+            guard let self = self else { return }
             
+            let tabBarVC = AVIROTabBarController.create(
+                amplitude: self.amplitude,
+                type: [
+                    TabBarType.home,
+                    TabBarType.plus,
+                    TabBarType.challenge
+                ]
+            )
+
+            self.rootViewController = tabBarVC
+                
             tabBarVC.selectedIndex = 0
-            
-            self?.rootViewController = tabBarVC
-            
         }
-//        DispatchQueue.main.async { [weak self] in
-//            let homeVC = TabBarViewController()
-//
-//            self?.rootViewController = homeVC
-//        }
     }
-    
 }

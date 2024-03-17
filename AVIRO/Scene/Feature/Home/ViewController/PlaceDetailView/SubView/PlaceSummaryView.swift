@@ -309,17 +309,57 @@ final class PlaceSummaryView: UIView {
         var placeIconImage: UIImage?
         var whenSlideTopLabelString: String?
 
+        // TODO: - vegan 또는 category enum refectoring 필요
         switch placeModel.placeState {
         case .All:
-            placeIconImage = UIImage.allBox
+            switch placeModel.category {
+            case .Bar:
+                placeIconImage = UIImage.allBoxBar
+                placeCategory.text = placeModel.placeCategory + " ‧ " + Text.all.rawValue
+            case .Bread:
+                placeIconImage = UIImage.allBoxBread
+                placeCategory.text = placeModel.placeCategory + " ‧ " + Text.all.rawValue
+            case .Coffee:
+                placeIconImage = UIImage.allBoxCoffee
+                placeCategory.text = placeModel.placeCategory + " ‧ " + Text.all.rawValue
+            case .Restaurant:
+                placeIconImage = UIImage.allBoxRestaurant
+                placeCategory.text = placeModel.placeCategory + " ‧ " + Text.all.rawValue
+            }
             whenSlideTopLabel.textColor = .all
             whenSlideTopLabelString = Text.all.rawValue
         case .Some:
-            placeIconImage = UIImage.someBox
+            switch placeModel.category {
+            case .Bar:
+                placeIconImage = UIImage.someBoxBar
+                placeCategory.text = placeModel.placeCategory + " ‧ " + Text.some.rawValue
+            case .Bread:
+                placeIconImage = UIImage.someBoxBread
+                placeCategory.text = placeModel.placeCategory + " ‧ " + Text.some.rawValue
+            case .Coffee:
+                placeIconImage = UIImage.someBoxCoffee
+                placeCategory.text = placeModel.placeCategory + " ‧ " + Text.some.rawValue
+            case .Restaurant:
+                placeIconImage = UIImage.someBoxRestaurant
+                placeCategory.text = placeModel.placeCategory + " ‧ " + Text.some.rawValue
+            }
             whenSlideTopLabel.textColor = .some
             whenSlideTopLabelString = Text.some.rawValue
         case .Request:
-            placeIconImage = UIImage.requestBox
+            switch placeModel.category {
+            case .Bar:
+                placeIconImage = UIImage.requestBoxBar
+                placeCategory.text = placeModel.placeCategory + " ‧ " + Text.request.rawValue
+            case .Bread:
+                placeIconImage = UIImage.requestBoxBread
+                placeCategory.text = placeModel.placeCategory + " ‧ " + Text.request.rawValue
+            case .Coffee:
+                placeIconImage = UIImage.requestBoxCoffee
+                placeCategory.text = placeModel.placeCategory + " ‧ " + Text.request.rawValue
+            case .Restaurant:
+                placeIconImage = UIImage.requestBoxRestaurant
+                placeCategory.text = placeModel.placeCategory + " ‧ " + Text.request.rawValue
+            }
             whenSlideTopLabel.textColor = .request
             whenSlideTopLabelString = Text.request.rawValue
         }
@@ -327,7 +367,6 @@ final class PlaceSummaryView: UIView {
         placeIcon.image = placeIconImage
         
         placeTitle.text = placeModel.placeTitle
-        placeCategory.text = placeModel.placeCategory
         distanceLabel.text = placeModel.distance
         reviewsLabel.text = placeModel.reviewsCount + "개"
         addressLabel.text = placeModel.address
@@ -343,7 +382,7 @@ final class PlaceSummaryView: UIView {
         self.reviewsLabel.text = "\(count)개"
     }
     
-    func updateMapPlace(_ mapPlace: MapPlace) {
+    func updateMapPlace(_ mapPlace: VeganType) {
         var placeIconImage: UIImage?
         var whenSlideTopLabelString: String?
         

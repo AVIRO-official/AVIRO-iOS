@@ -33,31 +33,32 @@ struct AVIROPostAPI {
         "X-API-KEY": "\(AVIROConfiguration.apikey)"
     ]
     
-    static let placeEnrollPath = "/1/map/add/place"
-    static let placeListMatchedAVIROPath = "/1/map/check/place"
-    static let placeListReportPath = "/1/map/report/place"
+    // MARK: - URL Property
+    static let placeEnrollPath = "/2/map/add/place"
+    static let placeListMatchedPath = "/2/map/check/place"
+    static let placeListReportPath = "/2/map/report/place"
     
-    static let editPlaceLocationPath = "/1/map/report/address"
-    static let editPlacePhonePath = "/1/map/report/phone"
-    static let editPlaceOperationPath = "/1/map/update/time"
-    static let editPlaceURLPath = "/1/map/report/url"
+    static let editPlaceLocationPath = "/2/map/report/address"
+    static let editPlacePhonePath = "/2/map/report/phone"
+    static let editPlaceOperationPath = "/2/map/update/time"
+    static let editPlaceURLPath = "/2/map/report/url"
     
-    static let commentUploadPath = "/1/map/add/comment"
-    static let commentEditPath = "/1/map/update/comment"
-    static let commentReportPath = "/1/map/report/comment"
-    static let afterUploadCommentRecommendPlace = "/1/map/add/recommend"
+    static let commentUploadPath = "/2/map/add/comment"
+    static let commentEditPath = "/2/map/update/comment"
+    static let commentReportPath = "/2/map/report/comment"
+    static let afterUploadCommentRecommendPlacePath = "/2/map/add/recommend"
 
-    static let bookmarkPostPath = "/1/map/add/bookmark"
+    static let bookmarkPostPath = "/2/map/add/bookmark"
     
-    static let editMenuPath = "/1/map/update/menu"
+    static let editMenuPath = "/2/map/update/menu"
     
-    static let appleUserAutoLoginPath = "/1/member/apple"
-    static let appleUserCheckPath = "/1/member"
-    static let appleUserSignUpPath = "/1/member/sign-up"
-    static let appleUserRevokePath = "/1/member/revoke"
+    static let appleUserAutoLoginPath = "/2/member/apple"
+    static let appleUserCheckPath = "/2/member"
+    static let appleUserSignUpPath = "/2/member/sign-up"
+    static let appleUserRevokePath = "/2/member/revoke"
     
-    static let userNicnameCheckPath = "/1/member/check"
-    static let userNicknameChangeablePath = "/1/member/update/nickname"
+    static let userNicnameCheckPath = "/2/member/check"
+    static let userNicknameChangeablePath = "/2/member/update/nickname"
     
     // MARK: Place Enroll
     mutating func placeEnroll() -> URLComponents {
@@ -66,7 +67,7 @@ struct AVIROPostAPI {
     
     // MARK: PlaceList Matched AVIRO
     mutating func placeListMatched() -> URLComponents {
-        return createURLComponents(path: AVIROPostAPI.placeListMatchedAVIROPath)
+        return createURLComponents(path: AVIROPostAPI.placeListMatchedPath)
     }
     
     // MARK: PlaceList Report
@@ -110,7 +111,7 @@ struct AVIROPostAPI {
     }
     
     mutating func placeRecommend() -> URLComponents {
-        return createURLComponents(path: AVIROPostAPI.afterUploadCommentRecommendPlace)
+        return createURLComponents(path: AVIROPostAPI.afterUploadCommentRecommendPlacePath)
     }
     
     // MARK: Bookmark Enroll/Delete

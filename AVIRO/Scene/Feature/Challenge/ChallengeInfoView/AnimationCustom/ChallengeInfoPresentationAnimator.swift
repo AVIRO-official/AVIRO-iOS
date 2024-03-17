@@ -33,11 +33,12 @@ class ChallengeInfoPresentationAnimator: NSObject, UIViewControllerAnimatedTrans
         containerView.addSubview(blurEffectView)
         containerView.addSubview(toViewController.view)
         
+        // bounce를 위한 height 조정
         let finalFrame = CGRect(
             x: 0,
-            y: containerView.frame.height - 560,
+            y: containerView.frame.height - 500,
             width: containerView.bounds.width,
-            height: 580
+            height: 520
         )
         
         toViewController.view.frame = finalFrame.offsetBy(
@@ -51,7 +52,7 @@ class ChallengeInfoPresentationAnimator: NSObject, UIViewControllerAnimatedTrans
                 toViewController.view.frame = finalFrame
             },
             completion: { finished in
-                blurEffectView.alpha = 0.4
+                blurEffectView.alpha = 0.3
                 transitionContext.completeTransition(finished)
             }
         )
