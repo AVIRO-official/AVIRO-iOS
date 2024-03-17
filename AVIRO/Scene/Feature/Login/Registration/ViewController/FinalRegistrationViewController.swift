@@ -107,13 +107,14 @@ final class FinalRegistrationViewController: UIViewController {
     
     // MARK: UI Interactions
     @objc func buttonTapped() {
-        let tabBarVC = AVIROTabBarController()
-        
-        tabBarVC.setViewControllers(with: [
-            TabBarType.home,
-            TabBarType.plus,
-            TabBarType.challenge
-        ])
+        let tabBarVC = AVIROTabBarController.create(
+            amplitude: AmplitudeUtility(),
+            type: [
+                TabBarType.home,
+                TabBarType.plus,
+                TabBarType.challenge
+            ]
+        )
         
         tabBarVC.selectedIndex = 0
         

@@ -16,21 +16,29 @@ protocol ChallengeViewModelProtocol: AnyObject {
 }
 
 final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
+    private var amplitude: AmplitudeProtocol!
     private var bookmarkManager: BookmarkFacadeProtocol!
     
     var challengeTitle: String = ""
     
     var whenUpdateBookmarkList = false
     
-    init(bookmarkManager: BookmarkFacadeProtocol) {
+    init(
+        amplitude: AmplitudeProtocol,
+        bookmarkManager: BookmarkFacadeProtocol
+    ) {
+        self.amplitude = amplitude
         self.bookmarkManager = bookmarkManager
     }
     
     struct Input {
         let whenViewWillAppear: Driver<Void>
+        
         let whenRefesh: Driver<Void>
-        let tappedChallengeInfoButton: Driver<Void>
-        let tappedNavigationBarRightButton: Driver<Void>
+        let onChallengeInfoButtonTapped: Driver<Void>
+        let onRightNavigationBarButtonTapped: Driver<Void>
+        
+        let onUserInfoListTapped: Driver<MyInfoType>
     }
     
     struct Output {
@@ -40,6 +48,8 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
         
         let afterTappedChallengeInfoButton: Driver<Void>
         let afterTappedNavigationBarRightButton: Driver<Void>
+        let afterUserInfoListTapped: Driver<Void>
+        
         let error: Driver<APIError>
     }
     
@@ -49,9 +59,7 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
         let challengeInfoError = PublishSubject<Error>()
         let myContributionCountError = PublishSubject<Error>()
         let myChallengeLevelError = PublishSubject<Error>()
-        
-        // TODO: - Image 불러오는 API 확인
-        
+                
         // 3개의 api가 하나의 loadInfoTrigger stream을 받고있어서 간헐적으로 api 호출이 실패함
         // 순차적으로 api 호출하도록 각각의 result을 연결
         let challengeInfoResult = loadInfoTrigger
@@ -59,6 +67,9 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
                 guard let self = self else {
                     return Driver<AVIROChallengeInfoDataDTO>.empty()
                 }
+                
+                self.amplitude.challengePresent()
+                
                 return self.loadChallengeInfoAPI()
                     .asDriver(onErrorRecover: { error in
                         challengeInfoError.onNext(error)
@@ -87,18 +98,38 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
                     .asDriver(onErrorRecover: { error in
                         myContributionCountError.onNext(error)
                         return Driver.empty()
-                    })  
+                    })
             }
         
-        let combinedError = Observable.merge(challengeInfoError, myContributionCountError, myChallengeLevelError)
+        let combinedError = Observable.merge(
+            challengeInfoError,
+            myContributionCountError,
+            myChallengeLevelError
+        )
             .map { error -> APIError in
                 return (error as? APIError) ?? APIError.badRequest
             }
             .asDriver(onErrorDriveWith: Driver.empty())
         
-        let afterTappedChallengeInfoButton = input.tappedChallengeInfoButton
+        let afterTappedChallengeInfoButton = input.onChallengeInfoButtonTapped
+        let afterTappedNavigationBarRightButton = input.onRightNavigationBarButtonTapped
         
-        let afterTappedNavigationBarRightButton = input.tappedNavigationBarRightButton
+        let afterUserInfoListTapped = input.onUserInfoListTapped
+            .map { [weak self] infoType in
+                guard let self = self else { return }
+                
+                switch infoType {
+                case .place:
+                    self.amplitude.placeListPresent()
+                case .review:
+                    self.amplitude.reviewListPresent()
+                case .bookmark:
+                    self.amplitude.bookmarkListPresent()
+                }
+                
+                return
+            }
+            .asDriver()
         
         return Output(
             myContributionCountResult: myContributionCountResult,
@@ -106,6 +137,8 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
             myChallengeLevelResult: myChallengeLevelResult,
             afterTappedChallengeInfoButton: afterTappedChallengeInfoButton,
             afterTappedNavigationBarRightButton: afterTappedNavigationBarRightButton,
+            afterUserInfoListTapped: afterUserInfoListTapped,
+            
             error: combinedError
         )
     }
@@ -122,7 +155,7 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
                         
                         guard let resultData = data.data else { return }
                         
-                        var newModel = AVIROMyActivityCounts(
+                        let newModel = AVIROMyActivityCounts(
                             placeCount: resultData.placeCount,
                             commentCount: resultData.commentCount,
                             bookmarkCount: self.bookmarkManager.loadAllData().count

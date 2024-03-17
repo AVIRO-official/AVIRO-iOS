@@ -177,7 +177,7 @@ final class HomeSearchPresenter {
         query: String,
         completion: @escaping ([PlaceListModel]) -> Void
     ) {
-        amplitude.searchPlace(with: query)
+        amplitude.placeSearch(with: query)
         
         currentPage = 1
         isEnding = false

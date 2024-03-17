@@ -172,7 +172,7 @@ final class ReviewWriteViewModel: ViewModel {
                 switch result {
                 case .success(let model):
                     if model.statusCode == 200 {
-                        self?.amplitude.uploadReview(
+                        self?.amplitude.reviewUpload(
                             with: self?.placeTitle ?? "",
                             review: reviewModel.content
                         )

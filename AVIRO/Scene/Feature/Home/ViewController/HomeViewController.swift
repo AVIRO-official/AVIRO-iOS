@@ -236,7 +236,16 @@ final class HomeViewController: UIViewController {
     private(set) var placeViewTopConstraint: NSLayoutConstraint?
     private(set) var searchTextFieldTopConstraint: NSLayoutConstraint?
     
-    private lazy var isSlideUpView = false
+    private var isSlideUpView = false {
+        didSet {
+            let isHidden = (isSlideUpView || isFullUpView)
+
+            searchTextField.isHidden = isHidden
+            categoryCollectionView.isHidden = isHidden
+        }
+    }
+    
+    private var isFullUpView = false
 
     private lazy var whenSlideTapGesture = UITapGestureRecognizer()
     private lazy var upGesture = UISwipeGestureRecognizer()
@@ -252,6 +261,8 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
         presenter.viewWillAppear()
     }
     
@@ -448,7 +459,9 @@ extension HomeViewController: HomeViewProtocol {
         navigationController?.navigationBar.isHidden = true
         
         naverMapView.isHidden = false
-        categoryCollectionView.isHidden = false
+        
+        isFullUpView = false
+        isSlideUpView = false
     }
     
     /// 모든 조건에 해당 사항 없을 때, place view 초기화
@@ -541,7 +554,10 @@ extension HomeViewController: HomeViewProtocol {
     
     private func popupPlaceView() {
         placeViewPopUp()
+
+        isFullUpView = false
         isSlideUpView = false
+
         placeView.isLoadingTopView = true
     }
     
@@ -595,13 +611,17 @@ extension HomeViewController: HomeViewProtocol {
     private func onPlaceViewSlideUp() {
         placeViewSlideUp()
         presenter.getPlaceModelDetail()
+        
+        isFullUpView = false
         isSlideUpView = true
     }
     
     private func onPlaceViewFullUp() {
         placeViewFullUp()
+        
         naverMapView.isHidden = true
-        categoryCollectionView.isHidden = true
+        
+        isFullUpView = true
         isSlideUpView = false
     }
     
@@ -611,6 +631,8 @@ extension HomeViewController: HomeViewProtocol {
     
     @objc private func downBackButtonTapped(_ sender: UIButton) {
         placeViewPopUpAfterInitPlacePopViewHeight()
+                
+        isFullUpView = false
         isSlideUpView = false
     }
     
@@ -643,6 +665,8 @@ extension HomeViewController: HomeViewProtocol {
             // view가 slideup일때만 down gesture 가능
             if isSlideUpView {
                 placeViewPopUpAfterInitPlacePopViewHeight()
+                
+                isFullUpView = false
                 isSlideUpView = false
             }
         }
@@ -1022,8 +1046,11 @@ extension HomeViewController {
     private func handleClosure() {
         placeView.whenFullBack = { [weak self] in
             self?.naverMapView.isHidden = false
-            self?.categoryCollectionView.isHidden = false
+
             self?.placeViewPopUpAfterInitPlacePopViewHeight()
+            
+            self?.isFullUpView = false
+            self?.isSlideUpView = false
         }
         
         placeView.whenShareTapped = { [weak self] shareObject in
@@ -1151,14 +1178,19 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
         levelUpAlertView.isHidden = false
         
         levelUpAlertView.afterTappedCheckButtonTapped = { [weak self] in
+            self?.presenter.afterLevelUpViewCheckTapped(with: level)
+            
             self?.tabBarDelegate?.activeBlurEffectView(with: false)
             self?.blurEffectView.isHidden = true
             self?.levelUpAlertView.isHidden = true
             
             self?.tabBarDelegate?.selectedIndex = 2
+            
         }
         
         levelUpAlertView.afterTappedNoCheckButtonTapped = { [weak self] in
+            self?.presenter.afterLevelUpViewNocheckTapped(with: level)
+            
             self?.tabBarDelegate?.activeBlurEffectView(with: false)
             self?.blurEffectView.isHidden = true
             self?.levelUpAlertView.isHidden = true
@@ -1173,7 +1205,7 @@ extension HomeViewController: TabBarToSubVCDelegate {
             whenTabBarKeyIsPlaceId(with: placeId)
         }
         
-        if let isShow = data[TabBarKeys.showReview] as? Bool, isShow {
+        if let isShowReview = data[TabBarKeys.showReview] as? Bool, isShowReview {
             presenter.afterGetPlaceSummaryModel = { [weak self] in
                 guard let self = self else { return }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -1189,6 +1221,7 @@ extension HomeViewController: TabBarToSubVCDelegate {
     
     private func whenTabBarkeyIsShwReview() {
         self.onPlaceViewSlideUp()
+        self.view.isUserInteractionEnabled = false
         
         presenter.afterGetPlaceDetailModel = { [weak self] in
             guard let self = self else { return }
@@ -1199,6 +1232,7 @@ extension HomeViewController: TabBarToSubVCDelegate {
             /// 호출 후 초기화 작업 
             self.presenter.afterGetPlaceSummaryModel = nil
             self.presenter.afterGetPlaceDetailModel = nil
+            self.view.isUserInteractionEnabled = true
         }
     }
 }

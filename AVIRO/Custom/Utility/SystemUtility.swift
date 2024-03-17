@@ -14,7 +14,12 @@ struct SystemUtility {
     static let appStoreOpenUrlString = "itms-apps://itunes.apple.com/app/apple-store/\(APP.appId.rawValue)"
     
     func latestVersion() -> String? {
-        guard let url = URL(string: "http://itunes.apple.com/lookup?id=\(APP.appId.rawValue)&t=\(Date().timeIntervalSince1970)"),
+        guard let url = URL(string:
+                            """
+                            http://itunes.apple.com/
+                            lookup?id=\(APP.appId.rawValue)&
+                            t=\(Date().timeIntervalSince1970)
+                            """),
               let data = try? Data(contentsOf: url),
               let json = try? JSONSerialization.jsonObject(
                 with: data,

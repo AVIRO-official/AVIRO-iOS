@@ -16,6 +16,7 @@ final class AppController {
     private var userKey: String?
 
     private let keychain = KeychainSwift()
+    private let amplitude = AmplitudeUtility()
     
     private var window: UIWindow!
     private var rootViewController: UIViewController? {
@@ -100,14 +101,19 @@ final class AppController {
     // MARK: TabBar View
     private func setTabBarView() {
         DispatchQueue.main.async { [weak self] in
-            let tabBarVC = AVIROTabBarController()
+            guard let self = self else { return }
             
-            tabBarVC.setViewControllers(with: [
-                TabBarType.home,
-                TabBarType.plus,
-                TabBarType.challenge
-            ])
-            self?.rootViewController = tabBarVC
+            let tabBarVC = AVIROTabBarController.create(
+                amplitude: self.amplitude,
+                type: [
+                    TabBarType.home,
+                    TabBarType.plus,
+                    TabBarType.challenge
+                ]
+            )
+
+            self.rootViewController = tabBarVC
+                
             tabBarVC.selectedIndex = 0
         }
     }

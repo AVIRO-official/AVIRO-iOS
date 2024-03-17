@@ -95,7 +95,7 @@ extension EditMenuViewController: EditMenuProtocol {
         
         navigationItem.title = "메뉴 수정하기"
         
-        let rightBarButton = UIBarButtonItem(title: "수정하기", style: .plain, target: self, action: #selector(editMenu))
+        let rightBarButton = UIBarButtonItem(title: "수정하기", style: .plain, target: self, action: #selector(menuEdit))
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.isEnabled = false
         
@@ -133,7 +133,7 @@ extension EditMenuViewController: EditMenuProtocol {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc private func editMenu() {
+    @objc private func menuEdit() {
         presenter.filteringDataSet()
     }
     

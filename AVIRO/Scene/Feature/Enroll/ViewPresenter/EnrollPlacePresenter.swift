@@ -126,7 +126,7 @@ final class EnrollPlacePresenter {
             switch result {
             case .success(let resultModel):
                 if resultModel.statusCode == 200 {
-                    self?.amplitude.uploadPlace(with: veganModel.title)
+                    self?.amplitude.placeUpload(with: veganModel.title)
                     
                     CenterCoordinate.shared.longitude = veganModel.x
                     CenterCoordinate.shared.latitude = veganModel.y

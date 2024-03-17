@@ -493,7 +493,7 @@ final class HomeViewPresenter: NSObject {
                             address: place.address
                         )
                         
-                        self?.amplitude.popupPlace(with: place.title)
+                        self?.amplitude.placePresent(with: place.title)
                         
                         DispatchQueue.main.async {
                             let isStar = self?.bookmarkManager.checkData(with: placeId)
@@ -941,7 +941,7 @@ final class HomeViewPresenter: NSObject {
               let place = selectedSummaryModel?.title
         else { return }
         
-        amplitude.editMenu(
+        amplitude.menuEdit(
             with: place,
             beforeMenus: beforeMenus,
             afterMenus: menuArray
@@ -1096,6 +1096,14 @@ final class HomeViewPresenter: NSObject {
         )
         
         viewController?.pushReviewWriteView(with: viewModel)
+    }
+    
+    func afterLevelUpViewCheckTapped(with level: Int) {
+        amplitude.levelupDidMove(with: level)
+    }
+    
+    func afterLevelUpViewNocheckTapped(with level: Int) {
+        amplitude.levelupDidNotMove(with: level)
     }
 }
 

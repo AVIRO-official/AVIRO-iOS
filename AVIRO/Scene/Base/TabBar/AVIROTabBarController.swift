@@ -9,11 +9,13 @@ import UIKit
 
 final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
     
-    private lazy var viewControllers: [UINavigationController] = []
-    private var wellcomeViewController: WellcomeViewController?
+    private var amplitude: AmplitudeProtocol!
     
-    private lazy var buttons: [TabBarButton] = []
+    private var viewControllers: [UINavigationController] = []
+    private var wellcomeViewController: WellcomeViewController?
+
     private var types: [TabBarType] = []
+    private var buttons: [TabBarButton] = []
     
     private lazy var tabBarView: UIView = {
         let view = UIView()
@@ -52,7 +54,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
        
         view.backgroundColor = .clear
         view.isHidden = true
-        
+                
         wellcomeViewController = WellcomeViewController.create()
         
         if let wellcomeVC = wellcomeViewController {
@@ -107,8 +109,19 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
     
     private var selectedVCBottomUponTabViewConstraint: NSLayoutConstraint?
     private var selectedVCBottomUponViewBottom: NSLayoutConstraint?
-    
-    private var timer: Timer?
+        
+    static func create(
+        amplitude: AmplitudeProtocol,
+        type: [TabBarType]
+    ) -> AVIROTabBarController {
+        let vc = AVIROTabBarController()
+        
+        vc.amplitude = amplitude
+        vc.setViewControllers(with: type, amplitude: amplitude)
+        
+        
+        return vc
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,15 +130,22 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
         setupAttribute()
     }
     
-    func setViewControllers(with types: [TabBarType]) {
-        
+    private func setViewControllers(
+        with types: [TabBarType],
+        amplitude: AmplitudeProtocol
+    ) {
         self.types = types
+        
         let home = HomeViewController()
         
         let enroll = EnrollPlaceViewController()
     
         let bookmarkManager = BookmarkFacadeManager()
-        let challengeViewModel = ChallengeViewModel(bookmarkManager: bookmarkManager)
+        
+        let challengeViewModel = ChallengeViewModel(
+            amplitude: amplitude,
+            bookmarkManager: bookmarkManager
+        )
         
         let challenge = ChallengeViewController.create(with: challengeViewModel)
         
@@ -265,21 +285,23 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
     
     private func showWellcomeVC() {
         wellcomeViewController?.tabBarDelegate = self
-        wellcomeViewController?.dataBinding() { [weak self] in
-            
+        wellcomeViewController?.loadWellcomeImage { [weak self] in
             self?.wellcomeViewController?.didNoShowButtonTapped = {
                 UserDefaults.standard.set(Date(), forKey: UDKey.hideUntil.rawValue)
-                
+                self?.amplitude.wellcomeNoShow()
                 self?.removeWellcomVC()
             }
             
             self?.wellcomeViewController?.didCloseButtonTapped = {
+                self?.amplitude.wellcomeClose()
                 self?.removeWellcomVC()
             }
             
             self?.wellcomeViewController?.didCheckButtonTapped = {
-                self?.selectedIndex = 2
+                self?.amplitude.wellcomeClick()
                 self?.removeWellcomVC()
+
+                self?.selectedIndex = 2
             }
             
             self?.blurView.isHidden = false
@@ -292,6 +314,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
         wellcomeView.isHidden = true
 
         wellcomeViewController?.remove()
+        wellcomeViewController = nil
     }
     
     // MARK: - TabBar Click After
@@ -368,35 +391,9 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
     }
     
     private func whenSelectedIndex(with index: Int) {
-        if index == selectedIndex {
-            if timer == nil {
-                selectedIndex = index
-                startTimer(with: index)
-            }
-        } else {
-            selectedIndex = index
-            timerExpired()
-        }
-    }
-    
-    private func startTimer(with tag: Int) {
-        var timerInterval: TimeInterval = 1.5
+        guard index != selectedIndex else { return }
         
-        if tag == 2 {
-            timerInterval = 3
-        }
-
-        timer = Timer.scheduledTimer(
-            withTimeInterval: timerInterval,
-            repeats: false,
-            block: { [weak self] _ in
-            self?.timerExpired()
-        })
-    }
-    
-    private func timerExpired() {
-        timer?.invalidate()
-        timer = nil
+        selectedIndex = index
     }
     
     private func afterTappedButton(_ button: UIButton) {

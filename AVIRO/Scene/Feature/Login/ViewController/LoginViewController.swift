@@ -217,23 +217,19 @@ extension LoginViewController: LoginViewProtocol {
     // MARK: Push Intercations
     func pushTabBar() {
         DispatchQueue.main.async { [weak self] in
-            let tabBarVC = AVIROTabBarController()
-            
-            tabBarVC.setViewControllers(with: [
-                TabBarType.home,
-                TabBarType.plus,
-                TabBarType.challenge
-            ])
-            
+            let tabBarVC = AVIROTabBarController.create(
+                amplitude: AmplitudeUtility(),
+                type: [
+                    TabBarType.home,
+                    TabBarType.plus,
+                    TabBarType.challenge
+                ]
+            )
+
             tabBarVC.selectedIndex = 0
             
             self?.navigationController?.pushViewController(tabBarVC, animated: true)
         }
-//        DispatchQueue.main.async { [weak self] in
-//            let viewController = TabBarViewController()
-//            
-//            self?.navigationController?.pushViewController(viewController, animated: true)
-//        }
     }
     
     func pushRegistrationWhenAppleLogin(_ userModel: AVIROAppleUserSignUpDTO) {
