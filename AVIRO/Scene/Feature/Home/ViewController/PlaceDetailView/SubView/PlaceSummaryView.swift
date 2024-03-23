@@ -36,10 +36,11 @@ final class PlaceSummaryView: UIView {
     private lazy var placeTitle: UILabel = {
         let label = UILabel()
         
+        label.textAlignment = .left
         label.textColor = .gray0
         label.clipsToBounds = true
         label.numberOfLines = 1
-        label.font = CFont.font.heavy24
+        label.font = .pretendard(size: 25, weight: .heavy)
 
         return label
     }()
@@ -48,11 +49,22 @@ final class PlaceSummaryView: UIView {
         let label = UILabel()
         
         label.textAlignment = .left
-        label.textColor = .gray2
         label.clipsToBounds = true
         label.numberOfLines = 1
-        label.font = CFont.font.regular15
+        label.font = .pretendard(size: 17, weight: .semibold)
 
+        return label
+    }()
+    
+    private lazy var placeAddressLabel: UILabel = {
+        let label = UILabel()
+        
+        label.textAlignment = .left
+        label.textColor = .gray1
+        label.clipsToBounds = true
+        label.numberOfLines = 1
+        label.font = .pretendard(size: 15, weight: .regular)
+        
         return label
     }()
 
@@ -68,7 +80,7 @@ final class PlaceSummaryView: UIView {
         let label = UILabel()
         
         label.textColor = .gray1
-        label.font = .pretendard(size: 14, weight: .regular)
+        label.font = .pretendard(size: 15, weight: .regular)
         label.text = "0m"
         
         return label
@@ -86,30 +98,39 @@ final class PlaceSummaryView: UIView {
         let label = UILabel()
         
         label.textColor = .gray1
-        label.font = CFont.font.regular14
+        label.font = .pretendard(size: 15, weight: .regular)
         label.text = "0개"
         
         return label
     }()
-
-    private lazy var addressLabel: UILabel = {
-        let label = UILabel()
-        
-        label.textAlignment = .left
-        label.textColor = .gray1
-        label.clipsToBounds = true
-        label.numberOfLines = 1
-        label.font = CFont.font.regular15
-        
-        return label
-    }()
     
+    private lazy var placeDetailStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .horizontal
+        stackView.spacing = 4
+        stackView.alignment = .leading
+        stackView.distribution = .fillProportionally
+        
+        return stackView
+    }()
+
     private lazy var starButton: UIButton = {
         let button = UIButton()
         
-        button.setImage(UIImage.starIcon, for: .normal)
-        button.setImage(UIImage.starIconClicked, for: .selected)
-        button.addTarget(self, action: #selector(starButtonTapped), for: .touchUpInside)
+        button.setImage(
+            UIImage.starIcon,
+            for: .normal
+        )
+        button.setImage(
+            UIImage.starIconClicked, 
+            for: .selected
+        )
+        button.addTarget(
+            self,
+            action: #selector(starButtonTapped),
+            for: .touchUpInside
+        )
         
         return button
     }()
@@ -117,8 +138,15 @@ final class PlaceSummaryView: UIView {
     lazy var shareButton: UIButton = {
         let button = UIButton()
         
-        button.setImage(UIImage.share.withTintColor(.main), for: .normal)
-        button.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+        button.setImage(
+            UIImage.share.withTintColor(.main),
+            for: .normal
+        )
+        button.addTarget(
+            self,
+            action: #selector(shareButtonTapped),
+            for: .touchUpInside
+        )
         
         return button
     }()
@@ -207,7 +235,6 @@ final class PlaceSummaryView: UIView {
         }
     }
     
-    var whenFirstPopupView: ((CGFloat) -> Void)?
     var whenFullBackButtonTapped: (() -> Void)?
     var whenStarButtonTapped: ((Bool) -> Void)?
     var whenShareButtonTapped: (([String]) -> Void)?
@@ -230,9 +257,9 @@ final class PlaceSummaryView: UIView {
         placeCategory.layer.cornerRadius = 6
         distanceLabel.text = "0m"
         reviewsLabel.text = "0개"
-        addressLabel.text = "  "
-        addressLabel.backgroundColor = .gray5
-        addressLabel.layer.cornerRadius = 6
+        placeAddressLabel.text = "  "
+        placeAddressLabel.backgroundColor = .gray5
+        placeAddressLabel.layer.cornerRadius = 6
     }
     
     override init(frame: CGRect) {
@@ -282,7 +309,7 @@ final class PlaceSummaryView: UIView {
     
     @objc func shareButtonTapped() {
         guard let title = placeTitle.text,
-              let address = addressLabel.text else { return }
+              let address = placeAddressLabel.text else { return }
         
         let aviro = "[어비로]\n"
         let totalString = aviro + title + "\n" + address + "\n" + "https://apps.apple.com/app/6449352804"
@@ -297,8 +324,8 @@ final class PlaceSummaryView: UIView {
         placeTitle.layer.cornerRadius = 0
         placeCategory.backgroundColor = .gray7
         placeCategory.layer.cornerRadius = 0
-        addressLabel.backgroundColor = .gray7
-        addressLabel.layer.cornerRadius = 0
+        placeAddressLabel.backgroundColor = .gray7
+        placeAddressLabel.layer.cornerRadius = 0
         
         if isStar {
             starButton.isSelected = true
@@ -326,6 +353,8 @@ final class PlaceSummaryView: UIView {
                 placeIconImage = UIImage.allBoxRestaurant
                 placeCategory.text = placeModel.placeCategory + " ‧ " + Text.all.rawValue
             }
+            placeCategory.textColor = .all
+            
             whenSlideTopLabel.textColor = .all
             whenSlideTopLabelString = Text.all.rawValue
         case .Some:
@@ -343,8 +372,11 @@ final class PlaceSummaryView: UIView {
                 placeIconImage = UIImage.someBoxRestaurant
                 placeCategory.text = placeModel.placeCategory + " ‧ " + Text.some.rawValue
             }
+            placeCategory.textColor = .some
+            
             whenSlideTopLabel.textColor = .some
             whenSlideTopLabelString = Text.some.rawValue
+            
         case .Request:
             switch placeModel.category {
             case .Bar:
@@ -360,6 +392,8 @@ final class PlaceSummaryView: UIView {
                 placeIconImage = UIImage.requestBoxRestaurant
                 placeCategory.text = placeModel.placeCategory + " ‧ " + Text.request.rawValue
             }
+            placeCategory.textColor = .request
+            
             whenSlideTopLabel.textColor = .request
             whenSlideTopLabelString = Text.request.rawValue
         }
@@ -369,7 +403,7 @@ final class PlaceSummaryView: UIView {
         placeTitle.text = placeModel.placeTitle
         distanceLabel.text = placeModel.distance
         reviewsLabel.text = placeModel.reviewsCount + "개"
-        addressLabel.text = placeModel.address
+        placeAddressLabel.text = placeModel.address
         
         whenSlideMiddleLabel.text = placeModel.placeTitle
         whenSlideTopLabel.text = whenSlideTopLabelString
@@ -377,7 +411,7 @@ final class PlaceSummaryView: UIView {
         
         whenFullTitle.text = placeModel.placeTitle
     }
-    
+        
     func updateReviewsCount(_ count: Int) {
         self.reviewsLabel.text = "\(count)개"
     }
@@ -391,14 +425,20 @@ final class PlaceSummaryView: UIView {
             placeIconImage = UIImage.allBox
             whenSlideTopLabel.textColor = .all
             whenSlideTopLabelString = Text.all.rawValue
+            
+            placeCategory.textColor = .all
         case .Some:
             placeIconImage = UIImage.someBox
             whenSlideTopLabel.textColor = .some
             whenSlideTopLabelString = Text.some.rawValue
+            
+            placeCategory.textColor = .some
         case .Request:
             placeIconImage = UIImage.requestBox
             whenSlideTopLabel.textColor = .request
             whenSlideTopLabelString = Text.request.rawValue
+            
+            placeCategory.textColor = .request
         }
         
         placeIcon.image = placeIconImage
@@ -411,15 +451,22 @@ extension PlaceSummaryView {
     // MARK: When Popup View Layout
     private func whenPopUpViewLayout() {
         [
+            distanceIcon,
+            distanceLabel,
+            reviewsIcon,
+            reviewsLabel
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            placeDetailStackView.addArrangedSubview($0)
+        }
+        
+        [
             guideBar,
             placeIcon,
             placeTitle,
             placeCategory,
-            distanceIcon,
-            distanceLabel,
-            reviewsIcon,
-            reviewsLabel,
-            addressLabel,
+            placeAddressLabel,
+            placeDetailStackView,
             starButton,
             shareButton
         ].forEach {
@@ -429,48 +476,74 @@ extension PlaceSummaryView {
         
         NSLayoutConstraint.activate([
             // guide
-            guideBar.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
-            guideBar.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            guideBar.topAnchor.constraint(
+                equalTo: self.topAnchor,
+                constant: 5
+            ),
+            guideBar.centerXAnchor.constraint(
+                equalTo: self.centerXAnchor
+            ),
             guideBar.heightAnchor.constraint(equalToConstant: 5),
             guideBar.widthAnchor.constraint(equalToConstant: 36),
             
             // placeIcon
-            placeIcon.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            placeIcon.topAnchor.constraint(equalTo: self.topAnchor, constant: 30),
+            placeIcon.leadingAnchor.constraint(
+                equalTo: self.leadingAnchor,
+                constant: 20
+            ),
+            placeIcon.topAnchor.constraint(
+                equalTo: self.topAnchor,
+                constant: 30
+            ),
             placeIcon.widthAnchor.constraint(equalToConstant: 52),
             placeIcon.heightAnchor.constraint(equalToConstant: 52),
             
             // placeTitle
-            placeTitle.leadingAnchor.constraint(equalTo: placeIcon.trailingAnchor, constant: 15),
+            placeTitle.leadingAnchor.constraint(
+                equalTo: placeIcon.trailingAnchor,
+                constant: 15
+            ),
             placeTitle.topAnchor.constraint(equalTo: placeIcon.topAnchor),
+            placeTitle.trailingAnchor.constraint(
+                equalTo: starButton.leadingAnchor,
+                constant: -6
+            ),
             
             // placeCategory
-            placeCategory.centerYAnchor.constraint(equalTo: placeTitle.centerYAnchor),
-            
-            // distanceIcon
-            distanceIcon.leadingAnchor.constraint(equalTo: placeIcon.trailingAnchor, constant: 15),
-            distanceIcon.topAnchor.constraint(equalTo: placeTitle.bottomAnchor, constant: 7),
-            
-            // distanceLebel
-            distanceLabel.leadingAnchor.constraint(equalTo: distanceIcon.trailingAnchor, constant: 4),
-            distanceLabel.centerYAnchor.constraint(equalTo: distanceIcon.centerYAnchor),
-            
-            // reviewsIcon
-            reviewsIcon.leadingAnchor.constraint(equalTo: distanceLabel.trailingAnchor, constant: 10),
-            reviewsIcon.centerYAnchor.constraint(equalTo: distanceIcon.centerYAnchor),
-            
-            // reviewsLabel
-            reviewsLabel.leadingAnchor.constraint(equalTo: reviewsIcon.trailingAnchor, constant: 4),
-            reviewsLabel.centerYAnchor.constraint(equalTo: distanceIcon.centerYAnchor),
+            placeCategory.leadingAnchor.constraint(equalTo: placeTitle.leadingAnchor),
+            placeCategory.topAnchor.constraint(equalTo: placeTitle.bottomAnchor, constant: 5),
+            placeCategory.trailingAnchor.constraint(equalTo: placeTitle.trailingAnchor),
             
             // addressLabel
-            addressLabel.topAnchor.constraint(equalTo: distanceIcon.bottomAnchor, constant: 7),
-            addressLabel.leadingAnchor.constraint(equalTo: placeIcon.trailingAnchor, constant: 15),
-            addressLabel.trailingAnchor.constraint(equalTo: shareButton.leadingAnchor, constant: -16),
+            placeAddressLabel.topAnchor.constraint(
+                equalTo: placeCategory.bottomAnchor,
+                constant: 10
+            ),
+            placeAddressLabel.leadingAnchor.constraint(equalTo: placeTitle.leadingAnchor),
+            placeAddressLabel.trailingAnchor.constraint(equalTo: placeTitle.trailingAnchor),
+            
+            // placeDetailStackView
+            placeDetailStackView.topAnchor.constraint(
+                equalTo: placeAddressLabel.bottomAnchor,
+                constant: 5
+            ),
+            placeDetailStackView.leadingAnchor.constraint(
+                equalTo: placeTitle.leadingAnchor
+            ),
+            placeDetailStackView.trailingAnchor.constraint(
+                lessThanOrEqualTo: shareButton.leadingAnchor,
+                constant: 6
+            ),
             
             // star Button
-            starButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 30),
-            starButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            starButton.topAnchor.constraint(
+                equalTo: self.topAnchor,
+                constant: 30
+            ),
+            starButton.trailingAnchor.constraint(
+                equalTo: self.trailingAnchor,
+                constant: -20
+            ),
             starButton.widthAnchor.constraint(equalToConstant: 38),
             starButton.heightAnchor.constraint(equalToConstant: 38),
             
@@ -480,24 +553,6 @@ extension PlaceSummaryView {
             shareButton.widthAnchor.constraint(equalToConstant: 38),
             shareButton.heightAnchor.constraint(equalToConstant: 38)
         ])
-        
-        placeTitle.setContentHuggingPriority(UILayoutPriority(1000), for: .horizontal)
-        
-        placeTitle.setContentCompressionResistancePriority(UILayoutPriority(500), for: .horizontal)
-        
-        placeCategory.setContentCompressionResistancePriority(UILayoutPriority(1000), for: .horizontal)
-        
-        let categoryToTitleConstraint = placeCategory.leadingAnchor.constraint(
-            equalTo: placeTitle.trailingAnchor, constant: 5)
-        
-        categoryToTitleConstraint.priority = UILayoutPriority(1000)
-        categoryToTitleConstraint.isActive = true
-        
-        let categoryToStarConstraint = placeCategory.trailingAnchor.constraint(
-            equalTo: starButton.leadingAnchor, constant: -16)
-        
-        categoryToStarConstraint.priority = UILayoutPriority(750)
-        categoryToStarConstraint.isActive = true
     }
     
     // MARK: When PopUp View is Show UI
@@ -508,30 +563,29 @@ extension PlaceSummaryView {
         placeIcon.isHidden = show
         placeTitle.isHidden = show
         placeCategory.isHidden = show
-        distanceIcon.isHidden = show
-        distanceLabel.isHidden = show
-        reviewsIcon.isHidden = show
-        reviewsLabel.isHidden = show
-        addressLabel.isHidden = show
+        placeDetailStackView.isHidden = show
+        placeAddressLabel.isHidden = show
         starButton.isHidden = show
         shareButton.isHidden = show
     }
     
     // MARK: When Popup View Height
+    // TODO: 수정 필요 - address frame 못 불러옴
     private func whenPopUpViewHeight() {
         viewHeightConstraint?.isActive = false
 
         let guideBarHeight = guideBar.frame.height
         let placeIconHeight = placeIcon.frame.height
-        let addressHeight = addressLabel.frame.height == 0.0 ? CGFloat(18) : addressLabel.frame.height
-        // 5 + 20 + 7 + 7 + 30
-        let inset: CGFloat = 69
+        let placeAddressLabelHeight = CGFloat(15)
+        let placeStackViewHeight = CGFloat(15)
 
-        let totalHeight = guideBarHeight + placeIconHeight + addressHeight + inset
+        // 30 + 10 + 5 + 20
+        let inset: CGFloat = 75
+
+        let totalHeight = guideBarHeight + placeIconHeight + placeAddressLabelHeight + placeStackViewHeight + inset
 
         viewHeightConstraint = self.heightAnchor.constraint(equalToConstant: totalHeight)
         viewHeightConstraint?.isActive = true
-        whenFirstPopupView?(totalHeight)
     }
 }
 
