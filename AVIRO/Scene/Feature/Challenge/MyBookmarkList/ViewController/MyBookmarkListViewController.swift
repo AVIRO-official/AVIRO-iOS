@@ -144,7 +144,7 @@ final class MyBookmarkListViewController: UIViewController {
     }
     
     private func setupAttribute() {
-        navigationItem.title = "내가 등록한 가게"
+        navigationItem.title = "즐겨찾기"
         navigationController?.navigationBar.isHidden = false
         self.view.backgroundColor = .gray7
 
@@ -281,25 +281,25 @@ final class MyBookmarkListViewController: UIViewController {
     }
     
     internal func adjustHeaderInset() {
-        let sectionHeaderHeight: CGFloat = 48
-        
-        let bookmarkYOffset = bookmarkTableView.contentOffset.y
-
-        if bookmarkYOffset <= sectionHeaderHeight && bookmarkYOffset == 0 {
-            bookmarkTableView.contentInset = UIEdgeInsets(
-                top: -bookmarkTableView.contentOffset.y,
-                left: 0,
-                bottom: 0,
-                right: 0
-            )
-        } else if bookmarkTableView.contentOffset.y >= sectionHeaderHeight {
-            bookmarkTableView.contentInset = UIEdgeInsets(
-                top: 0,
-                left: 0,
-                bottom: 0,
-                right: 0
-            )
-        }
+//        let sectionHeaderHeight: CGFloat = -10
+//        
+//        let bookmarkYOffset = bookmarkTableView.contentOffset.y
+//
+//        if bookmarkYOffset <= sectionHeaderHeight {
+//            bookmarkTableView.contentInset = UIEdgeInsets(
+//                top: -bookmarkTableView.contentOffset.y,
+//                left: 0,
+//                bottom: 0,
+//                right: 0
+//            )
+//        } else if bookmarkTableView.contentOffset.y >= sectionHeaderHeight {
+//            bookmarkTableView.contentInset = UIEdgeInsets(
+//                top: 0,
+//                left: 0,
+//                bottom: 0,
+//                right: 0
+//            )
+//        }
     }
     
     internal func bookmarkCellDidTapped(with placeId: String) {

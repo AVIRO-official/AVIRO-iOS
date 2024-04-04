@@ -243,23 +243,6 @@ final class ReviewWriteViewController: UIViewController {
                 equalTo: reviewTextView.trailingAnchor
             ),
             
-//            textViewCountLabel.bottomAnchor.constraint(
-//                equalTo: reviewTextView.bottomAnchor,
-//                constant: -16
-//            ),
-//            textViewCountLabel.trailingAnchor.constraint(
-//                equalTo: reviewTextView.trailingAnchor,
-//                constant: -16
-//            ),
-//
-//            expainTextCountLabel.centerYAnchor.constraint(
-//                equalTo: textViewCountLabel.centerYAnchor
-//            ),
-//            expainTextCountLabel.leadingAnchor.constraint(
-//                equalTo: reviewTextView.leadingAnchor,
-//                constant: 16
-//            ),
-            
             exampleLabel.topAnchor.constraint(
                 equalTo: bottomStackView.bottomAnchor,
                 constant: 16
