@@ -1,5 +1,5 @@
 //
-//  WellcomeViewController.swift
+//  WelcomeViewController.swift
 //  AVIRO
 //
 //  Created by 전성훈 on 2024/03/11.
@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - 기능 추가시 MVVM으로 Refectoring
 
-final class WellcomeViewController: UIViewController {
+final class WelcomeViewController: UIViewController {
     var tabBarDelegate: TabBarFromSubVCDelegate?
     
     private var amplitude: AmplitudeProtocol?
@@ -32,8 +32,8 @@ final class WellcomeViewController: UIViewController {
         collectionView.delegate = self
         
         collectionView.register(
-            WellcomeCollectionViewCell.self,
-            forCellWithReuseIdentifier: WellcomeCollectionViewCell.identifier
+            WelcomeCollectionViewCell.self,
+            forCellWithReuseIdentifier: WelcomeCollectionViewCell.identifier
         )
         
         return collectionView
@@ -110,17 +110,15 @@ final class WellcomeViewController: UIViewController {
         return view
     }()
     
-    static func create() -> WellcomeViewController {
-        let vc = WellcomeViewController()
-        
-//        vc.dataBinding()
-        
+    static func create() -> WelcomeViewController {
+        let vc = WelcomeViewController()
+                
         return vc
     }
     
-    var didNoShowButtonTapped: (() -> Void)?
-    var didCloseButtonTapped: (() -> Void)?
-    var didCheckButtonTapped: (() -> Void)?
+    var didTappedNoShowButton: (() -> Void)?
+    var didTappedCloseButton: (() -> Void)?
+    var didTappedCheckButton: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -195,15 +193,15 @@ final class WellcomeViewController: UIViewController {
     }
     
     @objc private func noShowButtonTapped(_ sender: UIButton) {
-        didNoShowButtonTapped?()
+        didTappedNoShowButton?()
     }
     
     @objc private func closeButtonTapped(_ sender: UIButton) {
-        didCloseButtonTapped?()
+        didTappedCloseButton?()
     }
 }
 
-extension WellcomeViewController: UICollectionViewDelegateFlowLayout {
+extension WelcomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -213,7 +211,7 @@ extension WellcomeViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension WellcomeViewController: UICollectionViewDataSource {
+extension WelcomeViewController: UICollectionViewDataSource {
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
@@ -226,14 +224,14 @@ extension WellcomeViewController: UICollectionViewDataSource {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: WellcomeCollectionViewCell.identifier,
+            withReuseIdentifier: WelcomeCollectionViewCell.identifier,
             for: indexPath
-        ) as? WellcomeCollectionViewCell else { return UICollectionViewCell() }
+        ) as? WelcomeCollectionViewCell else { return UICollectionViewCell() }
         
         cell.configure(with: images[indexPath.row])
         
-        cell.didCheckButtonTapped = { [weak self] in
-            self?.didCheckButtonTapped?()
+        cell.didTappedCheckButton = { [weak self] in
+            self?.didTappedCheckButton?()
         }
         
         return cell

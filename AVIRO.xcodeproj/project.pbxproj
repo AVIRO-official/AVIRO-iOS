@@ -125,8 +125,8 @@
 		C54B591F2B9606C500C0B190 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B591E2B9606C500C0B190 /* UITextView+Extension.swift */; };
 		C54B76612B88B2D10095E110 /* FranchiseToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B76602B88B2D10095E110 /* FranchiseToggleButton.swift */; };
 		C54BC0DB2A2C2D0D00B65439 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */; };
-		C5503B592B9F51C60050643F /* WellcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5503B582B9F51C60050643F /* WellcomeViewController.swift */; };
-		C5503B5C2B9F54C20050643F /* WellcomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5503B5B2B9F54C20050643F /* WellcomeCollectionViewCell.swift */; };
+		C5503B592B9F51C60050643F /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5503B582B9F51C60050643F /* WelcomeViewController.swift */; };
+		C5503B5C2B9F54C20050643F /* WelcomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5503B5B2B9F54C20050643F /* WelcomeCollectionViewCell.swift */; };
 		C5503B5E2B9F55D70050643F /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5503B5D2B9F55D70050643F /* UIView+Extension.swift */; };
 		C552D5342ABE8CA500933D8A /* AVIRODeleteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */; };
 		C5538AAF2A1BB81200661DE2 /* AVIROEnrollPlace+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5538AAE2A1BB81200661DE2 /* AVIROEnrollPlace+DTO.swift */; };
@@ -403,8 +403,8 @@
 		C54B591E2B9606C500C0B190 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		C54B76602B88B2D10095E110 /* FranchiseToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FranchiseToggleButton.swift; sourceTree = "<group>"; };
 		C54BC0DA2A2C2D0D00B65439 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		C5503B582B9F51C60050643F /* WellcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellcomeViewController.swift; sourceTree = "<group>"; };
-		C5503B5B2B9F54C20050643F /* WellcomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellcomeCollectionViewCell.swift; sourceTree = "<group>"; };
+		C5503B582B9F51C60050643F /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		C5503B5B2B9F54C20050643F /* WelcomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		C5503B5D2B9F55D70050643F /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		C552D5332ABE8CA500933D8A /* AVIRODeleteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIRODeleteAPI.swift; sourceTree = "<group>"; };
 		C5538AAE2A1BB81200661DE2 /* AVIROEnrollPlace+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROEnrollPlace+DTO.swift"; sourceTree = "<group>"; };
@@ -1321,13 +1321,13 @@
 			path = UITextLabel;
 			sourceTree = "<group>";
 		};
-		C5503B5A2B9F51D10050643F /* Wellcome */ = {
+		C5503B5A2B9F51D10050643F /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
-				C5503B582B9F51C60050643F /* WellcomeViewController.swift */,
-				C5503B5B2B9F54C20050643F /* WellcomeCollectionViewCell.swift */,
+				C5503B582B9F51C60050643F /* WelcomeViewController.swift */,
+				C5503B5B2B9F54C20050643F /* WelcomeCollectionViewCell.swift */,
 			);
-			path = Wellcome;
+			path = Welcome;
 			sourceTree = "<group>";
 		};
 		C56295032B3188160067BBE5 /* ReviewWriteView */ = {
@@ -1783,7 +1783,7 @@
 			children = (
 				C5D93D9D2A581E9100629C39 /* Tutorial */,
 				C567C14D2A5658C700D4B426 /* Login */,
-				C5503B5A2B9F51D10050643F /* Wellcome */,
+				C5503B5A2B9F51D10050643F /* Welcome */,
 				C5EB50ED2A1C76FC00B29CC1 /* Home */,
 				C5351B722A1B369000116D50 /* Enroll */,
 				C5AAEB472B2F044000507C73 /* Challenge */,
@@ -2294,7 +2294,7 @@
 				C52066292A7CD5FC0038ECCD /* HistoryTableModel.swift in Sources */,
 				C5FD92EB2A9C786600CF4673 /* PublicAPIRequestComponents.swift in Sources */,
 				C58C49C82AC9B67600DE04B7 /* AppleUserLoginModel.swift in Sources */,
-				C5503B592B9F51C60050643F /* WellcomeViewController.swift in Sources */,
+				C5503B592B9F51C60050643F /* WelcomeViewController.swift in Sources */,
 				C54B591F2B9606C500C0B190 /* UITextView+Extension.swift in Sources */,
 				C58FBF902AC2B83A00AB6EFC /* AVIROAPIManagerProtocol.swift in Sources */,
 				C5DCBC9F2B91D9FE003502BA /* MyCommentListViewModel.swift in Sources */,
@@ -2305,7 +2305,7 @@
 				C52066382A808DAD0038ECCD /* HistoryHeaderView.swift in Sources */,
 				C5C290742A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift in Sources */,
 				C52FA3472A175B20005E70DC /* HomeViewController.swift in Sources */,
-				C5503B5C2B9F54C20050643F /* WellcomeCollectionViewCell.swift in Sources */,
+				C5503B5C2B9F54C20050643F /* WelcomeCollectionViewCell.swift in Sources */,
 				C5FD92E32A9C6C1E00CF4673 /* EditLocationAddressTextTableViewCell.swift in Sources */,
 				C54BC0DB2A2C2D0D00B65439 /* UIColor+Extension.swift in Sources */,
 				C52FA3432A175B20005E70DC /* AppDelegate.swift in Sources */,
