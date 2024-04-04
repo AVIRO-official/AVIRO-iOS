@@ -309,8 +309,8 @@ final class MyBookmarkListViewController: UIViewController {
     }
     
     internal func noPlaceButtonTapped() {
-        noPlaceButton.animateTouchResponse(isTouchDown: true) { [weak self] in
-            self?.noPlaceButton.animateTouchResponse(isTouchDown: false) {
+        noPlaceButton.activeTouchActionEffect(isTouchDown: true) { [weak self] in
+            self?.noPlaceButton.activeTouchActionEffect(isTouchDown: false) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                     self?.tabBarDelegate?.selectedIndex = 0
                 }

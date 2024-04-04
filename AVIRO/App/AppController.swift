@@ -35,7 +35,7 @@ final class AppController {
         window.backgroundColor = .gray7
         window.makeKeyAndVisible()
         
-//
+//        checkState()
         setTabBarView()
     }
     

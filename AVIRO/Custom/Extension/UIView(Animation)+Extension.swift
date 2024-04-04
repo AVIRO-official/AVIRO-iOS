@@ -94,7 +94,7 @@ extension UIView {
     ///   - completion: 애니메이션이 완료된 후 실행할 작업입니다. 필요에 따라 클로저 형태로 작업을 제공할 수 있습니다.
     ///
     ///   처음 시작 시 animation이 시작하고 animation이 진행 중 일땐 진행 중인 animation이 끝나면 시작됩니다.
-    func animateTouchResponse(
+    func activeTouchActionEffect(
         isTouchDown: Bool,
         scale: CGFloat = 0.96,
         duration: Double = 0.05,
