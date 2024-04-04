@@ -28,27 +28,12 @@ final class PlaceReviewTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var review: ReviewLabel = {
-        let label = ReviewLabel()
-        
-        return label
-    }()
-    
     private lazy var topLabelStack: UIStackView = {
         let stackView = UIStackView()
         
         stackView.spacing = 7
         stackView.axis = .horizontal
         stackView.distribution = .fill
-        
-        return stackView
-    }()
-    
-    private lazy var topStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        stackView.axis = .horizontal
-        stackView.distribution = .equalCentering
         
         return stackView
     }()
@@ -60,6 +45,21 @@ final class PlaceReviewTableViewCell: UITableViewCell {
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         
         return button
+    }()
+    
+    private lazy var topStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .horizontal
+        stackView.distribution = .equalCentering
+        
+        return stackView
+    }()
+    
+    private lazy var review: ReviewLabel = {
+        let label = ReviewLabel()
+        
+        return label
     }()
     
     private var commentId = ""

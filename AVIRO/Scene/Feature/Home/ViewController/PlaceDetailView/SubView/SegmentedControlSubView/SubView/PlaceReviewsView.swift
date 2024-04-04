@@ -59,6 +59,8 @@ final class PlaceReviewsView: UIView {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 800
         
         return tableView
     }()
@@ -90,7 +92,13 @@ final class PlaceReviewsView: UIView {
     
     private var cellHeights: [IndexPath: CGFloat] = [:]
     
-    private var reviewsArray = [AVIROReviewRawData]()
+    private var reviewsArray = [AVIROReviewRawData]() {
+        didSet {
+            reviewsArray.forEach {
+                print($0.content)
+            }
+        }
+    }
     
     private var whenReviewView = false
     
@@ -577,7 +585,18 @@ extension PlaceReviewsView: UITableViewDataSource {
 }
 
 extension PlaceReviewsView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
+        return tableView.rowHeight
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        willDisplay cell: UITableViewCell,
+        forRowAt indexPath: IndexPath
+    ) {
         if !whenReviewView {
             cellHeights[indexPath] = cell.frame.size.height
             

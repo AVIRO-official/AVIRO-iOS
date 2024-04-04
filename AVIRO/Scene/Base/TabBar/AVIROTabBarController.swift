@@ -12,7 +12,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
     private var amplitude: AmplitudeProtocol!
     
     private var viewControllers: [UINavigationController] = []
-    private var wellcomeViewController: WellcomeViewController?
+    private var wellcomeViewController: WelcomeViewController?
 
     private var types: [TabBarType] = []
     private var buttons: [TabBarButton] = []
@@ -55,7 +55,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
         view.backgroundColor = .clear
         view.isHidden = true
                 
-        wellcomeViewController = WellcomeViewController.create()
+        wellcomeViewController = WelcomeViewController.create()
         
         if let wellcomeVC = wellcomeViewController {
             add(child: wellcomeVC, container: view)
@@ -71,7 +71,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
         let blurEffect = UIBlurEffect(style: .dark)
         
         view.effect = blurEffect
-        view.alpha = 0.3
+        view.alpha = 0.6
         view.isHidden = true
         
         return view
@@ -286,18 +286,18 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
     private func showWellcomeVC() {
         wellcomeViewController?.tabBarDelegate = self
         wellcomeViewController?.loadWellcomeImage { [weak self] in
-            self?.wellcomeViewController?.didNoShowButtonTapped = {
+            self?.wellcomeViewController?.didTappedNoShowButton = {
                 UserDefaults.standard.set(Date(), forKey: UDKey.hideUntil.rawValue)
                 self?.amplitude.wellcomeNoShow()
                 self?.removeWellcomVC()
             }
             
-            self?.wellcomeViewController?.didCloseButtonTapped = {
+            self?.wellcomeViewController?.didTappedCloseButton = {
                 self?.amplitude.wellcomeClose()
                 self?.removeWellcomVC()
             }
             
-            self?.wellcomeViewController?.didCheckButtonTapped = {
+            self?.wellcomeViewController?.didTappedCheckButton = {
                 self?.amplitude.wellcomeClick()
                 self?.removeWellcomVC()
 

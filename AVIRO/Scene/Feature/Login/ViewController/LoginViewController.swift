@@ -128,7 +128,7 @@ final class LoginViewController: UIViewController {
     private lazy var blurEffectView: UIView = {
         
         let view = UIView()
-        view.backgroundColor = .gray6.withAlphaComponent(0.3)
+        view.backgroundColor = .gray7.withAlphaComponent(0.3)
         view.frame = self.view.bounds
         
         return view

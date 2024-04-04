@@ -134,7 +134,7 @@ final class MyBookmarkListTableViewCell: UITableViewCell {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
 
-        self.animateTouchResponse(isTouchDown: true)
+        self.activeTouchActionEffect(isTouchDown: true)
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -142,11 +142,11 @@ final class MyBookmarkListTableViewCell: UITableViewCell {
 
         // 애니메이션 진행 중일 경우 완료 후 onTouchRelease 호출
         if self.isAnimating {
-            self.animateTouchResponse(isTouchDown: false) { [weak self] in
+            self.activeTouchActionEffect(isTouchDown: false) { [weak self] in
                 self?.onTouchRelease?()
             }
         } else {
-            animateTouchResponse(isTouchDown: false) { [weak self] in
+            activeTouchActionEffect(isTouchDown: false) { [weak self] in
                 self?.onTouchRelease?()
             }
         }
@@ -155,7 +155,7 @@ final class MyBookmarkListTableViewCell: UITableViewCell {
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
 
-        self.animateTouchResponse(isTouchDown: false)
+        self.activeTouchActionEffect(isTouchDown: false)
     }
     
     override func prepareForReuse() {

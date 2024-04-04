@@ -5,7 +5,7 @@
 //  Created by 전성훈 on 2023/08/13.
 //
 
-import UIKit
+import Foundation
 
 final class LocationUtility {
     /// 내 위치로부터 얼마나 떨어져있는지 확인 하는 함수
