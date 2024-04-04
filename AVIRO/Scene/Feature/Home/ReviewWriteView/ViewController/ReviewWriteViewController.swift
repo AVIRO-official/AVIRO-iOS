@@ -81,7 +81,7 @@ final class ReviewWriteViewController: UIViewController {
     private lazy var expainTextCountLabel: UILabel = {
         let label = UILabel()
         
-        label.text = " * 최대 10글자 이상"
+        label.text = " * 최소 10글자 이상"
         label.textAlignment = .left
         label.textColor = .gray3
         label.numberOfLines = 1
