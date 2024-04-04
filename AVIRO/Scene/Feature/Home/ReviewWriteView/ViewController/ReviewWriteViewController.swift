@@ -29,17 +29,17 @@ final class ReviewWriteViewController: UIViewController {
         view.textContainer.lineBreakMode = .byCharWrapping
         view.font = .pretendard(size: 16, weight: .regular)
         view.backgroundColor = .gray6
-        view.layer.cornerRadius = 10
+        view.roundTopCorners(cornerRadius: 10)
         view.textContainerInset = UIEdgeInsets(
-            top: 16,
+            top: 8,
             left: 16,
-            bottom: 32,
+            bottom: 0,
             right: 16
         )
         view.scrollIndicatorInsets = UIEdgeInsets(
-            top: 16,
+            top: 8,
             left: 16,
-            bottom: 32,
+            bottom: 0,
             right: 16
         )
         
@@ -59,8 +59,42 @@ final class ReviewWriteViewController: UIViewController {
         return label
     }()
     
+    private lazy var bottomStackView: UIStackView = {
+        let stackView = UIStackView()
+       
+        stackView.backgroundColor = .gray6
+        stackView.roundBottomCorners(cornerRadius: 10)
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fillProportionally
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(
+            top: 8,
+            left: 16,
+            bottom: 8,
+            right:  16
+        )
+        
+        return stackView
+    }()
+    
+    private lazy var expainTextCountLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = " * 최소 10글자 이상"
+        label.textAlignment = .left
+        label.textColor = .gray3
+        label.numberOfLines = 1
+        label.font = .pretendard(size: 12, weight: .medium)
+        
+        return label
+    }()
+    
     private lazy var textViewCountLabel: UILabel = {
         let label = UILabel()
+        
+        label.textAlignment = .right
+        label.numberOfLines = 1
         
         return label
     }()
@@ -73,17 +107,6 @@ final class ReviewWriteViewController: UIViewController {
         label.lineBreakMode = .byCharWrapping
         label.numberOfLines = 0
         label.font = .pretendard(size: 16, weight: .medium)
-        
-        return label
-    }()
-    
-    private lazy var expainTextCountLabel: UILabel = {
-        let label = UILabel()
-        
-        label.text = " * 최대 10글자 이상"
-        label.textColor = .gray3
-        label.numberOfLines = 0
-        label.font = .pretendard(size: 12, weight: .medium)
         
         return label
     }()
@@ -149,11 +172,18 @@ final class ReviewWriteViewController: UIViewController {
     
     private func setupLayout() {
         [
+            expainTextCountLabel,
+            textViewCountLabel
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            bottomStackView.addArrangedSubview($0)
+        }
+        
+        [
             placeInfoView,
             reviewTextView,
             placeholderLabel,
-            expainTextCountLabel,
-            textViewCountLabel,
+            bottomStackView,
             exampleLabel,
             exampleSticy,
             reviewUploadButton,
@@ -203,25 +233,18 @@ final class ReviewWriteViewController: UIViewController {
                 constant: -20
             ),
             
-            textViewCountLabel.bottomAnchor.constraint(
-                equalTo: reviewTextView.bottomAnchor,
-                constant: -16
+            bottomStackView.topAnchor.constraint(
+                equalTo: reviewTextView.bottomAnchor
             ),
-            textViewCountLabel.trailingAnchor.constraint(
-                equalTo: reviewTextView.trailingAnchor,
-                constant: -16
+            bottomStackView.leadingAnchor.constraint(
+                equalTo: reviewTextView.leadingAnchor
             ),
-            
-            expainTextCountLabel.centerYAnchor.constraint(
-                equalTo: textViewCountLabel.centerYAnchor
-            ),
-            expainTextCountLabel.leadingAnchor.constraint(
-                equalTo: reviewTextView.leadingAnchor,
-                constant: 16
+            bottomStackView.trailingAnchor.constraint(
+                equalTo: reviewTextView.trailingAnchor
             ),
             
             exampleLabel.topAnchor.constraint(
-                equalTo: reviewTextView.bottomAnchor,
+                equalTo: bottomStackView.bottomAnchor,
                 constant: 16
             ),
             exampleLabel.leadingAnchor.constraint(

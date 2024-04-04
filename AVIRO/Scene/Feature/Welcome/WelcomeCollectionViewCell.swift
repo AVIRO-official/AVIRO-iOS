@@ -1,5 +1,5 @@
 //
-//  FirstPopupCollectionViewController.swift
+//  WellcomeCollectionViewCell.swift
 //  AVIRO
 //
 //  Created by 전성훈 on 2024/03/12.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class WellcomeCollectionViewCell: UICollectionViewCell {
-    static let identifier = WellcomeCollectionViewCell.description()
+final class WelcomeCollectionViewCell: UICollectionViewCell {
+    static let identifier = WelcomeCollectionViewCell.description()
     
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
@@ -43,7 +43,7 @@ final class WellcomeCollectionViewCell: UICollectionViewCell {
         return btn
     }() 
     
-    var didCheckButtonTapped: (() -> Void)?
+    var didTappedCheckButton: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -120,6 +120,6 @@ final class WellcomeCollectionViewCell: UICollectionViewCell {
     }
     
     @objc private func checkButtonTapped(_ sender: UIButton) {
-        didCheckButtonTapped?()
+        didTappedCheckButton?()
     }
 }

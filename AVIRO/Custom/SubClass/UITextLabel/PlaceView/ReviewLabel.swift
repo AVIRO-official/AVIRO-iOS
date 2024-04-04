@@ -44,7 +44,6 @@ final class ReviewLabel: UILabel {
     }
     
     private func setAttribute() {
-        self.lineBreakMode = .byCharWrapping
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
     }
@@ -64,12 +63,16 @@ final class ReviewLabel: UILabel {
     }
     
     private func whenIsAbbreviated(_ text: String) {
+        self.lineBreakMode = .byTruncatingTail
         self.numberOfLines = 4
+        
         self.text = text
     }
     
     private func whenShowAllLabel(_ text: String) {
+        self.lineBreakMode = .byClipping
         self.numberOfLines = 0
+        
         self.text = text
     }
     

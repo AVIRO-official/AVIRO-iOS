@@ -53,7 +53,6 @@ final class PlaceView: UIView {
     private var placeId = ""
     
     // MARK: Top View
-    var whenFirstPopupView: ((CGFloat) -> Void)?
     var whenFullBack: (() -> Void)?
     var whenShareTapped: (([String]) -> Void)?
     var whenTopViewStarTapped: ((Bool) -> Void)?
@@ -179,10 +178,6 @@ final class PlaceView: UIView {
     
     private func handleClosure() {
         // MARK: Top View
-        summaryView.whenFirstPopupView = { [weak self] firstViewHeight in
-            self?.whenFirstPopupView?(firstViewHeight)
-        }
-        
         summaryView.whenFullBackButtonTapped = { [weak self] in
             self?.whenFullBack?()
         }
