@@ -56,8 +56,6 @@ final class SettingCell: UITableViewCell {
         
         setupLayout()
         setupAttribute()
-        
-        loadVersion()
     }
     
     required init?(coder: NSCoder) {
@@ -94,12 +92,9 @@ final class SettingCell: UITableViewCell {
     }
     
     func dataBinding(_ settingsRow: SettingsRow) {
-//        if settingsRow == .displayMode {
-//            pushButton.isHidden = false
-//        }
-        
         if settingsRow == .versionInfo {
             versionLabel.isHidden = false
+            loadVersion()
         }
         
         if settingsRow == .logout {
