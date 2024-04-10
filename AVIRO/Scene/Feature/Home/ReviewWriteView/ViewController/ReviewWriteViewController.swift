@@ -31,7 +31,7 @@ final class ReviewWriteViewController: UIViewController {
         view.backgroundColor = .gray6
         view.roundTopCorners(cornerRadius: 10)
         view.textContainerInset = UIEdgeInsets(
-            top: 8,
+            top: 16,
             left: 16,
             bottom: 0,
             right: 16
@@ -111,12 +111,12 @@ final class ReviewWriteViewController: UIViewController {
         return label
     }()
     
-    private lazy var exampleSticy: UIImageView = {
-        let imageView = UIImageView()
+    private lazy var challengeLabel: ChallengeNameStickerLabel = {
+        let lbl = ChallengeNameStickerLabel()
+       
+        lbl.bindingChallengeName(with: "비거뉴어리")
         
-        imageView.image = UIImage.pointExplain
-        
-        return imageView
+        return lbl
     }()
     
     private lazy var reviewUploadButton: UIButton = {
@@ -185,7 +185,7 @@ final class ReviewWriteViewController: UIViewController {
             placeholderLabel,
             bottomStackView,
             exampleLabel,
-            exampleSticy,
+            challengeLabel,
             reviewUploadButton,
             indicatorView
         ].forEach {
@@ -256,12 +256,12 @@ final class ReviewWriteViewController: UIViewController {
                 constant: -16
             ),
             
-            exampleSticy.centerXAnchor.constraint(
+            challengeLabel.centerXAnchor.constraint(
                 equalTo: self.view.centerXAnchor
             ),
-            exampleSticy.bottomAnchor.constraint(
+            challengeLabel.bottomAnchor.constraint(
                 equalTo: reviewUploadButton.topAnchor,
-                constant: -11
+                constant: -10
             ),
             
             reviewUploadButton.bottomAnchor.constraint(
@@ -288,10 +288,6 @@ final class ReviewWriteViewController: UIViewController {
         
         reviewTextViewWhenKeyboardWillShow.isActive = false
         reviewTextViewWhenKeyboardWillHide.isActive = true
-        
-        UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse]) {
-            self.exampleSticy.transform = CGAffineTransform(translationX: 0, y: 3)
-        }
     }
     
     private func setupAttribute() {

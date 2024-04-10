@@ -25,9 +25,9 @@ final class ReviewLabel: UILabel {
     
     override func drawText(in rect: CGRect) {
         let insets = UIEdgeInsets(
-            top: topInset,
+            top: 0,
             left: leftInset,
-            bottom: bottomInset,
+            bottom: 0,
             right: rightInset
         )
         
@@ -45,7 +45,7 @@ final class ReviewLabel: UILabel {
     
     private func setAttribute() {
         self.layer.cornerRadius = 10
-        self.layer.masksToBounds = true
+        self.clipsToBounds = true
     }
     
     func setLabel(text: String, isAbbreviated: Bool, isMyReview: Bool) {
@@ -70,6 +70,7 @@ final class ReviewLabel: UILabel {
     }
     
     private func whenShowAllLabel(_ text: String) {
+        self.lineBreakStrategy = [.pushOut, .hangulWordPriority]
         self.lineBreakMode = .byClipping
         self.numberOfLines = 0
         
