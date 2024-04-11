@@ -11,6 +11,7 @@ import NMapsMap
 
 enum APP: String {
     case appId = "6449352804"
+    case bundleId = "SeonghunJeon.VeganRestaurant"
 }
 
 // MARK: UserDefaults Key

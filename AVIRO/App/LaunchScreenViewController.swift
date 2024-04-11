@@ -82,6 +82,8 @@ final class LaunchScreenViewController: UIViewController {
             let splitLatestVersion = latestVersion.split(separator: ".").map { $0 }
             let splitCurrentVersion = currentVersion.split(separator: ".").map { $0 }
                 
+            print(latestVersion)
+            
             DispatchQueue.main.async {
                 if splitCurrentVersion[0] < splitLatestVersion[0] {
                     self?.showUpdateAlert(latestVersion)

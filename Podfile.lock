@@ -1,5 +1,7 @@
 PODS:
-  - AmplitudeSwift (0.4.14)
+  - AmplitudeSwift (1.4.4):
+    - AnalyticsConnector (~> 1.0.1)
+  - AnalyticsConnector (1.0.3)
   - Differentiator (5.0.0)
   - KeychainSwift (21.0.0)
   - lottie-ios (4.4.1)
@@ -28,7 +30,7 @@ PODS:
   - Toast-Swift (5.1.0)
 
 DEPENDENCIES:
-  - AmplitudeSwift (~> 0.4.14)
+  - AmplitudeSwift (= 1.4.4)
   - KeychainSwift (= 21.0.0)
   - lottie-ios (= 4.4.1)
   - NMapsMap
@@ -43,6 +45,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AmplitudeSwift
+    - AnalyticsConnector
     - Differentiator
     - KeychainSwift
     - lottie-ios
@@ -59,7 +62,8 @@ SPEC REPOS:
     - Toast-Swift
 
 SPEC CHECKSUMS:
-  AmplitudeSwift: 22f14ec0e6900857cf560ed0db313cb78dc55359
+  AmplitudeSwift: 13725c3313c2e2cac30836dc2c973d3883baabef
+  AnalyticsConnector: a53214d38ae22734c6266106c0492b37832633a9
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   KeychainSwift: 4a71a45c802fd9e73906457c2dcbdbdc06c9419d
   lottie-ios: e047b1d2e6239b787cc5e9755b988869cf190494
@@ -75,6 +79,6 @@ SPEC CHECKSUMS:
   RxTest: a23f26bb53a5e146a0a69db4f0fa0b69001ce7f4
   Toast-Swift: dd369e68ee529f542c65bd0d0c6c50cd743cf6f2
 
-PODFILE CHECKSUM: b430f95dfb305b5015a2d8e977f132b8174a024a
+PODFILE CHECKSUM: f2ae6150d9b0e8b31f63cefa4c1b50b904c7dae4
 
 COCOAPODS: 1.15.2

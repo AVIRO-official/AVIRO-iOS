@@ -59,6 +59,26 @@ extension UIView {
         )
     }
     
+    func activeBouncingEffect(
+        withVerticalOffset offset: CGFloat,
+        duration: TimeInterval
+    ) {
+        UIView.animate(
+            withDuration: duration,
+            delay: 0,
+            options: [
+                .repeat,
+                .autoreverse,
+                .allowUserInteraction
+            ]
+        ) {
+            self.transform = CGAffineTransform(
+                translationX: 0,
+                y: offset
+            )
+        }
+    }
+    
     func activeExpansion(
         from startingFrame: CGRect,
         to targetView: UIView,
@@ -74,7 +94,12 @@ extension UIView {
         let targetScaleY = targetView.frame.height / startingFrame.height
         
         UIView.animate(withDuration: 0.15, animations: {
-            snapshot.transform = CGAffineTransform(scaleX: targetScaleX, y: targetScaleY)
+            
+            snapshot.transform = CGAffineTransform(
+                scaleX: targetScaleX,
+                y: targetScaleY
+            )
+            
             snapshot.center = targetView.center
 
         }, completion: { _ in
