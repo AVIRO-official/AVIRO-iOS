@@ -56,8 +56,18 @@ final class PlaceReviewTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    private lazy var review: ReviewLabel = {
-        let label = ReviewLabel()
+    private lazy var reviewBackgroundView: UIView = {
+        let view = UIView()
+       
+        view.layer.cornerRadius = 10
+        view.clipsToBounds = true
+        
+        
+        return view
+    }()
+    
+    private lazy var review: UILabel = {
+        let label = UILabel()
         
         return label
     }()
@@ -95,6 +105,7 @@ final class PlaceReviewTableViewCell: UITableViewCell {
         
         [
             topStackView,
+            reviewBackgroundView,
             review
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -108,15 +119,24 @@ final class PlaceReviewTableViewCell: UITableViewCell {
                 equalTo: self.contentView.leadingAnchor),
             topStackView.trailingAnchor.constraint(
                 equalTo: self.contentView.trailingAnchor),
-
-            review.topAnchor.constraint(
+            
+            reviewBackgroundView.topAnchor.constraint(
                 equalTo: topLabelStack.bottomAnchor, constant: 10),
-            review.leadingAnchor.constraint(
+            reviewBackgroundView.leadingAnchor.constraint(
                 equalTo: self.contentView.leadingAnchor),
-            review.trailingAnchor.constraint(
+            reviewBackgroundView.trailingAnchor.constraint(
                 equalTo: self.contentView.trailingAnchor),
+            reviewBackgroundView.bottomAnchor.constraint(
+                equalTo: self.contentView.bottomAnchor, constant: -15),
+            
+            review.topAnchor.constraint(
+                equalTo: reviewBackgroundView.topAnchor, constant: 12),
+            review.leadingAnchor.constraint(
+                equalTo: reviewBackgroundView.leadingAnchor, constant: 16),
+            review.trailingAnchor.constraint(
+                equalTo: reviewBackgroundView.trailingAnchor, constant: -16),
             review.bottomAnchor.constraint(
-                equalTo: self.contentView.bottomAnchor, constant: -15)
+                equalTo: reviewBackgroundView.bottomAnchor, constant: -12)
         ])
     }
     
@@ -127,11 +147,32 @@ final class PlaceReviewTableViewCell: UITableViewCell {
         commentId = comment.commentId
         nickname.text = comment.nickname
         createdTime.text = comment.updatedTime
+
+        setLabelAttribute(text: comment.content, isAbbreviated: isAbbreviated, isMyReview: isMyReview)
+    }
+    
+    private func setLabelAttribute(
+        text: String,
+        isAbbreviated: Bool,
+        isMyReview: Bool
+    ) {
+        review.text = text
+        changeReviewColor(isMyReview: isMyReview)
+        changeReviewAbbreviated(isAbbreviated: isAbbreviated)
+    }
+    
+    private func changeReviewColor(isMyReview: Bool) {
+        review.font = isMyReview ? 
+            .pretendard(size: 15, weight: .semibold) :
+            .pretendard(size: 15, weight: .medium)
         
-        review.setLabel(
-            text: comment.content,
-            isAbbreviated: isAbbreviated,
-            isMyReview: isMyReview)
+        review.textColor = isMyReview ? .main : .gray0
+        reviewBackgroundView.backgroundColor = isMyReview ? .bgNavy : .gray6
+    }
+    
+    private func changeReviewAbbreviated(isAbbreviated: Bool) {
+        review.lineBreakMode = isAbbreviated ? .byTruncatingTail : .byWordWrapping
+        review.numberOfLines = isAbbreviated ? 4 : 0
     }
     
     // MARK: UpLoad 전 수정 -> nickname 수정 후

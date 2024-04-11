@@ -27,7 +27,6 @@
 		C50DB7542A9B838F0078B501 /* ChangeableAddressPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DB7532A9B838F0078B501 /* ChangeableAddressPresenter.swift */; };
 		C50DB7572A9B8DF80078B501 /* EditLocationAddressTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DB7562A9B8DF80078B501 /* EditLocationAddressTextView.swift */; };
 		C50DB7592A9B8E060078B501 /* EditLocationAddressMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DB7582A9B8E060078B501 /* EditLocationAddressMapView.swift */; };
-		C50E6F6D2A8E5AAC00703B9E /* ReviewLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E6F6C2A8E5AAC00703B9E /* ReviewLabel.swift */; };
 		C50E6F6F2A8F10B500703B9E /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E6F6E2A8F10B500703B9E /* UILabel+Extension.swift */; };
 		C50F6AF32A68FD0A00E942F5 /* EnrollPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50F6AF22A68FD0A00E942F5 /* EnrollPlaceViewController.swift */; };
 		C50F6AF52A68FD6300E942F5 /* EnrollPlacePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50F6AF42A68FD6300E942F5 /* EnrollPlacePresenter.swift */; };
@@ -302,7 +301,6 @@
 		C50DB7532A9B838F0078B501 /* ChangeableAddressPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeableAddressPresenter.swift; sourceTree = "<group>"; };
 		C50DB7562A9B8DF80078B501 /* EditLocationAddressTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLocationAddressTextView.swift; sourceTree = "<group>"; };
 		C50DB7582A9B8E060078B501 /* EditLocationAddressMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLocationAddressMapView.swift; sourceTree = "<group>"; };
-		C50E6F6C2A8E5AAC00703B9E /* ReviewLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewLabel.swift; sourceTree = "<group>"; };
 		C50E6F6E2A8F10B500703B9E /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		C50F6AF22A68FD0A00E942F5 /* EnrollPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollPlaceViewController.swift; sourceTree = "<group>"; };
 		C50F6AF42A68FD6300E942F5 /* EnrollPlacePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollPlacePresenter.swift; sourceTree = "<group>"; };
@@ -1738,7 +1736,6 @@
 			isa = PBXGroup;
 			children = (
 				C5C9619B2A8DB1D80016E2F8 /* MenuTypeLabel.swift */,
-				C50E6F6C2A8E5AAC00703B9E /* ReviewLabel.swift */,
 			);
 			path = PlaceView;
 			sourceTree = "<group>";
@@ -2450,7 +2447,6 @@
 				C5C9619C2A8DB1D80016E2F8 /* MenuTypeLabel.swift in Sources */,
 				C5476B6C2B304C8900F5FC6E /* ChallengeUserInfoView.swift in Sources */,
 				C5351B7A2A1B439000116D50 /* KakaoCoordinateSearchDTO.swift in Sources */,
-				C50E6F6D2A8E5AAC00703B9E /* ReviewLabel.swift in Sources */,
 				C5C290852A86173F00ED5DCE /* PlaceReviewWriteView.swift in Sources */,
 				C51BBAD52A78D53D00BF5B7C /* AVIROCheckPlace+DTO.swift in Sources */,
 				C56857802A7113C600F52715 /* NormalTableViewCell.swift in Sources */,
