@@ -31,7 +31,7 @@ final class ReviewWriteViewController: UIViewController {
         view.backgroundColor = .gray6
         view.roundTopCorners(cornerRadius: 10)
         view.textContainerInset = UIEdgeInsets(
-            top: 8,
+            top: 16,
             left: 16,
             bottom: 0,
             right: 16
@@ -111,12 +111,12 @@ final class ReviewWriteViewController: UIViewController {
         return label
     }()
     
-    private lazy var exampleSticy: UIImageView = {
-        let imageView = UIImageView()
+    private lazy var challengeSticker: ChallengeNameStickerView = {
+        let view = ChallengeNameStickerView()
+               
+        view.isHidden = true
         
-        imageView.image = UIImage.pointExplain
-        
-        return imageView
+        return view
     }()
     
     private lazy var reviewUploadButton: UIButton = {
@@ -148,7 +148,9 @@ final class ReviewWriteViewController: UIViewController {
     
     static func create(with viewModel: ReviewWriteViewModel) -> ReviewWriteViewController {
         let vc = ReviewWriteViewController()
+        
         vc.viewModel = viewModel
+        vc.dataBinding()
         
         return vc
     }
@@ -158,7 +160,6 @@ final class ReviewWriteViewController: UIViewController {
         
         setupLayout()
         setupAttribute()
-        dataBinding()
     }
     
     override func viewDidLayoutSubviews() {
@@ -185,7 +186,7 @@ final class ReviewWriteViewController: UIViewController {
             placeholderLabel,
             bottomStackView,
             exampleLabel,
-            exampleSticy,
+            challengeSticker,
             reviewUploadButton,
             indicatorView
         ].forEach {
@@ -256,12 +257,12 @@ final class ReviewWriteViewController: UIViewController {
                 constant: -16
             ),
             
-            exampleSticy.centerXAnchor.constraint(
+            challengeSticker.centerXAnchor.constraint(
                 equalTo: self.view.centerXAnchor
             ),
-            exampleSticy.bottomAnchor.constraint(
+            challengeSticker.bottomAnchor.constraint(
                 equalTo: reviewUploadButton.topAnchor,
-                constant: -11
+                constant: -10
             ),
             
             reviewUploadButton.bottomAnchor.constraint(
@@ -288,10 +289,6 @@ final class ReviewWriteViewController: UIViewController {
         
         reviewTextViewWhenKeyboardWillShow.isActive = false
         reviewTextViewWhenKeyboardWillHide.isActive = true
-        
-        UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse]) {
-            self.exampleSticy.transform = CGAffineTransform(translationX: 0, y: 3)
-        }
     }
     
     private func setupAttribute() {
@@ -350,6 +347,10 @@ final class ReviewWriteViewController: UIViewController {
     }
     
     private func dataBinding() {
+        let viewDidLoadTrigger = self.rx.viewDidLoad
+            .map { _ in }
+            .asDriver(onErrorDriveWith: .empty())
+        
         let text = reviewTextView.rx.text.asDriver()
         
         let updateReview = reviewUploadButton.rx
@@ -360,11 +361,16 @@ final class ReviewWriteViewController: UIViewController {
             }
         
         let input = ReviewWriteViewModel.Input(
+            viewDidLoadTrigger: viewDidLoadTrigger,
             text: text,
             uploadReview: updateReview
         )
         
         let output = viewModel.transform(with: input)
+        
+        output.challengeName
+            .drive(self.rx.loadChallengeName)
+            .disposed(by: disposeBag)
         
         output.reviewWritePlaceModel
             .drive(self.rx.updatePlaceInfo)
@@ -399,7 +405,13 @@ final class ReviewWriteViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    func updatePlaceInfo(with model: ReviewWritePlaceModel) {
+    internal func updateChallengeName(with challenge: String) {
+        challengeSticker.isHidden = challenge == "" ? true : false
+        
+        challengeSticker.bindingChallengeName(with: challenge)
+    }
+    
+    internal func updatePlaceInfo(with model: ReviewWritePlaceModel) {
         placeInfoView.dataBinding(
             icon: model.placeIcon,
             title: model.placeTitle,
@@ -407,7 +419,7 @@ final class ReviewWriteViewController: UIViewController {
         )
     }
     
-    func adjustViewForKeyboardWillShow() {
+    internal func adjustViewForKeyboardWillShow() {
         UIView.animate(withDuration: 0.3) {
             self.reviewTextViewWhenKeyboardWillHide.isActive = false
             self.reviewTextViewWhenKeyboardWillShow.isActive = true
@@ -416,7 +428,7 @@ final class ReviewWriteViewController: UIViewController {
         }
     }
 
-    func adjustViewForKeyboardWillHide() {
+    internal func adjustViewForKeyboardWillHide() {
         UIView.animate(withDuration: 0.3) {
             self.reviewTextViewWhenKeyboardWillShow.isActive = false
             self.reviewTextViewWhenKeyboardWillHide.isActive = true
@@ -425,11 +437,11 @@ final class ReviewWriteViewController: UIViewController {
         }
     }
     
-    func updateTextViewPlaceHolder(with isEditing: Bool) {
+    internal func updateTextViewPlaceHolder(with isEditing: Bool) {
         placeholderLabel.isHidden = isEditing
     }
     
-    func updateTextCount(with textCount: Int) {
+    internal func updateTextCount(with textCount: Int) {
         updateButtonEnable(with: textCount)
         updateTextViewCountLabel(with: textCount)
         
@@ -536,6 +548,12 @@ final class ReviewWriteViewController: UIViewController {
 }
 
 extension Reactive where Base: ReviewWriteViewController {
+    var loadChallengeName: Binder<String> {
+        return Binder(self.base) { base, model in
+            base.updateChallengeName(with: model)
+        }
+    }
+    
     var updatePlaceInfo: Binder<ReviewWritePlaceModel> {
         return Binder(self.base) { base, model in
             base.updatePlaceInfo(with: model)

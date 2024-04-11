@@ -589,7 +589,7 @@ extension PlaceReviewsView: UITableViewDelegate {
         _ tableView: UITableView,
         heightForRowAt indexPath: IndexPath
     ) -> CGFloat {
-        return tableView.rowHeight
+        return UITableView.automaticDimension
     }
     
     func tableView(
@@ -603,6 +603,6 @@ extension PlaceReviewsView: UITableViewDelegate {
             if indexPath.row == reviewsArray.count - 1 {
                 updateTableViewHeight()
             }
-        }
+        } 
     }
 }
