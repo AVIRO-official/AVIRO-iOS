@@ -62,7 +62,7 @@ final class ChallengeNameStickerView: UIView {
             arrowView.widthAnchor.constraint(equalToConstant: 20),
             arrowView.heightAnchor.constraint(equalToConstant: 10),
             arrowView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            arrowView.topAnchor.constraint(equalTo: textLabel.bottomAnchor),
+            arrowView.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: -2),
             arrowView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
