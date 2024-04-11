@@ -643,7 +643,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
     }
     
     // MARK: GET Challenge Comment
-    func loadChallengeComment(completionHandler: @escaping (Result<AVIROChallengeCommentDataDTO, APIError>) -> Void) {
+    func loadChallengeComment(completionHandler: @escaping (Result<AVIROChallengeCommentDTO, APIError>) -> Void) {
         guard let url = requestAPI.getChallengeComment().url else {
             completionHandler(.failure(.urlError))
             return

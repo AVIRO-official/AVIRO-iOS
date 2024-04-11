@@ -54,11 +54,13 @@ final class ReviewWriteViewModel: ViewModel {
     }
     
     struct Input {
+        let viewDidLoadTrigger: Driver<Void>
         let text: Driver<String?>
         let uploadReview: Driver<Void>
     }
     
     struct Output {
+        let challengeName: Driver<String>
         let reviewWritePlaceModel: Driver<ReviewWritePlaceModel>
         let isShowTextViewPlaceHolder: Driver<Bool>
         let textCount: Driver<Int>
@@ -70,6 +72,16 @@ final class ReviewWriteViewModel: ViewModel {
     }
     
     func transform(with input: Input) -> Output {
+        let loadChallenge = input.viewDidLoadTrigger
+            .flatMapLatest { [weak self] _ -> Driver<String> in
+                guard let self = self else { return Driver.just("") }
+                
+                return self.loadChallengeName()
+                    .asDriver { _ in
+                        return Driver.just("")
+                    }
+            }
+        
         var content = self.editReview.isEmpty ? "" : self.editReview
 
         let uploadReviewError = PublishSubject<Error>()
@@ -154,6 +166,7 @@ final class ReviewWriteViewModel: ViewModel {
             .asDriver(onErrorDriveWith: Driver.empty())
         
         return Output(
+            challengeName: loadChallenge,
             reviewWritePlaceModel: reviewWritePlaceModel,
             isShowTextViewPlaceHolder: isEditing,
             textCount: textCount,
@@ -165,8 +178,28 @@ final class ReviewWriteViewModel: ViewModel {
         )
     }
     
+    private func loadChallengeName() -> Single<(String)> {
+        return Single.create { single in
+            AVIROAPI.manager.loadChallengeComment { result in
+                switch result {
+                case .success(let model):
+                    if model.statusCode == 200,
+                       model.data.comment != "" {
+                        single(.success(model.data.comment))
+                    } else {
+                        single(.failure(APIError.badRequest))
+                    }
+                case .failure(let error):
+                    single(.failure(error))
+                }
+            }
+            
+            return Disposables.create()
+        }
+        
+    }
+    
     private func updateReview(with reviewModel: AVIROEnrollReviewDTO) -> Single<(AfterWriteReviewModel, Bool)> {
-
         return Single.create { single in
             AVIROAPI.manager.createReview(with: reviewModel) { [weak self] result in
                 switch result {

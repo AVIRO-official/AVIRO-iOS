@@ -1,5 +1,5 @@
 //
-//  ChallengeNameStickerLabel.swift
+//  ChallengeNameStickerView.swift
 //  AVIRO
 //
 //  Created by 전성훈 on 4/10/24.
@@ -7,18 +7,19 @@
 
 import UIKit
 
-final class ChallengeNameStickerLabel: UIView {
-    private let textLabel: ChallengeNameStickerLabelTest = {
-        let label = ChallengeNameStickerLabelTest()
+final class ChallengeNameStickerView: UIView {
+    private let textLabel: ChallengeNameStickerLabel = {
+        let label = ChallengeNameStickerLabel()
+        
         label.font = .pretendard(size: 16, weight: .semibold)
         label.numberOfLines = 1
         label.textAlignment = .center
         label.textColor = .gray7
         label.backgroundColor = .all
-
+        
         label.clipsToBounds = true
         label.layer.cornerRadius = 10
-
+        
         return label
     }()
     
@@ -57,7 +58,7 @@ final class ChallengeNameStickerLabel: UIView {
             textLabel.topAnchor.constraint(equalTo: self.topAnchor),
             textLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             textLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-
+            
             arrowView.widthAnchor.constraint(equalToConstant: 20),
             arrowView.heightAnchor.constraint(equalToConstant: 10),
             arrowView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
@@ -67,37 +68,37 @@ final class ChallengeNameStickerLabel: UIView {
     }
     
     func bindingChallengeName(with challenge: String) {
-        textLabel.text = challenge + " 30p 지급!"
+        textLabel.text = challenge
     }
-}
-
-final class ChallengeNameStickerLabelTest: UILabel {
+    
+    private final class ChallengeNameStickerLabel: UILabel {
         
-    override var intrinsicContentSize: CGSize {
-        let originalSize = super.intrinsicContentSize
-        
-        let width = originalSize.width + 30
-        let height = originalSize.height + 20
-        
-        return CGSize(width: width, height: height)
+        override var intrinsicContentSize: CGSize {
+            let originalSize = super.intrinsicContentSize
+            
+            let width = originalSize.width + 30
+            let height = originalSize.height + 20
+            
+            return CGSize(width: width, height: height)
+        }
     }
-}
-
-class ArrowView: UIView {
-    override func draw(_ rect: CGRect) {
-        let path = UIBezierPath()
-        
-        let pointTip = CGPoint(x: rect.width / 2, y: 10)
-        let pointLeft = CGPoint(x: rect.width / 2 - 10, y: 0)
-        let pointRight = CGPoint(x: rect.width / 2 + 10, y: 0)
-        
-        path.lineWidth = 10
-        path.move(to: pointLeft)
-        path.addLine(to: pointTip)
-        path.addLine(to: pointRight)
-        path.close()
-        
-        UIColor.all.setFill()
-        path.fill()
+    
+    private final class ArrowView: UIView {
+        override func draw(_ rect: CGRect) {
+            let path = UIBezierPath()
+            
+            let pointTip = CGPoint(x: rect.width / 2, y: 10)
+            let pointLeft = CGPoint(x: rect.width / 2 - 10, y: 0)
+            let pointRight = CGPoint(x: rect.width / 2 + 10, y: 0)
+            
+            path.lineWidth = 10
+            path.move(to: pointLeft)
+            path.addLine(to: pointTip)
+            path.addLine(to: pointRight)
+            path.close()
+            
+            UIColor.all.setFill()
+            path.fill()
+        }
     }
 }
