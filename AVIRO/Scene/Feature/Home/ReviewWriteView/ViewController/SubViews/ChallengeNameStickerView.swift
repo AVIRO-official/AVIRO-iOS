@@ -91,7 +91,6 @@ final class ChallengeNameStickerView: UIView {
             let pointLeft = CGPoint(x: rect.width / 2 - 10, y: 0)
             let pointRight = CGPoint(x: rect.width / 2 + 10, y: 0)
             
-            path.lineWidth = 10
             path.move(to: pointLeft)
             path.addLine(to: pointTip)
             path.addLine(to: pointRight)
