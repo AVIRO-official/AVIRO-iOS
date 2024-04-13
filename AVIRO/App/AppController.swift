@@ -31,15 +31,19 @@ final class AppController {
         window.backgroundColor = .gray7
         
         checkState()
-//        setTabBarView()
+    }
+    
+    func setupLoginViewAfterLogout(in window: UIWindow, with type: LoginViewToastType) {
+        self.window = window
+        window.backgroundColor = .gray7
+        
+        setLoginView(type: type)
     }
     
     // MARK: 불러올 view 확인 메서드
     private func checkState() {
-        print("CheckState")
         let userKey = keychain.get(KeychainKey.appleRefreshToken.rawValue)
         
-        print(userKey)
         // 최초 튜토리얼 화면 안 봤을 때
         guard UserDefaults.standard.bool(forKey: UDKey.tutorial.rawValue) else {
             setTutorialView()
@@ -90,8 +94,19 @@ final class AppController {
     }
     
     // MARK: login View
-    private func setLoginView() {
+    private func setLoginView(type: LoginViewToastType = .none) {
         let loginVC = LoginViewController()
+        let presenter = LoginViewPresenter(viewController: loginVC)
+        loginVC.presenter = presenter
+        
+        switch type {
+        case .logout:
+            presenter.whenAfterLogout = true
+        case .withdrawal:
+            presenter.whenAfterWithdrawal = true
+        case .none:
+            break
+        }
         
         rootViewController = UINavigationController(rootViewController: loginVC)
         window.makeKeyAndVisible()

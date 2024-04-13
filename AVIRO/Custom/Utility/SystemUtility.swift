@@ -13,26 +13,26 @@ struct SystemUtility {
     
     static let appStoreOpenUrlString = "itms-apps://itunes.apple.com/app/apple-store/\(APP.appId.rawValue)"
     
-    func latestVersion() -> String? {
-        let test = URL(string:
-                            """
-                            http://itunes.apple.com/lookup?bundleId=\(APP.bundleId.rawValue)
-                            """)
-        guard let url = URL(string:
-                            """
-                            http://itunes.apple.com/lookup?bundleId=\(APP.bundleId.rawValue)
-                            """),
-              let data = try? Data(contentsOf: url),
-              let json = try? JSONSerialization.jsonObject(
-                with: data,
-                options: .allowFragments
-              ) as? [String: Any],
-              let results = json["results"] as? [[String: Any]],
-              let appStoreVersion = results[0]["version"] as? String else {
-            return nil
+    func latestVersion(completion: @escaping (String?) -> Void) {
+        guard let url = URL(string: "http://itunes.apple.com/lookup?bundleId=\(APP.bundleId.rawValue)") else {
+            completion(nil)
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            DispatchQueue.main.async { 
+                guard let data = data,
+                      let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                      let results = json["results"] as? [[String: Any]],
+                      let appStoreVersion = results.first?["version"] as? String else {
+                    completion(nil)
+                    return
+                }
+                completion(appStoreVersion)
+            }
         }
         
-        return appStoreVersion
+        task.resume()
     }
     
     func openAppStore() {

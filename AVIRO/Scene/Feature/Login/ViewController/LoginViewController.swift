@@ -210,22 +210,6 @@ extension LoginViewController: LoginViewProtocol {
     // MARK: Push Intercations
     func pushTabBar() {
         DispatchQueue.main.async {
-//            let tabBarVC = AVIROTabBarController.create(
-//                amplitude: AmplitudeUtility(),
-//                type: [
-//                    TabBarType.home,
-//                    TabBarType.plus,
-//                    TabBarType.challenge
-//                ]
-//            )
-//
-//            tabBarVC.selectedIndex = 0
-//            
-//            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-//                windowScene.windows.first?.rootViewController = tabBarVC
-//                windowScene.windows.first?.makeKeyAndVisible()
-//            }
-            
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                 if let window = windowScene.windows.first {
                     AppController.shared.show(in: window)

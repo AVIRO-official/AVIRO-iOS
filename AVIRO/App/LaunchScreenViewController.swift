@@ -73,27 +73,24 @@ final class LaunchScreenViewController: UIViewController {
     }
     
     private func checkVersion() {
-        DispatchQueue.global().async { [weak self] in
-            let latestVersion = SystemUtility().latestVersion() ?? "0.0.0"
+        SystemUtility().latestVersion { [weak self] latestVersion in
+            let latestVersion = latestVersion ?? "0.0.0"
             let currentVersion = SystemUtility.appVersion ?? "0.0.0"
-
+            
             let splitLatestVersion = latestVersion.split(separator: ".").map { $0 }
             let splitCurrentVersion = currentVersion.split(separator: ".").map { $0 }
-                
             print(latestVersion)
             
-            DispatchQueue.main.async {
-                if splitCurrentVersion[0] < splitLatestVersion[0] {
+            if splitCurrentVersion[0] < splitLatestVersion[0] {
+                self?.showUpdateAlert(latestVersion)
+                return
+            } else {
+                if splitCurrentVersion[1] < splitLatestVersion[1] {
                     self?.showUpdateAlert(latestVersion)
                     return
-                } else {
-                    if splitCurrentVersion[1] < splitLatestVersion[1] {
-                        self?.showUpdateAlert(latestVersion)
-                        return
-                    }
                 }
-                self?.isUpdateRequire = false
             }
+            self?.isUpdateRequire = false
         }
     }
     

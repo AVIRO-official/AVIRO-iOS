@@ -109,11 +109,6 @@ final class SettingViewController: UIViewController {
         
         presenter.viewWillAppear()
     }
-    
-    deinit {
-        print("SettingViewController Deinit")
-    }
-    
 }
 
 extension SettingViewController: MyPageViewProtocol {
@@ -278,30 +273,12 @@ extension SettingViewController: MyPageViewProtocol {
         )
     }
     
-    func pushLoginViewController(with: LoginRedirectReason) {
-//        let vc = LoginViewController()
-//        let presenter = LoginViewPresenter(viewController: vc)
-//        vc.presenter = presenter
-//
-//        switch with {
-//        case .logout:
-//            presenter.whenAfterLogout = true
-//        case .withdrawal:
-//            presenter.whenAfterWithdrawal = true
-//
-//        }
-//        
-//        let rootViewController = UINavigationController(rootViewController: vc)
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-//            windowScene.windows.first?.rootViewController = rootViewController
-//            windowScene.windows.first?.makeKeyAndVisible()
-            if let window = windowScene.windows.first {
-                AppController.shared.show(in: window)
-            }
+    func pushLoginViewController(type: LoginViewToastType) {
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            AppController.shared.setupLoginViewAfterLogout(in: window, with: type)
         }
-//        let windows =
-//        
-//        AppController.shared.show(in: )
     }
     
     func showErrorAlert(with error: String, title: String? = nil) {
