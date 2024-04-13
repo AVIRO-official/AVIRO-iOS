@@ -70,8 +70,6 @@ final class LaunchScreenViewController: UIViewController {
             titleLabel.topAnchor.constraint(equalTo: aviroImage.bottomAnchor, constant: 16),
             titleLabel.centerXAnchor.constraint(equalTo: aviroImage.centerXAnchor)
         ])
-        
-//        UIScreen.main.bounds.height
     }
     
     private func checkVersion() {

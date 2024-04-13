@@ -125,14 +125,7 @@ final class LoginViewController: UIViewController {
         return indicatorView
     }()
     
-    private lazy var blurEffectView: UIView = {
-        
-        let view = UIView()
-        view.backgroundColor = .gray7.withAlphaComponent(0.3)
-        view.frame = self.view.bounds
-        
-        return view
-    }()
+    private lazy var blurEffectView = BlurEffectView()
     
     // MARK: Override func
     override func viewDidLoad() {
@@ -216,19 +209,28 @@ extension LoginViewController: LoginViewProtocol {
     
     // MARK: Push Intercations
     func pushTabBar() {
-        DispatchQueue.main.async { [weak self] in
-            let tabBarVC = AVIROTabBarController.create(
-                amplitude: AmplitudeUtility(),
-                type: [
-                    TabBarType.home,
-                    TabBarType.plus,
-                    TabBarType.challenge
-                ]
-            )
-
-            tabBarVC.selectedIndex = 0
+        DispatchQueue.main.async {
+//            let tabBarVC = AVIROTabBarController.create(
+//                amplitude: AmplitudeUtility(),
+//                type: [
+//                    TabBarType.home,
+//                    TabBarType.plus,
+//                    TabBarType.challenge
+//                ]
+//            )
+//
+//            tabBarVC.selectedIndex = 0
+//            
+//            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+//                windowScene.windows.first?.rootViewController = tabBarVC
+//                windowScene.windows.first?.makeKeyAndVisible()
+//            }
             
-            self?.navigationController?.pushViewController(tabBarVC, animated: true)
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                if let window = windowScene.windows.first {
+                    AppController.shared.show(in: window)
+                }
+            }
         }
     }
     

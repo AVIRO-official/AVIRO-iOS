@@ -37,17 +37,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
         return view
     }()
     
-    private lazy var tabBarBlurView: UIVisualEffectView = {
-        let view = UIVisualEffectView()
-        
-        let blurEffect = UIBlurEffect(style: .dark)
-        
-        view.effect = blurEffect
-        view.alpha = 0.3
-        view.isHidden = true
-        
-        return view
-    }()
+    private lazy var tabBarBlurView = BlurEffectView()
     
     private lazy var wellcomeView: UIView = {
         let view = UIView()
@@ -65,17 +55,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
         return view
     }()
     
-    private lazy var blurView: UIVisualEffectView = {
-        let view = UIVisualEffectView()
-        
-        let blurEffect = UIBlurEffect(style: .dark)
-        
-        view.effect = blurEffect
-        view.alpha = 0.6
-        view.isHidden = true
-        
-        return view
-    }()
+    private lazy var blurView = BlurEffectView()
     
     var afterFetchingData: Bool = false
             

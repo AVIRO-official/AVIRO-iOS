@@ -13,8 +13,6 @@ import KeychainSwift
 final class AppController {
     static let shared = AppController()
     
-    private var userKey: String?
-
     private let keychain = KeychainSwift()
     private let amplitude = AmplitudeUtility()
     
@@ -25,15 +23,12 @@ final class AppController {
         }
     }
     
-    private init() {
-        self.userKey = keychain.get(KeychainKey.appleRefreshToken.rawValue)
-    }
+    private init() { }
     
     // MARK: 외부랑 소통할 메서드
     func show(in window: UIWindow) {
         self.window = window
         window.backgroundColor = .gray7
-        window.makeKeyAndVisible()
         
         checkState()
 //        setTabBarView()
@@ -41,6 +36,10 @@ final class AppController {
     
     // MARK: 불러올 view 확인 메서드
     private func checkState() {
+        print("CheckState")
+        let userKey = keychain.get(KeychainKey.appleRefreshToken.rawValue)
+        
+        print(userKey)
         // 최초 튜토리얼 화면 안 봤을 때
         guard UserDefaults.standard.bool(forKey: UDKey.tutorial.rawValue) else {
             setTutorialView()
@@ -56,65 +55,63 @@ final class AppController {
         let userCheck = AVIROAutoLoginWhenAppleUserDTO(refreshToken: userKey)
 
         AVIROAPI.manager.checkAppleUserWhenInitiate(with: userCheck) { [weak self] result in
-            switch result {
-            case .success(let model):
-                if model.statusCode == 200 {
-                    if let data = model.data {
-                        MyData.my.whenLogin(
-                            userId: data.userId,
-                            userName: data.userName,
-                            userEmail: data.userEmail,
-                            userNickname: data.nickname,
-                            marketingAgree: data.marketingAgree
-                        )
-                        self?.setTabBarView()
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let model):
+                    if model.statusCode == 200 {
+                        if let data = model.data {
+                            MyData.my.whenLogin(
+                                userId: data.userId,
+                                userName: data.userName,
+                                userEmail: data.userEmail,
+                                userNickname: data.nickname,
+                                marketingAgree: data.marketingAgree
+                            )
+                            self?.setTabBarView()
+                        }
+                    } else {
+                        self?.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
+                        self?.setLoginView()
                     }
-                } else {
+                case .failure:
                     self?.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
                     self?.setLoginView()
                 }
-            case .failure:
-                self?.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
-                self?.setLoginView()
             }
         }
     }
     
     // MARK: tutorial View
     private func setTutorialView() {
-        DispatchQueue.main.async { [weak self] in
-            let tutorialVC = TutorialViewController()
-            
-            self?.rootViewController = UINavigationController(rootViewController: tutorialVC)
-        }
+        let tutorialVC = TutorialViewController()
+        
+        rootViewController = UINavigationController(rootViewController: tutorialVC)
+        window.makeKeyAndVisible()
     }
     
     // MARK: login View
     private func setLoginView() {
-        DispatchQueue.main.async { [weak self] in
-            let loginVC = LoginViewController()
-            
-            self?.rootViewController = UINavigationController(rootViewController: loginVC)
-        }
+        let loginVC = LoginViewController()
+        
+        rootViewController = UINavigationController(rootViewController: loginVC)
+        window.makeKeyAndVisible()
     }
     
     // MARK: TabBar View
     private func setTabBarView() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            
-            let tabBarVC = AVIROTabBarController.create(
-                amplitude: self.amplitude,
-                type: [
-                    TabBarType.home,
-                    TabBarType.plus,
-                    TabBarType.challenge
-                ]
-            )
-
-            self.rootViewController = tabBarVC
-                
-            tabBarVC.selectedIndex = 0
-        }
+        let tabBarVC = AVIROTabBarController.create(
+            amplitude: self.amplitude,
+            type: [
+                TabBarType.home,
+                TabBarType.plus,
+                TabBarType.challenge
+            ]
+        )
+        
+        rootViewController = tabBarVC
+        
+        tabBarVC.selectedIndex = 0
+        
+        window.makeKeyAndVisible()
     }
 }

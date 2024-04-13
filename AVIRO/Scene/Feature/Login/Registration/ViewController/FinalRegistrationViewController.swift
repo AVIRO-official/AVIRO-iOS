@@ -107,18 +107,23 @@ final class FinalRegistrationViewController: UIViewController {
     
     // MARK: UI Interactions
     @objc func buttonTapped() {
-        let tabBarVC = AVIROTabBarController.create(
-            amplitude: AmplitudeUtility(),
-            type: [
-                TabBarType.home,
-                TabBarType.plus,
-                TabBarType.challenge
-            ]
-        )
-        
-        tabBarVC.selectedIndex = 0
-        
-        navigationController?.pushViewController(tabBarVC, animated: true)
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            if let window = windowScene.windows.first {
+                AppController.shared.show(in: window)
+            }
+        }
+//        let tabBarVC = AVIROTabBarController.create(
+//            amplitude: AmplitudeUtility(),
+//            type: [
+//                TabBarType.home,
+//                TabBarType.plus,
+//                TabBarType.challenge
+//            ]
+//        )
+//        
+//        tabBarVC.selectedIndex = 0
+//        
+//        navigationController?.pushViewController(tabBarVC, animated: true)
         //        let viewController = TabBarViewController()
         //
         //        navigationController?.pushViewController(

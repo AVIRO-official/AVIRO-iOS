@@ -222,16 +222,7 @@ final class HomeViewController: UIViewController {
     
     private(set) lazy var placeView = PlaceView()
     
-    private lazy var blurEffectView: UIVisualEffectView = {
-        let view = UIVisualEffectView()
-        
-        let blurEffect = UIBlurEffect(style: .dark)
-        
-        view.effect = blurEffect
-        view.alpha = 0.3
-        
-        return view
-    }()
+    private lazy var blurEffectView = BlurEffectView()
 
     private(set) var placeViewTopConstraint: NSLayoutConstraint?
     private(set) var searchTextFieldTopConstraint: NSLayoutConstraint?
@@ -261,7 +252,6 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         
         presenter.viewWillAppear()
     }
@@ -410,7 +400,6 @@ extension HomeViewController: HomeViewProtocol {
         )
         placeViewTopConstraint?.isActive = true
         
-        blurEffectView.isHidden = true
         recommendPlaceAlertView.isHidden = true
         levelUpAlertView.isHidden = true
     }
