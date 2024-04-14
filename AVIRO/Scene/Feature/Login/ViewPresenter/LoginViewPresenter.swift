@@ -56,6 +56,10 @@ final class LoginViewPresenter: NSObject {
         }
     }
     
+    deinit {
+        print("Test LoginView Presenter Deinit")
+    }
+    
     // MARK: Clicke Apple Login
     func clickedAppleLogin() {
         let request = ASAuthorizationAppleIDProvider().createRequest()

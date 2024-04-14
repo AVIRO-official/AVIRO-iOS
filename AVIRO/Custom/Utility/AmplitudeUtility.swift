@@ -59,9 +59,9 @@ protocol AmplitudeProtocol {
     func levelupDidMove(with level: Int)
     func levelupDidNotMove(with level: Int)
     
-    func wellcomeClick()
-    func wellcomeNoShow()
-    func wellcomeClose()
+    func didTappedCheckWelcome()
+    func didTappedNoMoreShowWelcome()
+    func didTappedCloseWelcome()
 }
 
 final class AmplitudeUtility: AmplitudeProtocol {
@@ -204,15 +204,15 @@ final class AmplitudeUtility: AmplitudeProtocol {
         )
     }
     
-    func wellcomeClick() {
+    func didTappedCheckWelcome() {
         amplitude?.track(eventType: AMType.wellcomeClick.rawValue)
     }
     
-    func wellcomeNoShow() {
+    func didTappedNoMoreShowWelcome() {
         amplitude?.track(eventType: AMType.wellcomeNoShow.rawValue)
     }
     
-    func wellcomeClose() {
+    func didTappedCloseWelcome() {
         amplitude?.track(eventType: AMType.wellcomeClose.rawValue)
     }
 }
@@ -247,7 +247,7 @@ final class AmplitudeUtilityDummy: AmplitudeProtocol {
     func levelupDidMove(with level: Int) { return }
     func levelupDidNotMove(with level: Int) { return }
     
-    func wellcomeClick() { return }
-    func wellcomeNoShow() { return }
-    func wellcomeClose() { return }
+    func didTappedCheckWelcome() { return }
+    func didTappedNoMoreShowWelcome() { return }
+    func didTappedCloseWelcome() { return }
 }

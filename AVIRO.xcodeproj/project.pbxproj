@@ -52,6 +52,7 @@
 		C510005E2ABAA3C700F65C1F /* Enum+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C510005D2ABAA3C700F65C1F /* Enum+.swift */; };
 		C51000612ABAE61F00F65C1F /* ReportReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51000602ABAE61F00F65C1F /* ReportReviewModel.swift */; };
 		C51000632ABAE6A200F65C1F /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51000622ABAE6A200F65C1F /* MenuModel.swift */; };
+		C5101DFE2BCC125300FF6C69 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = C52CD2DB2BCA4E940031671B /* PrivacyInfo.xcprivacy */; };
 		C51132C12A559BCA006E1EC3 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51132C02A559BCA006E1EC3 /* AppController.swift */; };
 		C51385422AAADB0E001AB827 /* EditNickNameButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51385412AAADB0E001AB827 /* EditNickNameButton.swift */; };
 		C51385452AAAE493001AB827 /* MyDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51385442AAAE493001AB827 /* MyDataModel.swift */; };
@@ -88,6 +89,7 @@
 		C528E4BC2A5F9AB6002BD72E /* ThridRegistrationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C528E4BB2A5F9AB6002BD72E /* ThridRegistrationPresenter.swift */; };
 		C528E4BE2A5FB816002BD72E /* TermsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C528E4BD2A5FB816002BD72E /* TermsTableCell.swift */; };
 		C528E4C02A5FF1CB002BD72E /* FinalRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C528E4BF2A5FF1CB002BD72E /* FinalRegistrationViewController.swift */; };
+		C52CD2DD2BCA5C310031671B /* BlurEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52CD2DC2BCA5C310031671B /* BlurEffectView.swift */; };
 		C52FA3432A175B20005E70DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52FA3422A175B20005E70DC /* AppDelegate.swift */; };
 		C52FA3452A175B20005E70DC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52FA3442A175B20005E70DC /* SceneDelegate.swift */; };
 		C52FA3472A175B20005E70DC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52FA3462A175B20005E70DC /* HomeViewController.swift */; };
@@ -362,6 +364,8 @@
 		C528E4BB2A5F9AB6002BD72E /* ThridRegistrationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThridRegistrationPresenter.swift; sourceTree = "<group>"; };
 		C528E4BD2A5FB816002BD72E /* TermsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsTableCell.swift; sourceTree = "<group>"; };
 		C528E4BF2A5FF1CB002BD72E /* FinalRegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalRegistrationViewController.swift; sourceTree = "<group>"; };
+		C52CD2DB2BCA4E940031671B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		C52CD2DC2BCA5C310031671B /* BlurEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEffectView.swift; sourceTree = "<group>"; };
 		C52FA33F2A175B20005E70DC /* AVIRO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AVIRO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C52FA3422A175B20005E70DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C52FA3442A175B20005E70DC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -603,6 +607,7 @@
 				C52FA34D2A175B20005E70DC /* LaunchScreen.storyboard */,
 				C52FA3502A175B20005E70DC /* Info.plist */,
 				62166DED2BA2E92300F05D40 /* API.plist */,
+				C52CD2DB2BCA4E940031671B /* PrivacyInfo.xcprivacy */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1647,6 +1652,7 @@
 				C54BC0D82A2C2CEE00B65439 /* UIButton */,
 				C54BC0D92A2C2CF900B65439 /* UITextLabel */,
 				C5B071E22A59B3C200AE709A /* UITextField */,
+				C52CD2DC2BCA5C310031671B /* BlurEffectView.swift */,
 			);
 			path = SubClass;
 			sourceTree = "<group>";
@@ -2147,6 +2153,7 @@
 				C52FA34F2A175B20005E70DC /* LaunchScreen.storyboard in Resources */,
 				C510004F2AB5F76600F65C1F /* Pretendard-Bold.otf in Resources */,
 				C505EB162ACC048E0057A4F8 /* Berry2.json in Resources */,
+				C5101DFE2BCC125300FF6C69 /* PrivacyInfo.xcprivacy in Resources */,
 				C51000512AB5F76600F65C1F /* Pretendard-ExtraBold.otf in Resources */,
 				C51000522AB5F76600F65C1F /* Pretendard-Regular.otf in Resources */,
 				C510004D2AB5F76600F65C1F /* Pretendard-ExtraLight.otf in Resources */,
@@ -2480,6 +2487,7 @@
 				C505C1DA2B3AC0070058F115 /* AVIROConfiguration.swift in Sources */,
 				C5FD92F72A9CDB9300CF4673 /* EditMenuTopView.swift in Sources */,
 				C56857822A7113CF00F52715 /* RequestTableViewCell.swift in Sources */,
+				C52CD2DD2BCA5C310031671B /* BlurEffectView.swift in Sources */,
 				C5C2907B2A85E51B00ED5DCE /* PlaceReviewsView.swift in Sources */,
 				C5A201BD2A98708800A54381 /* EditPlaceInfoPresenter.swift in Sources */,
 				C59491D32AB0336100880B4B /* UIView(Animation)+Extension.swift in Sources */,
@@ -2661,14 +2669,14 @@
 				CODE_SIGN_ENTITLEMENTS = AVIRO/AVIRO.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = C4K2HXA435;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "어비로";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "현재 내 위치와 가까운 가게를 찾아드려요. 위치 정보를 저장하지 않으니 안심하세요.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "현재 내 위치와 가까운 가게를 찾아드려요. 위치 정보를 저장하지 않으니 안심하세요.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -2679,7 +2687,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.3;
+				MARKETING_VERSION = 1.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.VeganRestaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2698,14 +2706,14 @@
 				CODE_SIGN_ENTITLEMENTS = AVIRO/AVIRO.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = C4K2HXA435;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "어비로";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "현재 내 위치와 가까운 가게를 찾아드려요. 위치 정보를 저장하지 않으니 안심하세요.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "현재 내 위치와 가까운 가게를 찾아드려요. 위치 정보를 저장하지 않으니 안심하세요.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -2716,7 +2724,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.3;
+				MARKETING_VERSION = 1.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.VeganRestaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

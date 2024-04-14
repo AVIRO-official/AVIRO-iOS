@@ -11,7 +11,7 @@ class ChallengeInfoPresentationAnimator: NSObject, UIViewControllerAnimatedTrans
     func transitionDuration(
         using transitionContext: UIViewControllerContextTransitioning?
     ) -> TimeInterval {
-        return 0.15
+        return 0.25
     }
     
     func animateTransition(
@@ -23,13 +23,13 @@ class ChallengeInfoPresentationAnimator: NSObject, UIViewControllerAnimatedTrans
             return
         }
         
-        let blurEffect = UIBlurEffect(style: .dark)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = transitionContext.containerView.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        blurEffectView.alpha = 0
+        let blurEffectView = BlurEffectView()
         
         let containerView = transitionContext.containerView
+        
+        blurEffectView.frame = containerView.frame
+        blurEffectView.isHidden = false
+        
         containerView.addSubview(blurEffectView)
         containerView.addSubview(toViewController.view)
         
@@ -52,7 +52,6 @@ class ChallengeInfoPresentationAnimator: NSObject, UIViewControllerAnimatedTrans
                 toViewController.view.frame = finalFrame
             },
             completion: { finished in
-                blurEffectView.alpha = 0.3
                 transitionContext.completeTransition(finished)
             }
         )

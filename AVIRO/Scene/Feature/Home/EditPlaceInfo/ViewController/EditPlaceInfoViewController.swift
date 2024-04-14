@@ -95,7 +95,7 @@ final class EditPlaceInfoViewController: UIViewController {
     private lazy var leftSwipeGesture = UISwipeGestureRecognizer()
     private lazy var rightSwipeGesture = UISwipeGestureRecognizer()
     
-    private lazy var blurEffectView = UIVisualEffectView()
+    private lazy var blurEffectView = BlurEffectView()
     private lazy var operationHourChangebleView = EditOperationHourChangebleView()
     
     override func viewDidLoad() {
@@ -155,6 +155,8 @@ extension EditPlaceInfoViewController: EditPlaceInfoProtocol {
             operationHourChangebleView.widthAnchor.constraint(
                 equalTo: self.view.widthAnchor, multiplier: 1, constant: -32)
         ])
+        
+        operationHourChangebleView.isHidden = true
         
         setupSafeAreaViewLayout()
     }
@@ -276,16 +278,6 @@ extension EditPlaceInfoViewController: EditPlaceInfoProtocol {
     @objc private func backButtonTapped(_ sender: UIButton) {
         tabBarDelegate?.isHidden = (false, true)
         navigationController?.popViewController(animated: true)
-    }
-    
-    func setupBlurEffect() {
-        let blurEffectStyle = UIBlurEffect(style: UIBlurEffect.Style.dark)
-        
-        blurEffectView.effect = blurEffectStyle
-        blurEffectView.frame = view.bounds
-        blurEffectView.alpha = 0.3
-        blurEffectView.isHidden = true
-        operationHourChangebleView.isHidden = true
     }
     
     func setupGesture() {
