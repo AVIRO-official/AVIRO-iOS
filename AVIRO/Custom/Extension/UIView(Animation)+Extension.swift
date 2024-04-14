@@ -157,4 +157,23 @@ extension UIView {
             }
         }
     }
+    
+    func activeClickButton(
+        duration: Double = 0.15,
+        delay: Double = 0,
+        scaleX: Double = 1.08,
+        scaleY: Double = 0.95
+    ) {
+        UIView.animate(
+            withDuration: duration,
+            delay: delay,
+            options: [.allowUserInteraction],
+            animations: {
+            self.transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
+        }, completion: { _ in
+            UIView.animate(withDuration: duration) {
+                self.transform = CGAffineTransform.identity
+            }
+        })
+    }
 }

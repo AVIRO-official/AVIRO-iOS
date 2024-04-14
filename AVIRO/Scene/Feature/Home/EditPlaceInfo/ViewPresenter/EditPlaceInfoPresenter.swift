@@ -12,7 +12,6 @@ import NMapsMap
 protocol EditPlaceInfoProtocol: NSObject {
     func setupLayout()
     func setupAttribute()
-    func setupBlurEffect()
     func setupGesture()
     func handleClosure()
     func whenViewWillAppearSelectedIndex(_ index: Int)
@@ -175,7 +174,6 @@ final class EditPlaceInfoPresenter {
     func viewDidLoad() {
         viewController?.setupLayout()
         viewController?.setupAttribute()
-        viewController?.setupBlurEffect()
         viewController?.setupGesture()
         viewController?.handleClosure()
         

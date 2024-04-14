@@ -222,16 +222,7 @@ final class HomeViewController: UIViewController {
     
     private(set) lazy var placeView = PlaceView()
     
-    private lazy var blurEffectView: UIVisualEffectView = {
-        let view = UIVisualEffectView()
-        
-        let blurEffect = UIBlurEffect(style: .dark)
-        
-        view.effect = blurEffect
-        view.alpha = 0.3
-        
-        return view
-    }()
+    private lazy var blurEffectView = BlurEffectView()
 
     private(set) var placeViewTopConstraint: NSLayoutConstraint?
     private(set) var searchTextFieldTopConstraint: NSLayoutConstraint?
@@ -261,7 +252,6 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         
         presenter.viewWillAppear()
     }
@@ -410,7 +400,6 @@ extension HomeViewController: HomeViewProtocol {
         )
         placeViewTopConstraint?.isActive = true
         
-        blurEffectView.isHidden = true
         recommendPlaceAlertView.isHidden = true
         levelUpAlertView.isHidden = true
     }
@@ -637,15 +626,18 @@ extension HomeViewController: HomeViewProtocol {
     }
     
     @objc private func flagButtonTapped(_ sender: UIButton) {
+        sender.activeClickButton(duration: 0.15, scaleX: 1.04, scaleY: 0.98)
         presenter.checkReportPlaceDuplecated()
     }
     
     @objc private func starButtonTapped(_ sender: UIButton) {
+        sender.activeClickButton(duration: 0.15, scaleX: 1.04, scaleY: 0.98)
         sender.isSelected.toggle()
         presenter.loadBookmark(sender.isSelected)
     }
     
     @objc private func locationButtonTapped(_ sender: UIButton) {
+        sender.activeClickButton(duration: 0.15, scaleX: 1.04, scaleY: 0.98)
         presenter.locationUpdate()
     }
     

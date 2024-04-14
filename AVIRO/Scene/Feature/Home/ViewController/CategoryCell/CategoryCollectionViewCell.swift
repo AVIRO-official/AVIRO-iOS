@@ -24,6 +24,7 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     }()
     
     private var type = ""
+    
     var whenCategoryButtonTapped: ((String, Bool) -> Void)?
     
     override init(frame: CGRect) {
@@ -105,6 +106,7 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     }
     
     @objc private func categoryButtonTapped(_ sender: UIButton) {
+        sender.activeClickButton(duration: 0.15, scaleX: 1.04, scaleY: 0.98)
         sender.isSelected.toggle()
         
         if type == "취소" {

@@ -9,16 +9,17 @@ import UIKit
 
 import KeychainSwift
 
-enum LoginRedirectReason {
+enum LoginViewToastType {
     case logout
     case withdrawal
+    case none
 }
 
 protocol MyPageViewProtocol: NSObject {
     func setupLayout()
     func setupAttribute()
 //    func updateMyData(_ myDataModel: MyDataModel)
-    func pushLoginViewController(with: LoginRedirectReason)
+    func pushLoginViewController(type: LoginViewToastType)
     func showErrorAlert(with error: String, title: String?)
     func switchIsLoading(with loading: Bool)
 }
@@ -103,7 +104,7 @@ final class SettingViewPresenter {
         
         self.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
         
-        viewController?.pushLoginViewController(with: .logout)
+        viewController?.pushLoginViewController(type: .logout)
     }
     
     func whenAfterWithdrawal() {
@@ -127,7 +128,7 @@ final class SettingViewPresenter {
                     DispatchQueue.main.async {
                         self?.markerManager.deleteAllMarker()
                         
-                        self?.viewController?.pushLoginViewController(with: .withdrawal)
+                        self?.viewController?.pushLoginViewController(type: .withdrawal)
                     }
                 } else {
                     self?.viewController?.switchIsLoading(with: false)
