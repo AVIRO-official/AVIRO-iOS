@@ -52,6 +52,7 @@
 		C510005E2ABAA3C700F65C1F /* Enum+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C510005D2ABAA3C700F65C1F /* Enum+.swift */; };
 		C51000612ABAE61F00F65C1F /* ReportReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51000602ABAE61F00F65C1F /* ReportReviewModel.swift */; };
 		C51000632ABAE6A200F65C1F /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51000622ABAE6A200F65C1F /* MenuModel.swift */; };
+		C5101DFE2BCC125300FF6C69 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = C52CD2DB2BCA4E940031671B /* PrivacyInfo.xcprivacy */; };
 		C51132C12A559BCA006E1EC3 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51132C02A559BCA006E1EC3 /* AppController.swift */; };
 		C51385422AAADB0E001AB827 /* EditNickNameButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51385412AAADB0E001AB827 /* EditNickNameButton.swift */; };
 		C51385452AAAE493001AB827 /* MyDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51385442AAAE493001AB827 /* MyDataModel.swift */; };
@@ -2152,6 +2153,7 @@
 				C52FA34F2A175B20005E70DC /* LaunchScreen.storyboard in Resources */,
 				C510004F2AB5F76600F65C1F /* Pretendard-Bold.otf in Resources */,
 				C505EB162ACC048E0057A4F8 /* Berry2.json in Resources */,
+				C5101DFE2BCC125300FF6C69 /* PrivacyInfo.xcprivacy in Resources */,
 				C51000512AB5F76600F65C1F /* Pretendard-ExtraBold.otf in Resources */,
 				C51000522AB5F76600F65C1F /* Pretendard-Regular.otf in Resources */,
 				C510004D2AB5F76600F65C1F /* Pretendard-ExtraLight.otf in Resources */,
@@ -2667,7 +2669,7 @@
 				CODE_SIGN_ENTITLEMENTS = AVIRO/AVIRO.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = C4K2HXA435;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
@@ -2704,7 +2706,7 @@
 				CODE_SIGN_ENTITLEMENTS = AVIRO/AVIRO.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = C4K2HXA435;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
