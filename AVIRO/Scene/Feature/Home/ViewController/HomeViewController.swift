@@ -626,15 +626,18 @@ extension HomeViewController: HomeViewProtocol {
     }
     
     @objc private func flagButtonTapped(_ sender: UIButton) {
+        sender.activeClickButton(duration: 0.15, scaleX: 1.04, scaleY: 0.98)
         presenter.checkReportPlaceDuplecated()
     }
     
     @objc private func starButtonTapped(_ sender: UIButton) {
+        sender.activeClickButton(duration: 0.15, scaleX: 1.04, scaleY: 0.98)
         sender.isSelected.toggle()
         presenter.loadBookmark(sender.isSelected)
     }
     
     @objc private func locationButtonTapped(_ sender: UIButton) {
+        sender.activeClickButton(duration: 0.15, scaleX: 1.04, scaleY: 0.98)
         presenter.locationUpdate()
     }
     

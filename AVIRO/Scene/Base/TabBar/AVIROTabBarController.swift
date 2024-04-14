@@ -12,7 +12,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
     private var amplitude: AmplitudeProtocol!
     
     private var viewControllers: [UINavigationController] = []
-    private var wellcomeViewController: WelcomeViewController?
+    private var welcomeViewController: WelcomeViewController?
 
     private var types: [TabBarType] = []
     private var buttons: [TabBarButton] = []
@@ -45,9 +45,9 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
         view.backgroundColor = .clear
         view.isHidden = true
                 
-        wellcomeViewController = WelcomeViewController.create()
+        welcomeViewController = WelcomeViewController.create()
         
-        if let wellcomeVC = wellcomeViewController {
+        if let wellcomeVC = welcomeViewController {
             add(child: wellcomeVC, container: view)
             view.addSubview(wellcomeVC.view)
         }
@@ -98,7 +98,6 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
         
         vc.amplitude = amplitude
         vc.setViewControllers(with: type, amplitude: amplitude)
-        
         
         return vc
     }
@@ -248,38 +247,38 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
         guard let compareDate = UserDefaults.standard.object(
             forKey: UDKey.hideUntil.rawValue
         ) as? Date else {
-            showWellcomeVC()
+            showWelcomeVC()
             return
         }
         
-        let components = Calendar.current.dateComponents(
-            [.hour],
-            from: compareDate,
-            to: Date()
-        )
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let lastShownDate = calendar.startOfDay(for: compareDate)
         
-        if let hoursPassed = components.hour, hoursPassed >= 24 {
-            showWellcomeVC()
+        let components = calendar.dateComponents([.day], from: lastShownDate, to: today)
+                
+        if let daysPassed = components.day, daysPassed >= 1 {
+            showWelcomeVC()
         }
     }
     
-    private func showWellcomeVC() {
-        wellcomeViewController?.tabBarDelegate = self
-        wellcomeViewController?.loadWellcomeImage { [weak self] in
-            self?.wellcomeViewController?.didTappedNoShowButton = {
+    private func showWelcomeVC() {
+        welcomeViewController?.tabBarDelegate = self
+        welcomeViewController?.loadWelcomeImage { [weak self] in
+            self?.welcomeViewController?.didTappedNoShowButton = {
                 UserDefaults.standard.set(Date(), forKey: UDKey.hideUntil.rawValue)
-                self?.amplitude.wellcomeNoShow()
-                self?.removeWellcomVC()
+                self?.amplitude.didTappedNoMoreShowWelcome()
+                self?.removeWelcomeVC()
             }
             
-            self?.wellcomeViewController?.didTappedCloseButton = {
-                self?.amplitude.wellcomeClose()
-                self?.removeWellcomVC()
+            self?.welcomeViewController?.didTappedCloseButton = {
+                self?.amplitude.didTappedCloseWelcome()
+                self?.removeWelcomeVC()
             }
             
-            self?.wellcomeViewController?.didTappedCheckButton = {
-                self?.amplitude.wellcomeClick()
-                self?.removeWellcomVC()
+            self?.welcomeViewController?.didTappedCheckButton = {
+                self?.amplitude.didTappedCheckWelcome()
+                self?.removeWelcomeVC()
 
                 self?.selectedIndex = 2
             }
@@ -289,12 +288,12 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
         }
     }
     
-    private func removeWellcomVC() {
+    private func removeWelcomeVC() {
         blurView.isHidden = true
         wellcomeView.isHidden = true
 
-        wellcomeViewController?.remove()
-        wellcomeViewController = nil
+        welcomeViewController?.remove()
+        welcomeViewController = nil
     }
     
     // MARK: - TabBar Click After
@@ -378,27 +377,13 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
     
     private func afterTappedButton(_ button: UIButton) {
         vibrate()
-        animateButton(button)
+        button.activeClickButton()
     }
     
     private func vibrate() {
         let generator = UIImpactFeedbackGenerator(style: .medium)
         
         generator.impactOccurred()
-    }
-    
-    private func animateButton(_ button: UIButton) {
-        UIView.animate(
-            withDuration: 0.15,
-            delay: 0,
-            options: [.allowUserInteraction],
-            animations: {
-            button.transform = CGAffineTransform(scaleX: 1.08, y: 0.95)
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.15) {
-                button.transform = CGAffineTransform.identity
-            }
-        })
     }
     
     // MARK: - Selecetd Index With Key

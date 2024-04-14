@@ -190,13 +190,9 @@ final class TutorialViewController: UIViewController {
     private func pushLoginView() {
         UserDefaults.standard.set(true, forKey: UDKey.tutorial.rawValue)
         
-//        let loginVC = LoginViewController()
-//        
-//        self.navigationController?.pushViewController(loginVC, animated: true)
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-            if let window = windowScene.windows.first {
-                AppController.shared.show(in: window)
-            }
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            AppController.shared.show(in: window)
         }
     }
 }

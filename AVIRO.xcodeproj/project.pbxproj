@@ -2673,8 +2673,8 @@
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "어비로";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "현재 내 위치와 가까운 가게를 찾아드려요. 위치 정보를 저장하지 않으니 안심하세요.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "현재 내 위치와 가까운 가게를 찾아드려요. 위치 정보를 저장하지 않으니 안심하세요.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -2685,7 +2685,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.3;
+				MARKETING_VERSION = 1.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.VeganRestaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2710,8 +2710,8 @@
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "어비로";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "현재 내 위치와 가까운 가게를 찾아드려요. 위치 정보를 저장하지 않으니 안심하세요.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "현재 내 위치와 가까운 가게를 찾아드려요. 위치 정보를 저장하지 않으니 안심하세요.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -2722,7 +2722,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.3;
+				MARKETING_VERSION = 1.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.VeganRestaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

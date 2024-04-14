@@ -28,15 +28,10 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
         headers: [String: String]? = nil,
         completionHandler: @escaping (Result<T, APIError>) -> Void
     ) where T: Decodable {
-        print("------start")
-        print("url: ", url)
-        print(onRequest)
-//        print("before: ", onRequest.count)
         guard !onRequest.contains(url) else { return }
         
         onRequest.insert(url)
         
-//        print("after: ", onRequest.count)
         
         var request = URLRequest(url: url)
         
@@ -51,7 +46,6 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
         
         let task = session.dataTask(with: request) { [weak self] data, response, error in
             defer {
-//                print(url)
                 self?.onRequest.remove(url)
             }
 
@@ -84,8 +78,6 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
         }
         
         task.resume()
-        
-        print("-----end")
     }
     
     private func handleStatusCode(with code: Int) -> APIError? {

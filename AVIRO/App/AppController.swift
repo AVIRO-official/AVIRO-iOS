@@ -20,6 +20,7 @@ final class AppController {
     private var rootViewController: UIViewController? {
         didSet {
             window.rootViewController = rootViewController
+            window.makeKeyAndVisible()
         }
     }
     
@@ -29,7 +30,7 @@ final class AppController {
     func show(in window: UIWindow) {
         self.window = window
         window.backgroundColor = .gray7
-        
+
         checkState()
     }
     
@@ -90,7 +91,6 @@ final class AppController {
         let tutorialVC = TutorialViewController()
         
         rootViewController = UINavigationController(rootViewController: tutorialVC)
-        window.makeKeyAndVisible()
     }
     
     // MARK: login View
@@ -109,7 +109,6 @@ final class AppController {
         }
         
         rootViewController = UINavigationController(rootViewController: loginVC)
-        window.makeKeyAndVisible()
     }
     
     // MARK: TabBar View
@@ -122,11 +121,8 @@ final class AppController {
                 TabBarType.challenge
             ]
         )
-        
-        rootViewController = tabBarVC
-        
         tabBarVC.selectedIndex = 0
-        
-        window.makeKeyAndVisible()
+
+        rootViewController = tabBarVC
     }
 }

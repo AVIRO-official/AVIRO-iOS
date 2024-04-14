@@ -166,7 +166,7 @@ final class WelcomeViewController: UIViewController {
         self.view.backgroundColor = .clear
     }
     
-    func loadWellcomeImage(completionHandler: @escaping () -> Void) {
+    func loadWelcomeImage(completionHandler: @escaping () -> Void) {
         AVIROAPI.manager.loadWellcomeImagesURL { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {

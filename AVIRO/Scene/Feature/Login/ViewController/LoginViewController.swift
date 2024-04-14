@@ -210,10 +210,9 @@ extension LoginViewController: LoginViewProtocol {
     // MARK: Push Intercations
     func pushTabBar() {
         DispatchQueue.main.async {
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                if let window = windowScene.windows.first {
-                    AppController.shared.show(in: window)
-                }
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = windowScene.windows.first {
+                AppController.shared.show(in: window)
             }
         }
     }
