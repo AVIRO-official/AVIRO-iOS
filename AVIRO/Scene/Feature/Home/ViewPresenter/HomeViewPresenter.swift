@@ -109,9 +109,9 @@ final class HomeViewPresenter: NSObject {
     ]
     
     // TODO: - 문서화 & 리팩토링 필요
-    var whenUpdateType = ("", false) {
+    var whenCategoryUpdateType = ("", false) {
         didSet {
-            if whenUpdateType.0 == "취소" {
+            if whenCategoryUpdateType.0 == "취소" {
                 for index in 1..<categoryType.count {
                     categoryType[index].1 = false
                 }
@@ -126,7 +126,7 @@ final class HomeViewPresenter: NSObject {
                     viewController?.updateCancelButtonFromCategoryCollection()
                 }
                 
-                if let updatedIndex = categoryType.firstIndex(where: { $0.0 == whenUpdateType.0 }) {
+                if let updatedIndex = categoryType.firstIndex(where: { $0.0 == whenCategoryUpdateType.0 }) {
                     categoryType[updatedIndex].1.toggle()
                 }
                 
@@ -136,7 +136,7 @@ final class HomeViewPresenter: NSObject {
                     
                     afterCategoryChangedLoadAllMarkers()
                 } else {
-                    whenAfterCategoryButtonTapped(with: whenUpdateType.0, state: whenUpdateType.1)
+                    whenAfterCategoryButtonTapped(with: whenCategoryUpdateType.0, state: whenCategoryUpdateType.1)
                 }
             }
         }
@@ -275,7 +275,7 @@ final class HomeViewPresenter: NSObject {
     private func saveMarkers(_ mapData: [AVIROMarkerModel]) {
         var markerModels = [MarkerModel]()
 
-        mapData.forEach { data in
+        for (index, data) in mapData.enumerated() {
             let markerModel = createMarker(from: data)
             markerModels.append(markerModel)
         }
@@ -391,6 +391,7 @@ final class HomeViewPresenter: NSObject {
         marker.captionMinZoom = 14
         marker.captionRequestedWidth = 80
         marker.captionOffset = 3
+        marker.isHideCollidedMarkers = true
         
         marker.makeIcon(veganType: veganType, categoryType: categoryType)
         marker.touchHandler = { [weak self] _ in
@@ -615,7 +616,7 @@ final class HomeViewPresenter: NSObject {
             self.hideMarkerWhenClickedCategory = markersModel.filter { model in
                 !self.selectedCategory.contains(model.categoryType)
             }
-            
+
             let showMarkers = self.showMarkerWhenClickedCategory.map { $0.marker }
             let hideMarkers = self.hideMarkerWhenClickedCategory.map { $0.marker }
             

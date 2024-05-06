@@ -108,7 +108,6 @@ final class MarkerModelCache: MarkerModelCacheProtocol {
                 let latLng = NMGLatLng(lat: changedPositionLat, lng: changedPositionLng)
                 
                 model.marker.position = latLng
-                
             }
         }
     }

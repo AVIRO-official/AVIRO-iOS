@@ -109,6 +109,7 @@
 		C541521D2AC125E100F39826 /* TutorialTopLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C541521C2AC125E100F39826 /* TutorialTopLabel.swift */; };
 		C54386762B33F05500BD2CAF /* ReviewPushView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54386752B33F05500BD2CAF /* ReviewPushView.swift */; };
 		C54386792B3432FE00BD2CAF /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54386782B3432FE00BD2CAF /* ViewModel.swift */; };
+		C54733D32BE20EF4004E961C /* SearchUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54733D22BE20EF4004E961C /* SearchUtility.swift */; };
 		C5476B4D2B2F1F1F00F5FC6E /* AVIROTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B4C2B2F1F1F00F5FC6E /* AVIROTests.swift */; };
 		C5476B612B3028FA00F5FC6E /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B602B3028FA00F5FC6E /* ChallengeViewController.swift */; };
 		C5476B682B303BE800F5FC6E /* MyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5476B672B303BE800F5FC6E /* MyInfoView.swift */; };
@@ -388,6 +389,7 @@
 		C54386752B33F05500BD2CAF /* ReviewPushView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPushView.swift; sourceTree = "<group>"; };
 		C54386782B3432FE00BD2CAF /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		C54657862ABF2D82003A0BCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C54733D22BE20EF4004E961C /* SearchUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUtility.swift; sourceTree = "<group>"; };
 		C5476B4A2B2F1F1F00F5FC6E /* AVIROTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AVIROTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5476B4C2B2F1F1F00F5FC6E /* AVIROTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROTests.swift; sourceTree = "<group>"; };
 		C5476B602B3028FA00F5FC6E /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
@@ -1464,6 +1466,7 @@
 				C5A201B12A98502500A54381 /* TimeUtility.swift */,
 				C5C20BAB2AD504D500855BBB /* AmplitudeUtility.swift */,
 				C5F33DFC2ADED19000A29FB9 /* SystemUtility.swift */,
+				C54733D22BE20EF4004E961C /* SearchUtility.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -2435,6 +2438,7 @@
 				C50E6F6F2A8F10B500703B9E /* UILabel+Extension.swift in Sources */,
 				C52066352A7F3FAE0038ECCD /* HistoryTableViewCell.swift in Sources */,
 				C5C90EB72AA7078300AB3668 /* EditOperationHoursModel.swift in Sources */,
+				C54733D32BE20EF4004E961C /* SearchUtility.swift in Sources */,
 				C528E4BA2A5F9A3E002BD72E /* ThridRegistrationViewController.swift in Sources */,
 				C528E4BC2A5F9AB6002BD72E /* ThridRegistrationPresenter.swift in Sources */,
 				C51000612ABAE61F00F65C1F /* ReportReviewModel.swift in Sources */,

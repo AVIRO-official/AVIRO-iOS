@@ -23,7 +23,7 @@ final class ChallengeNameStickerView: UIView {
         return label
     }()
     
-    private let arrowView = {
+    private let arrowView: ArrowView = {
         let view = ArrowView()
         
         view.backgroundColor = .clear

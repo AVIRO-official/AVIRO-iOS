@@ -223,7 +223,7 @@ enum MapIcon {
 }
 
 // MARK: Map Place didSet 수정 확인
-struct MarkerModel: Equatable {
+struct MarkerModel {
     let placeId: String
     var marker: NMFMarker
     
@@ -264,5 +264,11 @@ struct MarkerModel: Equatable {
         } else {
             marker.changeIcon(veganType: veganType, categoryType: categoryType, isSelected: isClicked)
         }
+    }
+}
+
+extension MarkerModel: Comparable {
+    static func < (lhs: MarkerModel, rhs: MarkerModel) -> Bool {
+        return lhs.placeId < rhs.placeId
     }
 }
