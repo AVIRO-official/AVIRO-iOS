@@ -97,7 +97,6 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
         }
     }
 
-    
     // MARK: - Marker Refer
     /*
      - GET places / loadNerbyPlaceModels

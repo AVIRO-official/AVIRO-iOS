@@ -114,13 +114,7 @@ extension UIImage {
     static let defaultCategoryBread = UIImage(named: "Default_btn_Bread")!
     static let defaultCategoryCoffee = UIImage(named: "Default_btn_Coffee")!
     static let defaultCategoryRestaurant = UIImage(named: "Default_btn_Restaurant")!
-
-    // Off Category
-    static let offCategoryBar = UIImage(named: "Off_btn_Bar")!
-    static let offCategoryBread = UIImage(named: "Off_btn_Bread")!
-    static let offCategoryCoffee = UIImage(named: "Off_btn_Coffee")!
-    static let offCategoryRestaurant = UIImage(named: "Off_btn_Restaurant")!
-
+    
     // On Category
     static let onCategoryBar = UIImage(named: "On_btn_Bar")!
     static let onCategoryBread = UIImage(named: "On_btn_Bread")!

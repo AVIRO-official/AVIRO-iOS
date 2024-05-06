@@ -11,24 +11,12 @@ import Lottie
 
 final class LaunchScreenViewController: UIViewController {
     
-    private lazy var aviroImage: UIImageView = {
+    private lazy var aviro: UIImageView = {
         let imageView = UIImageView()
         
         imageView.image = .launchAVIRO
         
         return imageView
-    }()
-    
-    private lazy var titleLabel: UILabel = {
-        let lbl = UILabel()
-        
-        lbl.text = "가장 쉬운 비건 맛집 찾기"
-        lbl.font = .pretendard(size: 15, weight: .semibold)
-        lbl.textColor = .gray7
-        lbl.numberOfLines = 1
-        lbl.textAlignment = .center
-        
-        return lbl
     }()
     
     private var isUpdateRequire: Bool = true {
@@ -56,19 +44,15 @@ final class LaunchScreenViewController: UIViewController {
     
     private func setupLayout() {
         [
-            aviroImage,
-            titleLabel
+            aviro
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
         
         NSLayoutConstraint.activate([
-            aviroImage.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            aviroImage.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -5),
-            
-            titleLabel.topAnchor.constraint(equalTo: aviroImage.bottomAnchor, constant: 16),
-            titleLabel.centerXAnchor.constraint(equalTo: aviroImage.centerXAnchor)
+            aviro.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            aviro.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
     }
     
@@ -79,7 +63,6 @@ final class LaunchScreenViewController: UIViewController {
             
             let splitLatestVersion = latestVersion.split(separator: ".").map { $0 }
             let splitCurrentVersion = currentVersion.split(separator: ".").map { $0 }
-            print(latestVersion)
             
             if splitCurrentVersion[0] < splitLatestVersion[0] {
                 self?.showUpdateAlert(latestVersion)

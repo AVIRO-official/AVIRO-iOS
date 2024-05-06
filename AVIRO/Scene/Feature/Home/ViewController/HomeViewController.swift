@@ -1401,7 +1401,7 @@ extension HomeViewController: UICollectionViewDataSource {
             
         cell.whenCategoryButtonTapped = { [weak self] (selectedType, selectedState) in
             self?.updateSearchTextField(with: selectedType)
-            self?.presenter.whenUpdateType = (selectedType, selectedState)
+            self?.presenter.whenCategoryUpdateType = (selectedType, selectedState)
         }
         
         return cell
