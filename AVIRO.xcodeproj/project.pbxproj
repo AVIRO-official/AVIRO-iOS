@@ -191,6 +191,13 @@
 		C5A9899E2A95A7940021B7C3 /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A9899D2A95A7940021B7C3 /* BookmarkManager.swift */; };
 		C5B071E12A59454300AE709A /* BottomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B071E02A59454300AE709A /* BottomCell.swift */; };
 		C5B071E52A59B4AC00AE709A /* RegistrationField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B071E42A59B4AC00AE709A /* RegistrationField.swift */; };
+		C5BA9DC92BE8AB8F004FA06E /* DataTransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DC82BE8AB8F004FA06E /* DataTransferService.swift */; };
+		C5BA9DCB2BE8AB97004FA06E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DCA2BE8AB97004FA06E /* NetworkService.swift */; };
+		C5BA9DCD2BE8AB9E004FA06E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DCC2BE8AB9E004FA06E /* Endpoint.swift */; };
+		C5BA9DCF2BE8ABA8004FA06E /* NetworkConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DCE2BE8ABA8004FA06E /* NetworkConfigurable.swift */; };
+		C5BA9DD22BE8AF80004FA06E /* BodyEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DD12BE8AF80004FA06E /* BodyEncoder.swift */; };
+		C5BA9DD42BE8B39B004FA06E /* RequestTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DD32BE8B39B004FA06E /* RequestTable.swift */; };
+		C5BA9DD62BE8B884004FA06E /* ResponseDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DD52BE8B884004FA06E /* ResponseDecoder.swift */; };
 		C5C20BAC2AD504D500855BBB /* AmplitudeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BAB2AD504D500855BBB /* AmplitudeUtility.swift */; };
 		C5C290742A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C290732A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift */; };
 		C5C290772A85E4FF00ED5DCE /* PlaceHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C290762A85E4FF00ED5DCE /* PlaceHomeView.swift */; };
@@ -473,6 +480,13 @@
 		C5A9899D2A95A7940021B7C3 /* BookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
 		C5B071E02A59454300AE709A /* BottomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCell.swift; sourceTree = "<group>"; };
 		C5B071E42A59B4AC00AE709A /* RegistrationField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationField.swift; sourceTree = "<group>"; };
+		C5BA9DC82BE8AB8F004FA06E /* DataTransferService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferService.swift; sourceTree = "<group>"; };
+		C5BA9DCA2BE8AB97004FA06E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		C5BA9DCC2BE8AB9E004FA06E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		C5BA9DCE2BE8ABA8004FA06E /* NetworkConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfigurable.swift; sourceTree = "<group>"; };
+		C5BA9DD12BE8AF80004FA06E /* BodyEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyEncoder.swift; sourceTree = "<group>"; };
+		C5BA9DD32BE8B39B004FA06E /* RequestTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTable.swift; sourceTree = "<group>"; };
+		C5BA9DD52BE8B884004FA06E /* ResponseDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDecoder.swift; sourceTree = "<group>"; };
 		C5C20BAB2AD504D500855BBB /* AmplitudeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeUtility.swift; sourceTree = "<group>"; };
 		C5C290732A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSegmentedControlView.swift; sourceTree = "<group>"; };
 		C5C290762A85E4FF00ED5DCE /* PlaceHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHomeView.swift; sourceTree = "<group>"; };
@@ -922,6 +936,7 @@
 				C50367F32A1795BE0020C6BB /* Model */,
 				C50367F22A1795B90020C6BB /* Manager */,
 				C50367ED2A1791840020C6BB /* Scene */,
+				C5BA9DC62BE8AB22004FA06E /* Infrastructure */,
 			);
 			path = AVIRO;
 			sourceTree = "<group>";
@@ -1660,6 +1675,36 @@
 			path = SubClass;
 			sourceTree = "<group>";
 		};
+		C5BA9DC62BE8AB22004FA06E /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9DC72BE8AB7A004FA06E /* Network */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		C5BA9DC72BE8AB7A004FA06E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9DD72BE8B88A004FA06E /* Response_Request */,
+				C5BA9DC82BE8AB8F004FA06E /* DataTransferService.swift */,
+				C5BA9DCA2BE8AB97004FA06E /* NetworkService.swift */,
+				C5BA9DCC2BE8AB9E004FA06E /* Endpoint.swift */,
+				C5BA9DCE2BE8ABA8004FA06E /* NetworkConfigurable.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		C5BA9DD72BE8B88A004FA06E /* Response_Request */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9DD32BE8B39B004FA06E /* RequestTable.swift */,
+				C5BA9DD12BE8AF80004FA06E /* BodyEncoder.swift */,
+				C5BA9DD52BE8B884004FA06E /* ResponseDecoder.swift */,
+			);
+			path = Response_Request;
+			sourceTree = "<group>";
+		};
 		C5C290752A85E4EF00ED5DCE /* SegmentedControlSubView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2288,6 +2333,7 @@
 				C567C1502A56611500D4B426 /* TopCell.swift in Sources */,
 				C58FBF842AC26D3E00AB6EFC /* APIManagerProtocol.swift in Sources */,
 				C50F6B042A6BCD6900E942F5 /* CategoryButton.swift in Sources */,
+				C5BA9DD22BE8AF80004FA06E /* BodyEncoder.swift in Sources */,
 				C5D3E1602B9D942400DBB346 /* NoListButton.swift in Sources */,
 				C58FBF862AC270A200AB6EFC /* APITypes.swift in Sources */,
 				C562B6DF2B387AE200CE5D4C /* ChallengeInfoViewController.swift in Sources */,
@@ -2319,6 +2365,7 @@
 				C5FD92E32A9C6C1E00CF4673 /* EditLocationAddressTextTableViewCell.swift in Sources */,
 				C54BC0DB2A2C2D0D00B65439 /* UIColor+Extension.swift in Sources */,
 				C52FA3432A175B20005E70DC /* AppDelegate.swift in Sources */,
+				C5BA9DCF2BE8ABA8004FA06E /* NetworkConfigurable.swift in Sources */,
 				C5C290812A8616E500ED5DCE /* PlaceInfoView.swift in Sources */,
 				C5B071E12A59454300AE709A /* BottomCell.swift in Sources */,
 				C51000382AB5F3BD00F65C1F /* UIFont+Extension.swift in Sources */,
@@ -2402,6 +2449,7 @@
 				C58EC7D42AB1B5C400401FF7 /* AVIROEditURL+DTO.swift in Sources */,
 				C50F6B022A6BC8E400E942F5 /* EnrollField.swift in Sources */,
 				C552D5342ABE8CA500933D8A /* AVIRODeleteAPI.swift in Sources */,
+				C5BA9DD62BE8B884004FA06E /* ResponseDecoder.swift in Sources */,
 				C510005E2ABAA3C700F65C1F /* Enum+.swift in Sources */,
 				C58FBF942AC2DB6D00AB6EFC /* KakaoKeywordResultDTO.swift in Sources */,
 				C51B09B82A82155200916BBD /* MarkerModelCache.swift in Sources */,
@@ -2422,6 +2470,7 @@
 				6206A6562BA3C48A00056560 /* AVIROChallengeCommentDTO.swift in Sources */,
 				C5166E4D2A945228003495AA /* MyData.swift in Sources */,
 				C58B9AAE2A5675B9008AEAC3 /* TutorialViewController.swift in Sources */,
+				C5BA9DCD2BE8AB9E004FA06E /* Endpoint.swift in Sources */,
 				C5FF13552A42C88D0026981D /* AVIROPlaceMenus+DTO.swift in Sources */,
 				C55AE5C02BC6DCA50089DF85 /* ChallengeNameStickerView.swift in Sources */,
 				C56E7A112A971504009CCAF2 /* ReportCellView.swift in Sources */,
@@ -2438,6 +2487,7 @@
 				C50E6F6F2A8F10B500703B9E /* UILabel+Extension.swift in Sources */,
 				C52066352A7F3FAE0038ECCD /* HistoryTableViewCell.swift in Sources */,
 				C5C90EB72AA7078300AB3668 /* EditOperationHoursModel.swift in Sources */,
+				C5BA9DCB2BE8AB97004FA06E /* NetworkService.swift in Sources */,
 				C54733D32BE20EF4004E961C /* SearchUtility.swift in Sources */,
 				C528E4BA2A5F9A3E002BD72E /* ThridRegistrationViewController.swift in Sources */,
 				C528E4BC2A5F9AB6002BD72E /* ThridRegistrationPresenter.swift in Sources */,
@@ -2462,6 +2512,7 @@
 				C51BBAD52A78D53D00BF5B7C /* AVIROCheckPlace+DTO.swift in Sources */,
 				C56857802A7113C600F52715 /* NormalTableViewCell.swift in Sources */,
 				C549CDD82B9B538500CB6BF5 /* MyBookmarkCellModel.swift in Sources */,
+				C5BA9DD42BE8B39B004FA06E /* RequestTable.swift in Sources */,
 				C52066312A7E4A580038ECCD /* AVIROMainSearchCompare+DTO.swift in Sources */,
 				C5C9619F2A8DEB230016E2F8 /* ReviewWriteButton.swift in Sources */,
 				C5D3E15A2B9D887600DBB346 /* AVIROTabBarType.swift in Sources */,
@@ -2493,6 +2544,7 @@
 				C56857822A7113CF00F52715 /* RequestTableViewCell.swift in Sources */,
 				C52CD2DD2BCA5C310031671B /* BlurEffectView.swift in Sources */,
 				C5C2907B2A85E51B00ED5DCE /* PlaceReviewsView.swift in Sources */,
+				C5BA9DC92BE8AB8F004FA06E /* DataTransferService.swift in Sources */,
 				C5A201BD2A98708800A54381 /* EditPlaceInfoPresenter.swift in Sources */,
 				C59491D32AB0336100880B4B /* UIView(Animation)+Extension.swift in Sources */,
 				C5D3E15C2B9D88F200DBB346 /* AVIROTabBarInteractionDelegate.swift in Sources */,
