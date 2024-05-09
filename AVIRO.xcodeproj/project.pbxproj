@@ -198,6 +198,9 @@
 		C5BA9DD22BE8AF80004FA06E /* BodyEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DD12BE8AF80004FA06E /* BodyEncoder.swift */; };
 		C5BA9DD42BE8B39B004FA06E /* RequestTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DD32BE8B39B004FA06E /* RequestTable.swift */; };
 		C5BA9DD62BE8B884004FA06E /* ResponseDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DD52BE8B884004FA06E /* ResponseDecoder.swift */; };
+		C5BA9DF22BECC8F9004FA06E /* NetworkSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DF12BECC8F9004FA06E /* NetworkSessionManager.swift */; };
+		C5BA9DF42BECC902004FA06E /* NetworkErrorLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DF32BECC902004FA06E /* NetworkErrorLogger.swift */; };
+		C5BA9DF62BECCD58004FA06E /* DataTransferError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DF52BECCD58004FA06E /* DataTransferError.swift */; };
 		C5C20BAC2AD504D500855BBB /* AmplitudeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BAB2AD504D500855BBB /* AmplitudeUtility.swift */; };
 		C5C290742A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C290732A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift */; };
 		C5C290772A85E4FF00ED5DCE /* PlaceHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C290762A85E4FF00ED5DCE /* PlaceHomeView.swift */; };
@@ -487,6 +490,9 @@
 		C5BA9DD12BE8AF80004FA06E /* BodyEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyEncoder.swift; sourceTree = "<group>"; };
 		C5BA9DD32BE8B39B004FA06E /* RequestTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTable.swift; sourceTree = "<group>"; };
 		C5BA9DD52BE8B884004FA06E /* ResponseDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDecoder.swift; sourceTree = "<group>"; };
+		C5BA9DF12BECC8F9004FA06E /* NetworkSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionManager.swift; sourceTree = "<group>"; };
+		C5BA9DF32BECC902004FA06E /* NetworkErrorLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorLogger.swift; sourceTree = "<group>"; };
+		C5BA9DF52BECCD58004FA06E /* DataTransferError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferError.swift; sourceTree = "<group>"; };
 		C5C20BAB2AD504D500855BBB /* AmplitudeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeUtility.swift; sourceTree = "<group>"; };
 		C5C290732A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSegmentedControlView.swift; sourceTree = "<group>"; };
 		C5C290762A85E4FF00ED5DCE /* PlaceHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHomeView.swift; sourceTree = "<group>"; };
@@ -1686,11 +1692,8 @@
 		C5BA9DC72BE8AB7A004FA06E /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				C5BA9DD72BE8B88A004FA06E /* Response_Request */,
-				C5BA9DC82BE8AB8F004FA06E /* DataTransferService.swift */,
-				C5BA9DCA2BE8AB97004FA06E /* NetworkService.swift */,
-				C5BA9DCC2BE8AB9E004FA06E /* Endpoint.swift */,
-				C5BA9DCE2BE8ABA8004FA06E /* NetworkConfigurable.swift */,
+				C5BA9DF72BECCDB5004FA06E /* DataTransfer */,
+				C5BA9DEF2BECC8BD004FA06E /* NetworkService */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1703,6 +1706,28 @@
 				C5BA9DD52BE8B884004FA06E /* ResponseDecoder.swift */,
 			);
 			path = Response_Request;
+			sourceTree = "<group>";
+		};
+		C5BA9DEF2BECC8BD004FA06E /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9DD72BE8B88A004FA06E /* Response_Request */,
+				C5BA9DCC2BE8AB9E004FA06E /* Endpoint.swift */,
+				C5BA9DCE2BE8ABA8004FA06E /* NetworkConfigurable.swift */,
+				C5BA9DCA2BE8AB97004FA06E /* NetworkService.swift */,
+				C5BA9DF12BECC8F9004FA06E /* NetworkSessionManager.swift */,
+				C5BA9DF32BECC902004FA06E /* NetworkErrorLogger.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		C5BA9DF72BECCDB5004FA06E /* DataTransfer */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9DF52BECCD58004FA06E /* DataTransferError.swift */,
+				C5BA9DC82BE8AB8F004FA06E /* DataTransferService.swift */,
+			);
+			path = DataTransfer;
 			sourceTree = "<group>";
 		};
 		C5C290752A85E4EF00ED5DCE /* SegmentedControlSubView */ = {
@@ -2330,6 +2355,7 @@
 				C513854C2AAB3B52001AB827 /* NickNameChangeblePresenter.swift in Sources */,
 				C5D93DA12A581F5A00629C39 /* FirstRegistrationPresenter.swift in Sources */,
 				C50B18CD2B94D696005DECDC /* MyPlaceCellModel.swift in Sources */,
+				C5BA9DF22BECC8F9004FA06E /* NetworkSessionManager.swift in Sources */,
 				C567C1502A56611500D4B426 /* TopCell.swift in Sources */,
 				C58FBF842AC26D3E00AB6EFC /* APIManagerProtocol.swift in Sources */,
 				C50F6B042A6BCD6900E942F5 /* CategoryButton.swift in Sources */,
@@ -2391,6 +2417,7 @@
 				C50F6AFB2A68FFC300E942F5 /* EnrollVeganDetailView.swift in Sources */,
 				C5C90EB92AA78D0200AB3668 /* EditOperationHourChangebleView.swift in Sources */,
 				C5A201C72A98A6D200A54381 /* EditOperatingHoursView.swift in Sources */,
+				C5BA9DF62BECCD58004FA06E /* DataTransferError.swift in Sources */,
 				C5C290772A85E4FF00ED5DCE /* PlaceHomeView.swift in Sources */,
 				C564DAB32BA57240002174B4 /* AVIROWellcome+DTO.swift in Sources */,
 				C5D93D9F2A581EC800629C39 /* FirstRegistrationViewController.swift in Sources */,
@@ -2411,6 +2438,7 @@
 				C5503B5E2B9F55D70050643F /* UIView+Extension.swift in Sources */,
 				C5538AAF2A1BB81200661DE2 /* AVIROEnrollPlace+DTO.swift in Sources */,
 				C51000552AB8123600F65C1F /* AVIROReportReview+DTO.swift in Sources */,
+				C5BA9DF42BECC902004FA06E /* NetworkErrorLogger.swift in Sources */,
 				C50F6AF32A68FD0A00E942F5 /* EnrollPlaceViewController.swift in Sources */,
 				C5732C7E2A41D42700CDC499 /* RequestTableFieldModel.swift in Sources */,
 				C5C961982A8DA5880016E2F8 /* EditInfoButton.swift in Sources */,
