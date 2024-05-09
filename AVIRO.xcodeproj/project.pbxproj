@@ -201,6 +201,7 @@
 		C5BA9DF22BECC8F9004FA06E /* NetworkSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DF12BECC8F9004FA06E /* NetworkSessionManager.swift */; };
 		C5BA9DF42BECC902004FA06E /* NetworkErrorLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DF32BECC902004FA06E /* NetworkErrorLogger.swift */; };
 		C5BA9DF62BECCD58004FA06E /* DataTransferError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DF52BECCD58004FA06E /* DataTransferError.swift */; };
+		C5BA9DFB2BED136A004FA06E /* DataTransferErrorLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DFA2BED136A004FA06E /* DataTransferErrorLogger.swift */; };
 		C5C20BAC2AD504D500855BBB /* AmplitudeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BAB2AD504D500855BBB /* AmplitudeUtility.swift */; };
 		C5C290742A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C290732A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift */; };
 		C5C290772A85E4FF00ED5DCE /* PlaceHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C290762A85E4FF00ED5DCE /* PlaceHomeView.swift */; };
@@ -493,6 +494,7 @@
 		C5BA9DF12BECC8F9004FA06E /* NetworkSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionManager.swift; sourceTree = "<group>"; };
 		C5BA9DF32BECC902004FA06E /* NetworkErrorLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorLogger.swift; sourceTree = "<group>"; };
 		C5BA9DF52BECCD58004FA06E /* DataTransferError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferError.swift; sourceTree = "<group>"; };
+		C5BA9DFA2BED136A004FA06E /* DataTransferErrorLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferErrorLogger.swift; sourceTree = "<group>"; };
 		C5C20BAB2AD504D500855BBB /* AmplitudeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeUtility.swift; sourceTree = "<group>"; };
 		C5C290732A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSegmentedControlView.swift; sourceTree = "<group>"; };
 		C5C290762A85E4FF00ED5DCE /* PlaceHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHomeView.swift; sourceTree = "<group>"; };
@@ -1703,7 +1705,6 @@
 			children = (
 				C5BA9DD32BE8B39B004FA06E /* RequestTable.swift */,
 				C5BA9DD12BE8AF80004FA06E /* BodyEncoder.swift */,
-				C5BA9DD52BE8B884004FA06E /* ResponseDecoder.swift */,
 			);
 			path = Response_Request;
 			sourceTree = "<group>";
@@ -1724,7 +1725,9 @@
 		C5BA9DF72BECCDB5004FA06E /* DataTransfer */ = {
 			isa = PBXGroup;
 			children = (
+				C5BA9DD52BE8B884004FA06E /* ResponseDecoder.swift */,
 				C5BA9DF52BECCD58004FA06E /* DataTransferError.swift */,
+				C5BA9DFA2BED136A004FA06E /* DataTransferErrorLogger.swift */,
 				C5BA9DC82BE8AB8F004FA06E /* DataTransferService.swift */,
 			);
 			path = DataTransfer;
@@ -2381,6 +2384,7 @@
 				C58FBF902AC2B83A00AB6EFC /* AVIROAPIManagerProtocol.swift in Sources */,
 				C5DCBC9F2B91D9FE003502BA /* MyCommentListViewModel.swift in Sources */,
 				C50F6AF52A68FD6300E942F5 /* EnrollPlacePresenter.swift in Sources */,
+				C5BA9DFB2BED136A004FA06E /* DataTransferErrorLogger.swift in Sources */,
 				C50DB7572A9B8DF80078B501 /* EditLocationAddressTextView.swift in Sources */,
 				C595ACD12A84A4EB00D35123 /* PlaceSummaryView.swift in Sources */,
 				C520663A2A808DC40038ECCD /* PlaceListHeaderView.swift in Sources */,

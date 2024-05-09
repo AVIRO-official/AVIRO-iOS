@@ -6,3 +6,20 @@
 //
 
 import Foundation
+
+protocol DataTransferErrorLoggerProtocol {
+    func log(error: Error)
+}
+
+final class DataTransferErrorLogger: DataTransferErrorLoggerProtocol {
+    func log(error: Error) {
+        printIfDebug("------------")
+        printIfDebug("\(error)")
+    }
+}
+
+private func printIfDebug(_ string: String) {
+    #if DEBUG
+    print(string)
+    #endif
+}
