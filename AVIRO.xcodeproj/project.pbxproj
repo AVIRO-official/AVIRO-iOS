@@ -202,6 +202,12 @@
 		C5BA9DF42BECC902004FA06E /* NetworkErrorLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DF32BECC902004FA06E /* NetworkErrorLogger.swift */; };
 		C5BA9DF62BECCD58004FA06E /* DataTransferError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DF52BECCD58004FA06E /* DataTransferError.swift */; };
 		C5BA9DFB2BED136A004FA06E /* DataTransferErrorLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DFA2BED136A004FA06E /* DataTransferErrorLogger.swift */; };
+		C5BA9E0E2BED1D75004FA06E /* AVIROViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E0D2BED1D75004FA06E /* AVIROViewModel.swift */; };
+		C5BA9E102BED1E11004FA06E /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E0F2BED1E11004FA06E /* Alertable.swift */; };
+		C5BA9E122BED223C004FA06E /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E112BED223C004FA06E /* Coordinator.swift */; };
+		C5BA9E142BED2244004FA06E /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E132BED2244004FA06E /* BaseCoordinator.swift */; };
+		C5BA9E172BED2585004FA06E /* printIfDebug.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E162BED2585004FA06E /* printIfDebug.swift */; };
+		C5BA9E192BED25D2004FA06E /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E182BED25D2004FA06E /* DIContainer.swift */; };
 		C5C20BAC2AD504D500855BBB /* AmplitudeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BAB2AD504D500855BBB /* AmplitudeUtility.swift */; };
 		C5C290742A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C290732A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift */; };
 		C5C290772A85E4FF00ED5DCE /* PlaceHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C290762A85E4FF00ED5DCE /* PlaceHomeView.swift */; };
@@ -495,6 +501,12 @@
 		C5BA9DF32BECC902004FA06E /* NetworkErrorLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorLogger.swift; sourceTree = "<group>"; };
 		C5BA9DF52BECCD58004FA06E /* DataTransferError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferError.swift; sourceTree = "<group>"; };
 		C5BA9DFA2BED136A004FA06E /* DataTransferErrorLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferErrorLogger.swift; sourceTree = "<group>"; };
+		C5BA9E0D2BED1D75004FA06E /* AVIROViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROViewModel.swift; sourceTree = "<group>"; };
+		C5BA9E0F2BED1E11004FA06E /* Alertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
+		C5BA9E112BED223C004FA06E /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		C5BA9E132BED2244004FA06E /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
+		C5BA9E162BED2585004FA06E /* printIfDebug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = printIfDebug.swift; sourceTree = "<group>"; };
+		C5BA9E182BED25D2004FA06E /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		C5C20BAB2AD504D500855BBB /* AmplitudeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeUtility.swift; sourceTree = "<group>"; };
 		C5C290732A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSegmentedControlView.swift; sourceTree = "<group>"; };
 		C5C290762A85E4FF00ED5DCE /* PlaceHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHomeView.swift; sourceTree = "<group>"; };
@@ -621,13 +633,11 @@
 		C50367EC2A1791620020C6BB /* App */ = {
 			isa = PBXGroup;
 			children = (
-				C510002C2AB5F1E600F65C1F /* Fonts */,
-				C5E430AA2A5D13B600CB67EC /* Lottie */,
 				C505EB172ACC5AC50057A4F8 /* LaunchScreenViewController.swift */,
 				C52FA3422A175B20005E70DC /* AppDelegate.swift */,
 				C52FA3442A175B20005E70DC /* SceneDelegate.swift */,
 				C51132C02A559BCA006E1EC3 /* AppController.swift */,
-				C52FA34B2A175B20005E70DC /* Assets.xcassets */,
+				C5BA9E182BED25D2004FA06E /* DIContainer.swift */,
 				C52FA34D2A175B20005E70DC /* LaunchScreen.storyboard */,
 				C52FA3502A175B20005E70DC /* Info.plist */,
 				62166DED2BA2E92300F05D40 /* API.plist */,
@@ -938,13 +948,18 @@
 		C52FA3412A175B20005E70DC /* AVIRO */ = {
 			isa = PBXGroup;
 			children = (
+				C5BA9DFC2BED1C0D004FA06E /* Resources */,
 				C593B64C2A4BFD9A00D224CE /* AVIRO.entitlements */,
 				C50367EC2A1791620020C6BB /* App */,
 				C50367F62A179D6E0020C6BB /* Custom */,
 				C50367F32A1795BE0020C6BB /* Model */,
 				C50367F22A1795B90020C6BB /* Manager */,
 				C50367ED2A1791840020C6BB /* Scene */,
+				C5BA9DFE2BED1C64004FA06E /* Data */,
+				C5BA9DFF2BED1C8F004FA06E /* Domain */,
+				C5BA9E002BED1C9C004FA06E /* Presentation */,
 				C5BA9DC62BE8AB22004FA06E /* Infrastructure */,
+				C5BA9E152BED256F004FA06E /* Common */,
 			);
 			path = AVIRO;
 			sourceTree = "<group>";
@@ -1733,6 +1748,145 @@
 			path = DataTransfer;
 			sourceTree = "<group>";
 		};
+		C5BA9DFC2BED1C0D004FA06E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C52FA34B2A175B20005E70DC /* Assets.xcassets */,
+				C5E430AA2A5D13B600CB67EC /* Lottie */,
+				C510002C2AB5F1E600F65C1F /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C5BA9DFE2BED1C64004FA06E /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9E012BED1CB1004FA06E /* Common */,
+				C5BA9E022BED1CB7004FA06E /* Network */,
+				C5BA9E032BED1CBF004FA06E /* PresistentStorages */,
+				C5BA9E042BED1CD2004FA06E /* Repositories */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		C5BA9DFF2BED1C8F004FA06E /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9E072BED1CF8004FA06E /* Entities */,
+				C5BA9E062BED1CF0004FA06E /* Interfaces */,
+				C5BA9E052BED1CE8004FA06E /* UseCases */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		C5BA9E002BED1C9C004FA06E /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9E0C2BED1D5D004FA06E /* Base */,
+				C5BA9E0B2BED1D58004FA06E /* Feature */,
+				C5BA9E082BED1D07004FA06E /* Utils */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		C5BA9E012BED1CB1004FA06E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		C5BA9E022BED1CB7004FA06E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		C5BA9E032BED1CBF004FA06E /* PresistentStorages */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PresistentStorages;
+			sourceTree = "<group>";
+		};
+		C5BA9E042BED1CD2004FA06E /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		C5BA9E052BED1CE8004FA06E /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		C5BA9E062BED1CF0004FA06E /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		C5BA9E072BED1CF8004FA06E /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		C5BA9E082BED1D07004FA06E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9E092BED1D27004FA06E /* Extensions */,
+				C5BA9E0A2BED1D2D004FA06E /* Protocols */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		C5BA9E092BED1D27004FA06E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C5BA9E0A2BED1D2D004FA06E /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9E0F2BED1E11004FA06E /* Alertable.swift */,
+				C5BA9E112BED223C004FA06E /* Coordinator.swift */,
+				C5BA9E132BED2244004FA06E /* BaseCoordinator.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		C5BA9E0B2BED1D58004FA06E /* Feature */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Feature;
+			sourceTree = "<group>";
+		};
+		C5BA9E0C2BED1D5D004FA06E /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9E0D2BED1D75004FA06E /* AVIROViewModel.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		C5BA9E152BED256F004FA06E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9E162BED2585004FA06E /* printIfDebug.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		C5C290752A85E4EF00ED5DCE /* SegmentedControlSubView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2379,6 +2533,7 @@
 				C52066292A7CD5FC0038ECCD /* HistoryTableModel.swift in Sources */,
 				C5FD92EB2A9C786600CF4673 /* PublicAPIRequestComponents.swift in Sources */,
 				C58C49C82AC9B67600DE04B7 /* AppleUserLoginModel.swift in Sources */,
+				C5BA9E172BED2585004FA06E /* printIfDebug.swift in Sources */,
 				C5503B592B9F51C60050643F /* WelcomeViewController.swift in Sources */,
 				C54B591F2B9606C500C0B190 /* UITextView+Extension.swift in Sources */,
 				C58FBF902AC2B83A00AB6EFC /* AVIROAPIManagerProtocol.swift in Sources */,
@@ -2429,7 +2584,9 @@
 				C5FBDA5C2B398264007AC77E /* ChallengeInfoYellowView.swift in Sources */,
 				C5DCBC8F2B91CF46003502BA /* AVIROMyBookmarkList+DTO.swift in Sources */,
 				C5D93DA32A58718300629C39 /* NextPageButton.swift in Sources */,
+				C5BA9E0E2BED1D75004FA06E /* AVIROViewModel.swift in Sources */,
 				C50DB7512A9B83550078B501 /* ChangeableAddressViewController.swift in Sources */,
+				C5BA9E142BED2244004FA06E /* BaseCoordinator.swift in Sources */,
 				C5A989992A959E040021B7C3 /* AVIROBookmark+DTO.swift in Sources */,
 				C54B591D2B95F61F00C0B190 /* MyCommentListTableViewCell.swift in Sources */,
 				C5476B6E2B30760000F5FC6E /* ChallengeLevelView.swift in Sources */,
@@ -2454,6 +2611,7 @@
 				C52066232A7CAC910038ECCD /* NoHistoryView.swift in Sources */,
 				C5E306E72A6FB4ED00C11CF7 /* MenuField.swift in Sources */,
 				C5ED46982AAEEFB600F2DA04 /* OperationHoursView.swift in Sources */,
+				C5BA9E102BED1E11004FA06E /* Alertable.swift in Sources */,
 				C51AED212A8B2BDB0015FBC2 /* HomeMapReferButton.swift in Sources */,
 				C5E430B32A5DADBE00CB67EC /* SecondRegistrationPresenter.swift in Sources */,
 				C5EB510D2A20A4B400B29CC1 /* HomeSearchViewTableViewCell.swift in Sources */,
@@ -2470,6 +2628,7 @@
 				C52FA3452A175B20005E70DC /* SceneDelegate.swift in Sources */,
 				C5351B542A19A7B100116D50 /* UserCoordinate.swift in Sources */,
 				C5EB50EA2A1C705900B29CC1 /* SettingViewController.swift in Sources */,
+				C5BA9E192BED25D2004FA06E /* DIContainer.swift in Sources */,
 				C5D802702B3C6E4000136D0E /* RecommendPlaceAlertView.swift in Sources */,
 				C510005A2AB998F600F65C1F /* UIImage+Extension.swift in Sources */,
 				C5FBDA5E2B398270007AC77E /* ChallengeInfoGreenView.swift in Sources */,
@@ -2579,6 +2738,7 @@
 				C5BA9DC92BE8AB8F004FA06E /* DataTransferService.swift in Sources */,
 				C5A201BD2A98708800A54381 /* EditPlaceInfoPresenter.swift in Sources */,
 				C59491D32AB0336100880B4B /* UIView(Animation)+Extension.swift in Sources */,
+				C5BA9E122BED223C004FA06E /* Coordinator.swift in Sources */,
 				C5D3E15C2B9D88F200DBB346 /* AVIROTabBarInteractionDelegate.swift in Sources */,
 				C51385502AAD921F001AB827 /* AVIROPlaceReportCheck+DTO.swift in Sources */,
 				C51385472AAAF3BB001AB827 /* SettingCell.swift in Sources */,

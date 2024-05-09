@@ -50,9 +50,3 @@ final class NetworkErrorLogger: NetworkErrorLoggerProtocol {
         print("--------")
     }
 }
-
-private func printIfDebug(_ string: String) {
-    #if DEBUG
-    print(string)
-    #endif
-}

@@ -17,9 +17,3 @@ final class DataTransferErrorLogger: DataTransferErrorLoggerProtocol {
         printIfDebug("\(error)")
     }
 }
-
-private func printIfDebug(_ string: String) {
-    #if DEBUG
-    print(string)
-    #endif
-}
