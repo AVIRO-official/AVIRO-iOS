@@ -90,7 +90,17 @@ final class HomeViewController: UIViewController {
         return map
     }()
     
-    private var selectedCategoriesPlaceHolder: [String] = []
+    private var selectedCategoriesPlaceHolder: [String] = [] {
+        didSet {
+            if selectedCategoriesPlaceHolder.count > 0 {
+                // 배열에 있는 모든 항목을 콤마로 구분하여 placeholder에 설정합니다.
+                searchTextField.placeholder = selectedCategoriesPlaceHolder.joined(separator: ", ")
+            } else {
+                // 모든 type의 선택이 false일 때
+                searchTextField.placeholder = Text.searchPlaceHolder.rawValue
+            }
+        }
+    }
     
     private lazy var searchTextField: MainField = {
         let field = MainField()
@@ -225,8 +235,8 @@ final class HomeViewController: UIViewController {
     private lazy var blurEffectView = BlurEffectView()
 
     private lazy var blurEffectViewForTutorial = BlurEffectView()
-    private lazy var speechBubbleImage1 = UIImageView(image: .speechBubble1)
-    private lazy var speechBubbleImage2 = UIImageView(image: .speechBubble2)
+    private lazy var speechBubbleViewForColorExplain = UIImageView(image: .speechBubble1)
+    private lazy var speechBubbleViewForCategoryExplain = UIImageView(image: .speechBubble2)
     
     private(set) var placeViewTopConstraint: NSLayoutConstraint?
     private(set) var searchTextFieldTopConstraint: NSLayoutConstraint?
@@ -258,6 +268,7 @@ final class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         
         presenter.viewWillAppear()
+        activeTutorialMode()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -281,10 +292,13 @@ extension HomeViewController: HomeViewProtocol {
             loadLocationButton,
             starButton,
             searchTextField,
-            categoryCollectionView,
             placeView,
             flagButton,
             downBackButton,
+            blurEffectViewForTutorial,
+            speechBubbleViewForColorExplain,
+            speechBubbleViewForCategoryExplain,
+            categoryCollectionView,
             blurEffectView,
             recommendPlaceAlertView,
             levelUpAlertView,
@@ -390,9 +404,29 @@ extension HomeViewController: HomeViewProtocol {
             isFectchingindicatorView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             
             isFecthingLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            isFecthingLabel.topAnchor.constraint(equalTo: isFectchingindicatorView.bottomAnchor, constant: 16)
+            isFecthingLabel.topAnchor.constraint(equalTo: isFectchingindicatorView.bottomAnchor, constant: 16),
+            
+            blurEffectViewForTutorial.topAnchor.constraint(equalTo: self.view.topAnchor),
+            blurEffectViewForTutorial.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            blurEffectViewForTutorial.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            blurEffectViewForTutorial.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),       
+            
+            speechBubbleViewForColorExplain.bottomAnchor.constraint(
+                equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, 
+                constant: -16
+            ),
+            speechBubbleViewForColorExplain.leadingAnchor.constraint(
+                equalTo: self.view.safeAreaLayoutGuide.leadingAnchor,
+                constant: 10
+            ),
+            
+            speechBubbleViewForCategoryExplain.topAnchor.constraint(
+                equalTo: categoryCollectionView.bottomAnchor,
+                constant: 10
+            ),
+            speechBubbleViewForCategoryExplain.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         ])
-                        
+        
         searchTextFieldTopConstraint = searchTextField.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.topAnchor,
             constant: Layout.Margin.regular.rawValue
@@ -406,10 +440,30 @@ extension HomeViewController: HomeViewProtocol {
         
         recommendPlaceAlertView.isHidden = true
         levelUpAlertView.isHidden = true
+        
+        speechBubbleViewForColorExplain.isHidden = true
+        speechBubbleViewForCategoryExplain.isHidden = true
     }
     
     func setupAttribute() {
         view.backgroundColor = .gray7
+    }
+    
+    private func activeTutorialMode() {
+        blurEffectViewForTutorial.isHidden = false 
+        speechBubbleViewForColorExplain.isHidden = false
+        speechBubbleViewForCategoryExplain.isHidden = false
+        
+        presenter.categoryType = [
+            ("취소", false),
+            ("식당", false),
+            ("카페", true),
+            ("술집", true),
+            ("빵집", false)
+        ]
+        
+        updateSearchTextField(with: "카페")
+        updateSearchTextField(with: "술집")
     }
     
     func setupGesture() {
@@ -1421,14 +1475,6 @@ extension HomeViewController: UICollectionViewDataSource {
                 selectedCategoriesPlaceHolder.remove(at: index)
             } else {
                 selectedCategoriesPlaceHolder.append(type)
-            }
-            
-            if selectedCategoriesPlaceHolder.count > 0 {
-                // 배열에 있는 모든 항목을 콤마로 구분하여 placeholder에 설정합니다.
-                searchTextField.placeholder = selectedCategoriesPlaceHolder.joined(separator: ", ")
-            } else {
-                // 모든 type의 선택이 false일 때
-                searchTextField.placeholder = Text.searchPlaceHolder.rawValue
             }
         }
     }

@@ -53,6 +53,9 @@ final class ChallengeViewController: UIViewController {
         return refreshControl
     }()
         
+    private lazy var blurEffectContentViewForTutorial = BlurEffectView()
+    private lazy var blurEffectTopViewForTutorial = BlurEffectView()
+        
     static func create(with viewModel: ChallengeViewModel) -> ChallengeViewController {
         let vc = ChallengeViewController()
         
@@ -72,7 +75,8 @@ final class ChallengeViewController: UIViewController {
 
     private func setupLayout() {
         [
-            scrollView
+            scrollView,
+            blurEffectTopViewForTutorial
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
@@ -90,13 +94,21 @@ final class ChallengeViewController: UIViewController {
             ),
             scrollView.bottomAnchor.constraint(
                 equalTo: self.view.safeAreaLayoutGuide.bottomAnchor
-            )
+            ),
+            
+            blurEffectTopViewForTutorial.topAnchor.constraint(equalTo: self.view.topAnchor),
+            blurEffectTopViewForTutorial.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            blurEffectTopViewForTutorial.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            blurEffectTopViewForTutorial.bottomAnchor.constraint(equalTo: scrollView.topAnchor)
         ])
+        
+        blurEffectTopViewForTutorial.isHidden = false
         
         [
             challengeTitleView,
-            challengeUserInfoView,
-            myInfoView
+            myInfoView,
+            blurEffectContentViewForTutorial,
+            challengeUserInfoView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             scrollView.addSubview($0)
@@ -145,8 +157,15 @@ final class ChallengeViewController: UIViewController {
             myInfoView.bottomAnchor.constraint(
                 equalTo: scrollView.contentLayoutGuide.bottomAnchor,
                 constant: -32
-            )
+            ),
+            
+            blurEffectContentViewForTutorial.topAnchor.constraint(equalTo: self.view.topAnchor),
+            blurEffectContentViewForTutorial.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            blurEffectContentViewForTutorial.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            blurEffectContentViewForTutorial.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
+        
+        blurEffectContentViewForTutorial.isHidden = false
     }
     
     private func setupAttribute() {
