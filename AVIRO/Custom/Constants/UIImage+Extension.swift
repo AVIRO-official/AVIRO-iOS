@@ -48,13 +48,13 @@ extension UIImage {
     static let someIconClicked = UIImage(named: "SomeMapClicked")!
     static let requestIconClicked = UIImage(named: "RequestMapClicked")!
     
-    static let allIconStar = UIImage(named: "AllMapStar")!
-    static let someIconStar = UIImage(named: "SomeMapStar")!
-    static let requestIconStar = UIImage(named: "RequestMapStar")!
+    static let allIconStar = UIImage(named: "All_Default_Fav")!
+    static let someIconStar = UIImage(named: "Some_Default_Fav")!
+    static let requestIconStar = UIImage(named: "Request_Default_Fav")!
     
-    static let allIconStarClicked = UIImage(named: "AllMapStarClicked")!
-    static let someIconStarClicked = UIImage(named: "SomeMapStarClicked")!
-    static let requestIconStarClicked = UIImage(named: "RequestMapStarClicked")!
+    static let allIconStarClicked = UIImage(named: "All_Clicked_Fav")!
+    static let someIconStarClicked = UIImage(named: "Some_Clicked_Fav")!
+    static let requestIconStarClicked = UIImage(named: "Request_Clicked_Fav")!
     
     static let allOptionButton = UIImage(named: "AllOption")!
     static let someOptionButton = UIImage(named: "SomeOption")!
@@ -196,6 +196,10 @@ extension UIImage {
     static let btn_home = UIImage(named: "Btn_home")!
     static let btn_pencil = UIImage(named: "Btn_pencil")!
     static let btn_plus_square = UIImage(named: "Btn_plus_square")!
+    
+    static let speechBubble1 = UIImage(named: "SpeechBubble1")
+    static let speechBubble2 = UIImage(named: "SpeechBubble2")
+    static let speechBubble3 = UIImage(named: "SpeechBubble3")
     
     // MARK: Challenge
     static let challengeInfoGreen = UIImage(named: "Challenge_Info_Green")!

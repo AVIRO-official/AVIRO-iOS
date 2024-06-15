@@ -391,7 +391,6 @@ final class HomeViewPresenter: NSObject {
         marker.captionMinZoom = 14
         marker.captionRequestedWidth = 80
         marker.captionOffset = 3
-        marker.isHideCollidedMarkers = true
         
         marker.makeIcon(veganType: veganType, categoryType: categoryType)
         marker.touchHandler = { [weak self] _ in

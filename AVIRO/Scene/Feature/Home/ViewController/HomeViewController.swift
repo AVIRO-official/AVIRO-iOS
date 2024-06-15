@@ -224,6 +224,10 @@ final class HomeViewController: UIViewController {
     
     private lazy var blurEffectView = BlurEffectView()
 
+    private lazy var blurEffectViewForTutorial = BlurEffectView()
+    private lazy var speechBubbleImage1 = UIImageView(image: .speechBubble1)
+    private lazy var speechBubbleImage2 = UIImageView(image: .speechBubble2)
+    
     private(set) var placeViewTopConstraint: NSLayoutConstraint?
     private(set) var searchTextFieldTopConstraint: NSLayoutConstraint?
     
