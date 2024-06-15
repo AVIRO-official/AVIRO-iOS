@@ -237,6 +237,8 @@ final class HomeViewController: UIViewController {
     private lazy var blurEffectViewForTutorial = BlurEffectView()
     private lazy var speechBubbleViewForColorExplain = UIImageView(image: .speechBubble1)
     private lazy var speechBubbleViewForCategoryExplain = UIImageView(image: .speechBubble2)
+    private lazy var emptyEffectView = UIView()
+    private lazy var tutorialGesture = UITapGestureRecognizer()
     
     private(set) var placeViewTopConstraint: NSLayoutConstraint?
     private(set) var searchTextFieldTopConstraint: NSLayoutConstraint?
@@ -303,7 +305,8 @@ extension HomeViewController: HomeViewProtocol {
             recommendPlaceAlertView,
             levelUpAlertView,
             isFecthingLabel,
-            isFectchingindicatorView
+            isFectchingindicatorView,
+            emptyEffectView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
@@ -424,7 +427,12 @@ extension HomeViewController: HomeViewProtocol {
                 equalTo: categoryCollectionView.bottomAnchor,
                 constant: 10
             ),
-            speechBubbleViewForCategoryExplain.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            speechBubbleViewForCategoryExplain.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            
+            emptyEffectView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            emptyEffectView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            emptyEffectView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            emptyEffectView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
         
         searchTextFieldTopConstraint = searchTextField.topAnchor.constraint(
@@ -443,14 +451,38 @@ extension HomeViewController: HomeViewProtocol {
         
         speechBubbleViewForColorExplain.isHidden = true
         speechBubbleViewForCategoryExplain.isHidden = true
+        emptyEffectView.isHidden = true
+        emptyEffectView.backgroundColor = .clear
     }
     
     func setupAttribute() {
         view.backgroundColor = .gray7
+        
+        emptyEffectView.addGestureRecognizer(tutorialGesture)
+        tutorialGesture.addTarget(self, action: #selector(tappedTutorial(_:)))
+    }
+    
+    @objc private func tappedTutorial(_ gesture: UITapGestureRecognizer) {
+        emptyEffectView.isHidden = true
+        blurEffectViewForTutorial.isHidden = true
+        speechBubbleViewForColorExplain.isHidden = true
+        speechBubbleViewForCategoryExplain.isHidden = true
+        
+        presenter.categoryType = [
+            ("식당", false),
+            ("카페", false),
+            ("술집", false),
+            ("빵집", false)
+        ]
+        
+        categoryCollectionView.reloadData()
+        
+        updateSearchTextField(with: "취소")
     }
     
     private func activeTutorialMode() {
-        blurEffectViewForTutorial.isHidden = false 
+        emptyEffectView.isHidden = false
+        blurEffectViewForTutorial.isHidden = false
         speechBubbleViewForColorExplain.isHidden = false
         speechBubbleViewForCategoryExplain.isHidden = false
         
@@ -461,6 +493,7 @@ extension HomeViewController: HomeViewProtocol {
             ("술집", true),
             ("빵집", false)
         ]
+        categoryCollectionView.reloadData()
         
         updateSearchTextField(with: "카페")
         updateSearchTextField(with: "술집")

@@ -111,6 +111,11 @@ final class ChallengeUserInfoView: UIView {
         self.backgroundColor = .gray7
     }
     
+    func blurEffectHidden(_ isHidden: Bool) {
+        blurEffectViewForTutorial.isHidden = isHidden
+        speechBubbleViewForCharacterExplain.isHidden = isHidden
+    }
+    
     func startIndicator() {
         indicatorView.isHidden = false
     }
