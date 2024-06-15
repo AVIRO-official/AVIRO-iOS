@@ -498,7 +498,7 @@ extension EditPlaceInfoViewController: EditPlaceInfoProtocol {
         // MARK: Address가 봐뀐 후 메소드
         presenter.afterChangedAddress = { [weak self] address in
             guard let address = address else { return }
-            
+            print(address)
             self?.presenter.isChangedFromPublicAddress = true
             self?.editLocationBottomView.changedAddressLabel(address)
         }

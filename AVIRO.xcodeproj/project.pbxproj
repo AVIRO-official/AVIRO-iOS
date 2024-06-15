@@ -2419,6 +2419,7 @@
 		C5ED99332C088D0E0077B2F9 /* Targets */ = {
 			isa = PBXGroup;
 			children = (
+				C5ED99952C0894860077B2F9 /* Auth */,
 			);
 			path = Targets;
 			sourceTree = "<group>";
@@ -2611,6 +2612,13 @@
 			children = (
 			);
 			path = StoreList;
+			sourceTree = "<group>";
+		};
+		C5ED99952C0894860077B2F9 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		C5FA0EA72A94D92B004AD8B4 /* Report */ = {
