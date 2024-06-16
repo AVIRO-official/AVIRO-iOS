@@ -249,9 +249,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
         guard UserDefaults.standard.bool(
             forKey: UDKey.tutorialHome.rawValue
         ) else { return }
-        
-        print(UserDefaults.standard.bool(forKey: UDKey.tutorialHome.rawValue))
-        
+                
         guard let compareDate = UserDefaults.standard.object(
             forKey: UDKey.hideUntil.rawValue
         ) as? Date else {

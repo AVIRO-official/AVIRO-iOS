@@ -55,11 +55,7 @@ final class LoginViewPresenter: NSObject {
             whenAfterLogout.toggle()
         }
     }
-    
-    deinit {
-        print("Test LoginView Presenter Deinit")
-    }
-    
+
     // MARK: Clicke Apple Login
     func clickedAppleLogin() {
         let request = ASAuthorizationAppleIDProvider().createRequest()

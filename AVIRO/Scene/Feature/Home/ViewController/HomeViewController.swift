@@ -1202,6 +1202,10 @@ extension HomeViewController {
         placeView.pushReviewWriteView = { [weak self] in
             self?.presenter.pushReviewWriteView()
         }
+        
+        placeView.deleteRequestButtonTapped = { [weak self] in
+            self?.presenter.checkReportPlaceDuplecated()
+        }
     }
 }
 
