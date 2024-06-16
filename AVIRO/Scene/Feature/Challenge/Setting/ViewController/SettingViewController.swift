@@ -70,6 +70,7 @@ enum SettingsRow: String {
 
 final class SettingViewController: UIViewController {
     private lazy var presenter = SettingViewPresenter(viewController: self)
+    weak var tabBarDelegate: TabBarFromSubVCDelegate?
     
     private lazy var indicatorView: UIActivityIndicatorView = {
         let indicatorView = UIActivityIndicatorView()
@@ -204,7 +205,17 @@ extension SettingViewController: MyPageViewProtocol {
     }
     
     private func whenTappedTutorialRestart() {
+        UserDefaults.standard.set(
+            false,
+            forKey: UDKey.tutorialHome.rawValue
+        )
+        UserDefaults.standard.set(
+            false,
+            forKey: UDKey.tutorialChallenge.rawValue
+        )
         
+        tabBarDelegate?.selectedIndex = 0
+        self.dismiss(animated: false)
     }
     
     private func whenTappedTermsOfService() {

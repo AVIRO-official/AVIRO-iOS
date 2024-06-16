@@ -270,7 +270,8 @@ final class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         
         presenter.viewWillAppear()
-        activeTutorialMode()
+        
+        checkTutorialHome()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -445,6 +446,10 @@ extension HomeViewController: HomeViewProtocol {
             equalTo: self.view.safeAreaLayoutGuide.bottomAnchor
         )
         placeViewTopConstraint?.isActive = true
+    }
+    
+    func setupAttribute() {
+        view.backgroundColor = .gray7
         
         recommendPlaceAlertView.isHidden = true
         levelUpAlertView.isHidden = true
@@ -453,31 +458,14 @@ extension HomeViewController: HomeViewProtocol {
         speechBubbleViewForCategoryExplain.isHidden = true
         emptyEffectView.isHidden = true
         emptyEffectView.backgroundColor = .clear
-    }
-    
-    func setupAttribute() {
-        view.backgroundColor = .gray7
-        
         emptyEffectView.addGestureRecognizer(tutorialGesture)
         tutorialGesture.addTarget(self, action: #selector(tappedTutorial(_:)))
     }
     
-    @objc private func tappedTutorial(_ gesture: UITapGestureRecognizer) {
-        emptyEffectView.isHidden = true
-        blurEffectViewForTutorial.isHidden = true
-        speechBubbleViewForColorExplain.isHidden = true
-        speechBubbleViewForCategoryExplain.isHidden = true
+    private func checkTutorialHome() {
+        guard !UserDefaults.standard.bool(forKey: UDKey.tutorialHome.rawValue) else { return }
         
-        presenter.categoryType = [
-            ("식당", false),
-            ("카페", false),
-            ("술집", false),
-            ("빵집", false)
-        ]
-        
-        categoryCollectionView.reloadData()
-        
-        updateSearchTextField(with: "취소")
+        activeTutorialMode()
     }
     
     private func activeTutorialMode() {
@@ -497,6 +485,34 @@ extension HomeViewController: HomeViewProtocol {
         
         updateSearchTextField(with: "카페")
         updateSearchTextField(with: "술집")
+        
+        tabBarDelegate?.activeBlurEffectView(with: true)
+    }
+    
+    @objc private func tappedTutorial(_ gesture: UITapGestureRecognizer) {
+        emptyEffectView.isHidden = true
+        blurEffectViewForTutorial.isHidden = true
+        speechBubbleViewForColorExplain.isHidden = true
+        speechBubbleViewForCategoryExplain.isHidden = true
+        
+        presenter.categoryType = [
+            ("식당", false),
+            ("카페", false),
+            ("술집", false),
+            ("빵집", false)
+        ]
+        
+        categoryCollectionView.reloadData()
+        
+        updateSearchTextField(with: "취소")
+        
+        UserDefaults.standard.set(
+            true,
+            forKey: UDKey.tutorialHome.rawValue
+        )
+        
+        tabBarDelegate?.activeBlurEffectView(with: false)
+        tabBarDelegate?.activeCheckWellcome()
     }
     
     func setupGesture() {

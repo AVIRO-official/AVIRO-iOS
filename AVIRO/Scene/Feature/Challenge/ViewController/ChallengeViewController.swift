@@ -74,6 +74,12 @@ final class ChallengeViewController: UIViewController {
         
         dataBinding()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        checkTutorialChallenge()
+    }
 
     private func setupLayout() {
         [
@@ -170,11 +176,6 @@ final class ChallengeViewController: UIViewController {
             blurEffectContentViewForTutorial.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             blurEffectContentViewForTutorial.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
-        
-        emptyEffectView.backgroundColor = .clear
-        emptyEffectView.isHidden = false
-        blurEffectTopViewForTutorial.isHidden = false
-        blurEffectContentViewForTutorial.isHidden = false
     }
     
     private func setupAttribute() {
@@ -209,6 +210,12 @@ final class ChallengeViewController: UIViewController {
         
         emptyEffectView.addGestureRecognizer(tutorialGesture)
         tutorialGesture.addTarget(self, action: #selector(tappedTutorial(_:)))
+        
+        emptyEffectView.backgroundColor = .clear
+        emptyEffectView.isHidden = true
+        blurEffectTopViewForTutorial.isHidden = true
+        blurEffectContentViewForTutorial.isHidden = true
+        challengeUserInfoView.blurEffectHidden(true)
     }
     
     private func dataBinding() {
@@ -322,6 +329,7 @@ final class ChallengeViewController: UIViewController {
     
     func pushSettingViewController() {
         let vc = SettingViewController()
+        vc.tabBarDelegate = tabBarDelegate
         
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -360,11 +368,32 @@ final class ChallengeViewController: UIViewController {
         }
     }
     
+    private func checkTutorialChallenge() {
+        guard !UserDefaults.standard.bool(forKey: UDKey.tutorialChallenge.rawValue) else { return }
+        
+        activeTutorial()
+    }
+    
+    private func activeTutorial() {
+        emptyEffectView.isHidden = false
+        blurEffectTopViewForTutorial.isHidden = false
+        blurEffectContentViewForTutorial.isHidden = false
+        challengeUserInfoView.blurEffectHidden(false)
+        
+        tabBarDelegate?.activeBlurEffectView(with: true)
+    }
+    
     @objc private func tappedTutorial(_ gesture: UITapGestureRecognizer) {
         emptyEffectView.isHidden = true
         blurEffectTopViewForTutorial.isHidden = true
         blurEffectContentViewForTutorial.isHidden = true
         challengeUserInfoView.blurEffectHidden(true)
+        tabBarDelegate?.activeBlurEffectView(with: false)
+
+        UserDefaults.standard.set(
+            true,
+            forKey: UDKey.tutorialChallenge.rawValue
+        )
     }
 }
 

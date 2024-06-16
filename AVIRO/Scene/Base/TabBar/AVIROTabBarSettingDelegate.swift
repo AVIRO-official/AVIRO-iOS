@@ -14,4 +14,5 @@ protocol TabBarFromSubVCDelegate: AnyObject {
     
     func setSelectedIndex(_ index: Int, withData data: [String: Any])
     func activeBlurEffectView(with active: Bool)
+    func activeCheckWellcome()
 }
