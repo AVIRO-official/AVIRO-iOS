@@ -32,7 +32,8 @@ enum SettingsSection: Int, CaseIterable {
             return [
                 .editNickname,
                 .inquiries,
-                .instagram
+                .instagram,
+                .tutorialRestart
             ]
         case .information:
             return [
@@ -53,8 +54,9 @@ enum SettingsSection: Int, CaseIterable {
 
 enum SettingsRow: String {
     case editNickname = "닉네임 수정하기"
-    case inquiries = "문의사항"
-    case instagram = "인스타그램"
+    case inquiries = "어비로에 건의하기"
+    case instagram = "어비로 인스타그램 놀러가기"
+    case tutorialRestart = "튜토리얼 다시하기"
     
     case termsOfService = "서비스 이용약관"
     case privacyPolicy = "개인정보 수집 및 이용"
@@ -68,6 +70,7 @@ enum SettingsRow: String {
 
 final class SettingViewController: UIViewController {
     private lazy var presenter = SettingViewPresenter(viewController: self)
+    weak var tabBarDelegate: TabBarFromSubVCDelegate?
     
     private lazy var indicatorView: UIActivityIndicatorView = {
         let indicatorView = UIActivityIndicatorView()
@@ -162,7 +165,8 @@ extension SettingViewController: MyPageViewProtocol {
             whenTappedInquiries()
         case .instagram:
             whenTappedInstagram()
-            
+        case .tutorialRestart:
+            whenTappedTutorialRestart()
         case .termsOfService:
             whenTappedTermsOfService()
         case .privacyPolicy:
@@ -198,6 +202,20 @@ extension SettingViewController: MyPageViewProtocol {
     private func whenTappedInstagram() {
         let aviro = URL(string: "https://www.instagram.com/aviro.kr.official/")!
         UIApplication.shared.open(aviro)
+    }
+    
+    private func whenTappedTutorialRestart() {
+        UserDefaults.standard.set(
+            false,
+            forKey: UDKey.tutorialHome.rawValue
+        )
+        UserDefaults.standard.set(
+            false,
+            forKey: UDKey.tutorialChallenge.rawValue
+        )
+        
+        tabBarDelegate?.selectedIndex = 0
+        self.dismiss(animated: false)
     }
     
     private func whenTappedTermsOfService() {

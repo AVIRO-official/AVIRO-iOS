@@ -50,7 +50,7 @@ final class ChallengeLevelView: UIView {
         
         return label
     }()
-    
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -92,6 +92,7 @@ final class ChallengeLevelView: UIView {
     private func setupAttribute() {
         self.backgroundColor = .gray6
         self.layer.cornerRadius = 12
+        
         
         updateLevelPoint(with: ("0", "30"))
     }
@@ -142,6 +143,6 @@ final class ChallengeLevelView: UIView {
         
         let currentProgress = Float(levelPoint.now)! / Float(levelPoint.gool)!
 
-        levelProgress.setProgress(currentProgress, animated: true)
+        levelProgress.setProgress(currentProgress, animated: false)
     }
 }

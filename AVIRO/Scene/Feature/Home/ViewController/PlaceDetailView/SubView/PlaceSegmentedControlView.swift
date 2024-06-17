@@ -81,6 +81,9 @@ final class PlaceSegmentedControlView: UIView {
     
     var pushReviewWriteView: (() -> Void)?
     
+    // delete request
+    var deleteRequestButtonTapped: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -191,15 +194,7 @@ final class PlaceSegmentedControlView: UIView {
         
         whenActiveSegmentedChanged()
     }
-    
-//    func keyboardWillShow(notification: NSNotification, height: CGFloat) {
-//        reviewView.keyboardWillShow(notification: notification, height: height)
-//    }
-//    
-//    func keyboardWillHide() {
-//        reviewView.keyboardWillHide()
-//    }
-//    
+      
     func allDataBinding(placeId: String,
                         infoModel: AVIROPlaceInfo?,
                         menuModel: AVIROPlaceMenus?,
@@ -386,6 +381,10 @@ final class PlaceSegmentedControlView: UIView {
 //            self?.segmentedControl.selectedSegmentIndex = 2
 //            self?.activeReviewView()
 //            self?.reviewView.autoStartWriteComment()
+        }
+        
+        homeView.deleteRequestButtonTapped = { [weak self] in
+            self?.deleteRequestButtonTapped?()
         }
         
         reviewView.whenUploadReview = { [weak self] postReviewModel in

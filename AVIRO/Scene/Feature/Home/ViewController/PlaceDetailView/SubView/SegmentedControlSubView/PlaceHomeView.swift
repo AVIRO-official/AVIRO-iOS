@@ -13,6 +13,7 @@ final class PlaceHomeView: UIView {
     private lazy var placeMenuView = PlaceMenuView()
     private lazy var placeReviewWriteView = PlaceReviewWriteView()
     private lazy var placeReviewsView = PlaceReviewsView()
+    private lazy var placeDeleteRequestView = PlaceDeleteRequestView()
     
     private var viewHeightConstraint: NSLayoutConstraint?
 
@@ -32,6 +33,9 @@ final class PlaceHomeView: UIView {
     var showMoreReviewsAndWriteComment: (() -> Void)?
     var reportReview: ((AVIROReportReviewModel) -> Void)?
     var whenBeforeEditMyReview: ((String, String) -> Void)?
+    
+    // delete 클로저
+    var deleteRequestButtonTapped: (() -> Void)?
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,9 +66,10 @@ final class PlaceHomeView: UIView {
         
         [
             placeInfoView,
-            placeMenuView,
             placeReviewWriteView,
-            placeReviewsView
+            placeMenuView,
+            placeReviewsView,
+            placeDeleteRequestView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
@@ -75,17 +80,21 @@ final class PlaceHomeView: UIView {
             placeInfoView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             placeInfoView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             
-            placeMenuView.topAnchor.constraint(equalTo: placeInfoView.bottomAnchor, constant: 15),
-            placeMenuView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            placeMenuView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            
-            placeReviewWriteView.topAnchor.constraint(equalTo: placeMenuView.bottomAnchor, constant: 15),
+            placeReviewWriteView.topAnchor.constraint(equalTo: placeInfoView.bottomAnchor, constant: 15),
             placeReviewWriteView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             placeReviewWriteView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             
-            placeReviewsView.topAnchor.constraint(equalTo: placeReviewWriteView.bottomAnchor, constant: 15),
+            placeMenuView.topAnchor.constraint(equalTo: placeReviewWriteView.bottomAnchor, constant: 15),
+            placeMenuView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            placeMenuView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            
+            placeReviewsView.topAnchor.constraint(equalTo: placeMenuView.bottomAnchor, constant: 15),
             placeReviewsView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            placeReviewsView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            placeReviewsView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            
+            placeDeleteRequestView.topAnchor.constraint(equalTo: placeReviewsView.bottomAnchor, constant: 15),
+            placeDeleteRequestView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            placeDeleteRequestView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         ])
     }
     
@@ -94,11 +103,12 @@ final class PlaceHomeView: UIView {
         let menuHeight = placeMenuView.frame.height
         let reviewWriteHeight = placeReviewWriteView.frame.height
         let reviewsHeight = placeReviewsView.frame.height
+        let deleteRequestViewHeight = placeDeleteRequestView.frame.height
+
+        // 15 15 15 15
+        let inset: CGFloat = 60
         
-        // 15 15 15
-        let inset: CGFloat = 45
-        
-        let totalHeight = infoHeight + menuHeight + reviewWriteHeight + reviewsHeight + inset
+        let totalHeight = infoHeight + menuHeight + reviewWriteHeight + reviewsHeight + inset + deleteRequestViewHeight
         viewHeightConstraint?.constant = totalHeight
 
     }
@@ -176,6 +186,11 @@ final class PlaceHomeView: UIView {
         
         placeReviewsView.whenBeforeEditMyReview = { [weak self] (commentId, content) in
             self?.whenBeforeEditMyReview?(commentId, content)
+        }
+        
+        // Place Delete Request View
+        placeDeleteRequestView.deleteRequestButtonTapped = { [weak self] in
+            self?.deleteRequestButtonTapped?()
         }
     }
 }

@@ -300,9 +300,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-        
-        print(url)
-        
+                
         performRequest(
             with: url,
             headers: requestAPI.headers,

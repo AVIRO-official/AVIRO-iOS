@@ -170,7 +170,6 @@ final class HomeViewPresenter: NSObject {
     }
     
     deinit {
-        print("Deinit HomeViewPresenter")
         NotificationCenter.default.removeObserver(
             self,
             name: NSNotification.Name(NotiName.afterMainSearch.rawValue),
@@ -391,7 +390,6 @@ final class HomeViewPresenter: NSObject {
         marker.captionMinZoom = 14
         marker.captionRequestedWidth = 80
         marker.captionOffset = 3
-        marker.isHideCollidedMarkers = true
         
         marker.makeIcon(veganType: veganType, categoryType: categoryType)
         marker.touchHandler = { [weak self] _ in

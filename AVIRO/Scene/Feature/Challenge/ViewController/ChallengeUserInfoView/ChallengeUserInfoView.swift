@@ -25,7 +25,7 @@ final class ChallengeUserInfoView: UIView {
         imageView.layer.cornerRadius = 150/2
         imageView.backgroundColor = .gray7
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.borderWidth = 5
+        imageView.layer.borderWidth = 2
         imageView.layer.borderColor = UIColor.challengeImageBorder.cgColor
         
         return imageView
@@ -48,6 +48,9 @@ final class ChallengeUserInfoView: UIView {
         return view
     }()
     
+    private lazy var blurEffectViewForTutorial = BlurEffectView()
+    private lazy var speechBubbleViewForCharacterExplain = UIImageView(image: .speechBubble3)
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -63,8 +66,10 @@ final class ChallengeUserInfoView: UIView {
         [
             nameLabel,
             levelView,
+            blurEffectViewForTutorial,
             treeImageView,
-            indicatorView
+            indicatorView,
+            speechBubbleViewForCharacterExplain
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
@@ -76,8 +81,8 @@ final class ChallengeUserInfoView: UIView {
             
             treeImageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 24),
             treeImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            treeImageView.widthAnchor.constraint(equalToConstant: 150),
-            treeImageView.heightAnchor.constraint(equalToConstant: 150),
+            treeImageView.widthAnchor.constraint(equalToConstant: 155),
+            treeImageView.heightAnchor.constraint(equalToConstant: 155),
             
             levelView.topAnchor.constraint(equalTo: treeImageView.topAnchor, constant: 84),
             levelView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
@@ -85,12 +90,30 @@ final class ChallengeUserInfoView: UIView {
             levelView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
             indicatorView.centerXAnchor.constraint(equalTo: treeImageView.centerXAnchor),
-            indicatorView.centerYAnchor.constraint(equalTo: treeImageView.centerYAnchor)
+            indicatorView.centerYAnchor.constraint(equalTo: treeImageView.centerYAnchor),
+            
+            blurEffectViewForTutorial.topAnchor.constraint(equalTo: self.topAnchor),
+            blurEffectViewForTutorial.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            blurEffectViewForTutorial.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            blurEffectViewForTutorial.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            
+            speechBubbleViewForCharacterExplain.topAnchor.constraint(
+                equalTo: treeImageView.bottomAnchor,
+                constant: 8
+            ),
+            speechBubbleViewForCharacterExplain.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
+        
+        blurEffectViewForTutorial.isHidden = false
     }
     
     private func setupAttribute() {
         self.backgroundColor = .gray7
+    }
+    
+    func blurEffectHidden(_ isHidden: Bool) {
+        blurEffectViewForTutorial.isHidden = isHidden
+        speechBubbleViewForCharacterExplain.isHidden = isHidden
     }
     
     func startIndicator() {

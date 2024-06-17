@@ -183,10 +183,6 @@ final class TutorialViewController: UIViewController {
         pushLoginView()
     }
     
-    deinit {
-        print("TutorialViewController deinit")
-    }
-    
     private func pushLoginView() {
         UserDefaults.standard.set(true, forKey: UDKey.tutorial.rawValue)
         
