@@ -73,6 +73,7 @@ final class PlaceView: UIView {
     var whenBeforeEditMyReview: ((String, String) -> Void)?
     
     var pushReviewWriteView: (() -> Void)? 
+    var deleteRequestButtonTapped: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -240,6 +241,10 @@ final class PlaceView: UIView {
         
         segmentedControlView.pushReviewWriteView = { [weak self] in
             self?.pushReviewWriteView?()
+        }
+        
+        segmentedControlView.deleteRequestButtonTapped = { [weak self] in
+            self?.deleteRequestButtonTapped?()
         }
     }
     

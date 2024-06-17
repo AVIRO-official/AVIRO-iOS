@@ -17,6 +17,8 @@ enum APP: String {
 // MARK: UserDefaults Key
 enum UDKey: String {
     case tutorial
+    case tutorialHome
+    case tutorialChallenge
     case hideUntil
     case timeForUpdate
 }

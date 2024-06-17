@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Off_btn_Coffee.png",
+      "filename" : "Some_Default_Fav.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Off_btn_Coffee@2x.png",
+      "filename" : "Some_Default_Fav@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Off_btn_Coffee@3x.png",
+      "filename" : "Some_Default_Fav@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

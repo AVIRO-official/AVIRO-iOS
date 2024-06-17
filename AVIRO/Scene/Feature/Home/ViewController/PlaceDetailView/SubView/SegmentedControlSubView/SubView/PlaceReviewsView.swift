@@ -92,13 +92,7 @@ final class PlaceReviewsView: UIView {
     
     private var cellHeights: [IndexPath: CGFloat] = [:]
     
-    private var reviewsArray = [AVIROReviewRawData]() {
-        didSet {
-            reviewsArray.forEach {
-                print($0.content)
-            }
-        }
-    }
+    private var reviewsArray = [AVIROReviewRawData]()
     
     private var whenReviewView = false
     
