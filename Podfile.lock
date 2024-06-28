@@ -31,7 +31,7 @@ PODS:
 
 DEPENDENCIES:
   - AmplitudeSwift (= 1.4.4)
-  - KeychainSwift
+  - KeychainSwift (= 22.0.0)
   - lottie-ios (= 4.4.1)
   - NMapsMap
   - RealmSwift (= 10.48.0)
@@ -79,6 +79,6 @@ SPEC CHECKSUMS:
   RxTest: a23f26bb53a5e146a0a69db4f0fa0b69001ce7f4
   Toast-Swift: dd369e68ee529f542c65bd0d0c6c50cd743cf6f2
 
-PODFILE CHECKSUM: 52ae1d7225d731e6828cc877918e944eed0ac5c5
+PODFILE CHECKSUM: d7acb359d780ecc882de8225b3248fc07f0f7276
 
 COCOAPODS: 1.15.2
