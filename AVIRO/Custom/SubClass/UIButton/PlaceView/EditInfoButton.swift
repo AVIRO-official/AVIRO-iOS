@@ -22,7 +22,10 @@ final class EditInfoButton: UIButton {
         self.setTitleColor(.keywordBlue, for: .normal)
         self.titleLabel?.font = CFont.font.medium14
         
-        self.setImage(UIImage.editInfo, for: .normal)
+        self.setImage(
+            UIImage.editInfo.withRenderingMode(.alwaysTemplate),
+            for: .normal
+        )
         
         self.backgroundColor = .gray7
         

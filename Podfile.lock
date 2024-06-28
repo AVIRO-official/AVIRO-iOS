@@ -1,12 +1,12 @@
 PODS:
-  - AmplitudeSwift (1.4.4):
+  - AmplitudeSwift (1.4.5):
     - AnalyticsConnector (~> 1.0.1)
   - AnalyticsConnector (1.0.3)
   - Differentiator (5.0.0)
   - KeychainSwift (22.0.0)
   - lottie-ios (4.4.1)
-  - NMapsGeometry (1.0.1)
-  - NMapsMap (3.17.0):
+  - NMapsGeometry (1.0.2)
+  - NMapsMap (3.18.1):
     - NMapsGeometry
   - Realm (10.48.0):
     - Realm/Headers (= 10.48.0)
@@ -30,7 +30,7 @@ PODS:
   - Toast-Swift (5.1.0)
 
 DEPENDENCIES:
-  - AmplitudeSwift (= 1.4.4)
+  - AmplitudeSwift (= 1.4.5)
   - KeychainSwift (= 22.0.0)
   - lottie-ios (= 4.4.1)
   - NMapsMap
@@ -62,13 +62,13 @@ SPEC REPOS:
     - Toast-Swift
 
 SPEC CHECKSUMS:
-  AmplitudeSwift: 13725c3313c2e2cac30836dc2c973d3883baabef
+  AmplitudeSwift: 4daa595b157c73b9bc5f225f9b8faead90d044b3
   AnalyticsConnector: a53214d38ae22734c6266106c0492b37832633a9
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   KeychainSwift: 72f81155e1cb01c1bc4da296e4ce2cfcff556a12
   lottie-ios: e047b1d2e6239b787cc5e9755b988869cf190494
-  NMapsGeometry: 53c573ead66466681cf123f99f698dc8071a4b83
-  NMapsMap: a5b909a31b6f3d27a670f6eb2ddc913c38975474
+  NMapsGeometry: 4e02554fa9880ef02ed96b075dc84355d6352479
+  NMapsMap: e879088eeee2d1e3b97f0a609076e1824dce2cad
   Realm: ac7ec3bd884b42282431fc414cc0bb3e92d726cf
   RealmSwift: 4eb8b254ebe413cbc486c5a366f2a315b54d75f7
   RxBlocking: fbd1f8501443024f686e556f36dac79b0d5f4d7c
@@ -79,6 +79,6 @@ SPEC CHECKSUMS:
   RxTest: a23f26bb53a5e146a0a69db4f0fa0b69001ce7f4
   Toast-Swift: dd369e68ee529f542c65bd0d0c6c50cd743cf6f2
 
-PODFILE CHECKSUM: d7acb359d780ecc882de8225b3248fc07f0f7276
+PODFILE CHECKSUM: e9b7a91653949d8e46be43c789e3f27ea4bfe38e
 
 COCOAPODS: 1.15.2

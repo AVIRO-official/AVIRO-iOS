@@ -53,6 +53,11 @@ final class ChallengeViewController: UIViewController {
         return refreshControl
     }()
         
+    private lazy var blurEffectContentViewForTutorial = BlurEffectView()
+    private lazy var blurEffectTopViewForTutorial = BlurEffectView()
+    private lazy var emptyEffectView = UIView()
+    private lazy var tutorialGesture = UITapGestureRecognizer()
+    
     static func create(with viewModel: ChallengeViewModel) -> ChallengeViewController {
         let vc = ChallengeViewController()
         
@@ -69,10 +74,18 @@ final class ChallengeViewController: UIViewController {
         
         dataBinding()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        checkTutorialChallenge()
+    }
 
     private func setupLayout() {
         [
-            scrollView
+            scrollView,
+            blurEffectTopViewForTutorial,
+            emptyEffectView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
@@ -90,13 +103,24 @@ final class ChallengeViewController: UIViewController {
             ),
             scrollView.bottomAnchor.constraint(
                 equalTo: self.view.safeAreaLayoutGuide.bottomAnchor
-            )
+            ),
+            
+            blurEffectTopViewForTutorial.topAnchor.constraint(equalTo: self.view.topAnchor),
+            blurEffectTopViewForTutorial.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            blurEffectTopViewForTutorial.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            blurEffectTopViewForTutorial.bottomAnchor.constraint(equalTo: scrollView.topAnchor),
+            
+            emptyEffectView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            emptyEffectView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            emptyEffectView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            emptyEffectView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
         
         [
             challengeTitleView,
-            challengeUserInfoView,
-            myInfoView
+            myInfoView,
+            blurEffectContentViewForTutorial,
+            challengeUserInfoView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             scrollView.addSubview($0)
@@ -145,7 +169,12 @@ final class ChallengeViewController: UIViewController {
             myInfoView.bottomAnchor.constraint(
                 equalTo: scrollView.contentLayoutGuide.bottomAnchor,
                 constant: -32
-            )
+            ),
+            
+            blurEffectContentViewForTutorial.topAnchor.constraint(equalTo: self.view.topAnchor),
+            blurEffectContentViewForTutorial.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            blurEffectContentViewForTutorial.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            blurEffectContentViewForTutorial.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
     }
     
@@ -178,6 +207,15 @@ final class ChallengeViewController: UIViewController {
         myInfoView.tappedMyInfo = { [weak self] myInfoType in
             self?.userInfoListTapped.onNext(myInfoType)
         }
+        
+        emptyEffectView.addGestureRecognizer(tutorialGesture)
+        tutorialGesture.addTarget(self, action: #selector(tappedTutorial(_:)))
+        
+        emptyEffectView.backgroundColor = .clear
+        emptyEffectView.isHidden = true
+        blurEffectTopViewForTutorial.isHidden = true
+        blurEffectContentViewForTutorial.isHidden = true
+        challengeUserInfoView.blurEffectHidden(true)
     }
     
     private func dataBinding() {
@@ -291,6 +329,7 @@ final class ChallengeViewController: UIViewController {
     
     func pushSettingViewController() {
         let vc = SettingViewController()
+        vc.tabBarDelegate = tabBarDelegate
         
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -327,6 +366,34 @@ final class ChallengeViewController: UIViewController {
 
             navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    private func checkTutorialChallenge() {
+        guard !UserDefaults.standard.bool(forKey: UDKey.tutorialChallenge.rawValue) else { return }
+        
+        activeTutorial()
+    }
+    
+    private func activeTutorial() {
+        emptyEffectView.isHidden = false
+        blurEffectTopViewForTutorial.isHidden = false
+        blurEffectContentViewForTutorial.isHidden = false
+        challengeUserInfoView.blurEffectHidden(false)
+        
+        tabBarDelegate?.activeBlurEffectView(with: true)
+    }
+    
+    @objc private func tappedTutorial(_ gesture: UITapGestureRecognizer) {
+        emptyEffectView.isHidden = true
+        blurEffectTopViewForTutorial.isHidden = true
+        blurEffectContentViewForTutorial.isHidden = true
+        challengeUserInfoView.blurEffectHidden(true)
+        tabBarDelegate?.activeBlurEffectView(with: false)
+
+        UserDefaults.standard.set(
+            true,
+            forKey: UDKey.tutorialChallenge.rawValue
+        )
     }
 }
 

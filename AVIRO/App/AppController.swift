@@ -33,6 +33,7 @@ final class AppController {
 
         setTabBarView()
 //        checkState()
+
     }
     
     func setupLoginViewAfterLogout(in window: UIWindow, with type: LoginViewToastType) {

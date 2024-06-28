@@ -190,6 +190,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
         self.view.backgroundColor = .clear
         
         setupButtons()
+        
         checkWellcomeShow()
     }
     
@@ -242,8 +243,13 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
             redDotView.topAnchor.constraint(equalTo: imageView.topAnchor, constant: -3)
         ])
     }
+    
     // MARK: - Wellcome VC
     private func checkWellcomeShow() {
+        guard UserDefaults.standard.bool(
+            forKey: UDKey.tutorialHome.rawValue
+        ) else { return }
+                
         guard let compareDate = UserDefaults.standard.object(
             forKey: UDKey.hideUntil.rawValue
         ) as? Date else {
@@ -294,6 +300,10 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
 
         welcomeViewController?.remove()
         welcomeViewController = nil
+    }
+    
+    func activeCheckWellcome() {
+        checkWellcomeShow()
     }
     
     // MARK: - TabBar Click After

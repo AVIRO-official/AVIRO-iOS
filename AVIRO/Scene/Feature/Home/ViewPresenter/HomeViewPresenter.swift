@@ -170,7 +170,6 @@ final class HomeViewPresenter: NSObject {
     }
     
     deinit {
-        print("Deinit HomeViewPresenter")
         NotificationCenter.default.removeObserver(
             self,
             name: NSNotification.Name(NotiName.afterMainSearch.rawValue),
