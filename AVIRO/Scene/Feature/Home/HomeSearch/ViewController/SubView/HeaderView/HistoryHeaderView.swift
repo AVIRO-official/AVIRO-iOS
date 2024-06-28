@@ -18,7 +18,7 @@ final class HistoryHeaderView: UIView {
         
         label.text = Text.title.rawValue
         label.textColor = .gray0
-        label.font = CFont.font.semibold15
+        label.font = .pretendard(size: 15, weight: .semibold)
         
         return label
     }()
@@ -27,7 +27,7 @@ final class HistoryHeaderView: UIView {
         let button = UIButton()
         
         button.setTitle(Text.button.rawValue, for: .normal)
-        button.titleLabel?.font = CFont.font.semibold14
+        button.titleLabel?.font = .pretendard(size: 14, weight: .semibold)
         button.setTitleColor(.gray1, for: .normal)
         button.backgroundColor = .gray6
 

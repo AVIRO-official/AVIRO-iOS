@@ -22,7 +22,7 @@ final class HistoryTableViewCell: UITableViewCell {
         label.numberOfLines = 1
         label.lineBreakMode = .byCharWrapping
         label.textColor = .gray1
-        label.font = CFont.font.semibold16
+        label.font = .pretendard(size: 16, weight: .semibold)
         
         return label
     }()

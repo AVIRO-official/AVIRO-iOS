@@ -33,7 +33,7 @@ final class TermsTableCell: UITableViewCell {
     private lazy var termsLabel: UILabel = {
         let label = UILabel()
         
-        label.font = CFont.font.medium14
+        label.font = .pretendard(size: 14, weight: .medium)
         label.textColor = .gray0
         
         return label

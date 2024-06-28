@@ -42,7 +42,7 @@ final class ThridRegistrationViewController: UIViewController {
         let label = UILabel()
         
         label.text = Text.title.rawValue
-        label.font = CFont.font.bold24
+        label.font = .pretendard(size: 24, weight: .bold)
         label.textColor = .main
         label.numberOfLines = 2
         
@@ -53,7 +53,7 @@ final class ThridRegistrationViewController: UIViewController {
         let label = UILabel()
         
         label.text = Text.subtitle.rawValue
-        label.font = CFont.font.regular14
+        label.font = .pretendard(size: 14, weight: .regular)
         label.textColor = .gray1
         
         return label
@@ -232,7 +232,7 @@ extension ThridRegistrationViewController: UITableViewDelegate {
         
         let allAcceptLabel = UILabel()
         allAcceptLabel.text = Text.allAccept.rawValue
-        allAcceptLabel.font = CFont.font.semibold20
+        allAcceptLabel.font = .pretendard(size: 20, weight: .semibold)
         allAcceptLabel.textColor = .gray0
         
         [

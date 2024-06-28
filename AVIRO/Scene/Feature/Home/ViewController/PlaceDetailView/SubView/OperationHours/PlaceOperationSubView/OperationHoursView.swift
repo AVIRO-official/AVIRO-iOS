@@ -13,7 +13,7 @@ final class OperationHoursView: UIView {
         
         label.text = "영업 시간"
         label.textColor = .gray0
-        label.font = CFont.font.bold20
+        label.font = .pretendard(size: 20, weight: .bold)
         
         return label
     }()

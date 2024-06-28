@@ -51,7 +51,7 @@ final class LoginViewController: UIViewController {
         paragraphStyle.lineSpacing = 2
         
         let normalAttributes: [NSAttributedString.Key: Any] = [
-            .font: CFont.font.medium45,
+            .font: UIFont.pretendard(size: 45, weight: .medium),
             .foregroundColor: UIColor.loginTitleColor,
             .paragraphStyle: paragraphStyle
         ]
@@ -59,7 +59,7 @@ final class LoginViewController: UIViewController {
         let attributedString = NSMutableAttributedString(string: text, attributes: normalAttributes)
         
         let heavyAttributes: [NSAttributedString.Key: Any] = [
-            .font: CFont.font.heavy45,
+            .font: UIFont.pretendard(size: 45, weight: .heavy),
             .foregroundColor: UIColor.main,
             .paragraphStyle: paragraphStyle
         ]
@@ -97,7 +97,7 @@ final class LoginViewController: UIViewController {
             bottom: 0,
             right: 0
         )
-        button.titleLabel?.font = CFont.font.medium17
+        button.titleLabel?.font = .pretendard(size: 17, weight: .medium)
         
         button.layer.borderColor = UIColor.black.cgColor
         button.layer.borderWidth = 2

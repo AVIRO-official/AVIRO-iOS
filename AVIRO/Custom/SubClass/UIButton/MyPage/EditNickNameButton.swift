@@ -19,7 +19,7 @@ final class EditNickNameButton: UIButton {
     func makeButton(_ text: String ) {
         self.setTitle(text, for: .normal)
         self.setImage(UIImage.smallPushView, for: .normal)
-        self.titleLabel?.font = CFont.font.regular14
+        self.titleLabel?.font = .pretendard(size: 14, weight: .regular)
         self.setTitleColor(.gray2, for: .normal)
         
         self.semanticContentAttribute = .forceRightToLeft

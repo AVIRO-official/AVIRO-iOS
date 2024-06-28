@@ -33,7 +33,7 @@ final class ReviewWriteButton: UIButton {
         setImage(image?.withTintColor(.gray7), for: .normal)
         
         setTitleColor(.gray7, for: .normal)
-        titleLabel?.font = CFont.font.semibold16
+        titleLabel?.font = .pretendard(size: 16, weight: .semibold)
         
         semanticContentAttribute = .forceLeftToRight
         

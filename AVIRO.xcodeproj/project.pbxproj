@@ -95,6 +95,7 @@
 		C52FA3472A175B20005E70DC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52FA3462A175B20005E70DC /* HomeViewController.swift */; };
 		C52FA34C2A175B20005E70DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C52FA34B2A175B20005E70DC /* Assets.xcassets */; };
 		C52FA34F2A175B20005E70DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C52FA34D2A175B20005E70DC /* LaunchScreen.storyboard */; };
+		C534B14E2C2EABE900C62FDA /* LoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534B14D2C2EABE900C62FDA /* LoginInfo.swift */; };
 		C5351B4D2A19223300116D50 /* KakaoMapRequestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B4C2A19223300116D50 /* KakaoMapRequestAPI.swift */; };
 		C5351B502A19225A00116D50 /* KakaoKeywordPlace+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B4F2A19225A00116D50 /* KakaoKeywordPlace+DTO.swift */; };
 		C5351B542A19A7B100116D50 /* UserCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B532A19A7B100116D50 /* UserCoordinate.swift */; };
@@ -282,13 +283,11 @@
 		C5ED994D2C088E2C0077B2F9 /* AppleAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED994C2C088E2C0077B2F9 /* AppleAuthRepository.swift */; };
 		C5ED994F2C088E340077B2F9 /* AutoLoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED994E2C088E340077B2F9 /* AutoLoginRepository.swift */; };
 		C5ED99512C088E3E0077B2F9 /* UserAccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99502C088E3E0077B2F9 /* UserAccountRepository.swift */; };
-		C5ED995A2C088EE30077B2F9 /* AppleAuthRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99592C088EE30077B2F9 /* AppleAuthRepositoryInterface.swift */; };
-		C5ED995C2C088EEF0077B2F9 /* AutoLoginRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED995B2C088EEF0077B2F9 /* AutoLoginRepositoryInterface.swift */; };
+		C5ED995A2C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99592C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift */; };
 		C5ED995E2C088EFA0077B2F9 /* UserAccountRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED995D2C088EFA0077B2F9 /* UserAccountRepositoryInterface.swift */; };
 		C5ED99602C088FAA0077B2F9 /* UserInfoRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED995F2C088FAA0077B2F9 /* UserInfoRepositoryInterface.swift */; };
 		C5ED99622C088FB50077B2F9 /* UserChallengeRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99612C088FB50077B2F9 /* UserChallengeRepositoryInterface.swift */; };
 		C5ED99642C088FC10077B2F9 /* ChallengeInfoRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99632C088FC10077B2F9 /* ChallengeInfoRepositoryInterface.swift */; };
-		C5ED99662C088FD30077B2F9 /* ReviewManagementRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99652C088FD30077B2F9 /* ReviewManagementRepositoryInterface.swift */; };
 		C5ED99682C088FE60077B2F9 /* StoreOperationHoursRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99672C088FE60077B2F9 /* StoreOperationHoursRepositoryInterface.swift */; };
 		C5ED996A2C0890B30077B2F9 /* StoreReviewRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99692C0890B30077B2F9 /* StoreReviewRepositoryInterface.swift */; };
 		C5ED996C2C0890C30077B2F9 /* StoreMenuRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED996B2C0890C30077B2F9 /* StoreMenuRepositoryInterface.swift */; };
@@ -297,7 +296,7 @@
 		C5ED99722C0891FC0077B2F9 /* BookmarkListRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99712C0891FC0077B2F9 /* BookmarkListRepositoryInterface.swift */; };
 		C5ED99742C0892060077B2F9 /* StoreListRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99732C0892060077B2F9 /* StoreListRepositoryInterface.swift */; };
 		C5ED99762C0892170077B2F9 /* StoreManagementRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99752C0892170077B2F9 /* StoreManagementRepositoryInterface.swift */; };
-		C5ED99782C0892C70077B2F9 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99772C0892C70077B2F9 /* AuthUseCase.swift */; };
+		C5ED99782C0892C70077B2F9 /* SocialLoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99772C0892C70077B2F9 /* SocialLoginUseCase.swift */; };
 		C5ED997A2C0892CF0077B2F9 /* UserInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99792C0892CF0077B2F9 /* UserInfoUseCase.swift */; };
 		C5ED997C2C0892D90077B2F9 /* ChallengeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED997B2C0892D90077B2F9 /* ChallengeUseCase.swift */; };
 		C5ED997E2C0892F80077B2F9 /* ReviewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED997D2C0892F80077B2F9 /* ReviewUseCase.swift */; };
@@ -428,6 +427,7 @@
 		C52FA3462A175B20005E70DC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C52FA34B2A175B20005E70DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C52FA3502A175B20005E70DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C534B14D2C2EABE900C62FDA /* LoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInfo.swift; sourceTree = "<group>"; };
 		C5351B4A2A1919F700116D50 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C5351B4C2A19223300116D50 /* KakaoMapRequestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapRequestAPI.swift; sourceTree = "<group>"; };
 		C5351B4F2A19225A00116D50 /* KakaoKeywordPlace+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KakaoKeywordPlace+DTO.swift"; sourceTree = "<group>"; };
@@ -619,8 +619,7 @@
 		C5ED994C2C088E2C0077B2F9 /* AppleAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthRepository.swift; sourceTree = "<group>"; };
 		C5ED994E2C088E340077B2F9 /* AutoLoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLoginRepository.swift; sourceTree = "<group>"; };
 		C5ED99502C088E3E0077B2F9 /* UserAccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountRepository.swift; sourceTree = "<group>"; };
-		C5ED99592C088EE30077B2F9 /* AppleAuthRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthRepositoryInterface.swift; sourceTree = "<group>"; };
-		C5ED995B2C088EEF0077B2F9 /* AutoLoginRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLoginRepositoryInterface.swift; sourceTree = "<group>"; };
+		C5ED99592C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginRepositoryInterface.swift; sourceTree = "<group>"; };
 		C5ED995D2C088EFA0077B2F9 /* UserAccountRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountRepositoryInterface.swift; sourceTree = "<group>"; };
 		C5ED995F2C088FAA0077B2F9 /* UserInfoRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRepositoryInterface.swift; sourceTree = "<group>"; };
 		C5ED99612C088FB50077B2F9 /* UserChallengeRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChallengeRepositoryInterface.swift; sourceTree = "<group>"; };
@@ -634,7 +633,7 @@
 		C5ED99712C0891FC0077B2F9 /* BookmarkListRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListRepositoryInterface.swift; sourceTree = "<group>"; };
 		C5ED99732C0892060077B2F9 /* StoreListRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreListRepositoryInterface.swift; sourceTree = "<group>"; };
 		C5ED99752C0892170077B2F9 /* StoreManagementRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManagementRepositoryInterface.swift; sourceTree = "<group>"; };
-		C5ED99772C0892C70077B2F9 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
+		C5ED99772C0892C70077B2F9 /* SocialLoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginUseCase.swift; sourceTree = "<group>"; };
 		C5ED99792C0892CF0077B2F9 /* UserInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoUseCase.swift; sourceTree = "<group>"; };
 		C5ED997B2C0892D90077B2F9 /* ChallengeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeUseCase.swift; sourceTree = "<group>"; };
 		C5ED997D2C0892F80077B2F9 /* ReviewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewUseCase.swift; sourceTree = "<group>"; };
@@ -1038,6 +1037,14 @@
 				C5BA9E152BED256F004FA06E /* Common */,
 			);
 			path = AVIRO;
+			sourceTree = "<group>";
+		};
+		C534B14C2C2EABD300C62FDA /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C534B14D2C2EABE900C62FDA /* LoginInfo.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		C5351B4E2A19223600116D50 /* KakaoMapManager */ = {
@@ -1915,7 +1922,7 @@
 				C5ED997D2C0892F80077B2F9 /* ReviewUseCase.swift */,
 				C5ED997B2C0892D90077B2F9 /* ChallengeUseCase.swift */,
 				C5ED99792C0892CF0077B2F9 /* UserInfoUseCase.swift */,
-				C5ED99772C0892C70077B2F9 /* AuthUseCase.swift */,
+				C5ED99772C0892C70077B2F9 /* SocialLoginUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1929,7 +1936,7 @@
 				C5ED99552C088E9D0077B2F9 /* ReviewRepositoryInterfaces */,
 				C5ED99542C088E950077B2F9 /* ChallengeRepositoryInterfaces */,
 				C5ED99532C088E880077B2F9 /* UserInfoRepositoryInterfaces */,
-				C5ED99522C088E690077B2F9 /* AuthRepositoryInterfaces */,
+				C5ED99522C088E690077B2F9 /* SocialLoginRepositoryInterfaces */,
 			);
 			path = RepositoryInterfaces;
 			sourceTree = "<group>";
@@ -1937,6 +1944,7 @@
 		C5BA9E072BED1CF8004FA06E /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				C534B14C2C2EABD300C62FDA /* User */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -2427,14 +2435,13 @@
 			path = Targets;
 			sourceTree = "<group>";
 		};
-		C5ED99522C088E690077B2F9 /* AuthRepositoryInterfaces */ = {
+		C5ED99522C088E690077B2F9 /* SocialLoginRepositoryInterfaces */ = {
 			isa = PBXGroup;
 			children = (
-				C5ED99592C088EE30077B2F9 /* AppleAuthRepositoryInterface.swift */,
-				C5ED995B2C088EEF0077B2F9 /* AutoLoginRepositoryInterface.swift */,
+				C5ED99592C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift */,
 				C5ED995D2C088EFA0077B2F9 /* UserAccountRepositoryInterface.swift */,
 			);
-			path = AuthRepositoryInterfaces;
+			path = SocialLoginRepositoryInterfaces;
 			sourceTree = "<group>";
 		};
 		C5ED99532C088E880077B2F9 /* UserInfoRepositoryInterfaces */ = {
@@ -2942,7 +2949,6 @@
 				C5F1014F2A6D19A800C53286 /* VeganOptionButton.swift in Sources */,
 				C505C1DD2B3ACCC40058F115 /* AVIROChallengeInfoResult+DTO.swift in Sources */,
 				C52066292A7CD5FC0038ECCD /* HistoryTableModel.swift in Sources */,
-				C5ED995C2C088EEF0077B2F9 /* AutoLoginRepositoryInterface.swift in Sources */,
 				C5FD92EB2A9C786600CF4673 /* PublicAPIRequestComponents.swift in Sources */,
 				C58C49C82AC9B67600DE04B7 /* AppleUserLoginModel.swift in Sources */,
 				C5BA9E172BED2585004FA06E /* printIfDebug.swift in Sources */,
@@ -2969,7 +2975,7 @@
 				C5ED99512C088E3E0077B2F9 /* UserAccountRepository.swift in Sources */,
 				C51000382AB5F3BD00F65C1F /* UIFont+Extension.swift in Sources */,
 				C56295072B3188530067BBE5 /* ReviewWriteViewController.swift in Sources */,
-				C5ED995A2C088EE30077B2F9 /* AppleAuthRepositoryInterface.swift in Sources */,
+				C5ED995A2C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift in Sources */,
 				C5476B7B2B31516000F5FC6E /* LicenseDetailViewController.swift in Sources */,
 				C5FBDA602B398280007AC77E /* ChallengeInfoOrangeView.swift in Sources */,
 				C5FA0EAA2A94DB3E004AD8B4 /* ReportReviewViewController.swift in Sources */,
@@ -3023,7 +3029,7 @@
 				C50F6AF32A68FD0A00E942F5 /* EnrollPlaceViewController.swift in Sources */,
 				C5ED99472C088E0F0077B2F9 /* ChallengeInfoRepository.swift in Sources */,
 				C5732C7E2A41D42700CDC499 /* RequestTableFieldModel.swift in Sources */,
-				C5ED99782C0892C70077B2F9 /* AuthUseCase.swift in Sources */,
+				C5ED99782C0892C70077B2F9 /* SocialLoginUseCase.swift in Sources */,
 				C5C961982A8DA5880016E2F8 /* EditInfoButton.swift in Sources */,
 				C5476B682B303BE800F5FC6E /* MyInfoView.swift in Sources */,
 				C5A989972A959D920021B7C3 /* AVIROUpdateBookmark+DTO.swift in Sources */,
@@ -3127,6 +3133,7 @@
 				C51AED1D2A8A192D0015FBC2 /* ChangedViewAction+HomeViewController.swift in Sources */,
 				C5ED99452C088E000077B2F9 /* ReviewManagementRepository.swift in Sources */,
 				C51B09BC2A82397800916BBD /* Marker+Extension.swift in Sources */,
+				C534B14E2C2EABE900C62FDA /* LoginInfo.swift in Sources */,
 				C53C54D22AD67E8800C3662A /* MarkerModelLocalDB.swift in Sources */,
 				C58FBF922AC2D87300AB6EFC /* KakaoAPIManagerProtocol.swift in Sources */,
 				C528E4BE2A5FB816002BD72E /* TermsTableCell.swift in Sources */,

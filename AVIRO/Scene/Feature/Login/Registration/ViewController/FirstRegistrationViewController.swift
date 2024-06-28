@@ -42,7 +42,7 @@ final class FirstRegistrationViewController: UIViewController {
         let label = UILabel()
         
         label.text = Text.title.rawValue
-        label.font = CFont.font.bold24
+        label.font = .pretendard(size: 24, weight: .bold)
         label.textColor = .main
         label.numberOfLines = 2
         
@@ -53,7 +53,7 @@ final class FirstRegistrationViewController: UIViewController {
         let label = UILabel()
         
         label.text = Text.subtitle.rawValue
-        label.font = CFont.font.regular14
+        label.font = .pretendard(size: 14, weight: .regular)
         label.textColor = .gray1
         
         return label
@@ -73,7 +73,7 @@ final class FirstRegistrationViewController: UIViewController {
         let label = UILabel()
         
         label.text = Text.subInfo.rawValue
-        label.font = CFont.font.regular13
+        label.font = .pretendard(size: 13, weight: .regular)
         label.numberOfLines = 2
         label.lineBreakMode = .byCharWrapping
         label.textColor = .gray2
@@ -85,7 +85,7 @@ final class FirstRegistrationViewController: UIViewController {
         let label = UILabel()
         
         label.text = Text.subInfo2.rawValue
-        label.font =  CFont.font.regular13
+        label.font = .pretendard(size: 13, weight: .regular)
         label.textColor = .gray2
         label.textAlignment = .right
         
