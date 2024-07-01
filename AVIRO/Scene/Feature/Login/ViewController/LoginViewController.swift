@@ -33,57 +33,22 @@ final class LoginViewController: UIViewController {
     lazy var presenter = LoginViewPresenter(viewController: self)
         
     // MARK: UI Property Definitions
-    private lazy var topImageView: UIImageView = {
+    private lazy var titleImageView: UIImageView = {
         let imageView = UIImageView()
-        
-        imageView.image = UIImage.launchtitle
-        imageView.clipsToBounds = false
+       
+        imageView.image = .aviroReverse
         
         return imageView
     }()
     
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        
-        let text = "가장 쉬운\n비건 맛집 찾기\n어비로"
-        
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 2
-        
-        let normalAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.pretendard(size: 45, weight: .medium),
-            .foregroundColor: UIColor.loginTitleColor,
-            .paragraphStyle: paragraphStyle
-        ]
-        
-        let attributedString = NSMutableAttributedString(string: text, attributes: normalAttributes)
-        
-        let heavyAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.pretendard(size: 45, weight: .heavy),
-            .foregroundColor: UIColor.main,
-            .paragraphStyle: paragraphStyle
-        ]
-        
-        if let range = text.range(of: "어비로") {
-            attributedString.addAttributes(heavyAttributes, range: NSRange(range, in: text))
-        }
-        
-        label.attributedText = attributedString
-        label.textAlignment = .left
-        label.numberOfLines = 3
-        
-        return label
-    }()
-    
-    private lazy var mainImageView: UIImageView = {
+    private lazy var berryMapImageView: UIImageView = {
         let imageView = UIImageView()
         
-        imageView.image = UIImage.loginCharacter
-        imageView.clipsToBounds = false
+        imageView.image = .berryMap
         
         return imageView
     }()
-        
+
     private lazy var naverButton: LoginButton = {
         let btn = LoginButton()
         
@@ -182,9 +147,8 @@ extension LoginViewController: LoginViewProtocol {
         }
         
         [
-            topImageView,
-            titleLabel,
-            mainImageView,
+            titleImageView,
+            berryMapImageView,
             loginButtonStackView,
             blurEffectView,
             indicatorView
@@ -194,14 +158,11 @@ extension LoginViewController: LoginViewProtocol {
         }
         
         NSLayoutConstraint.activate([
-            topImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 23),
-            topImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 38),
+            titleImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            titleImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 30),
             
-            titleLabel.topAnchor.constraint(equalTo: topImageView.bottomAnchor, constant: 15),
-            titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 37),
-            
-            mainImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -35),
-            mainImageView.bottomAnchor.constraint(equalTo: loginButtonStackView.topAnchor, constant: -20),
+            berryMapImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            berryMapImageView.bottomAnchor.constraint(equalTo: loginButtonStackView.topAnchor, constant: -45),
             
             loginButtonStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 26.5),
             loginButtonStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -26.5),
