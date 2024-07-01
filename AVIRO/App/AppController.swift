@@ -31,9 +31,8 @@ final class AppController {
         self.window = window
         window.backgroundColor = .gray7
 
-        setTabBarView()
-//        checkState()
-
+//        setTabBarView()
+        checkState()
     }
     
     func setupLoginViewAfterLogout(in window: UIWindow, with type: LoginViewToastType) {

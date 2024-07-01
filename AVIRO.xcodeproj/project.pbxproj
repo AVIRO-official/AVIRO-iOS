@@ -96,6 +96,7 @@
 		C52FA34C2A175B20005E70DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C52FA34B2A175B20005E70DC /* Assets.xcassets */; };
 		C52FA34F2A175B20005E70DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C52FA34D2A175B20005E70DC /* LaunchScreen.storyboard */; };
 		C534B14E2C2EABE900C62FDA /* LoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534B14D2C2EABE900C62FDA /* LoginInfo.swift */; };
+		C534B1522C32662A00C62FDA /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534B1512C32662A00C62FDA /* LoginButton.swift */; };
 		C5351B4D2A19223300116D50 /* KakaoMapRequestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B4C2A19223300116D50 /* KakaoMapRequestAPI.swift */; };
 		C5351B502A19225A00116D50 /* KakaoKeywordPlace+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B4F2A19225A00116D50 /* KakaoKeywordPlace+DTO.swift */; };
 		C5351B542A19A7B100116D50 /* UserCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B532A19A7B100116D50 /* UserCoordinate.swift */; };
@@ -428,6 +429,7 @@
 		C52FA34B2A175B20005E70DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C52FA3502A175B20005E70DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C534B14D2C2EABE900C62FDA /* LoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInfo.swift; sourceTree = "<group>"; };
+		C534B1512C32662A00C62FDA /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		C5351B4A2A1919F700116D50 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C5351B4C2A19223300116D50 /* KakaoMapRequestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapRequestAPI.swift; sourceTree = "<group>"; };
 		C5351B4F2A19225A00116D50 /* KakaoKeywordPlace+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KakaoKeywordPlace+DTO.swift"; sourceTree = "<group>"; };
@@ -1216,6 +1218,7 @@
 			isa = PBXGroup;
 			children = (
 				C5A3C3C32A39658A0050AB3D /* LoginViewController.swift */,
+				C534B1512C32662A00C62FDA /* LoginButton.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2967,6 +2970,7 @@
 				C52FA3472A175B20005E70DC /* HomeViewController.swift in Sources */,
 				C5503B5C2B9F54C20050643F /* WelcomeCollectionViewCell.swift in Sources */,
 				C5FD92E32A9C6C1E00CF4673 /* EditLocationAddressTextTableViewCell.swift in Sources */,
+				C534B1522C32662A00C62FDA /* LoginButton.swift in Sources */,
 				C54BC0DB2A2C2D0D00B65439 /* UIColor+Extension.swift in Sources */,
 				C52FA3432A175B20005E70DC /* AppDelegate.swift in Sources */,
 				C5BA9DCF2BE8ABA8004FA06E /* NetworkConfigurable.swift in Sources */,

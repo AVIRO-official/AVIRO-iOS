@@ -84,36 +84,61 @@ final class LoginViewController: UIViewController {
         return imageView
     }()
         
-    private lazy var appleLoginButton: UIButton = {
-        let button = UIButton()
+    private lazy var naverButton: LoginButton = {
+        let btn = LoginButton()
         
-        button.setTitle(Text.apple.rawValue, for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.setImage(UIImage.apple, for: .normal)
+        btn.setButtonStyle(type: .naver)
+        btn.didTappedButton = { [weak self] in
+            print("naver")
+        }
         
-        button.imageEdgeInsets = UIEdgeInsets(
-            top: 0,
-            left: -8,
-            bottom: 0,
-            right: 0
-        )
-        button.titleLabel?.font = .pretendard(size: 17, weight: .medium)
-        
-        button.layer.borderColor = UIColor.black.cgColor
-        button.layer.borderWidth = 2
-        button.layer.cornerRadius = 26
-        button.clipsToBounds = true
-        button.backgroundColor = .black
-        
-        button.addTarget(
-            self,
-            action: #selector(tapAppleLogin),
-            for: .touchUpInside
-        )
-        
-        return button
+        return btn
     }()
     
+    private lazy var kakaoButton: LoginButton = {
+        let btn = LoginButton()
+        
+        btn.setButtonStyle(type: .kakao)
+        btn.didTappedButton = { [weak self] in
+            print("kakao")
+        }
+
+        return btn
+    }()
+    
+    private lazy var googleButton: LoginButton = {
+        let btn = LoginButton()
+      
+        btn.setButtonStyle(type: .google)
+        btn.didTappedButton = { [weak self] in
+            print("google")
+        }
+
+        return btn
+    }()
+    
+    private lazy var appleButton: LoginButton = {
+        let btn = LoginButton()
+        
+        btn.setButtonStyle(type: .apple)
+        btn.didTappedButton = { [weak self] in
+            print("apple")
+        }
+
+        return btn
+    }()
+    
+    private lazy var loginButtonStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        
+        return stackView
+    }()
+
     private lazy var indicatorView: UIActivityIndicatorView = {
         let indicatorView = UIActivityIndicatorView()
         
@@ -145,10 +170,22 @@ extension LoginViewController: LoginViewProtocol {
     // MARK: Set up func
     func setupLayout() {
         [
+            naverButton,
+            kakaoButton,
+            googleButton,
+            appleButton
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.heightAnchor.constraint(equalToConstant: 50).isActive = true
+            
+            loginButtonStackView.addArrangedSubview($0)
+        }
+        
+        [
             topImageView,
             titleLabel,
             mainImageView,
-            appleLoginButton,
+            loginButtonStackView,
             blurEffectView,
             indicatorView
         ].forEach {
@@ -164,23 +201,11 @@ extension LoginViewController: LoginViewProtocol {
             titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 37),
             
             mainImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -35),
-            mainImageView.bottomAnchor.constraint(equalTo: appleLoginButton.topAnchor, constant: -20),
+            mainImageView.bottomAnchor.constraint(equalTo: loginButtonStackView.topAnchor, constant: -20),
             
-            appleLoginButton.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                constant: -Layout.Margin.appleToBottom.rawValue
-            ),
-            appleLoginButton.leadingAnchor.constraint(
-                equalTo: self.view.leadingAnchor,
-                constant: Layout.Margin.buttonH.rawValue
-            ),
-            appleLoginButton.trailingAnchor.constraint(
-                equalTo: self.view.trailingAnchor,
-                constant: -Layout.Margin.buttonH.rawValue
-            ),
-            appleLoginButton.heightAnchor.constraint(
-                equalToConstant: Layout.Size.buttonHeight.rawValue
-            ),
+            loginButtonStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 26.5),
+            loginButtonStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -26.5),
+            loginButtonStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
             
             indicatorView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             indicatorView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
