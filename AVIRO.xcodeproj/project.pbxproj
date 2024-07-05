@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -210,6 +210,9 @@
 		C5BA9E142BED2244004FA06E /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E132BED2244004FA06E /* BaseCoordinator.swift */; };
 		C5BA9E172BED2585004FA06E /* printIfDebug.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E162BED2585004FA06E /* printIfDebug.swift */; };
 		C5BA9E192BED25D2004FA06E /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E182BED25D2004FA06E /* DIContainer.swift */; };
+		C5C1786D2C37B2E700B774AE /* GoogleAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C1786C2C37B2E700B774AE /* GoogleAuthRepository.swift */; };
+		C5C1786F2C37B30500B774AE /* KakaoAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C1786E2C37B30500B774AE /* KakaoAuthRepository.swift */; };
+		C5C178712C37B30E00B774AE /* NaverAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C178702C37B30E00B774AE /* NaverAuthRepository.swift */; };
 		C5C20BAC2AD504D500855BBB /* AmplitudeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BAB2AD504D500855BBB /* AmplitudeUtility.swift */; };
 		C5C290742A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C290732A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift */; };
 		C5C290772A85E4FF00ED5DCE /* PlaceHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C290762A85E4FF00ED5DCE /* PlaceHomeView.swift */; };
@@ -282,7 +285,6 @@
 		C5ED99492C088E1B0077B2F9 /* UserChallengeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99482C088E1B0077B2F9 /* UserChallengeRepository.swift */; };
 		C5ED994B2C088E240077B2F9 /* UserInfoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED994A2C088E240077B2F9 /* UserInfoRepository.swift */; };
 		C5ED994D2C088E2C0077B2F9 /* AppleAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED994C2C088E2C0077B2F9 /* AppleAuthRepository.swift */; };
-		C5ED994F2C088E340077B2F9 /* AutoLoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED994E2C088E340077B2F9 /* AutoLoginRepository.swift */; };
 		C5ED99512C088E3E0077B2F9 /* UserAccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99502C088E3E0077B2F9 /* UserAccountRepository.swift */; };
 		C5ED995A2C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99592C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift */; };
 		C5ED995E2C088EFA0077B2F9 /* UserAccountRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED995D2C088EFA0077B2F9 /* UserAccountRepositoryInterface.swift */; };
@@ -547,6 +549,9 @@
 		C5BA9E132BED2244004FA06E /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		C5BA9E162BED2585004FA06E /* printIfDebug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = printIfDebug.swift; sourceTree = "<group>"; };
 		C5BA9E182BED25D2004FA06E /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		C5C1786C2C37B2E700B774AE /* GoogleAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthRepository.swift; sourceTree = "<group>"; };
+		C5C1786E2C37B30500B774AE /* KakaoAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthRepository.swift; sourceTree = "<group>"; };
+		C5C178702C37B30E00B774AE /* NaverAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAuthRepository.swift; sourceTree = "<group>"; };
 		C5C20BAB2AD504D500855BBB /* AmplitudeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeUtility.swift; sourceTree = "<group>"; };
 		C5C290732A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSegmentedControlView.swift; sourceTree = "<group>"; };
 		C5C290762A85E4FF00ED5DCE /* PlaceHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHomeView.swift; sourceTree = "<group>"; };
@@ -619,7 +624,6 @@
 		C5ED99482C088E1B0077B2F9 /* UserChallengeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChallengeRepository.swift; sourceTree = "<group>"; };
 		C5ED994A2C088E240077B2F9 /* UserInfoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRepository.swift; sourceTree = "<group>"; };
 		C5ED994C2C088E2C0077B2F9 /* AppleAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthRepository.swift; sourceTree = "<group>"; };
-		C5ED994E2C088E340077B2F9 /* AutoLoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLoginRepository.swift; sourceTree = "<group>"; };
 		C5ED99502C088E3E0077B2F9 /* UserAccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountRepository.swift; sourceTree = "<group>"; };
 		C5ED99592C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginRepositoryInterface.swift; sourceTree = "<group>"; };
 		C5ED995D2C088EFA0077B2F9 /* UserAccountRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountRepositoryInterface.swift; sourceTree = "<group>"; };
@@ -2333,8 +2337,9 @@
 			isa = PBXGroup;
 			children = (
 				C5ED994C2C088E2C0077B2F9 /* AppleAuthRepository.swift */,
-				C5ED994E2C088E340077B2F9 /* AutoLoginRepository.swift */,
-				C5ED99502C088E3E0077B2F9 /* UserAccountRepository.swift */,
+				C5C1786C2C37B2E700B774AE /* GoogleAuthRepository.swift */,
+				C5C1786E2C37B30500B774AE /* KakaoAuthRepository.swift */,
+				C5C178702C37B30E00B774AE /* NaverAuthRepository.swift */,
 			);
 			path = AuthRepositories;
 			sourceTree = "<group>";
@@ -2342,6 +2347,7 @@
 		C5ED99282C08804E0077B2F9 /* UserInfoRepositories */ = {
 			isa = PBXGroup;
 			children = (
+				C5ED99502C088E3E0077B2F9 /* UserAccountRepository.swift */,
 				C5ED994A2C088E240077B2F9 /* UserInfoRepository.swift */,
 			);
 			path = UserInfoRepositories;
@@ -2776,7 +2782,7 @@
 				};
 			};
 			buildConfigurationList = C52FA33A2A175B20005E70DC /* Build configuration list for PBXProject "AVIRO" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -2928,6 +2934,7 @@
 				C5ED46932AAEB02F00F2DA04 /* PlaceOperationHoursViewController.swift in Sources */,
 				C5732C752A41962D00CDC499 /* AVIRORequestAPI.swift in Sources */,
 				C562B6DC2B38704600CE5D4C /* ChallengeViewModel.swift in Sources */,
+				C5C178712C37B30E00B774AE /* NaverAuthRepository.swift in Sources */,
 				C5C20BAC2AD504D500855BBB /* AmplitudeUtility.swift in Sources */,
 				C513854C2AAB3B52001AB827 /* NickNameChangeblePresenter.swift in Sources */,
 				C5D93DA12A581F5A00629C39 /* FirstRegistrationPresenter.swift in Sources */,
@@ -2986,6 +2993,7 @@
 				C5C90EBD2AA85E7000AB3668 /* AVIROOperationHours+DTO.swift in Sources */,
 				C5F33DFD2ADED19000A29FB9 /* SystemUtility.swift in Sources */,
 				C513854E2AAD8E9F001AB827 /* AVIROReportPlace+DTO.swift in Sources */,
+				C5C1786F2C37B30500B774AE /* KakaoAuthRepository.swift in Sources */,
 				C5ED996A2C0890B30077B2F9 /* StoreReviewRepositoryInterface.swift in Sources */,
 				C520663C2A80C0450038ECCD /* CenterCoordinate.swift in Sources */,
 				C58EC7D22AB1B5AD00401FF7 /* AVIROEditPhone+DTO.swift in Sources */,
@@ -3040,7 +3048,6 @@
 				C5E7B7A92A4D3CDF00CA2090 /* AVIROUser+DTO.swift in Sources */,
 				C5A201C32A98A61F00A54381 /* EditLocationBottomView.swift in Sources */,
 				C5DCBC8B2B91CEE8003502BA /* AVIROMyCommentList+DTO.swift in Sources */,
-				C5ED994F2C088E340077B2F9 /* AutoLoginRepository.swift in Sources */,
 				C52066232A7CAC910038ECCD /* NoHistoryView.swift in Sources */,
 				C5E306E72A6FB4ED00C11CF7 /* MenuField.swift in Sources */,
 				C5ED46982AAEEFB600F2DA04 /* OperationHoursView.swift in Sources */,
@@ -3189,6 +3196,7 @@
 				C5FD92F72A9CDB9300CF4673 /* EditMenuTopView.swift in Sources */,
 				C5ED994D2C088E2C0077B2F9 /* AppleAuthRepository.swift in Sources */,
 				C56857822A7113CF00F52715 /* RequestTableViewCell.swift in Sources */,
+				C5C1786D2C37B2E700B774AE /* GoogleAuthRepository.swift in Sources */,
 				C52CD2DD2BCA5C310031671B /* BlurEffectView.swift in Sources */,
 				C5C2907B2A85E51B00ED5DCE /* PlaceReviewsView.swift in Sources */,
 				C5BA9DC92BE8AB8F004FA06E /* DataTransferService.swift in Sources */,
@@ -3381,6 +3389,7 @@
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "어비로";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -3418,6 +3427,7 @@
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "어비로";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

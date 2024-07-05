@@ -32,8 +32,14 @@ final class LoginViewPresenter: NSObject {
     var whenAfterLogout = false
     var whenAfterWithdrawal = false
     
-    init(viewController: LoginViewProtocol
+    private let socialLoginUseCase: SocialLoginUseCaseInterface!
+    
+    init(
+        socialLoginUseCase: SocialLoginUseCaseInterface,
+        viewController: LoginViewProtocol
     ) {
+        self.socialLoginUseCase = socialLoginUseCase
+        
         self.viewController = viewController
     }
     
@@ -153,6 +159,10 @@ final class LoginViewPresenter: NSObject {
                 }
             }
         }
+    }
+    
+    func loadURL(type: LoginType) {
+        socialLoginUseCase.loadURL(type: type)
     }
 }
 

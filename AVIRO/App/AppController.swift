@@ -96,8 +96,21 @@ final class AppController {
     
     // MARK: login View
     private func setLoginView(type: LoginViewToastType = .none) {
+        let container = DIContainer.shared
+        
+        let socialLoginUsecase = SocialLoginUseCase(
+            appleLoginRepository: container.resolve(AppleAuthRepository.self)!,
+            googleLoginRepository: container.resolve(GoogleAuthRepository.self)!,
+            kakaoLoginRepository: container.resolve(KakaoAuthRepository.self)!,
+            naverLoginRepository: container.resolve(NaverAuthRepository.self)!
+        )
+        
         let loginVC = LoginViewController()
-        let presenter = LoginViewPresenter(viewController: loginVC)
+        let presenter = LoginViewPresenter(
+            socialLoginUseCase: socialLoginUsecase,
+            viewController: loginVC
+        )
+        
         loginVC.presenter = presenter
         
         switch type {

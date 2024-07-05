@@ -1,17 +1,17 @@
 //
-//  AppleAuthRepository.swift
+//  GoogleAuthRepository.swift
 //  AVIRO
 //
-//  Created by 전성훈 on 5/30/24.
+//  Created by 전성훈 on 7/5/24.
 //
 
 import Foundation
 
-final class AppleAuthRepository {
+final class GoogleAuthRepository {
     init() { }
 }
 
-extension AppleAuthRepository: AppleAuthRepositoryInterface {
+extension GoogleAuthRepository: GoogleAuthRepositoryInterface {
     func login(completion: @escaping (Result<String, Error>) -> Void) {
         
     }

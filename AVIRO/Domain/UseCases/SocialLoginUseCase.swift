@@ -8,21 +8,22 @@
 import Foundation
 
 protocol SocialLoginUseCaseInterface: AnyObject {
+    func loadURL(type: LoginType)
     func login(type: LoginType, completion: @escaping (Result<String, Error>) -> Void)
     func logout(type: LoginType, completion: @escaping (Result<String, Error>) -> Void)
 }
 
 final class SocialLoginUseCase {
-    private let appleLoginRepository: SocialLoginRepositoryInterface
-    private let googleLoginRepository: SocialLoginRepositoryInterface
-    private let kakaoLoginRepository: SocialLoginRepositoryInterface
-    private let naverLoginRepository: SocialLoginRepositoryInterface
+    private let appleLoginRepository: AppleAuthRepositoryInterface
+    private let googleLoginRepository: GoogleAuthRepositoryInterface
+    private let kakaoLoginRepository: KakaoAuthRepositoryInterface
+    private let naverLoginRepository: NaverAuthRepositoryInterface
     
     init(
-        appleLoginRepository: SocialLoginRepositoryInterface,
-        googleLoginRepository: SocialLoginRepositoryInterface,
-        kakaoLoginRepository: SocialLoginRepositoryInterface,
-        naverLoginRepository: SocialLoginRepositoryInterface
+        appleLoginRepository: AppleAuthRepositoryInterface,
+        googleLoginRepository: GoogleAuthRepositoryInterface,
+        kakaoLoginRepository: KakaoAuthRepositoryInterface,
+        naverLoginRepository: NaverAuthRepositoryInterface
     ) {
         self.appleLoginRepository = appleLoginRepository
         self.googleLoginRepository = googleLoginRepository
@@ -32,6 +33,19 @@ final class SocialLoginUseCase {
 }
 
 extension SocialLoginUseCase: SocialLoginUseCaseInterface {
+    func loadURL(type: LoginType) {
+        switch type {
+        case .apple:
+            break
+        case .google:
+            break
+        case .kakao:
+            break
+        case .naver:
+            naverLoginRepository.loadNaverApp()
+        }
+    }
+    
     func login(
         type: LoginType,
         completion: @escaping (Result<String, Error>) -> Void

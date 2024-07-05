@@ -30,8 +30,8 @@ private enum Layout {
 }
 
 final class LoginViewController: UIViewController {
-    lazy var presenter = LoginViewPresenter(viewController: self)
-        
+    var presenter: LoginViewPresenter!
+    
     // MARK: UI Property Definitions
     private lazy var titleImageView: UIImageView = {
         let imageView = UIImageView()
@@ -51,10 +51,11 @@ final class LoginViewController: UIViewController {
 
     private lazy var naverButton: LoginButton = {
         let btn = LoginButton()
-        
+
         btn.setButtonStyle(type: .naver)
         btn.didTappedButton = { [weak self] in
-            print("naver")
+            // TODO: 함수 위치 변경하기
+            self?.presenter.loadURL(type: .naver)
         }
         
         return btn

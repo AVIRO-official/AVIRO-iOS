@@ -8,6 +8,8 @@
 import Foundation
 
 final class DIContainer {
+    static let shared = DIContainer()
+    
     private var dependencies: [String: AnyObject] = [:]
     
     private init() { }

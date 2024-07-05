@@ -1,19 +1,19 @@
 //
-//  AppleAuthRepository.swift
+//  KakaoAuthRepository.swift
 //  AVIRO
 //
-//  Created by 전성훈 on 5/30/24.
+//  Created by 전성훈 on 7/5/24.
 //
 
 import Foundation
 
-final class AppleAuthRepository {
+final class KakaoAuthRepository {
     init() { }
 }
 
-extension AppleAuthRepository: AppleAuthRepositoryInterface {
+extension KakaoAuthRepository: KakaoAuthRepositoryInterface {
     func login(completion: @escaping (Result<String, Error>) -> Void) {
-        
+    
     }
     
     func logout(completion: @escaping (Result<String, Error>) -> Void) {
