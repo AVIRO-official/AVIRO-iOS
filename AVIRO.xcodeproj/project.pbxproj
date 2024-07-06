@@ -143,6 +143,9 @@
 		C562B6E22B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */; };
 		C562B6E42B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */; };
 		C564DAB32BA57240002174B4 /* AVIROWellcome+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C564DAB22BA57240002174B4 /* AVIROWellcome+DTO.swift */; };
+		C566EF622C398EC6009E58DD /* AuthAPIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566EF612C398EC6009E58DD /* AuthAPIEndpoints.swift */; };
+		C566EF652C39931B009E58DD /* RepositoryTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566EF642C39931B009E58DD /* RepositoryTask.swift */; };
+		C566EF672C399333009E58DD /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566EF662C399333009E58DD /* Cancellable.swift */; };
 		C567C1502A56611500D4B426 /* TopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C567C14F2A56611500D4B426 /* TopCell.swift */; };
 		C568577D2A70E1F600F52715 /* MenuPlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568577C2A70E1F600F52715 /* MenuPlusButton.swift */; };
 		C56857802A7113C600F52715 /* NormalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568577F2A7113C600F52715 /* NormalTableViewCell.swift */; };
@@ -481,6 +484,9 @@
 		C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoPresentationAnimator.swift; sourceTree = "<group>"; };
 		C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoPresentaionDelegate.swift; sourceTree = "<group>"; };
 		C564DAB22BA57240002174B4 /* AVIROWellcome+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROWellcome+DTO.swift"; sourceTree = "<group>"; };
+		C566EF612C398EC6009E58DD /* AuthAPIEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPIEndpoints.swift; sourceTree = "<group>"; };
+		C566EF642C39931B009E58DD /* RepositoryTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTask.swift; sourceTree = "<group>"; };
+		C566EF662C399333009E58DD /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		C567C14F2A56611500D4B426 /* TopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCell.swift; sourceTree = "<group>"; };
 		C568577C2A70E1F600F52715 /* MenuPlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPlusButton.swift; sourceTree = "<group>"; };
 		C568577F2A7113C600F52715 /* NormalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalTableViewCell.swift; sourceTree = "<group>"; };
@@ -1527,6 +1533,14 @@
 			path = ETC;
 			sourceTree = "<group>";
 		};
+		C566EF632C39930D009E58DD /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C566EF642C39931B009E58DD /* RepositoryTask.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		C567C14D2A5658C700D4B426 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -1909,6 +1923,7 @@
 		C5BA9E042BED1CD2004FA06E /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				C566EF632C39930D009E58DD /* Utils */,
 				C5ED992D2C0880800077B2F9 /* StoreListRepositories */,
 				C5ED992C2C08807A0077B2F9 /* BookmarkListRepositories */,
 				C5ED992B2C0880710077B2F9 /* StoreRepositories */,
@@ -2001,6 +2016,7 @@
 			isa = PBXGroup;
 			children = (
 				C5BA9E162BED2585004FA06E /* printIfDebug.swift */,
+				C566EF662C399333009E58DD /* Cancellable.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2636,6 +2652,7 @@
 		C5ED99952C0894860077B2F9 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				C566EF612C398EC6009E58DD /* AuthAPIEndpoints.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -2950,6 +2967,8 @@
 				C5C915492A777F8500C7CB93 /* SearchField.swift in Sources */,
 				C52066212A7CA9050038ECCD /* MainField.swift in Sources */,
 				C5ED99622C088FB50077B2F9 /* UserChallengeRepositoryInterface.swift in Sources */,
+				C566EF652C39931B009E58DD /* RepositoryTask.swift in Sources */,
+				C566EF622C398EC6009E58DD /* AuthAPIEndpoints.swift in Sources */,
 				C5EB510B2A209FD300B29CC1 /* HomeSearchPresenter.swift in Sources */,
 				C5DBF8412B3A787800668B0D /* CGFloat+Extension.swift in Sources */,
 				C52066262A7CC3CE0038ECCD /* NoHistoryLabelView.swift in Sources */,
@@ -2971,6 +2990,7 @@
 				C50DB7572A9B8DF80078B501 /* EditLocationAddressTextView.swift in Sources */,
 				C595ACD12A84A4EB00D35123 /* PlaceSummaryView.swift in Sources */,
 				C520663A2A808DC40038ECCD /* PlaceListHeaderView.swift in Sources */,
+				C566EF672C399333009E58DD /* Cancellable.swift in Sources */,
 				C52066382A808DAD0038ECCD /* HistoryHeaderView.swift in Sources */,
 				C5ED99842C0893210077B2F9 /* StoreListUseCase.swift in Sources */,
 				C5C290742A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift in Sources */,

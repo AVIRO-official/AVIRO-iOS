@@ -50,7 +50,17 @@ extension SocialLoginUseCase: SocialLoginUseCaseInterface {
         type: LoginType,
         completion: @escaping (Result<String, Error>) -> Void
     ) {
-        
+        switch type {
+        case .apple:
+            break
+        case .google:
+            break
+        case .kakao:
+            break
+        case .naver:
+            naverLoginRepository.login(completion: { result in
+            })
+        }
     }
     
     func logout(

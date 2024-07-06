@@ -9,10 +9,27 @@ import Foundation
 
 import NaverThirdPartyLogin
 
-final class NaverAuthRepository {
-    let instance = NaverThirdPartyLoginConnection.getSharedInstance()
+final class NaverAuthRepository: NSObject {
+//    private let aviroDataTransferService: DataTransferService
+    private let naverDataTransferService: DataTransferService
+    private let instance = NaverThirdPartyLoginConnection.getSharedInstance()
+    private let backgroundQueue: DataTransferDispatchQueue
     
-    init() { 
+    init(
+//        dataTransferService: DataTransferService,
+        backgroundQueue: DataTransferDispatchQueue = DispatchQueue.global(qos: .userInitiated)
+    ) {
+        self.backgroundQueue = backgroundQueue
+        
+        let urlStr = "https://openapi.naver.com/"
+        let url = URL(string: urlStr)!
+        let naverAPIConfig = APIDataNetworkConfig(baseURL: url)
+        
+//        self.aviroDataTransferService = dataTransferService
+        self.naverDataTransferService = DataTransferService(
+            networkService: NetworkService(config: naverAPIConfig)
+        )
+        
         guard let keyURL = Bundle.main.url(forResource: "API", withExtension: "plist"),
               let dictionary = NSDictionary(contentsOf: keyURL) as? [String: Any] else { return }
         
@@ -35,18 +52,98 @@ final class NaverAuthRepository {
 
 extension NaverAuthRepository: NaverAuthRepositoryInterface {
     func loadNaverApp() {
+        instance?.delegate = self
         instance?.requestThirdPartyLogin()
     }
     
     func login(completion: @escaping (Result<String, Error>) -> Void) {
-
+        
     }
     
     func logout(completion: @escaping (Result<String, Error>) -> Void) {
-        
+        instance?.requestDeleteToken()
     }
     
     func autoLogin(completion: @escaping (Result<String, Error>) -> Void) {
         
+    }
+    
+    private func getInfo() {
+        print("Test")
+        guard let isValidAccessToken = instance?.isValidAccessTokenExpireTimeNow() else { return }
+        
+        if !isValidAccessToken { return }
+        
+        guard let tokenType = instance?.tokenType,
+              let accessType = instance?.accessToken,
+              let refreshToke = instance?.refreshToken
+        else { return }
+        
+        let authorization = "\(tokenType) \(accessType)"
+        
+        print(authorization)
+        
+        let endpoint = EndPoint<NaverUserInfoResponseDTO>(
+            path: "v1/nid/me",
+            method: .get,
+            headerParameters: ["Authorization": authorization]
+        )
+        
+        let req = naverDataTransferService.request(
+            with: endpoint,
+            on: backgroundQueue) { result in
+                switch result {
+                case .success(let userInfo):
+                    let contentText = """
+                       userId : \(userInfo.id)
+                       """
+                    
+                    print(contentText)
+                case .failure(let error):
+                    print("Error \(error)")
+                }
+            }
+                
+    }
+}
+
+extension NaverAuthRepository: NaverThirdPartyLoginConnectionDelegate {
+    func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
+        print("Success Login")
+        getInfo()
+    }
+    
+    func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {
+        print("TestTest")
+        instance?.accessToken
+    }
+    
+    func oauth20ConnectionDidFinishDeleteToken() {
+        print("Log out")
+        
+    }
+    
+    func oauth20Connection(_ oauthConnection: NaverThirdPartyLoginConnection!, didFailWithError error: (any Error)!) {
+        print("error")
+    }
+}
+
+struct NaverUserInfoResponseDTO: Decodable {
+    let id: String
+//    let name: String
+    
+    private enum RootKeys: String, CodingKey {
+        case response
+    }
+    
+    private enum ResponseKeys: String, CodingKey {
+        case id
+    }
+    
+    init(from decoder: Decoder) throws {
+        let rootContainer = try decoder.container(keyedBy: RootKeys.self)
+        let responseContainer = try rootContainer.nestedContainer(keyedBy: ResponseKeys.self, forKey: .response)
+        
+        id = try responseContainer.decode(String.self, forKey: .id)
     }
 }

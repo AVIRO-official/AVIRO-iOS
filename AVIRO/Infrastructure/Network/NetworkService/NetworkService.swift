@@ -38,7 +38,7 @@ final class NetworkService {
     init(
         config: NetworkConfigurable,
         sessionManager: NetworkSessionManager = NetworkSessionManager(),
-        logger: NetworkErrorLogger
+        logger: NetworkErrorLogger = NetworkErrorLogger()
     ) {
         self.config = config
         self.sessionManager = sessionManager
