@@ -77,7 +77,7 @@ final class LoginViewController: UIViewController {
       
         btn.setButtonStyle(type: .google)
         btn.didTappedButton = { [weak self] in
-            print("google")
+            self?.presenter.login(type: .google)
         }
 
         return btn
@@ -88,7 +88,7 @@ final class LoginViewController: UIViewController {
         
         btn.setButtonStyle(type: .apple)
         btn.didTappedButton = { [weak self] in
-            print("apple")
+            self?.presenter.login(type: .apple)
         }
 
         return btn

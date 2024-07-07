@@ -9,6 +9,7 @@ import UIKit
 
 import NaverThirdPartyLogin
 import KakaoSDKAuth
+import GoogleSignIn
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -39,6 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         guard let urlContext = URLContexts.first else { return }
         let url = urlContext.url
+        print(url)
         
         // Naver
         if url.scheme == "com.aviro.ios" {
@@ -55,5 +57,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             return
         }
+        
+        // Google
+        GIDSignIn.sharedInstance.handle(url)
     }
 }

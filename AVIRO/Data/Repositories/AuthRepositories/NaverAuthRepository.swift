@@ -12,9 +12,10 @@ import NaverThirdPartyLogin
 final class NaverAuthRepository: NSObject {
 //    private let aviroDataTransferService: DataTransferService
     private let naverDataTransferService: DataTransferService
-    private let instance = NaverThirdPartyLoginConnection.getSharedInstance()
     private let backgroundQueue: DataTransferDispatchQueue
-    
+
+    private let instance = NaverThirdPartyLoginConnection.getSharedInstance()
+
     init(
 //        dataTransferService: DataTransferService,
         backgroundQueue: DataTransferDispatchQueue = DispatchQueue.global(qos: .userInitiated)
