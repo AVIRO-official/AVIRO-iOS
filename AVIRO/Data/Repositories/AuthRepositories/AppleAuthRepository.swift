@@ -11,7 +11,7 @@ final class AppleAuthRepository {
     init() { }
 }
 
-extension AppleAuthRepository: AppleAuthRepositoryInterface {
+extension AppleAuthRepository: SocialLoginRepositoryInterface {
     func login(completion: @escaping (Result<String, Error>) -> Void) {
         
     }

@@ -11,7 +11,7 @@ final class GoogleAuthRepository {
     init() { }
 }
 
-extension GoogleAuthRepository: GoogleAuthRepositoryInterface {
+extension GoogleAuthRepository: SocialLoginRepositoryInterface {
     func login(completion: @escaping (Result<String, Error>) -> Void) {
         
     }

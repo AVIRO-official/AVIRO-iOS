@@ -8,6 +8,7 @@
 import UIKit
 
 import NaverThirdPartyLogin
+import KakaoSDKAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -39,13 +40,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let urlContext = URLContexts.first else { return }
         let url = urlContext.url
         
-        // URL의 스킴을 확인합니다.
+        // Naver
         if url.scheme == "com.aviro.ios" {
             NaverThirdPartyLoginConnection
                 .getSharedInstance()
                 .receiveAccessToken(url)
-        } else {
             
+            return
+        }
+        
+        // Kakao
+        if AuthApi.isKakaoTalkLoginUrl(url) {
+            _ = AuthController.handleOpenUrl(url: url)
+            
+            return
         }
     }
 }

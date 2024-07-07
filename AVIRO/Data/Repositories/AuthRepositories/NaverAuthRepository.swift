@@ -50,14 +50,10 @@ final class NaverAuthRepository: NSObject {
     }
 }
 
-extension NaverAuthRepository: NaverAuthRepositoryInterface {
-    func loadNaverApp() {
+extension NaverAuthRepository: SocialLoginRepositoryInterface {
+    func login(completion: @escaping (Result<String, Error>) -> Void) {
         instance?.delegate = self
         instance?.requestThirdPartyLogin()
-    }
-    
-    func login(completion: @escaping (Result<String, Error>) -> Void) {
-        
     }
     
     func logout(completion: @escaping (Result<String, Error>) -> Void) {
@@ -69,7 +65,6 @@ extension NaverAuthRepository: NaverAuthRepositoryInterface {
     }
     
     private func getInfo() {
-        print("Test")
         guard let isValidAccessToken = instance?.isValidAccessTokenExpireTimeNow() else { return }
         
         if !isValidAccessToken { return }
@@ -80,9 +75,7 @@ extension NaverAuthRepository: NaverAuthRepositoryInterface {
         else { return }
         
         let authorization = "\(tokenType) \(accessType)"
-        
-        print(authorization)
-        
+                
         let endpoint = EndPoint<NaverUserInfoResponseDTO>(
             path: "v1/nid/me",
             method: .get,
@@ -136,13 +129,13 @@ struct NaverUserInfoResponseDTO: Decodable {
         case response
     }
     
-    private enum ResponseKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case id
     }
     
     init(from decoder: Decoder) throws {
         let rootContainer = try decoder.container(keyedBy: RootKeys.self)
-        let responseContainer = try rootContainer.nestedContainer(keyedBy: ResponseKeys.self, forKey: .response)
+        let responseContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .response)
         
         id = try responseContainer.decode(String.self, forKey: .id)
     }

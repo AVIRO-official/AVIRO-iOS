@@ -7,20 +7,56 @@
 
 import Foundation
 
+import KakaoSDKCommon
+import KakaoSDKAuth
+import KakaoSDKUser
+
 final class KakaoAuthRepository {
-    init() { }
+    init() {
+        guard let keyURL = Bundle.main.url(forResource: "API", withExtension: "plist"),
+              let dictionary = NSDictionary(contentsOf: keyURL) as? [String: Any] else { return }
+        
+        let appkey = (dictionary["Kakao_Native_Key"] as? String)!
+        
+        KakaoSDK.initSDK(appKey: appkey)
+    }
 }
 
-extension KakaoAuthRepository: KakaoAuthRepositoryInterface {
+extension KakaoAuthRepository: SocialLoginRepositoryInterface {
     func login(completion: @escaping (Result<String, Error>) -> Void) {
-    
+        if UserApi.isKakaoTalkLoginAvailable() {
+            UserApi.shared.loginWithKakaoTalk { [weak self] token, error in
+                if let error = error {
+                    print(error)
+                } else {
+                    print("token: \(token)")
+                    
+                    self?.getInfo()
+                }
+            }
+        }
     }
     
     func logout(completion: @escaping (Result<String, Error>) -> Void) {
-        
+        UserApi.shared.logout {(error) in
+            if let error = error {
+                print(error)
+            }
+            else {
+                print("logout() success.")
+            }
+        }
     }
     
     func autoLogin(completion: @escaping (Result<String, Error>) -> Void) {
         
+    }
+    
+    private func getInfo() {
+        UserApi.shared.me { user, error in
+            if let error = error { print(error) }
+            let id = user?.id
+            print(id)
+        }
     }
 }

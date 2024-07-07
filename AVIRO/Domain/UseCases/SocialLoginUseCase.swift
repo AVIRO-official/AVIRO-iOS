@@ -8,22 +8,21 @@
 import Foundation
 
 protocol SocialLoginUseCaseInterface: AnyObject {
-    func loadURL(type: LoginType)
     func login(type: LoginType, completion: @escaping (Result<String, Error>) -> Void)
     func logout(type: LoginType, completion: @escaping (Result<String, Error>) -> Void)
 }
 
 final class SocialLoginUseCase {
-    private let appleLoginRepository: AppleAuthRepositoryInterface
-    private let googleLoginRepository: GoogleAuthRepositoryInterface
-    private let kakaoLoginRepository: KakaoAuthRepositoryInterface
-    private let naverLoginRepository: NaverAuthRepositoryInterface
+    private let appleLoginRepository: SocialLoginRepositoryInterface
+    private let googleLoginRepository: SocialLoginRepositoryInterface
+    private let kakaoLoginRepository: SocialLoginRepositoryInterface
+    private let naverLoginRepository: SocialLoginRepositoryInterface
     
     init(
-        appleLoginRepository: AppleAuthRepositoryInterface,
-        googleLoginRepository: GoogleAuthRepositoryInterface,
-        kakaoLoginRepository: KakaoAuthRepositoryInterface,
-        naverLoginRepository: NaverAuthRepositoryInterface
+        appleLoginRepository: SocialLoginRepositoryInterface,
+        googleLoginRepository: SocialLoginRepositoryInterface,
+        kakaoLoginRepository: SocialLoginRepositoryInterface,
+        naverLoginRepository: SocialLoginRepositoryInterface
     ) {
         self.appleLoginRepository = appleLoginRepository
         self.googleLoginRepository = googleLoginRepository
@@ -33,33 +32,27 @@ final class SocialLoginUseCase {
 }
 
 extension SocialLoginUseCase: SocialLoginUseCaseInterface {
-    func loadURL(type: LoginType) {
-        switch type {
-        case .apple:
-            break
-        case .google:
-            break
-        case .kakao:
-            break
-        case .naver:
-            naverLoginRepository.loadNaverApp()
-        }
-    }
-    
     func login(
         type: LoginType,
         completion: @escaping (Result<String, Error>) -> Void
     ) {
         switch type {
         case .apple:
-            break
+            appleLoginRepository.login { result in
+                
+            }
         case .google:
-            break
+            googleLoginRepository.login { result in
+                
+            }
         case .kakao:
-            break
+            kakaoLoginRepository.login { result in
+                
+            }
         case .naver:
-            naverLoginRepository.login(completion: { result in
-            })
+            naverLoginRepository.login { result in
+                
+            }
         }
     }
     

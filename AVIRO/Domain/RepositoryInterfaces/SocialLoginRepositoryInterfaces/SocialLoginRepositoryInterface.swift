@@ -14,19 +14,3 @@ protocol SocialLoginRepositoryInterface {
     func logout(completion: @escaping (Result<String, Error>) -> Void)
     func autoLogin(completion: @escaping (Result<String, Error>) -> Void)
 }
-
-protocol AppleAuthRepositoryInterface: SocialLoginRepositoryInterface {
-    
-}
-
-protocol GoogleAuthRepositoryInterface: SocialLoginRepositoryInterface {
-    
-}
-
-protocol KakaoAuthRepositoryInterface: SocialLoginRepositoryInterface {
-    
-}
-
-protocol NaverAuthRepositoryInterface: SocialLoginRepositoryInterface {
-    func loadNaverApp()
-}

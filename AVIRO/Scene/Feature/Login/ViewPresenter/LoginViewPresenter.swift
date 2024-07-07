@@ -160,9 +160,11 @@ final class LoginViewPresenter: NSObject {
             }
         }
     }
-    
-    func loadURL(type: LoginType) {
-        socialLoginUseCase.loadURL(type: type)
+
+    func login(type: LoginType) {
+        socialLoginUseCase.login(type: type) { result in
+            
+        }
     }
 }
 
