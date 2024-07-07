@@ -24,6 +24,13 @@ final class GoogleAuthRepository {
 }
 
 extension GoogleAuthRepository: SocialLoginRepositoryInterface {
+    func login(
+        requestLogin: () -> Void,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        
+    }
+    
     func login(completion: @escaping (Result<String, Error>) -> Void) {
         guard let clientID = self.clientID else { return }
         guard let viewController = UIApplication.getMostTopViewController() else { return }

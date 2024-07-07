@@ -164,13 +164,8 @@ final class LoginViewPresenter: NSObject {
     func login(type: LoginType) {
         socialLoginUseCase.login(
             type: type,
-            requestLogin: { result in
-                switch result {
-                case .success(let success): break
-                    
-                case .failure(let failure): break
-                    
-                }
+            requestLogin: {
+                viewController?.switchIsLoading(with: true)
             },
             completion: { result in
                 switch result {

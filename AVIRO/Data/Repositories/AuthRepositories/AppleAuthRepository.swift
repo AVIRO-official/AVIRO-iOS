@@ -19,7 +19,12 @@ final class AppleAuthRepository: NSObject {
 }
 
 extension AppleAuthRepository: SocialLoginRepositoryInterface {
-    func login(completion: @escaping (Result<String, Error>) -> Void) {
+    func login(
+        requestLogin: () -> Void,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        requestLogin()
+
         let request = ASAuthorizationAppleIDProvider().createRequest()
         request.requestedScopes = [.fullName, .email]
         

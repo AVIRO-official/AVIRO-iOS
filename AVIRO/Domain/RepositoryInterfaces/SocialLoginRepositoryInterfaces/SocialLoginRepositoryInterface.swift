@@ -8,8 +8,9 @@
 import Foundation
 
 protocol SocialLoginRepositoryInterface {
-    // TODO: Make Result `User` Model
-    func login(completion: @escaping (Result<String, Error>) -> Void)
-    // TODO: Match the existing output
+    func login(
+        requestLogin: () -> Void,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    )
     func logout(completion: @escaping (Result<String, Error>) -> Void)
 }

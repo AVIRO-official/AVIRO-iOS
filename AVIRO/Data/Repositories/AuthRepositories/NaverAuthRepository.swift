@@ -52,6 +52,13 @@ final class NaverAuthRepository: NSObject {
 }
 
 extension NaverAuthRepository: SocialLoginRepositoryInterface {
+    func login(
+        requestLogin: () -> Void,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        
+    }
+
     func login(completion: @escaping (Result<String, Error>) -> Void) {
         instance?.delegate = self
         instance?.requestThirdPartyLogin()
@@ -59,10 +66,6 @@ extension NaverAuthRepository: SocialLoginRepositoryInterface {
     
     func logout(completion: @escaping (Result<String, Error>) -> Void) {
         instance?.requestDeleteToken()
-    }
-    
-    func autoLogin(completion: @escaping (Result<String, Error>) -> Void) {
-        
     }
     
     private func getInfo() {

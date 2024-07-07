@@ -8,8 +8,19 @@
 import Foundation
 
 protocol SocialLoginUseCaseInterface: AnyObject {
-    func login(type: LoginType, requestLogin: @escaping (Result<Void, Error>) -> Void, completion: @escaping (Result<Bool, Error>) -> Void)
-    func logout(type: LoginType, completion: @escaping (Result<String, Error>) -> Void)
+    func login(
+        type: LoginType,
+        requestLogin: () -> Void,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    )
+    func logout(
+        type: LoginType,
+        completion: @escaping (Result<String, Error>) -> Void
+    )
+    func withdrawal(
+        type: LoginType,
+        completion: @escaping (Result<String, Error>) -> Void
+    )
 }
 
 final class SocialLoginUseCase {
@@ -34,23 +45,32 @@ final class SocialLoginUseCase {
 extension SocialLoginUseCase: SocialLoginUseCaseInterface {
     func login(
         type: LoginType,
-        requestLogin: @escaping (Result<Void, Error>) -> Void,
+        requestLogin: () -> Void,
         completion: @escaping (Result<Bool, Error>) -> Void
     ) {
-            switch type {
-            case .apple:
-                appleLoginRepository
-            case .google:
-                googleLoginRepository
-            case .kakao:
-                kakaoLoginRepository
-            case .naver:
-                naverLoginRepository
+        switch type {
+        case .apple:
+            appleLoginRepository.login(requestLogin: requestLogin) { result in
+                
             }
+        case .google:
+            break
+        case .kakao:
+            break
+        case .naver:
+            break
         }
+    }
     
     func logout(
         type: LoginType,
+        completion: @escaping (Result<String, Error>) -> Void
+    ) {
+        
+    }
+    
+    func withdrawal(
+        type: LoginType, 
         completion: @escaping (Result<String, Error>) -> Void
     ) {
         

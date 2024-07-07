@@ -23,6 +23,13 @@ final class KakaoAuthRepository {
 }
 
 extension KakaoAuthRepository: SocialLoginRepositoryInterface {
+    func login(
+        requestLogin: () -> Void,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        
+    }
+    
     func login(completion: @escaping (Result<String, Error>) -> Void) {
         if UserApi.isKakaoTalkLoginAvailable() {
             UserApi.shared.loginWithKakaoTalk { [weak self] token, error in
@@ -46,10 +53,6 @@ extension KakaoAuthRepository: SocialLoginRepositoryInterface {
                 print("logout() success.")
             }
         }
-    }
-    
-    func autoLogin(completion: @escaping (Result<String, Error>) -> Void) {
-        
     }
     
     private func getInfo() {
