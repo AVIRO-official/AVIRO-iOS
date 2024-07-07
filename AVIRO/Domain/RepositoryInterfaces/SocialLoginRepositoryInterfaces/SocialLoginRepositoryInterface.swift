@@ -12,5 +12,4 @@ protocol SocialLoginRepositoryInterface {
     func login(completion: @escaping (Result<String, Error>) -> Void)
     // TODO: Match the existing output
     func logout(completion: @escaping (Result<String, Error>) -> Void)
-    func autoLogin(completion: @escaping (Result<String, Error>) -> Void)
 }

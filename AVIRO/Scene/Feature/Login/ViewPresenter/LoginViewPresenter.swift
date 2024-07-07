@@ -15,7 +15,7 @@ protocol LoginViewProtocol: NSObject {
     func setupAttribute()
     
     func switchIsLoading(with loading: Bool)
-
+    
     func pushTabBar()
     func pushRegistrationWhenAppleLogin(_ userModel: AVIROAppleUserSignUpDTO)
     
@@ -50,7 +50,7 @@ final class LoginViewPresenter: NSObject {
     
     func viewWillAppear() {
         viewController?.switchIsLoading(with: false)
-
+        
         if whenAfterWithdrawal {
             viewController?.afterWithdrawalUserShowAlert()
             whenAfterWithdrawal.toggle()
@@ -61,12 +61,12 @@ final class LoginViewPresenter: NSObject {
             whenAfterLogout.toggle()
         }
     }
-
+    
     // MARK: Clicke Apple Login
     func clickedAppleLogin() {
         let request = ASAuthorizationAppleIDProvider().createRequest()
         request.requestedScopes = [.fullName, .email]
-
+        
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
@@ -82,7 +82,7 @@ final class LoginViewPresenter: NSObject {
             identityToken: model.identityToken,
             authorizationCode: model.authorizationCode
         )
-                        
+        
         AVIROAPI.manager.checkAppleUserWhenLogin(with: checkAppleLoginModel) { [weak self] result in
             switch result {
             case .success(let success):
@@ -160,11 +160,27 @@ final class LoginViewPresenter: NSObject {
             }
         }
     }
-
+    
     func login(type: LoginType) {
-        socialLoginUseCase.login(type: type) { result in
-            
-        }
+        socialLoginUseCase.login(
+            type: type,
+            requestLogin: { result in
+                switch result {
+                case .success(let success): break
+                    
+                case .failure(let failure): break
+                    
+                }
+            },
+            completion: { result in
+                switch result {
+                case .success(let success):
+                    break
+                case .failure(let failure):
+                    break
+                }
+            }
+        )
     }
 }
 
@@ -178,13 +194,13 @@ extension LoginViewPresenter: ASAuthorizationControllerDelegate {
             guard let authorizationCode = appleIDCredential.authorizationCode,
                   let identityToken = appleIDCredential.identityToken
             else { return }
-
+            
             let code = String(data: authorizationCode, encoding: .utf8)!
             let token = String(data: identityToken, encoding: .utf8)!
             
             let fullName = appleIDCredential.fullName?.formatted() ?? " "
             let email = appleIDCredential.email ?? " "
-
+            
             let model = AppleUserLoginModel(
                 identityToken: token,
                 authorizationCode: code,

@@ -141,3 +141,4 @@ struct NaverUserInfoResponseDTO: Decodable {
         id = try responseContainer.decode(String.self, forKey: .id)
     }
 }
+

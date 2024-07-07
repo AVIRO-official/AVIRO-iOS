@@ -8,7 +8,7 @@
 import Foundation
 
 protocol SocialLoginUseCaseInterface: AnyObject {
-    func login(type: LoginType, completion: @escaping (Result<String, Error>) -> Void)
+    func login(type: LoginType, requestLogin: @escaping (Result<Void, Error>) -> Void, completion: @escaping (Result<Bool, Error>) -> Void)
     func logout(type: LoginType, completion: @escaping (Result<String, Error>) -> Void)
 }
 
@@ -34,27 +34,20 @@ final class SocialLoginUseCase {
 extension SocialLoginUseCase: SocialLoginUseCaseInterface {
     func login(
         type: LoginType,
-        completion: @escaping (Result<String, Error>) -> Void
+        requestLogin: @escaping (Result<Void, Error>) -> Void,
+        completion: @escaping (Result<Bool, Error>) -> Void
     ) {
-        switch type {
-        case .apple:
-            appleLoginRepository.login { result in
-                
-            }
-        case .google:
-            googleLoginRepository.login { result in
-                
-            }
-        case .kakao:
-            kakaoLoginRepository.login { result in
-                
-            }
-        case .naver:
-            naverLoginRepository.login { result in
-                
+            switch type {
+            case .apple:
+                appleLoginRepository
+            case .google:
+                googleLoginRepository
+            case .kakao:
+                kakaoLoginRepository
+            case .naver:
+                naverLoginRepository
             }
         }
-    }
     
     func logout(
         type: LoginType,

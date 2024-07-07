@@ -36,15 +36,9 @@ extension GoogleAuthRepository: SocialLoginRepositoryInterface {
             print("idToken: ", userInfo?.user.idToken)
             print("userID: ", userInfo?.user.userID)
         }
-        
-//        GIDSignIn.sharedInstance.signin
     }
     
     func logout(completion: @escaping (Result<String, Error>) -> Void) {
-        
-    }
-    
-    func autoLogin(completion: @escaping (Result<String, Error>) -> Void) {
         
     }
 }
