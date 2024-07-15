@@ -204,6 +204,17 @@ extension LoginViewController: LoginViewProtocol {
         }
     }
     
+    // TODO: 코드 수정 필요
+    func pushRegistrationView() {
+        let viewController = FirstRegistrationViewController()
+        
+        let presenter = FirstRegistrationPresenter(viewController: viewController)
+        
+        viewController.presenter = presenter
+        
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+    
     func pushRegistrationWhenAppleLogin(_ userModel: AVIROAppleUserSignUpDTO) {
         DispatchQueue.main.async { [weak self] in
             let viewController = FirstRegistrationViewController()

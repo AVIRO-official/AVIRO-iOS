@@ -18,6 +18,7 @@ protocol LoginViewProtocol: NSObject {
     
     func pushTabBar()
     func pushRegistrationWhenAppleLogin(_ userModel: AVIROAppleUserSignUpDTO)
+    func pushRegistrationView()
     
     func afterLogoutAndMakeToastButton()
     func afterWithdrawalUserShowAlert()
@@ -167,12 +168,19 @@ final class LoginViewPresenter: NSObject {
             requestLogin: {
                 viewController?.switchIsLoading(with: true)
             },
-            completion: { result in
+            completion: { [weak self] result in
                 switch result {
-                case .success(let success):
-                    break
-                case .failure(let failure):
-                    break
+                case .success(let isMember):
+                    self?.viewController?.switchIsLoading(with: false)
+                    
+                    if isMember {
+                        self?.viewController?.pushTabBar()
+                    } else {
+                        self?.viewController?.pushRegistrationView()
+                    }
+                case .failure(let error):                   
+                    self?.viewController?.switchIsLoading(with: false)
+                    self?.viewController?.showErrorAlert(with: "error", title: nil)
                 }
             }
         )
