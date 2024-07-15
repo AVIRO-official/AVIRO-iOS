@@ -10,6 +10,7 @@ import AuthenticationServices
 
 final class AppleAuthRepository: NSObject {
     private let backgroundQueue: DataTransferDispatchQueue
+    private var loginCompletion: ((Result<Bool, Error>) -> Void)?
     
     init(
         backgroundQueue: DataTransferDispatchQueue = DispatchQueue.global(qos: .userInitiated)
@@ -24,7 +25,8 @@ extension AppleAuthRepository: SocialLoginRepositoryInterface {
         completion: @escaping (Result<Bool, Error>) -> Void
     ) {
         requestLogin()
-
+        self.loginCompletion = completion
+        
         let request = ASAuthorizationAppleIDProvider().createRequest()
         request.requestedScopes = [.fullName, .email]
         
@@ -47,20 +49,29 @@ extension AppleAuthRepository: ASAuthorizationControllerDelegate {
             guard let authorizationCode = appleIDCredential.authorizationCode,
                   let identityToken = appleIDCredential.identityToken else { return }
             
-            let code = String(data: authorizationCode, encoding: .utf8)!
             let token = String(data: identityToken, encoding: .utf8)!
-            
-            let fullName = appleIDCredential.fullName?.formatted() ?? ""
-            let email = appleIDCredential.email ?? ""
-            
-            let model = AppleUserLoginModel(
+            let code = String(data: authorizationCode, encoding: .utf8)!
+
+            let memberCheckDTO = AVIROAppleUserCheckMemberDTO(
                 identityToken: token,
-                authorizationCode: code,
-                userName: fullName,
-                userEmail: email
+                authorizationCode: code
             )
             
-            print(model)
+            AVIROAPI.manager.checkAppleUserWhenLogin(with: memberCheckDTO) { [weak self] result in
+                switch result {
+                case .success(let success):
+                    if success.statusCode == 200 {
+                        self?.loginCompletion?(.success(true))
+                    } else {
+                        self?.loginCompletion?(.success(true))
+                    }
+                case .failure(let error):
+                    if let error = error.errorDescription {
+                        self?.loginCompletion?(.success(true))
+
+                    }
+                }
+            }
         }
     }
 }

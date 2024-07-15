@@ -178,7 +178,7 @@ final class LoginViewPresenter: NSObject {
                     } else {
                         self?.viewController?.pushRegistrationView()
                     }
-                case .failure(let error):                   
+                case .failure(let error):
                     self?.viewController?.switchIsLoading(with: false)
                     self?.viewController?.showErrorAlert(with: "error", title: nil)
                 }

@@ -51,7 +51,8 @@ extension SocialLoginUseCase: SocialLoginUseCaseInterface {
         switch type {
         case .apple:
             appleLoginRepository.login(requestLogin: requestLogin) { result in
-                
+                print("TestTest")
+                print(result)
             }
         case .google:
             break
