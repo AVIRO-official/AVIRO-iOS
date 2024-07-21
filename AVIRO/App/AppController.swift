@@ -16,6 +16,8 @@ final class AppController {
     private let keychain = KeychainSwift()
     private let amplitude = AmplitudeUtility()
     
+    private let socialLoginUsecase: SocialLoginUseCase
+    
     private var window: UIWindow!
     private var rootViewController: UIViewController? {
         didSet {
@@ -24,7 +26,16 @@ final class AppController {
         }
     }
     
-    private init() { }
+    private init() {
+        let container = DIContainer.shared
+        
+        self.socialLoginUsecase = SocialLoginUseCase(
+            appleLoginRepository: container.resolve(AppleAuthRepository.self)!,
+            googleLoginRepository: container.resolve(GoogleAuthRepository.self)!,
+            kakaoLoginRepository: container.resolve(KakaoAuthRepository.self)!,
+            naverLoginRepository: container.resolve(NaverAuthRepository.self)!
+        )
+    }
     
     // MARK: 외부랑 소통할 메서드
     func show(in window: UIWindow) {
@@ -60,6 +71,7 @@ final class AppController {
 
         let userCheck = AVIROAutoLoginWhenAppleUserDTO(refreshToken: userKey)
 
+        // TODO: user 정보 불러오기 수정
         AVIROAPI.manager.checkAppleUserWhenInitiate(with: userCheck) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
@@ -96,15 +108,6 @@ final class AppController {
     
     // MARK: login View
     private func setLoginView(type: LoginViewToastType = .none) {
-        let container = DIContainer.shared
-        
-        let socialLoginUsecase = SocialLoginUseCase(
-            appleLoginRepository: container.resolve(AppleAuthRepository.self)!,
-            googleLoginRepository: container.resolve(GoogleAuthRepository.self)!,
-            kakaoLoginRepository: container.resolve(KakaoAuthRepository.self)!,
-            naverLoginRepository: container.resolve(NaverAuthRepository.self)!
-        )
-        
         let loginVC = LoginViewController()
         let presenter = LoginViewPresenter(
             socialLoginUseCase: socialLoginUsecase,

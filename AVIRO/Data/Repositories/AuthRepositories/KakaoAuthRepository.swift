@@ -22,7 +22,11 @@ final class KakaoAuthRepository {
     }
 }
 
-extension KakaoAuthRepository: SocialLoginRepositoryInterface {
+extension KakaoAuthRepository: KakaoLoginRepositoryInterface {
+    func login(requestLogin: () -> Void, loginCompletion: @escaping (SignInFromKakaoNaver) -> Void, errorCompletion: @escaping (String) -> Void) {
+        
+    }
+    
     func login(
         requestLogin: () -> Void,
         completion: @escaping (Result<Bool, Error>) -> Void

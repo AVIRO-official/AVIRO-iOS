@@ -101,7 +101,7 @@ final class LoginViewPresenter: NSObject {
                             let model = AVIROAppleUserSignUpDTO(
                                 refreshToken: data.refreshToken,
                                 accessToken: data.accessToken,
-                                userId: data.userId,
+                                userId: data.userId ?? "",
                                 userName: model.userName,
                                 userEmail: model.userEmail,
                                 marketingAgree: false
@@ -162,8 +162,8 @@ final class LoginViewPresenter: NSObject {
         }
     }
     
-    func login(type: LoginType) {
-        socialLoginUseCase.login(
+    func checkMember(type: LoginType) {
+        socialLoginUseCase.checkMember(
             type: type,
             requestLogin: {
                 viewController?.switchIsLoading(with: true)

@@ -7,10 +7,38 @@
 
 import Foundation
 
-protocol SocialLoginRepositoryInterface {
+protocol AppleLoginRepositoryInterface {
     func login(
         requestLogin: () -> Void,
-        completion: @escaping (Result<Bool, Error>) -> Void
+        loginCompletion: @escaping (SignInFromAppleGoogle) -> Void,
+        errorCompletion: @escaping (String) -> Void
+    )
+    func logout(completion: @escaping (Result<String, Error>) -> Void)
+}
+
+protocol GoogleLoginRepositoryInterface {
+    func login(
+        requestLogin: () -> Void,
+        loginCompletion: @escaping (SignInFromAppleGoogle) -> Void,
+        errorCompletion: @escaping (String) -> Void
+    )
+    func logout(completion: @escaping (Result<String, Error>) -> Void)
+}
+
+protocol KakaoLoginRepositoryInterface {
+    func login(
+        requestLogin: () -> Void,
+        loginCompletion: @escaping (SignInFromKakaoNaver) -> Void,
+        errorCompletion: @escaping (String) -> Void
+    )
+    func logout(completion: @escaping (Result<String, Error>) -> Void)
+}
+
+protocol NaverLoginRepositoryInterface {
+    func login(
+        requestLogin: () -> Void,
+        loginCompletion: @escaping (SignInFromKakaoNaver) -> Void,
+        errorCompletion: @escaping (String) -> Void
     )
     func logout(completion: @escaping (Result<String, Error>) -> Void)
 }

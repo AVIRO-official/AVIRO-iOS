@@ -8,32 +8,32 @@
 import Foundation
 
 protocol SocialLoginUseCaseInterface: AnyObject {
-    func login(
+    func checkMember(
         type: LoginType,
         requestLogin: () -> Void,
-        completion: @escaping (Result<Bool, Error>) -> Void
-    )
+        completion: @escaping (Result<Bool, Error>) -> Void)
     func logout(
         type: LoginType,
-        completion: @escaping (Result<String, Error>) -> Void
-    )
+        completion: @escaping (Result<String, Error>) -> Void)
+    func singin(
+        type: LoginType,
+        completion: @escaping (Result<String, Error>) -> Void)
     func withdrawal(
         type: LoginType,
-        completion: @escaping (Result<String, Error>) -> Void
-    )
+        completion: @escaping (Result<String, Error>) -> Void)
 }
 
 final class SocialLoginUseCase {
-    private let appleLoginRepository: SocialLoginRepositoryInterface
-    private let googleLoginRepository: SocialLoginRepositoryInterface
-    private let kakaoLoginRepository: SocialLoginRepositoryInterface
-    private let naverLoginRepository: SocialLoginRepositoryInterface
+    private let appleLoginRepository: AppleLoginRepositoryInterface
+    private let googleLoginRepository: GoogleLoginRepositoryInterface
+    private let kakaoLoginRepository: KakaoLoginRepositoryInterface
+    private let naverLoginRepository: NaverLoginRepositoryInterface
     
     init(
-        appleLoginRepository: SocialLoginRepositoryInterface,
-        googleLoginRepository: SocialLoginRepositoryInterface,
-        kakaoLoginRepository: SocialLoginRepositoryInterface,
-        naverLoginRepository: SocialLoginRepositoryInterface
+        appleLoginRepository: AppleLoginRepositoryInterface,
+        googleLoginRepository: GoogleLoginRepositoryInterface,
+        kakaoLoginRepository: KakaoLoginRepositoryInterface,
+        naverLoginRepository: NaverLoginRepositoryInterface
     ) {
         self.appleLoginRepository = appleLoginRepository
         self.googleLoginRepository = googleLoginRepository
@@ -42,25 +42,61 @@ final class SocialLoginUseCase {
     }
 }
 
+// TODO: String -> Error 번경 후 공통 Error 처리 로직 설계 필요
 extension SocialLoginUseCase: SocialLoginUseCaseInterface {
-    func login(
+    func checkMember(
         type: LoginType,
         requestLogin: () -> Void,
         completion: @escaping (Result<Bool, Error>) -> Void
     ) {
         switch type {
         case .apple:
-            appleLoginRepository.login(requestLogin: requestLogin) { result in
-                print("TestTest")
-                print(result)
-            }
+            appleLoginRepository.login(
+                requestLogin: requestLogin,
+                loginCompletion: { [weak self] result in
+                    if result.isMember {
+                        completion(.success(true))
+                    } else {
+                        self?.setupUserData()
+                        completion(.success(false))
+                    }
+                }, errorCompletion: { result in
+                    let error = TempError.temp(result)
+                    completion(.failure(error))
+                }
+            )
         case .google:
-            break
+            googleLoginRepository.login(
+                requestLogin: requestLogin,
+                loginCompletion: { [weak self] result in
+                    if result.isMember {
+                        completion(.success(true))
+                    } else {
+                        self?.setupUserData()
+                        completion(.success(false))
+                    }
+                },
+                errorCompletion: { result in
+                    let error = TempError.temp(result)
+                    completion(.failure(error))
+                }
+            )
         case .kakao:
             break
         case .naver:
             break
         }
+    }
+    
+    private func setupUserData() {
+        
+    }
+    
+    func singin(
+        type: LoginType,
+        completion: @escaping (Result<String, Error>) -> Void
+    ) {
+        
     }
     
     func logout(

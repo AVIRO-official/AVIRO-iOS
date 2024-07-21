@@ -55,7 +55,7 @@ final class LoginViewController: UIViewController {
         btn.setButtonStyle(type: .naver)
         btn.didTappedButton = { [weak self] in
             // TODO: 함수 위치 변경하기
-            self?.presenter.login(type: .naver)
+            self?.presenter.checkMember(type: .naver)
         }
         
         return btn
@@ -66,7 +66,7 @@ final class LoginViewController: UIViewController {
         
         btn.setButtonStyle(type: .kakao)
         btn.didTappedButton = { [weak self] in
-            self?.presenter.login(type: .kakao)
+            self?.presenter.checkMember(type: .kakao)
         }
 
         return btn
@@ -77,7 +77,7 @@ final class LoginViewController: UIViewController {
       
         btn.setButtonStyle(type: .google)
         btn.didTappedButton = { [weak self] in
-            self?.presenter.login(type: .google)
+            self?.presenter.checkMember(type: .google)
         }
 
         return btn
@@ -88,7 +88,7 @@ final class LoginViewController: UIViewController {
         
         btn.setButtonStyle(type: .apple)
         btn.didTappedButton = { [weak self] in
-            self?.presenter.login(type: .apple)
+            self?.presenter.checkMember(type: .apple)
         }
 
         return btn

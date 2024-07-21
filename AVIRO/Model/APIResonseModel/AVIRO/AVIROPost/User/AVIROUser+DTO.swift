@@ -40,7 +40,7 @@ struct AVIROAppleUserRawData: Decodable {
     let isMember: Bool
     let refreshToken: String
     let accessToken: String
-    let userId: String
+    let userId: String?
 }
 
 struct AVIROAppleUserSignUpDTO: Codable {

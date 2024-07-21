@@ -51,14 +51,15 @@ final class NaverAuthRepository: NSObject {
     }
 }
 
-extension NaverAuthRepository: SocialLoginRepositoryInterface {
+extension NaverAuthRepository: NaverLoginRepositoryInterface {
     func login(
         requestLogin: () -> Void,
-        completion: @escaping (Result<Bool, Error>) -> Void
+        loginCompletion: @escaping (SignInFromKakaoNaver) -> Void,
+        errorCompletion: @escaping (String) -> Void
     ) {
         
     }
-
+    
     func login(completion: @escaping (Result<String, Error>) -> Void) {
         instance?.delegate = self
         instance?.requestThirdPartyLogin()
