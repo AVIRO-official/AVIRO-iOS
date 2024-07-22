@@ -10,6 +10,9 @@ import Foundation
 struct SignInFromKakaoNaver {
     let isMember: Bool
     let userData: SignInUserDataFromKakaoNaver
+    
+    let nickname: String
+    let marketingAgree: Int
 }
 
 struct SignInUserDataFromKakaoNaver {

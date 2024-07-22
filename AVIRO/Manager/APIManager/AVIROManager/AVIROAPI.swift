@@ -795,6 +795,30 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
         )
     }
     
+    // MARK: POST AutoLogin / Check User - Kakao & Naver
+    func checkKakaoUserWhenLogin(
+        with userId: AVIROKakaoUserCheckMemberDTO,
+        completionHandler: @escaping (Result<AVIROKakaoUserCheckMemberResultDTO, APIError>) -> Void
+    ) {
+        guard let url = postAPI.kakaoUserCheck().url else {
+            completionHandler(.failure(.urlError))
+            return
+        }
+        
+        guard let jsonData = try? JSONEncoder().encode(userId) else {
+            completionHandler(.failure(.encodingError))
+            return
+        }
+        
+        performRequest(
+            with: url,
+            httpMethod: .post,
+            requestBody: jsonData,
+            headers: postAPI.headers,
+            completionHandler: completionHandler
+        )
+    }
+    
     // MARK: POST AutoLogin - Apple
     func checkAppleUserWhenInitiate(
         with user: AVIROAutoLoginWhenAppleUserDTO,

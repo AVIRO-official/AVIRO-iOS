@@ -57,10 +57,6 @@ extension NaverAuthRepository: NaverLoginRepositoryInterface {
         loginCompletion: @escaping (SignInFromKakaoNaver) -> Void,
         errorCompletion: @escaping (String) -> Void
     ) {
-        
-    }
-    
-    func login(completion: @escaping (Result<String, Error>) -> Void) {
         instance?.delegate = self
         instance?.requestThirdPartyLogin()
     }

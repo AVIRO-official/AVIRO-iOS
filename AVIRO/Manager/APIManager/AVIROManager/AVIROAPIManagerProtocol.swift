@@ -231,19 +231,25 @@ protocol AVIROAPIMangerProtocol: APIManagerProtocol {
      - POST Edit Nickname / editNickname
      */
     
-    // MARK: POST User - Apple
+    // MARK: POST User - Apple & Google
     func createAppleUser(
         with user: AVIROAppleUserSignUpDTO,
         completionHandler: @escaping (Result<AVIROAutoLoginWhenAppleUserResultDTO, APIError>) -> Void
     )
     
-    // MARK: POST Check User - Apple
+    // MARK: POST Check User - Apple & Google
     func checkAppleUserWhenLogin(
         with appleToken: AVIROAppleUserCheckMemberDTO,
         completionHandler: @escaping (Result<AVIROAppleUserCheckMemberResultDTO, APIError>) -> Void
     )
     
-    // MARK: POST AutoLogin - Apple
+    // MARK: POST User & Check User - Kakao & Naver
+    func checkKakaoUserWhenLogin(
+        with userId: AVIROKakaoUserCheckMemberDTO,
+        completionHandler: @escaping (Result<AVIROKakaoUserCheckMemberResultDTO, APIError>) -> Void
+    )
+    
+    // MARK: POST AutoLogin - Apple & Google
     func checkAppleUserWhenInitiate(
         with user: AVIROAutoLoginWhenAppleUserDTO,
         completionHandler: @escaping (Result<AVIROAutoLoginWhenAppleUserResultDTO, APIError>) -> Void

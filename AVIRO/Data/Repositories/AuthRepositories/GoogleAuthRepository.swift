@@ -63,7 +63,6 @@ extension GoogleAuthRepository: GoogleLoginRepositoryInterface {
                 return
             }
             
-            
             let memberCheckDTO = AVIROAppleUserCheckMemberDTO(
                 identityToken: idToken,
                 authorizationCode: authorizationCode

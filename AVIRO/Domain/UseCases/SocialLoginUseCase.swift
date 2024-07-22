@@ -61,7 +61,7 @@ extension SocialLoginUseCase: SocialLoginUseCaseInterface {
                         completion(.success(false))
                     }
                 }, errorCompletion: { result in
-                    let error = TempError.temp(result)
+                    let error = CommonError.temp(result)
                     completion(.failure(error))
                 }
             )
@@ -77,14 +77,26 @@ extension SocialLoginUseCase: SocialLoginUseCaseInterface {
                     }
                 },
                 errorCompletion: { result in
-                    let error = TempError.temp(result)
+                    let error = CommonError.temp(result)
                     completion(.failure(error))
                 }
             )
         case .kakao:
-            break
+            kakaoLoginRepository.login(
+                requestLogin: requestLogin,
+                loginCompletion: { [weak self] result in
+                },
+                errorCompletion: { result in
+                }
+            )
         case .naver:
-            break
+            naverLoginRepository.login(
+                requestLogin: requestLogin,
+                loginCompletion: { [weak self] result in
+                },
+                errorCompletion: { result in
+                }
+            )
         }
     }
     

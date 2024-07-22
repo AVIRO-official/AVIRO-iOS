@@ -43,6 +43,21 @@ struct AVIROAppleUserRawData: Decodable {
     let userId: String?
 }
 
+struct AVIROKakaoUserCheckMemberDTO: Encodable {
+    let userId: String
+}
+
+struct AVIROKakaoUserCheckMemberResultDTO: Decodable {
+    let statusCode: Int
+    let data: AVIROKakaoUserRawData? 
+    let message: String?
+}
+
+struct AVIROKakaoUserRawData: Decodable {
+    let nickname: String
+    let marketingAgree: Int
+}
+
 struct AVIROAppleUserSignUpDTO: Codable {
     let refreshToken: String
     let accessToken: String

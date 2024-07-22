@@ -181,7 +181,7 @@
 		C5A169162C4D53970028BCC0 /* SignInFromAppleGoogle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A169152C4D53970028BCC0 /* SignInFromAppleGoogle.swift */; };
 		C5A169182C4D53A50028BCC0 /* SignInFromKakaoNaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A169172C4D53A50028BCC0 /* SignInFromKakaoNaver.swift */; };
 		C5A1691A2C4D53CF0028BCC0 /* SingIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A169192C4D53CF0028BCC0 /* SingIn.swift */; };
-		C5A1691D2C4D5DD60028BCC0 /* TempError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A1691C2C4D5DD60028BCC0 /* TempError.swift */; };
+		C5A1691D2C4D5DD60028BCC0 /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A1691C2C4D5DD60028BCC0 /* CommonError.swift */; };
 		C5A201B22A98502500A54381 /* TimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A201B12A98502500A54381 /* TimeUtility.swift */; };
 		C5A201B42A986EC300A54381 /* EditPlaceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A201B32A986EC300A54381 /* EditPlaceInfoViewController.swift */; };
 		C5A201B72A986EDF00A54381 /* EditMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A201B62A986EDF00A54381 /* EditMenuViewController.swift */; };
@@ -527,7 +527,7 @@
 		C5A169152C4D53970028BCC0 /* SignInFromAppleGoogle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFromAppleGoogle.swift; sourceTree = "<group>"; };
 		C5A169172C4D53A50028BCC0 /* SignInFromKakaoNaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFromKakaoNaver.swift; sourceTree = "<group>"; };
 		C5A169192C4D53CF0028BCC0 /* SingIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingIn.swift; sourceTree = "<group>"; };
-		C5A1691C2C4D5DD60028BCC0 /* TempError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempError.swift; sourceTree = "<group>"; };
+		C5A1691C2C4D5DD60028BCC0 /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
 		C5A201B12A98502500A54381 /* TimeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUtility.swift; sourceTree = "<group>"; };
 		C5A201B32A986EC300A54381 /* EditPlaceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlaceInfoViewController.swift; sourceTree = "<group>"; };
 		C5A201B62A986EDF00A54381 /* EditMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenuViewController.swift; sourceTree = "<group>"; };
@@ -1743,7 +1743,7 @@
 		C5A1691B2C4D5DCC0028BCC0 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				C5A1691C2C4D5DD60028BCC0 /* TempError.swift */,
+				C5A1691C2C4D5DD60028BCC0 /* CommonError.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -3066,7 +3066,7 @@
 				C528E4C02A5FF1CB002BD72E /* FinalRegistrationViewController.swift in Sources */,
 				C5FBDA5C2B398264007AC77E /* ChallengeInfoYellowView.swift in Sources */,
 				C5DCBC8F2B91CF46003502BA /* AVIROMyBookmarkList+DTO.swift in Sources */,
-				C5A1691D2C4D5DD60028BCC0 /* TempError.swift in Sources */,
+				C5A1691D2C4D5DD60028BCC0 /* CommonError.swift in Sources */,
 				C5D93DA32A58718300629C39 /* NextPageButton.swift in Sources */,
 				C5ED99602C088FAA0077B2F9 /* UserInfoRepositoryInterface.swift in Sources */,
 				C5BA9E0E2BED1D75004FA06E /* AVIROViewModel.swift in Sources */,
