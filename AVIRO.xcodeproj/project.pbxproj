@@ -178,7 +178,7 @@
 		C59491D32AB0336100880B4B /* UIView(Animation)+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59491D22AB0336100880B4B /* UIView(Animation)+Extension.swift */; };
 		C595ACCD2A84A1A200D35123 /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C595ACCC2A84A1A200D35123 /* PlaceView.swift */; };
 		C595ACD12A84A4EB00D35123 /* PlaceSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C595ACD02A84A4EB00D35123 /* PlaceSummaryView.swift */; };
-		C5A169162C4D53970028BCC0 /* SignInFromAppleGoogle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A169152C4D53970028BCC0 /* SignInFromAppleGoogle.swift */; };
+		C5A169162C4D53970028BCC0 /* SignInFromApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A169152C4D53970028BCC0 /* SignInFromApple.swift */; };
 		C5A169182C4D53A50028BCC0 /* SignInFromKakaoNaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A169172C4D53A50028BCC0 /* SignInFromKakaoNaver.swift */; };
 		C5A1691A2C4D53CF0028BCC0 /* SingIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A169192C4D53CF0028BCC0 /* SingIn.swift */; };
 		C5A1691D2C4D5DD60028BCC0 /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A1691C2C4D5DD60028BCC0 /* CommonError.swift */; };
@@ -524,7 +524,7 @@
 		C59491D22AB0336100880B4B /* UIView(Animation)+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView(Animation)+Extension.swift"; sourceTree = "<group>"; };
 		C595ACCC2A84A1A200D35123 /* PlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceView.swift; sourceTree = "<group>"; };
 		C595ACD02A84A4EB00D35123 /* PlaceSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSummaryView.swift; sourceTree = "<group>"; };
-		C5A169152C4D53970028BCC0 /* SignInFromAppleGoogle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFromAppleGoogle.swift; sourceTree = "<group>"; };
+		C5A169152C4D53970028BCC0 /* SignInFromApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFromApple.swift; sourceTree = "<group>"; };
 		C5A169172C4D53A50028BCC0 /* SignInFromKakaoNaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFromKakaoNaver.swift; sourceTree = "<group>"; };
 		C5A169192C4D53CF0028BCC0 /* SingIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingIn.swift; sourceTree = "<group>"; };
 		C5A1691C2C4D5DD60028BCC0 /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
@@ -1733,7 +1733,7 @@
 		C5A169142C4D53520028BCC0 /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
-				C5A169152C4D53970028BCC0 /* SignInFromAppleGoogle.swift */,
+				C5A169152C4D53970028BCC0 /* SignInFromApple.swift */,
 				C5A169172C4D53A50028BCC0 /* SignInFromKakaoNaver.swift */,
 				C5A169192C4D53CF0028BCC0 /* SingIn.swift */,
 			);
@@ -2980,7 +2980,7 @@
 				C5732C752A41962D00CDC499 /* AVIRORequestAPI.swift in Sources */,
 				C562B6DC2B38704600CE5D4C /* ChallengeViewModel.swift in Sources */,
 				C5C178712C37B30E00B774AE /* NaverAuthRepository.swift in Sources */,
-				C5A169162C4D53970028BCC0 /* SignInFromAppleGoogle.swift in Sources */,
+				C5A169162C4D53970028BCC0 /* SignInFromApple.swift in Sources */,
 				C5C20BAC2AD504D500855BBB /* AmplitudeUtility.swift in Sources */,
 				C513854C2AAB3B52001AB827 /* NickNameChangeblePresenter.swift in Sources */,
 				C5D93DA12A581F5A00629C39 /* FirstRegistrationPresenter.swift in Sources */,

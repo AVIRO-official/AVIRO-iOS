@@ -56,7 +56,6 @@ struct AVIROPostAPI {
     static let appleUserCheckPath = "/2/member"
     static let appleUserSignUpPath = "/2/member/sign-up"
     static let appleUserRevokePath = "/2/member/revoke"
-    static let kakaoUserCheckPath = "/2/member/kakao"
     
     static let userNicnameCheckPath = "/2/member/check"
     static let userNicknameChangeablePath = "/2/member/update/nickname"
@@ -133,11 +132,6 @@ struct AVIROPostAPI {
     // MARK: AppleUserCheck
     mutating func appleUserCheck() -> URLComponents {
         return createURLComponents(path: AVIROPostAPI.appleUserCheckPath)
-    }
-    
-    // MARK: Kakao user check
-    mutating func kakaoUserCheck() -> URLComponents {
-        return createURLComponents(path: AVIROPostAPI.kakaoUserCheckPath)
     }
     
     // MARK: appleUserSignup

@@ -10,7 +10,7 @@ import AuthenticationServices
 
 final class AppleAuthRepository: NSObject {
     private let backgroundQueue: DataTransferDispatchQueue
-    private var loginCompletion: ((SignInFromAppleGoogle) -> Void)?
+    private var loginCompletion: ((SignInFromApple) -> Void)?
     private var errorCompletion: ((String) -> Void)?
     init(
         backgroundQueue: DataTransferDispatchQueue = DispatchQueue.global(qos: .userInitiated)
@@ -22,7 +22,7 @@ final class AppleAuthRepository: NSObject {
 extension AppleAuthRepository: AppleLoginRepositoryInterface {
     func login(
         requestLogin: () -> Void,
-        loginCompletion: @escaping (SignInFromAppleGoogle) -> Void,
+        loginCompletion: @escaping (SignInFromApple) -> Void,
         errorCompletion: @escaping (String) -> Void
     ) {
         requestLogin()
@@ -79,7 +79,7 @@ extension AppleAuthRepository: ASAuthorizationControllerDelegate {
                             userEmail: email
                         )
                         
-                        let model = SignInFromAppleGoogle(
+                        let model = SignInFromApple(
                             isMember: data.isMember,
                             userData: userData
                         )

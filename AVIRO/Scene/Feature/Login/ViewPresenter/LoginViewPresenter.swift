@@ -166,21 +166,25 @@ final class LoginViewPresenter: NSObject {
         socialLoginUseCase.checkMember(
             type: type,
             requestLogin: {
-                viewController?.switchIsLoading(with: true)
+                DispatchQueue.main.async { [weak self] in
+                    self?.viewController?.switchIsLoading(with: true)
+                }
             },
             completion: { [weak self] result in
-                switch result {
-                case .success(let isMember):
-                    self?.viewController?.switchIsLoading(with: false)
-                    
-                    if isMember {
-                        self?.viewController?.pushTabBar()
-                    } else {
-                        self?.viewController?.pushRegistrationView()
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let isMember):
+                        self?.viewController?.switchIsLoading(with: false)
+                        
+                        if isMember {
+                            self?.viewController?.pushTabBar()
+                        } else {
+                            self?.viewController?.pushRegistrationView()
+                        }
+                    case .failure(let error):
+                        self?.viewController?.switchIsLoading(with: false)
+                        self?.viewController?.showErrorAlert(with: error.localizedDescription, title: nil)
                     }
-                case .failure(let error):
-                    self?.viewController?.switchIsLoading(with: false)
-                    self?.viewController?.showErrorAlert(with: "error", title: nil)
                 }
             }
         )

@@ -56,6 +56,8 @@ struct AVIRORequestAPI {
     
     static let wellcomeImagesPath = "/2/map/load/popup"
     
+    static let kakaoUserCheckPath = "/3/member/kakao"
+
     // MARK: Key
     static let userId = "userId"
     
@@ -304,6 +306,20 @@ struct AVIRORequestAPI {
     // MARK: GET WellcomeImages URL
     mutating func getWellcomImagesURL() -> URLComponents {
         return createURLComponents(path: AVIRORequestAPI.wellcomeImagesPath)
+    }
+    
+    // MARK: Kakao user check
+    mutating func kakaoUserCheck(userId: String) -> URLComponents {
+        let queryItems = [
+            URLQueryItem(
+                name: AVIRORequestAPI.userId,
+                value: userId)
+        ]
+        
+        return createURLComponents(
+            path: AVIRORequestAPI.kakaoUserCheckPath,
+            queryItems: queryItems
+        )
     }
 }
 

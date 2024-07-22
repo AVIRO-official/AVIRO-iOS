@@ -37,10 +37,9 @@ extension KakaoAuthRepository: KakaoLoginRepositoryInterface {
         self.errorCompletion = errorCompletion
         
         if UserApi.isKakaoTalkLoginAvailable() {
-            UserApi.shared.loginWithKakaoTalk { [weak self] token, error in
+            UserApi.shared.loginWithKakaoTalk { [weak self] _, error in
                 if let error = error {
                     self?.errorCompletion?(error.localizedDescription)
-                    
                     return
                 } else {
                     self?.getInfo()
@@ -101,6 +100,10 @@ extension KakaoAuthRepository: KakaoLoginRepositoryInterface {
                             nickname: nickname,
                             marketingAgree: marketingAgree
                         )
+                        
+                        self.loginCompletion?(model)
+                        
+                        return
                     } else {
                         guard let message = success.message else { 
                             self.errorCompletion?("서버와 응답이 되지 않습니다.")
@@ -109,7 +112,7 @@ extension KakaoAuthRepository: KakaoLoginRepositoryInterface {
                         
                         self.errorCompletion?(message)
                     }
-                case .failure(let error):
+                case .failure(let error):                    
                     if let errorMessage = error.errorDescription {
                         self.errorCompletion?(errorMessage)
                     }

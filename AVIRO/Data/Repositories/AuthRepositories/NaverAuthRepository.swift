@@ -10,14 +10,16 @@ import Foundation
 import NaverThirdPartyLogin
 
 final class NaverAuthRepository: NSObject {
-//    private let aviroDataTransferService: DataTransferService
     private let naverDataTransferService: DataTransferService
     private let backgroundQueue: DataTransferDispatchQueue
-
+    
     private let instance = NaverThirdPartyLoginConnection.getSharedInstance()
-
+    
+    private var loginCompletion: ((SignInFromKakaoNaver) -> Void)?
+    private var errorCompletion: ((String) -> Void)?
+    
     init(
-//        dataTransferService: DataTransferService,
+        //        dataTransferService: DataTransferService,
         backgroundQueue: DataTransferDispatchQueue = DispatchQueue.global(qos: .userInitiated)
     ) {
         self.backgroundQueue = backgroundQueue
@@ -26,7 +28,6 @@ final class NaverAuthRepository: NSObject {
         let url = URL(string: urlStr)!
         let naverAPIConfig = APIDataNetworkConfig(baseURL: url)
         
-//        self.aviroDataTransferService = dataTransferService
         self.naverDataTransferService = DataTransferService(
             networkService: NetworkService(config: naverAPIConfig)
         )
@@ -38,7 +39,7 @@ final class NaverAuthRepository: NSObject {
         let consumerSecret = (dictionary["Naver_Client_Secret"] as? String)!
         
         // 네이버 앱에서 인증
-//        instance?.isNaverAppOauthEnable = true
+        //        instance?.isNaverAppOauthEnable = true
         
         // 사파리에서 인증
         instance?.isInAppOauthEnable = true
@@ -59,6 +60,9 @@ extension NaverAuthRepository: NaverLoginRepositoryInterface {
     ) {
         instance?.delegate = self
         instance?.requestThirdPartyLogin()
+        
+        self.loginCompletion = loginCompletion
+        self.errorCompletion = errorCompletion
     }
     
     func logout(completion: @escaping (Result<String, Error>) -> Void) {
@@ -71,60 +75,98 @@ extension NaverAuthRepository: NaverLoginRepositoryInterface {
         if !isValidAccessToken { return }
         
         guard let tokenType = instance?.tokenType,
-              let accessType = instance?.accessToken,
-              let refreshToke = instance?.refreshToken
+              let accessType = instance?.accessToken
         else { return }
         
         let authorization = "\(tokenType) \(accessType)"
-                
+        
         let endpoint = EndPoint<NaverUserInfoResponseDTO>(
             path: "v1/nid/me",
             method: .get,
             headerParameters: ["Authorization": authorization]
         )
         
-        let req = naverDataTransferService.request(
+        _ = naverDataTransferService.request(
             with: endpoint,
-            on: backgroundQueue) { result in
+            on: backgroundQueue) { [weak self] result in
+                guard let self = self else { return }
+                
                 switch result {
                 case .success(let userInfo):
-                    let contentText = """
-                       userId : \(userInfo.id)
-                       """
+                    let checkMemberDTO = AVIROKakaoUserCheckMemberDTO(userId: userInfo.id)
                     
-                    print(contentText)
+                    AVIROAPI.manager.checkKakaoUserWhenLogin(
+                        with: checkMemberDTO) { result in
+                            switch result {
+                            case .success(let success):
+                                if success.statusCode == 200 || success.statusCode == 400 {
+                                    let userData = SignInUserDataFromKakaoNaver(userId: userInfo.id)
+                                    var isMember: Bool
+                                    var nickname = ""
+                                    var marketingAgree = 0
+                                    
+                                    if let data = success.data {
+                                        isMember = true
+                                        nickname = data.nickname
+                                        marketingAgree = data.marketingAgree
+                                    } else {
+                                        isMember = false
+                                    }
+                                    
+                                    let model = SignInFromKakaoNaver(
+                                        isMember: isMember,
+                                        userData: userData,
+                                        nickname: nickname,
+                                        marketingAgree: marketingAgree
+                                    )
+
+                                    self.loginCompletion?(model)
+
+                                    return
+                                } else {
+                                    guard let message = success.message else {
+                                        self.errorCompletion?("서버와 응답이 되지 않습니다.")
+                                        return
+                                    }
+                                    
+                                    self.errorCompletion?(message)
+                                }
+                            case .failure(let error):
+                                if let errorMessage = error.errorDescription {
+                                    self.errorCompletion?(errorMessage)
+                                }
+                            }
+                        }
                 case .failure(let error):
-                    print("Error \(error)")
+                    self.errorCompletion?(error.localizedDescription)
+                    return
                 }
             }
-                
     }
 }
 
 extension NaverAuthRepository: NaverThirdPartyLoginConnectionDelegate {
     func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
-        print("Success Login")
         getInfo()
     }
     
     func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {
-        print("TestTest")
-        instance?.accessToken
+        getInfo()
     }
     
     func oauth20ConnectionDidFinishDeleteToken() {
-        print("Log out")
         
     }
     
-    func oauth20Connection(_ oauthConnection: NaverThirdPartyLoginConnection!, didFailWithError error: (any Error)!) {
-        print("error")
-    }
+    func oauth20Connection(
+        _ oauthConnection: NaverThirdPartyLoginConnection!,
+        didFailWithError error: Error) {
+            
+        }
 }
 
 struct NaverUserInfoResponseDTO: Decodable {
     let id: String
-//    let name: String
     
     private enum RootKeys: String, CodingKey {
         case response

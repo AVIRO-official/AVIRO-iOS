@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SignInFromAppleGoogle {
+struct SignInFromApple {
     let isMember: Bool
     let userData: SignInUserDataFromAppleGoogle
 }

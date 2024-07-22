@@ -10,7 +10,7 @@ import Foundation
 protocol AppleLoginRepositoryInterface {
     func login(
         requestLogin: () -> Void,
-        loginCompletion: @escaping (SignInFromAppleGoogle) -> Void,
+        loginCompletion: @escaping (SignInFromApple) -> Void,
         errorCompletion: @escaping (String) -> Void
     )
     func logout(completion: @escaping (Result<String, Error>) -> Void)
@@ -19,7 +19,7 @@ protocol AppleLoginRepositoryInterface {
 protocol GoogleLoginRepositoryInterface {
     func login(
         requestLogin: () -> Void,
-        loginCompletion: @escaping (SignInFromAppleGoogle) -> Void,
+        loginCompletion: @escaping (SignInFromKakaoNaver) -> Void,
         errorCompletion: @escaping (String) -> Void
     )
     func logout(completion: @escaping (Result<String, Error>) -> Void)

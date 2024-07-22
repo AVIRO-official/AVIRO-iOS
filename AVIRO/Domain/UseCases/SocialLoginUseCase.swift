@@ -85,16 +85,34 @@ extension SocialLoginUseCase: SocialLoginUseCaseInterface {
             kakaoLoginRepository.login(
                 requestLogin: requestLogin,
                 loginCompletion: { [weak self] result in
+                    if result.isMember {
+                        completion(.success(true))
+                    } else {
+                        self?.setupUserData()
+                        completion(.success(false))
+                    }
                 },
                 errorCompletion: { result in
+                    let error = CommonError.temp(result)
+                    completion(.failure(error))
                 }
             )
         case .naver:
             naverLoginRepository.login(
                 requestLogin: requestLogin,
                 loginCompletion: { [weak self] result in
+                    if result.isMember {
+                        print("testtoto")
+                        completion(.success(true))
+                    } else {
+                        self?.setupUserData()
+                        print("test")
+                        completion(.success(false))
+                    }
                 },
                 errorCompletion: { result in
+                    let error = CommonError.temp(result)
+                    completion(.failure(error))
                 }
             )
         }

@@ -12,7 +12,7 @@ import GoogleSignIn
 final class GoogleAuthRepository {
     private let clientID: String?
     
-    private var loginCompletion: ((SignInFromAppleGoogle) -> Void)?
+    private var loginCompletion: ((SignInFromKakaoNaver) -> Void)?
     private var errorCompletion: ((String) -> Void)?
     
     init() {
@@ -29,7 +29,7 @@ final class GoogleAuthRepository {
 extension GoogleAuthRepository: GoogleLoginRepositoryInterface {
     func login(
         requestLogin: () -> Void,
-        loginCompletion: @escaping (SignInFromAppleGoogle) -> Void,
+        loginCompletion: @escaping (SignInFromKakaoNaver) -> Void,
         errorCompletion: @escaping (String) -> Void
     ) {
         guard let clientID = self.clientID,
@@ -46,55 +46,57 @@ extension GoogleAuthRepository: GoogleLoginRepositoryInterface {
         
         GIDSignIn.sharedInstance.signIn(
             withPresenting: viewController
-        ) { [weak self] user, error in
+        ) { [weak self] signInResult, error in
             if let error = error {
                 self?.errorCompletion?(error.localizedDescription)
                 return
             }
             
-            guard let user = user else {
+            guard let user = signInResult,
+                let userID = user.user.userID
+            else {
                 self?.errorCompletion?("구글 사용자 정보를 가져올 수 없습니다.")
                 return
             }
             
-            guard let idToken = user.user.idToken?.tokenString,
-                  let authorizationCode = user.serverAuthCode else {
-                self?.errorCompletion?("구글 사용자 인증 정보를 가져올 수 없습니다.")
-                return
-            }
+            let checkMemberDTO = AVIROKakaoUserCheckMemberDTO(userId: userID)
             
-            let memberCheckDTO = AVIROAppleUserCheckMemberDTO(
-                identityToken: idToken,
-                authorizationCode: authorizationCode
-            )
-            
-            AVIROAPI.manager.checkAppleUserWhenLogin(
-                with: memberCheckDTO
-            ) { [weak self] result in
+            AVIROAPI.manager.checkKakaoUserWhenLogin(with: checkMemberDTO) { [weak self] result in
                 guard let self = self else { return }
                 
                 switch result {
                 case .success(let success):
-                    if success.statusCode == 200,
-                       let data = success.data {
-                        let userData = SignInUserDataFromAppleGoogle(
-                            refreshToken: data.refreshToken,
-                            accessToken: data.accessToken,
-                            userId: user.user.userID,
-                            userName: user.user.profile?.name,
-                            userEmail: user.user.profile?.email
-                        )
+                    if success.statusCode == 200 || success.statusCode == 400 {
+                        let userData = SignInUserDataFromKakaoNaver(userId: userID)
+                        var isMember: Bool
+                        var nickname = ""
+                        var marketingAgree = 0
                         
-                        let model = SignInFromAppleGoogle(
-                            isMember: data.isMember,
-                            userData: userData
+                        if let data = success.data {
+                            isMember = true
+                            nickname = data.nickname
+                            marketingAgree = data.marketingAgree
+                        } else {
+                            isMember = false
+                        }
+                        
+                        let model = SignInFromKakaoNaver(
+                            isMember: isMember,
+                            userData: userData,
+                            nickname: nickname,
+                            marketingAgree: marketingAgree
                         )
                         
                         self.loginCompletion?(model)
-                    } else {
-                        guard let errorMessage = success.message else { return }
                         
-                        self.errorCompletion?(errorMessage)
+                        return
+                    } else {
+                        guard let message = success.message else {
+                            self.errorCompletion?("서버와 응답이 되지 않습니다.")
+                            return
+                        }
+                        
+                        self.errorCompletion?(message)
                     }
                 case .failure(let error):
                     if let errorMessage = error.errorDescription {
