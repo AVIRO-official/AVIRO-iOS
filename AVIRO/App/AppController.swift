@@ -132,6 +132,34 @@ final class AppController {
             return
         }
         
+        let userCheck = AVIROKakaoUserCheckMemberDTO(userId: userID)
+        
+        AVIROAPI.manager.checkKakaoUserWhenLogin(with: userCheck) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let model):
+                    if model.statusCode == 200 {
+                        if let data = model.data {
+                            MyData.my.whenLogin(
+                                userId: userID,
+                                userName: "",
+                                userEmail: "",
+                                userNickname: data.nickname,
+                                marketingAgree: data.marketingAgree
+                            )
+                            
+                            self?.setTabBarView()
+                        }
+                    } else {
+                        self?.keychain.delete(KeychainKey.userID.rawValue)
+                        self?.setLoginView()
+                    }
+                case .failure(_):
+                    self?.keychain.delete(KeychainKey.userID.rawValue)
+                    self?.setLoginView()
+                }
+            }
+        }
         
     }
     
