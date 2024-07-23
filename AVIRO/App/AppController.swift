@@ -43,14 +43,96 @@ final class AppController {
         window.backgroundColor = .gray7
 
 //        setTabBarView()
-        checkState()
+        checkLoginType()
     }
     
-    func setupLoginViewAfterLogout(in window: UIWindow, with type: LoginViewToastType) {
-        self.window = window
-        window.backgroundColor = .gray7
+    private func checkLoginType() {
+        // 최초 튜토리얼 화면 안 봤을 때
+        guard UserDefaults.standard.bool(forKey: UDKey.tutorial.rawValue) else {
+            setTutorialView()
+            return
+        }
         
-        setLoginView(type: type)
+        // login type 업데이트 전 자동로그인 적용을 위해 사전 작업
+        if let loginType = UserDefaults.standard.string(forKey: UDKey.loginType.rawValue) {
+            switch loginType {
+            case "apple":
+                checkMemberFromApple()
+            case "none":
+                setLoginView()
+            default:
+                checkMemberFromOthers()
+            }
+        } else {
+            if let userKey = keychain.get(KeychainKey.appleRefreshToken.rawValue) {
+                UserDefaults.standard.set(
+                    LoginTypeKey.apple.rawValue,
+                    forKey: UDKey.loginType.rawValue
+                )
+                
+                keychain.set(
+                    userKey,
+                    forKey: KeychainKey.refreshToken.rawValue
+                )
+                
+                keychain.delete(KeychainKey.appleRefreshToken.rawValue)
+            } else {
+                UserDefaults.standard.set(
+                    LoginTypeKey.none.rawValue,
+                    forKey: UDKey.loginType.rawValue
+                )
+            }
+        }
+
+    }
+    
+    private func checkMemberFromApple() {
+        keychain.delete(KeychainKey.userID.rawValue)
+        
+        guard let refreshToken = keychain.get(KeychainKey.refreshToken.rawValue) else {
+            setLoginView()
+            return
+        }
+        
+        let userCheck = AVIROAutoLoginWhenAppleUserDTO(refreshToken: refreshToken)
+        
+        AVIROAPI.manager.checkAppleUserWhenInitiate(with: userCheck) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let model):
+                    if model.statusCode == 200 {
+                        if let data = model.data {
+                            MyData.my.whenLogin(
+                                userId: data.userId,
+                                userName: data.userName,
+                                userEmail: data.userEmail,
+                                userNickname: data.nickname,
+                                marketingAgree: data.marketingAgree
+                            )
+                            
+                            self?.setTabBarView()
+                        }
+                    } else {
+                        self?.keychain.delete(KeychainKey.refreshToken.rawValue)
+                        self?.setLoginView()
+                    }
+                case .failure(_):
+                    self?.keychain.delete(KeychainKey.refreshToken.rawValue)
+                    self?.setLoginView()
+                }
+            }
+        }
+    }
+    
+    private func checkMemberFromOthers() {
+        keychain.delete(KeychainKey.refreshToken.rawValue)
+        
+        guard let userID = keychain.get(KeychainKey.userID.rawValue) else {
+            setLoginView()
+            return
+        }
+        
+        
     }
     
     // MARK: 불러올 view 확인 메서드
@@ -141,5 +223,15 @@ final class AppController {
         tabBarVC.selectedIndex = 0
 
         rootViewController = tabBarVC
+    }
+    
+    func setupLoginViewAfterLogout(
+        in window: UIWindow,
+        with type: LoginViewToastType
+    ) {
+        self.window = window
+        window.backgroundColor = .gray7
+        
+        setLoginView(type: type)
     }
 }
