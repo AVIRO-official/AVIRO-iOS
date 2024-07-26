@@ -35,7 +35,7 @@ private enum Layout {
 
 final class ThridRegistrationViewController: UIViewController {
 
-    lazy var presenter = ThridRegistrationPresenter(viewController: self)
+    var presenter: ThridRegistrationPresenter!
     
     // MARK: UI Property Definitions
     private lazy var titleLabel: UILabel = {

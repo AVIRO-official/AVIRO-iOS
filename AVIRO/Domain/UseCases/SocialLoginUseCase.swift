@@ -15,15 +15,21 @@ protocol SocialLoginUseCaseInterface: AnyObject {
     func logout(
         type: LoginType,
         completion: @escaping (Result<String, Error>) -> Void)
-    func singin(
+    func signIn(
         type: LoginType,
         completion: @escaping (Result<String, Error>) -> Void)
     func withdrawal(
         type: LoginType,
         completion: @escaping (Result<String, Error>) -> Void)
+    func firstUpdateSignInInfo(nickname: String)
+    func secondUpdateSignInInfo(gender: String, birth: Int)
+    func thridUpdateSignInInfo(marketingAgree: Bool)
+    func loadSignInInfo() -> SignInInfo
 }
 
 final class SocialLoginUseCase {
+    private var signinInfo: SignInInfo = SignInInfo()
+    
     private let appleLoginRepository: AppleLoginRepositoryInterface
     private let googleLoginRepository: GoogleLoginRepositoryInterface
     private let kakaoLoginRepository: KakaoLoginRepositoryInterface
@@ -57,7 +63,8 @@ extension SocialLoginUseCase: SocialLoginUseCaseInterface {
                     if result.isMember {
                         completion(.success(true))
                     } else {
-                        self?.setupUserData()
+                        self?.setupUserDataFromApple(result)
+                        self?.signinInfo.loginType = .apple
                         completion(.success(false))
                     }
                 }, errorCompletion: { result in
@@ -72,7 +79,9 @@ extension SocialLoginUseCase: SocialLoginUseCaseInterface {
                     if result.isMember {
                         completion(.success(true))
                     } else {
-                        self?.setupUserData()
+                        self?.setupUserDataFromOthers(result)
+                        self?.signinInfo.loginType = .google
+
                         completion(.success(false))
                     }
                 },
@@ -88,7 +97,9 @@ extension SocialLoginUseCase: SocialLoginUseCaseInterface {
                     if result.isMember {
                         completion(.success(true))
                     } else {
-                        self?.setupUserData()
+                        self?.setupUserDataFromOthers(result)
+                        self?.signinInfo.loginType = .kakao
+
                         completion(.success(false))
                     }
                 },
@@ -102,11 +113,11 @@ extension SocialLoginUseCase: SocialLoginUseCaseInterface {
                 requestLogin: requestLogin,
                 loginCompletion: { [weak self] result in
                     if result.isMember {
-                        print("testtoto")
                         completion(.success(true))
                     } else {
-                        self?.setupUserData()
-                        print("test")
+                        self?.setupUserDataFromOthers(result)
+                        self?.signinInfo.loginType = .naver
+
                         completion(.success(false))
                     }
                 },
@@ -118,11 +129,23 @@ extension SocialLoginUseCase: SocialLoginUseCaseInterface {
         }
     }
     
-    private func setupUserData() {
-        
+    private func setupUserDataFromApple(_ userInfo: SignInFromApple) {
+        signinInfo.refreshToken = userInfo.userData.refreshToken
+        signinInfo.accessToken = userInfo.userData.accessToken
+        signinInfo.userID = userInfo.userData.userId
+        signinInfo.userName = userInfo.userData.userName
+        signinInfo.userEmail = userInfo.userData.userEmail
     }
     
-    func singin(
+    private func setupUserDataFromOthers(_ userInfo: SignInFromKakaoNaver) {
+        signinInfo.refreshToken = ""
+        signinInfo.accessToken = ""
+        signinInfo.userID = userInfo.userData.userId
+        signinInfo.userName = ""
+        signinInfo.userEmail = ""
+    }
+    
+    func signIn(
         type: LoginType,
         completion: @escaping (Result<String, Error>) -> Void
     ) {
@@ -141,5 +164,22 @@ extension SocialLoginUseCase: SocialLoginUseCaseInterface {
         completion: @escaping (Result<String, Error>) -> Void
     ) {
         
+    }
+    
+    func firstUpdateSignInInfo(nickname: String) {
+        signinInfo.nickname = nickname
+    }
+    
+    func secondUpdateSignInInfo(gender: String, birth: Int) {
+        signinInfo.gender = gender
+        signinInfo.birthday = birth
+    }
+    
+    func thridUpdateSignInInfo(marketingAgree: Bool) {
+        signinInfo.marketAgree = marketingAgree
+    }
+    
+    func loadSignInInfo() -> SignInInfo {
+        return signinInfo
     }
 }

@@ -40,7 +40,7 @@ private enum Layout {
 }
 
 final class SecondRegistrationViewController: UIViewController {
-    lazy var presenter = SecondRegistrationPresenter(viewController: self)
+    var presenter: SecondRegistrationPresenter!
     
     // MARK: UI Property Definitions
     private lazy var titleLabel: UILabel = {
@@ -315,18 +315,21 @@ extension SecondRegistrationViewController: SecondRegistrationProtocol {
     
     // MARK: Push Interactions
     func pushThridRegistrationView(
-        _ userInfoModel: AVIROAppleUserSignUpDTO
+        usecase: SocialLoginUseCaseInterface
     ) {
         let viewController = ThridRegistrationViewController()
         
         let presenter = ThridRegistrationPresenter(
-            viewController: viewController,
-            userInfo: userInfoModel
+            socialLoginUseCase: usecase,
+            viewController: viewController
         )
         
         viewController.presenter = presenter
         
-        navigationController?.pushViewController(viewController, animated: true)
+        navigationController?.pushViewController(
+            viewController,
+            animated: true
+        )
     }
 }
 

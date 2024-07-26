@@ -184,7 +184,7 @@ extension LoginViewController: LoginViewProtocol {
     
     // MARK: UI Interactions
     @objc private func tapAppleLogin() {
-        presenter.clickedAppleLogin()
+//        presenter.clickedAppleLogin()
     }
     
     func switchIsLoading(with loading: Bool) {
@@ -205,30 +205,34 @@ extension LoginViewController: LoginViewProtocol {
     }
     
     // TODO: 코드 수정 필요
-    func pushRegistrationView() {
+    func pushRegistrationView(usecase: SocialLoginUseCaseInterface) {
         let viewController = FirstRegistrationViewController()
         
-        let presenter = FirstRegistrationPresenter(viewController: viewController)
+        let presenter = FirstRegistrationPresenter(
+            socialLoginUseCase: usecase,
+            viewController: viewController
+        )
         
         viewController.presenter = presenter
         
         self.navigationController?.pushViewController(viewController, animated: true)
     }
     
-    func pushRegistrationWhenAppleLogin(_ userModel: AVIROAppleUserSignUpDTO) {
-        DispatchQueue.main.async { [weak self] in
-            let viewController = FirstRegistrationViewController()
-            
-            let presenter = FirstRegistrationPresenter(
-                viewController: viewController,
-                appleUserSignUpModel: userModel
-            )
-            
-            viewController.presenter = presenter
-
-            self?.navigationController?.pushViewController(viewController, animated: true)
-        }
-    }
+//    func pushRegistrationWhenAppleLogin(_ userModel: AVIROAppleUserSignUpDTO) {
+//        DispatchQueue.main.async { [weak self] in
+//            let viewController = FirstRegistrationViewController()
+//            
+//            let presenter = FirstRegistrationPresenter(
+//                socialLoginUseCase:
+//                viewController: viewController,
+//                appleUserSignUpModel: userModel
+//            )
+//            
+//            viewController.presenter = presenter
+//
+//            self?.navigationController?.pushViewController(viewController, animated: true)
+//        }
+//    }
     
     // MARK: Alert Interactions
     func afterLogoutAndMakeToastButton() {

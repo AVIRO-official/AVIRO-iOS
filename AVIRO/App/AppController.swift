@@ -53,7 +53,6 @@ final class AppController {
             return
         }
         
-        // login type 업데이트 전 자동로그인 적용을 위해 사전 작업
         if let loginType = UserDefaults.standard.string(forKey: UDKey.loginType.rawValue) {
             switch loginType {
             case "apple":
@@ -64,6 +63,7 @@ final class AppController {
                 checkMemberFromOthers()
             }
         } else {
+            // login type 업데이트 전 자동로그인 적용을 위해 사전 작업
             if let userKey = keychain.get(KeychainKey.appleRefreshToken.rawValue) {
                 UserDefaults.standard.set(
                     LoginTypeKey.apple.rawValue,
@@ -76,14 +76,17 @@ final class AppController {
                 )
                 
                 keychain.delete(KeychainKey.appleRefreshToken.rawValue)
+                
+                checkMemberFromApple()
             } else {
                 UserDefaults.standard.set(
                     LoginTypeKey.none.rawValue,
                     forKey: UDKey.loginType.rawValue
                 )
+                
+                setLoginView()
             }
         }
-
     }
     
     private func checkMemberFromApple() {

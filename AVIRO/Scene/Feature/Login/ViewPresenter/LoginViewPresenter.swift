@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import AuthenticationServices
+//import AuthenticationServices
 
 import KeychainSwift
 
@@ -17,8 +17,8 @@ protocol LoginViewProtocol: NSObject {
     func switchIsLoading(with loading: Bool)
     
     func pushTabBar()
-    func pushRegistrationWhenAppleLogin(_ userModel: AVIROAppleUserSignUpDTO)
-    func pushRegistrationView()
+//    func pushRegistrationWhenAppleLogin(_ userModel: AVIROAppleUserSignUpDTO)
+    func pushRegistrationView(usecase: SocialLoginUseCaseInterface)
     
     func afterLogoutAndMakeToastButton()
     func afterWithdrawalUserShowAlert()
@@ -63,67 +63,67 @@ final class LoginViewPresenter: NSObject {
         }
     }
     
-    // MARK: Clicke Apple Login
-    func clickedAppleLogin() {
-        let request = ASAuthorizationAppleIDProvider().createRequest()
-        request.requestedScopes = [.fullName, .email]
-        
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-        authorizationController.delegate = self
-        authorizationController.presentationContextProvider = self
-        as? ASAuthorizationControllerPresentationContextProviding
-        authorizationController.performRequests()
-    }
+//    // MARK: Clicke Apple Login
+//    func clickedAppleLogin() {
+//        let request = ASAuthorizationAppleIDProvider().createRequest()
+//        request.requestedScopes = [.fullName, .email]
+//        
+//        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+//        authorizationController.delegate = self
+//        authorizationController.presentationContextProvider = self
+//        as? ASAuthorizationControllerPresentationContextProviding
+//        authorizationController.performRequests()
+//    }
     
-    // MARK: Login 후 최초인지 아닌지 확인 처리
-    func whenCheckAfterAppleLogin(with model: AppleUserLoginModel) {
-        viewController?.switchIsLoading(with: true)
-        
-        let checkAppleLoginModel = AVIROAppleUserCheckMemberDTO(
-            identityToken: model.identityToken,
-            authorizationCode: model.authorizationCode
-        )
-        
-        AVIROAPI.manager.checkAppleUserWhenLogin(with: checkAppleLoginModel) { [weak self] result in
-            switch result {
-            case .success(let success):
-                if success.statusCode == 200 {
-                    if let data = success.data {
-                        if data.isMember {
-                            
-                            self?.keychain.set(
-                                data.refreshToken,
-                                forKey: KeychainKey.appleRefreshToken.rawValue)
-                            
-                            self?.loadUserDataWhenAppleLogin()
-                            
-                        } else {
-                            let model = AVIROAppleUserSignUpDTO(
-                                refreshToken: data.refreshToken,
-                                accessToken: data.accessToken,
-                                userId: data.userId ?? "",
-                                userName: model.userName,
-                                userEmail: model.userEmail,
-                                marketingAgree: false
-                            )
-                            
-                            self?.viewController?.pushRegistrationWhenAppleLogin(model)
-                        }
-                    }
-                } else {
-                    if let message = success.message {
-                        self?.viewController?.switchIsLoading(with: false)
-                        self?.viewController?.showErrorAlert(with: message, title: nil)
-                    }
-                }
-            case .failure(let error):
-                if let error = error.errorDescription {
-                    self?.viewController?.switchIsLoading(with: false)
-                    self?.viewController?.showErrorAlert(with: error, title: nil)
-                }
-            }
-        }
-    }
+//    // MARK: Login 후 최초인지 아닌지 확인 처리
+//    func whenCheckAfterAppleLogin(with model: AppleUserLoginModel) {
+//        viewController?.switchIsLoading(with: true)
+//        
+//        let checkAppleLoginModel = AVIROAppleUserCheckMemberDTO(
+//            identityToken: model.identityToken,
+//            authorizationCode: model.authorizationCode
+//        )
+//        
+//        AVIROAPI.manager.checkAppleUserWhenLogin(with: checkAppleLoginModel) { [weak self] result in
+//            switch result {
+//            case .success(let success):
+//                if success.statusCode == 200 {
+//                    if let data = success.data {
+//                        if data.isMember {
+//                            
+//                            self?.keychain.set(
+//                                data.refreshToken,
+//                                forKey: KeychainKey.appleRefreshToken.rawValue)
+//                            
+//                            self?.loadUserDataWhenAppleLogin()
+//                            
+//                        } else {
+//                            let model = AVIROAppleUserSignUpDTO(
+//                                refreshToken: data.refreshToken,
+//                                accessToken: data.accessToken,
+//                                userId: data.userId ?? "",
+//                                userName: model.userName,
+//                                userEmail: model.userEmail,
+//                                marketingAgree: false
+//                            )
+//                            
+//                            self?.viewController?.pushRegistrationWhenAppleLogin(model)
+//                        }
+//                    }
+//                } else {
+//                    if let message = success.message {
+//                        self?.viewController?.switchIsLoading(with: false)
+//                        self?.viewController?.showErrorAlert(with: message, title: nil)
+//                    }
+//                }
+//            case .failure(let error):
+//                if let error = error.errorDescription {
+//                    self?.viewController?.switchIsLoading(with: false)
+//                    self?.viewController?.showErrorAlert(with: error, title: nil)
+//                }
+//            }
+//        }
+//    }
     
     // MARK: Apple Login User Info 불러오기
     private func loadUserDataWhenAppleLogin() {
@@ -179,7 +179,8 @@ final class LoginViewPresenter: NSObject {
                         if isMember {
                             self?.viewController?.pushTabBar()
                         } else {
-                            self?.viewController?.pushRegistrationView()
+                            let usecase = self?.socialLoginUseCase
+                            self?.viewController?.pushRegistrationView(usecase: usecase!)
                         }
                     case .failure(let error):
                         self?.viewController?.switchIsLoading(with: false)
@@ -191,31 +192,31 @@ final class LoginViewPresenter: NSObject {
     }
 }
 
-// MARK: Apple Login 처리 설정
-extension LoginViewPresenter: ASAuthorizationControllerDelegate {
-    func authorizationController(
-        controller: ASAuthorizationController,
-        didCompleteWithAuthorization authorization: ASAuthorization
-    ) {
-        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            guard let authorizationCode = appleIDCredential.authorizationCode,
-                  let identityToken = appleIDCredential.identityToken
-            else { return }
-            
-            let code = String(data: authorizationCode, encoding: .utf8)!
-            let token = String(data: identityToken, encoding: .utf8)!
-            
-            let fullName = appleIDCredential.fullName?.formatted() ?? " "
-            let email = appleIDCredential.email ?? " "
-            
-            let model = AppleUserLoginModel(
-                identityToken: token,
-                authorizationCode: code,
-                userName: fullName,
-                userEmail: email
-            )
-            
-            whenCheckAfterAppleLogin(with: model)
-        }
-    }
-}
+//// MARK: Apple Login 처리 설정
+//extension LoginViewPresenter: ASAuthorizationControllerDelegate {
+//    func authorizationController(
+//        controller: ASAuthorizationController,
+//        didCompleteWithAuthorization authorization: ASAuthorization
+//    ) {
+//        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+//            guard let authorizationCode = appleIDCredential.authorizationCode,
+//                  let identityToken = appleIDCredential.identityToken
+//            else { return }
+//            
+//            let code = String(data: authorizationCode, encoding: .utf8)!
+//            let token = String(data: identityToken, encoding: .utf8)!
+//            
+//            let fullName = appleIDCredential.fullName?.formatted() ?? " "
+//            let email = appleIDCredential.email ?? " "
+//            
+//            let model = AppleUserLoginModel(
+//                identityToken: token,
+//                authorizationCode: code,
+//                userName: fullName,
+//                userEmail: email
+//            )
+//            
+////            whenCheckAfterAppleLogin(with: model)
+//        }
+//    }
+//}

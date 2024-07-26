@@ -27,7 +27,8 @@ final class ThridRegistrationPresenter {
 
     private let keyChain = KeychainSwift()
     private let amplitude: AmplitudeProtocol
-    
+    private let socialLoginUseCase: SocialLoginUseCaseInterface!
+
     private var userInfoModel: AVIROAppleUserSignUpDTO?
         
     var terms: [(Term, Bool)] = [
@@ -36,10 +37,13 @@ final class ThridRegistrationPresenter {
         (.locationService, false)
     ]
     
-    init(viewController: ThridRegistrationProtocol,
+    init(
+        socialLoginUseCase: SocialLoginUseCaseInterface,
+        viewController: ThridRegistrationProtocol,
          userInfo: AVIROAppleUserSignUpDTO? = nil,
          amplitude: AmplitudeProtocol = AmplitudeUtility()
     ) {
+        self.socialLoginUseCase = socialLoginUseCase
         self.viewController = viewController
         self.userInfoModel = userInfo
         self.amplitude = amplitude
@@ -65,18 +69,33 @@ final class ThridRegistrationPresenter {
     }
     
     func pushUserInfo() {
-        guard var userInfoModel = userInfoModel else { return }
+        let userInfo = socialLoginUseCase.loadSignInInfo()
         
-        userInfoModel.marketingAgree = false
-                
-        AVIROAPI.manager.createAppleUser(with: userInfoModel) { [weak self] result in
+        let userSignUpDTO = AVIROAppleUserSignUpDTO.makeUserSignUpDTO(signInInfo: userInfo)
+        
+        AVIROAPI.manager.createAppleUser(with: userSignUpDTO) { [weak self] result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {
                     if let data = success.data {
-                        self?.keyChain.set(
-                            userInfoModel.refreshToken,
-                            forKey: KeychainKey.appleRefreshToken.rawValue)
+                        switch userInfo.loginType {
+                        case .apple:
+                            self?.keyChain.set(
+                                userInfo.refreshToken ?? "",
+                                forKey: KeychainKey.refreshToken.rawValue
+                            )
+                            self?.keyChain.delete(
+                                KeychainKey.userID.rawValue
+                            )
+                        default:
+                            self?.keyChain.set(
+                                userInfo.userID ?? "",
+                                forKey: KeychainKey.userID.rawValue
+                            )
+                            self?.keyChain.delete(
+                                KeychainKey.refreshToken.rawValue
+                            )
+                        }
                         self?.amplitude.signUp(with: data.userId)
                         
                         MyData.my.whenLogin(

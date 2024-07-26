@@ -49,7 +49,7 @@ struct AVIROKakaoUserCheckMemberDTO: Encodable {
 
 struct AVIROKakaoUserCheckMemberResultDTO: Decodable {
     let statusCode: Int
-    let data: AVIROKakaoUserRawData? 
+    let data: AVIROKakaoUserRawData?
     let message: String?
 }
 
@@ -68,6 +68,23 @@ struct AVIROAppleUserSignUpDTO: Codable {
     var birthday: Int?
     var gender: String?
     var marketingAgree: Bool?
+    var type: String
+    
+    static func makeUserSignUpDTO(signInInfo: SignInInfo) -> Self {
+        let dto = AVIROAppleUserSignUpDTO(
+            refreshToken: signInInfo.refreshToken ?? "",
+            accessToken: signInInfo.accessToken ?? "",
+            userId: signInInfo.userID ?? "",
+            userName: signInInfo.userName,
+            userEmail: signInInfo.userEmail,
+            birthday: signInInfo.birthday,
+            gender: signInInfo.gender,
+            marketingAgree: signInInfo.marketAgree,
+            type: signInInfo.loginType?.rawValue ?? ""
+        )
+        
+        return dto
+    }
 }
 
 struct AVIROUserSignUpResultDTO: Decodable {
