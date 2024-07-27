@@ -69,9 +69,14 @@ final class ThridRegistrationPresenter {
     }
     
     func pushUserInfo() {
+        socialLoginUseCase.thridUpdateSignInInfo(marketingAgree: false)
+        
         let userInfo = socialLoginUseCase.loadSignInInfo()
         
         let userSignUpDTO = AVIROAppleUserSignUpDTO.makeUserSignUpDTO(signInInfo: userInfo)
+        
+        print(userInfo)
+        print(userSignUpDTO)
         
         AVIROAPI.manager.createAppleUser(with: userSignUpDTO) { [weak self] result in
             switch result {

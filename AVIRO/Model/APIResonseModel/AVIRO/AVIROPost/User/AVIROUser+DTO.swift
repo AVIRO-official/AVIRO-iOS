@@ -77,6 +77,7 @@ struct AVIROAppleUserSignUpDTO: Codable {
             userId: signInInfo.userID ?? "",
             userName: signInInfo.userName,
             userEmail: signInInfo.userEmail,
+            nickname: signInInfo.nickname,
             birthday: signInInfo.birthday,
             gender: signInInfo.gender,
             marketingAgree: signInInfo.marketAgree,

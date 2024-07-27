@@ -62,7 +62,6 @@ final class SecondRegistrationPresenter {
     }
     
     func pushUserInfo() {
-        guard var userInfoModel = userInfoModel else { return }
         let gender = gender?.rawValue ?? ""
         if isWrongBirth {
             birth = "0"
