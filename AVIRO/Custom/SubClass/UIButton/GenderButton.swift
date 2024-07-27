@@ -34,7 +34,7 @@ final class GenderButton: UIButton {
         }
         
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: CFont.font.semibold16,
+            .font: UIFont.pretendard(size: 16, weight: .semibold),
             .foregroundColor: UIColor.gray3
         ]
         
@@ -46,7 +46,7 @@ final class GenderButton: UIButton {
         setAttributedTitle(attributedTitle, for: state)
 
         let selectedAttribute: [NSAttributedString.Key: Any] = [
-            .font: CFont.font.semibold16,
+            .font: UIFont.pretendard(size: 16, weight: .semibold),
             .foregroundColor: UIColor.gray7
         ]
         

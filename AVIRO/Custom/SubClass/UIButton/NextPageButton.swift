@@ -28,12 +28,12 @@ final class NextPageButton: UIButton {
         }
         
         let enabledAttributes: [NSAttributedString.Key: Any] = [
-            .font: CFont.font.semibold18,
+            .font: UIFont.pretendard(size: 18, weight: .semibold),
             .foregroundColor: UIColor.gray7
         ]
         
         let disenabledAttributes: [NSAttributedString.Key: Any] = [
-            .font: CFont.font.semibold18,
+            .font: UIFont.pretendard(size: 18, weight: .semibold),
             .foregroundColor: UIColor.gray2
         ]
         

@@ -199,7 +199,7 @@ final class AmplitudeUtility: AmplitudeProtocol {
     
     func levelupDidNotMove(with level: Int) {
         amplitude?.track(
-            eventType: AMType.levelupDidMove.rawValue,
+            eventType: AMType.levelupDidNotMove.rawValue,
             eventProperties: ["level": level]
         )
     }

@@ -18,7 +18,7 @@ final class HomeSearchViewTableViewCell: UITableViewCell {
         let label = UILabel()
         
         label.numberOfLines = 1
-        label.font = CFont.font.medium18
+        label.font = .pretendard(size: 18, weight: .medium)
         label.textColor = .gray0
 
         return label
@@ -28,7 +28,7 @@ final class HomeSearchViewTableViewCell: UITableViewCell {
         let label = UILabel()
         
         label.numberOfLines = 1
-        label.font = CFont.font.regular15
+        label.font = .pretendard(size: 15, weight: .regular)
         label.textColor = .gray3
 
         return label
@@ -37,7 +37,7 @@ final class HomeSearchViewTableViewCell: UITableViewCell {
     private lazy var distance: UILabel = {
         let label = UILabel()
         
-        label.font = CFont.font.regular14
+        label.font = .pretendard(size: 14, weight: .regular)
         label.textColor = .gray2
         label.textAlignment = .right
 

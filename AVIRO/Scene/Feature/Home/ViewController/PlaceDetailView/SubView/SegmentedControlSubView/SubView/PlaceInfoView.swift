@@ -24,7 +24,7 @@ final class PlaceInfoView: UIView {
     private var title: UILabel = {
         let label = UILabel()
         
-        label.font = CFont.font.bold20
+        label.font = .pretendard(size: 29, weight: .bold)
         label.textColor = .gray0
         label.text = Text.title.rawValue
         
@@ -34,7 +34,7 @@ final class PlaceInfoView: UIView {
     private lazy var updatedTimeLabel: UILabel = {
         let label = UILabel()
         
-        label.font = CFont.font.regular13
+        label.font = .pretendard(size: 13, weight: .regular)
         label.textAlignment = .right
         label.textColor = .gray2
         
@@ -55,7 +55,7 @@ final class PlaceInfoView: UIView {
         label.textColor = .gray0
         label.numberOfLines = 0
         label.lineBreakMode = .byCharWrapping
-        label.font = CFont.font.medium16
+        label.font = .pretendard(size: 16, weight: .medium)
         
         return label
     }()
@@ -74,7 +74,7 @@ final class PlaceInfoView: UIView {
         button.setTitleColor(.keywordBlue, for: .normal)
         button.backgroundColor = .gray7
         button.contentHorizontalAlignment = .left
-        button.titleLabel?.font = CFont.font.medium16
+        button.titleLabel?.font = .pretendard(size: 16, weight: .medium)
         button.titleLabel?.numberOfLines = 1
         
         button.addTarget(
@@ -100,7 +100,7 @@ final class PlaceInfoView: UIView {
         button.setTitle(Text.timePlus.rawValue, for: .normal)
         button.setTitleColor(.keywordBlue, for: .normal)
         button.backgroundColor = .gray7
-        button.titleLabel?.font = CFont.font.medium16
+        button.titleLabel?.font = .pretendard(size: 16, weight: .medium)
         button.titleLabel?.textAlignment = .left
         
         button.addTarget(
@@ -115,7 +115,7 @@ final class PlaceInfoView: UIView {
     private lazy var timeLabel: UILabel = {
         let label = UILabel()
         
-        label.font = CFont.font.medium16
+        label.font = .pretendard(size: 16, weight: .medium)
         label.numberOfLines = 1
         
         return label
@@ -126,7 +126,7 @@ final class PlaceInfoView: UIView {
         
         button.setTitle(Text.more.rawValue, for: .normal)
         button.setTitleColor(.gray2, for: .normal)
-        button.titleLabel?.font = CFont.font.regular14
+        button.titleLabel?.font = .pretendard(size: 14, weight: .regular)
         
         button.addTarget(
             self,
@@ -150,7 +150,7 @@ final class PlaceInfoView: UIView {
         
         button.setTitleColor(.keywordBlue, for: .normal)
         button.backgroundColor = .gray7
-        button.titleLabel?.font = CFont.font.medium16
+        button.titleLabel?.font = .pretendard(size: 16, weight: .medium)
         button.titleLabel?.numberOfLines = 2
         button.titleLabel?.lineBreakMode = .byCharWrapping
         button.contentHorizontalAlignment = .left

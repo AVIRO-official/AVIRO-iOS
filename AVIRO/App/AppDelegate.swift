@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import AuthenticationServices
+// import AuthenticationServices
 
 import NMapsMap
 import AmplitudeSwift
@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.setNaverMapAPI()
         self.setAmplitude()
+        
+        self.registerRepository()
         
         return true
     }
@@ -73,4 +75,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         amplitude = Amplitude(configuration: Configuration(apiKey: key))
      }
+    
+    private func registerRepository() {
+        // 수정 필요
+//        
+//        let host = AVIROConfiguration.host
+//        let apiKey = AVIROConfiguration.apikey
+//        
+//        let headers = [
+//            "Content-Type": "application/json",
+//            "X-API-KEY": "\(AVIROConfiguration.apikey)"
+//        ]
+//        
+//        let config = APIDataNetworkConfig(baseURL: <#T##URL#>)
+//        let apiDataNetwork = NetworkService(config: <#T##any NetworkConfigurable#>)
+        
+        DIContainer.shared.register(
+            AppleAuthRepository.self,
+            dependency: AppleAuthRepository()
+        )
+        
+        DIContainer.shared.register(
+            GoogleAuthRepository.self,
+            dependency: GoogleAuthRepository()
+        )
+        
+        DIContainer.shared.register(
+            KakaoAuthRepository.self,
+            dependency: KakaoAuthRepository()
+        )
+        
+        DIContainer.shared.register(
+            NaverAuthRepository.self,
+            dependency: NaverAuthRepository()
+        )
+    }
 }

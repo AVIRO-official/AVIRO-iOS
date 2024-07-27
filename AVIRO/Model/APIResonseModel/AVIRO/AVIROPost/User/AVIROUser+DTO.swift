@@ -17,6 +17,11 @@ struct AVIROAutoLoginWhenAppleUserResultDTO: Decodable {
     let message: String?
 }
 
+struct AVIRORevokeUserDTO: Encodable {
+    let refreshToken: String
+    let type: String
+}
+
 struct AVIROUserDataDTO: Codable {
     let userId: String
     let userName: String
@@ -40,7 +45,22 @@ struct AVIROAppleUserRawData: Decodable {
     let isMember: Bool
     let refreshToken: String
     let accessToken: String
+    let userId: String?
+}
+
+struct AVIROKakaoUserCheckMemberDTO: Encodable {
     let userId: String
+}
+
+struct AVIROKakaoUserCheckMemberResultDTO: Decodable {
+    let statusCode: Int
+    let data: AVIROKakaoUserRawData?
+    let message: String?
+}
+
+struct AVIROKakaoUserRawData: Decodable {
+    let nickname: String
+    let marketingAgree: Int
 }
 
 struct AVIROAppleUserSignUpDTO: Codable {
@@ -53,6 +73,24 @@ struct AVIROAppleUserSignUpDTO: Codable {
     var birthday: Int?
     var gender: String?
     var marketingAgree: Bool?
+    var type: String
+    
+    static func makeUserSignUpDTO(signInInfo: SignInInfo) -> Self {
+        let dto = AVIROAppleUserSignUpDTO(
+            refreshToken: signInInfo.refreshToken ?? "",
+            accessToken: signInInfo.accessToken ?? "",
+            userId: signInInfo.userID ?? "",
+            userName: signInInfo.userName,
+            userEmail: signInInfo.userEmail,
+            nickname: signInInfo.nickname,
+            birthday: signInInfo.birthday,
+            gender: signInInfo.gender,
+            marketingAgree: signInInfo.marketAgree,
+            type: signInInfo.loginType?.rawValue ?? ""
+        )
+        
+        return dto
+    }
 }
 
 struct AVIROUserSignUpResultDTO: Decodable {

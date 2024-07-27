@@ -21,7 +21,7 @@ final class PlaceListHeaderView: UIView {
 
         button.setTitle(title, for: .normal)
         button.setTitleColor(.gray3, for: .normal)
-        button.titleLabel?.font = CFont.font.medium16
+        button.titleLabel?.font = .pretendard(size: 16, weight: .medium)
         button.titleLabel?.textAlignment = .left
         
         button.setImage(UIImage.sorting, for: .normal)
@@ -43,7 +43,7 @@ final class PlaceListHeaderView: UIView {
         
         button.setTitle(title, for: .normal)
         button.setTitleColor(.gray3, for: .normal)
-        button.titleLabel?.font = CFont.font.medium16
+        button.titleLabel?.font = .pretendard(size: 16, weight: .medium)
         button.titleLabel?.textAlignment = .left
 
         button.setImage(UIImage.sorting, for: .normal)

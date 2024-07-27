@@ -116,7 +116,7 @@ extension UIViewController {
         style.cornerRadius = 14
         style.backgroundColor = .gray3.withAlphaComponent(0.9)
         style.titleColor = .gray6
-        style.titleFont = CFont.font.medium17
+        style.titleFont = .pretendard(size: 17, weight: .medium)
         
         self.view.makeToast(
             title,

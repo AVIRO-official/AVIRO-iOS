@@ -32,11 +32,14 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
         
         onRequest.insert(url)
         
-        
         var request = URLRequest(url: url)
         
         request.httpMethod = httpMethod.rawValue
         request.httpBody = requestBody
+        
+        print("----------")
+        print(request)
+        print("----------")
         
         if let headers = headers {
             for (key, value) in headers {
@@ -795,6 +798,27 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
         )
     }
     
+    // MARK: GET AutoLogin / Check User - Kakao & Naver
+    func checkKakaoUserWhenLogin(
+        with userId: AVIROKakaoUserCheckMemberDTO,
+        completionHandler: @escaping (Result<AVIROKakaoUserCheckMemberResultDTO, APIError>) -> Void
+    ) {
+        guard let url = requestAPI.kakaoUserCheck(userId: userId.userId).url else {
+            completionHandler(.failure(.urlError))
+            return
+        }
+
+        guard let jsonData = try? JSONEncoder().encode(userId) else {
+            completionHandler(.failure(.encodingError))
+            return
+        }
+                
+        performRequest(
+            with: url,
+            completionHandler: completionHandler
+        )
+    }
+    
     // MARK: POST AutoLogin - Apple
     func checkAppleUserWhenInitiate(
         with user: AVIROAutoLoginWhenAppleUserDTO,
@@ -822,7 +846,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
     
     // MARK: POST Revoke User - Apple
     func revokeAppleUser(
-        with user: AVIROAutoLoginWhenAppleUserDTO,
+        with user: AVIRORevokeUserDTO,
         completionHandler: @escaping (Result<AVIROResultDTO, APIError>) -> Void
     ) {
         guard let url = postAPI.appleUserRevoke().url else {

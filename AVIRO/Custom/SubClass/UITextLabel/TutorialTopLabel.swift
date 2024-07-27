@@ -44,7 +44,7 @@ final class TutorialTopLabel: UILabel {
     }
     
     private func setAttribute() {
-        self.font = CFont.font.heavy17
+        self.font = .pretendard(size: 17, weight: .heavy)
         self.backgroundColor = UIColor(red: 0.87, green: 0.95, blue: 1, alpha: 1)
         self.layer.cornerRadius = 10
         self.textAlignment = .center

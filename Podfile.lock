@@ -1,18 +1,50 @@
 PODS:
+  - Alamofire (5.9.1)
   - AmplitudeSwift (1.4.5):
     - AnalyticsConnector (~> 1.0.1)
   - AnalyticsConnector (1.0.3)
+  - AppAuth (1.7.5):
+    - AppAuth/Core (= 1.7.5)
+    - AppAuth/ExternalUserAgent (= 1.7.5)
+  - AppAuth/Core (1.7.5)
+  - AppAuth/ExternalUserAgent (1.7.5):
+    - AppAuth/Core
   - Differentiator (5.0.0)
+  - GoogleSignIn (7.1.0):
+    - AppAuth (< 2.0, >= 1.7.3)
+    - GTMAppAuth (< 5.0, >= 4.1.1)
+    - GTMSessionFetcher/Core (~> 3.3)
+  - GTMAppAuth (4.1.1):
+    - AppAuth/Core (~> 1.7)
+    - GTMSessionFetcher/Core (< 4.0, >= 3.3)
+  - GTMSessionFetcher/Core (3.5.0)
+  - KakaoSDKAuth (2.22.3):
+    - KakaoSDKCommon (= 2.22.3)
+  - KakaoSDKCommon (2.22.3):
+    - KakaoSDKCommon/Common (= 2.22.3)
+    - KakaoSDKCommon/Network (= 2.22.3)
+  - KakaoSDKCommon/Common (2.22.3)
+  - KakaoSDKCommon/Network (2.22.3):
+    - Alamofire (~> 5.9.0)
+    - KakaoSDKCommon/Common (= 2.22.3)
+  - KakaoSDKUser (2.22.3):
+    - KakaoSDKAuth (= 2.22.3)
   - KeychainSwift (22.0.0)
   - lottie-ios (4.4.1)
-  - NMapsGeometry (1.0.1)
-  - NMapsMap (3.17.0):
+  - naveridlogin-sdk-ios (4.2.1)
+  - NMapsGeometry (1.0.2)
+  - NMapsMap (3.18.1):
     - NMapsGeometry
   - Realm (10.48.0):
     - Realm/Headers (= 10.48.0)
   - Realm/Headers (10.48.0)
   - RealmSwift (10.48.0):
     - Realm (= 10.48.0)
+  - RxAlamofire (6.1.1):
+    - RxAlamofire/Core (= 6.1.1)
+  - RxAlamofire/Core (6.1.1):
+    - Alamofire (~> 5.4)
+    - RxSwift (~> 6.0)
   - RxBlocking (6.6.0):
     - RxSwift (= 6.6.0)
   - RxCocoa (6.6.0):
@@ -22,6 +54,23 @@ PODS:
     - Differentiator (~> 5.0)
     - RxCocoa (~> 6.0)
     - RxSwift (~> 6.0)
+  - RxKakaoSDKAuth (2.22.3):
+    - KakaoSDKAuth (= 2.22.3)
+    - RxKakaoSDKCommon (= 2.22.3)
+  - RxKakaoSDKCommon (2.22.3):
+    - RxKakaoSDKCommon/Common (= 2.22.3)
+    - RxKakaoSDKCommon/Network (= 2.22.3)
+  - RxKakaoSDKCommon/Common (2.22.3):
+    - KakaoSDKCommon/Common (= 2.22.3)
+    - RxCocoa
+    - RxSwift (~> 6.0)
+  - RxKakaoSDKCommon/Network (2.22.3):
+    - KakaoSDKCommon/Network (= 2.22.3)
+    - RxAlamofire (~> 6.0)
+    - RxKakaoSDKCommon/Common (= 2.22.3)
+  - RxKakaoSDKUser (2.22.3):
+    - KakaoSDKUser (= 2.22.3)
+    - RxKakaoSDKAuth (= 2.22.3)
   - RxRelay (6.6.0):
     - RxSwift (= 6.6.0)
   - RxSwift (6.6.0)
@@ -30,55 +79,89 @@ PODS:
   - Toast-Swift (5.1.0)
 
 DEPENDENCIES:
-  - AmplitudeSwift
+  - AmplitudeSwift (= 1.4.5)
+  - GoogleSignIn
+  - KakaoSDKAuth
+  - KakaoSDKCommon
+  - KakaoSDKUser
   - KeychainSwift (= 22.0.0)
   - lottie-ios (= 4.4.1)
+  - naveridlogin-sdk-ios
   - NMapsMap
   - RealmSwift (= 10.48.0)
   - RxBlocking (= 6.6.0)
   - RxCocoa (= 6.6.0)
   - RxDataSources (~> 5.0)
+  - RxKakaoSDKAuth
+  - RxKakaoSDKCommon
+  - RxKakaoSDKUser
   - RxSwift (= 6.6.0)
   - RxTest (= 6.6.0)
   - Toast-Swift (= 5.1.0)
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - AmplitudeSwift
     - AnalyticsConnector
+    - AppAuth
     - Differentiator
+    - GoogleSignIn
+    - GTMAppAuth
+    - GTMSessionFetcher
+    - KakaoSDKAuth
+    - KakaoSDKCommon
+    - KakaoSDKUser
     - KeychainSwift
     - lottie-ios
+    - naveridlogin-sdk-ios
     - NMapsGeometry
     - NMapsMap
     - Realm
     - RealmSwift
+    - RxAlamofire
     - RxBlocking
     - RxCocoa
     - RxDataSources
+    - RxKakaoSDKAuth
+    - RxKakaoSDKCommon
+    - RxKakaoSDKUser
     - RxRelay
     - RxSwift
     - RxTest
     - Toast-Swift
 
 SPEC CHECKSUMS:
+  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   AmplitudeSwift: 4daa595b157c73b9bc5f225f9b8faead90d044b3
   AnalyticsConnector: a53214d38ae22734c6266106c0492b37832633a9
+  AppAuth: 501c04eda8a8d11f179dbe8637b7a91bb7e5d2fa
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
+  GoogleSignIn: d4281ab6cf21542b1cfaff85c191f230b399d2db
+  GTMAppAuth: f69bd07d68cd3b766125f7e072c45d7340dea0de
+  GTMSessionFetcher: 5aea5ba6bd522a239e236100971f10cb71b96ab6
+  KakaoSDKAuth: 6ac329e616e9506b5d6dd5640d79363d066ad835
+  KakaoSDKCommon: 053dbf0438933101244fccd92ebc389ab6bdbaec
+  KakaoSDKUser: ad33a38ec7f1da566c882ed498022923198599a7
   KeychainSwift: 72f81155e1cb01c1bc4da296e4ce2cfcff556a12
   lottie-ios: e047b1d2e6239b787cc5e9755b988869cf190494
-  NMapsGeometry: 53c573ead66466681cf123f99f698dc8071a4b83
-  NMapsMap: a5b909a31b6f3d27a670f6eb2ddc913c38975474
+  naveridlogin-sdk-ios: d5f9d92905a7e964976ebfdd665bee5fb75845c5
+  NMapsGeometry: 4e02554fa9880ef02ed96b075dc84355d6352479
+  NMapsMap: e879088eeee2d1e3b97f0a609076e1824dce2cad
   Realm: ac7ec3bd884b42282431fc414cc0bb3e92d726cf
   RealmSwift: 4eb8b254ebe413cbc486c5a366f2a315b54d75f7
+  RxAlamofire: beb75a1c452d0de225651db4903f5d29d034a620
   RxBlocking: fbd1f8501443024f686e556f36dac79b0d5f4d7c
   RxCocoa: 44a80de90e25b739b5aeaae3c8c371a32e3343cc
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
+  RxKakaoSDKAuth: 5d53510a213e5e1d37b22b112b9fd4f221cf5bf3
+  RxKakaoSDKCommon: 839e685baeafd68145eeb1eb1c7895d1dc35a2eb
+  RxKakaoSDKUser: 73ed92715727e298dfc24387e6ab2e5232fad407
   RxRelay: 45eaa5db8ee4fb50e5ebd57deec0159e97fa51e6
   RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
   RxTest: a23f26bb53a5e146a0a69db4f0fa0b69001ce7f4
   Toast-Swift: dd369e68ee529f542c65bd0d0c6c50cd743cf6f2
 
-PODFILE CHECKSUM: a2f3f0ba1b4d660a7513e99ed62976ad4a4df359
+PODFILE CHECKSUM: b3f4b7aacc2811bb0eb23e3ea0a0f8c511e9d59a
 
 COCOAPODS: 1.15.2

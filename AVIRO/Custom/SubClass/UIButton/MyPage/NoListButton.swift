@@ -33,8 +33,7 @@ final class NoListButton: UIButton {
         setImage(image, for: .normal)
         
         setTitleColor(.keywordBlue, for: .normal)
-        titleLabel?.font = CFont.font.semibold16
-        
+        titleLabel?.font = .pretendard(size: 16, weight: .semibold)        
         semanticContentAttribute = .forceLeftToRight
         
         imageEdgeInsets = .init(

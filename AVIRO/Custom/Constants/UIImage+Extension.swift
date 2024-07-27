@@ -12,6 +12,7 @@ extension UIImage {
     static let launchtitle = UIImage(named: "LaunchTitle")!
     static let launchBG = UIImage(named: "Launchbg")!
     static let launchAVIRO = UIImage(named: "aviro")!
+    static let aviroReverse = UIImage(named: "aviroReverse")!
     
     // MARK: - Screen Shot
     static let screen1 = UIImage(named: "Contents 1")
@@ -23,6 +24,7 @@ extension UIImage {
     static let loginCharacter = UIImage(named: "LoginCharacter")!
     static let enrollCharacter = UIImage(named: "EnrollCharacter")!
     static let noResultCharacter = UIImage(named: "NoResultCharacter")!
+    static let berryMap = UIImage(named: "BerryMap")!
     
     static let myIcon1 = UIImage(named: "MyIcon1")
     static let myIcon2 = UIImage(named: "MyIcon2")
@@ -130,7 +132,15 @@ extension UIImage {
     static let tropyTab = UIImage(named: "TrophyTab")!
     
     // MARK: Assets Img
-    static let apple = UIImage(named: "AppleLogo")!
+    static let appleLogin = UIImage(named: "AppleLogin")!
+    static let googleLogin = UIImage(named: "GoogleLogin")!
+    static let kakaoLogin = UIImage(named: "KakaoLogin")!
+    static let naverLogin = UIImage(named: "NaverLogin")!
+    
+    static let appleLogo = UIImage(named: "Apple")!
+    static let googleLogo = UIImage(named: "Google")!
+    static let kakaoLogo = UIImage(named: "Kakao")!
+    static let naverLogo = UIImage(named: "Naver")!
     
     static let back = UIImage(named: "Back")!
     static let downBack = UIImage(named: "DownBack")!
