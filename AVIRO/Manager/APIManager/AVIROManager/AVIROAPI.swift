@@ -846,7 +846,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
     
     // MARK: POST Revoke User - Apple
     func revokeAppleUser(
-        with user: AVIROAutoLoginWhenAppleUserDTO,
+        with user: AVIRORevokeUserDTO,
         completionHandler: @escaping (Result<AVIROResultDTO, APIError>) -> Void
     ) {
         guard let url = postAPI.appleUserRevoke().url else {

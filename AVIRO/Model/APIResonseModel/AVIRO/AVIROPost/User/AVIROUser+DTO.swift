@@ -17,6 +17,11 @@ struct AVIROAutoLoginWhenAppleUserResultDTO: Decodable {
     let message: String?
 }
 
+struct AVIRORevokeUserDTO: Encodable {
+    let refreshToken: String
+    let type: String
+}
+
 struct AVIROUserDataDTO: Codable {
     let userId: String
     let userName: String
