@@ -103,6 +103,12 @@ final class SettingViewPresenter {
         UserCoordinate.shared.isFirstLoadLocation = false
         
         self.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
+        self.keychain.delete(KeychainKey.refreshToken.rawValue)
+        self.keychain.delete(KeychainKey.userID.rawValue)
+        UserDefaults.standard.set(
+            "none",
+            forKey: UDKey.loginType.rawValue
+        )
         
         viewController?.pushLoginViewController(type: .logout)
     }
@@ -123,6 +129,13 @@ final class SettingViewPresenter {
                     MyData.my.whenLogout()
                     UserCoordinate.shared.isFirstLoadLocation = false
                     self?.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
+                    self?.keychain.delete(KeychainKey.refreshToken.rawValue)
+                    self?.keychain.delete(KeychainKey.userID.rawValue)
+                    UserDefaults.standard.set(
+                        "none",
+                        forKey: UDKey.loginType.rawValue
+                    )
+                    
                     self?.amplitude.withdrawal()
                     
                     DispatchQueue.main.async {

@@ -83,6 +83,11 @@ final class ThridRegistrationPresenter {
             case .success(let success):
                 if success.statusCode == 200 {
                     if let data = success.data {
+                        UserDefaults.standard.setValue(
+                            userInfo.loginType?.rawValue,
+                            forKey: UDKey.loginType.rawValue
+                        )
+                        
                         switch userInfo.loginType {
                         case .apple:
                             self?.keyChain.set(

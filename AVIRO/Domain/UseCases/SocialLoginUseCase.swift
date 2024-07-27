@@ -7,6 +7,8 @@
 
 import Foundation
 
+import KeychainSwift
+
 protocol SocialLoginUseCaseInterface: AnyObject {
     func checkMember(
         type: LoginType,
@@ -29,6 +31,8 @@ protocol SocialLoginUseCaseInterface: AnyObject {
 
 final class SocialLoginUseCase {
     private var signinInfo: SignInInfo = SignInInfo()
+    
+    private let keychain = KeychainSwift()
     
     private let appleLoginRepository: AppleLoginRepositoryInterface
     private let googleLoginRepository: GoogleLoginRepositoryInterface
@@ -61,7 +65,16 @@ extension SocialLoginUseCase: SocialLoginUseCaseInterface {
                 requestLogin: requestLogin,
                 loginCompletion: { [weak self] result in
                     if result.isMember {
+                        UserDefaults.standard.set(
+                            "apple",
+                            forKey: UDKey.loginType.rawValue
+                        )
+                        self?.keychain.set(
+                            result.userData.refreshToken,
+                            forKey: KeychainKey.refreshToken.rawValue
+                        )
                         completion(.success(true))
+
                     } else {
                         self?.setupUserDataFromApple(result)
                         self?.signinInfo.loginType = .apple
@@ -77,7 +90,16 @@ extension SocialLoginUseCase: SocialLoginUseCaseInterface {
                 requestLogin: requestLogin,
                 loginCompletion: { [weak self] result in
                     if result.isMember {
+                        UserDefaults.standard.set(
+                            "google",
+                            forKey: UDKey.loginType.rawValue
+                        )
+                        self?.keychain.set(
+                            result.userData.userId ?? "" ,
+                            forKey: KeychainKey.userID.rawValue
+                        )
                         completion(.success(true))
+
                     } else {
                         self?.setupUserDataFromOthers(result)
                         self?.signinInfo.loginType = .google
@@ -95,6 +117,14 @@ extension SocialLoginUseCase: SocialLoginUseCaseInterface {
                 requestLogin: requestLogin,
                 loginCompletion: { [weak self] result in
                     if result.isMember {
+                        UserDefaults.standard.set(
+                            "kakao",
+                            forKey: UDKey.loginType.rawValue
+                        )
+                        self?.keychain.set(
+                            result.userData.userId ?? "",
+                            forKey: KeychainKey.userID.rawValue
+                        )
                         completion(.success(true))
                     } else {
                         self?.setupUserDataFromOthers(result)
@@ -113,6 +143,15 @@ extension SocialLoginUseCase: SocialLoginUseCaseInterface {
                 requestLogin: requestLogin,
                 loginCompletion: { [weak self] result in
                     if result.isMember {
+                        UserDefaults.standard.set(
+                            "naver",
+                            forKey: UDKey.loginType.rawValue
+                        )
+                        self?.keychain.set(
+                            result.userData.userId ?? "" ,
+                            forKey: KeychainKey.userID.rawValue
+                        )
+                        
                         completion(.success(true))
                     } else {
                         self?.setupUserDataFromOthers(result)
