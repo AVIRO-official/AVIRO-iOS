@@ -169,52 +169,6 @@ final class AppController {
         
     }
     
-    // MARK: 불러올 view 확인 메서드
-    private func checkState() {
-        let userKey = keychain.get(KeychainKey.appleRefreshToken.rawValue)
-        
-        // 최초 튜토리얼 화면 안 봤을 때
-        guard UserDefaults.standard.bool(forKey: UDKey.tutorial.rawValue) else {
-            setTutorialView()
-            return
-        }
-
-        // 자동로그인 토큰 없을 때
-        guard let userKey = userKey else {
-            setLoginView()
-            return
-        }
-
-        let userCheck = AVIROAutoLoginWhenAppleUserDTO(refreshToken: userKey)
-
-        // TODO: user 정보 불러오기 수정
-        AVIROAPI.manager.checkAppleUserWhenInitiate(with: userCheck) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let model):
-                    if model.statusCode == 200 {
-                        if let data = model.data {
-                            MyData.my.whenLogin(
-                                userId: data.userId,
-                                userName: data.userName,
-                                userEmail: data.userEmail,
-                                userNickname: data.nickname,
-                                marketingAgree: data.marketingAgree
-                            )
-                            self?.setTabBarView()
-                        }
-                    } else {
-                        self?.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
-                        self?.setLoginView()
-                    }
-                case .failure:
-                    self?.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
-                    self?.setLoginView()
-                }
-            }
-        }
-    }
-    
     // MARK: tutorial View
     private func setTutorialView() {
         let tutorialVC = TutorialViewController()
