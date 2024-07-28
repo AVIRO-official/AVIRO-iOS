@@ -253,7 +253,8 @@ final class HomeViewController: UIViewController {
     }
     
     private var isFullUpView = false
-
+    private var isTutorialNextPageShow = false
+    
     private lazy var whenSlideTapGesture = UITapGestureRecognizer()
     private lazy var upGesture = UISwipeGestureRecognizer()
     private lazy var downGesture = UISwipeGestureRecognizer()
@@ -298,10 +299,10 @@ extension HomeViewController: HomeViewProtocol {
             placeView,
             flagButton,
             downBackButton,
+            categoryCollectionView,
             blurEffectViewForTutorial,
             speechBubbleViewForColorExplain,
             speechBubbleViewForCategoryExplain,
-            categoryCollectionView,
             blurEffectView,
             recommendPlaceAlertView,
             levelUpAlertView,
@@ -472,6 +473,13 @@ extension HomeViewController: HomeViewProtocol {
         emptyEffectView.isHidden = false
         blurEffectViewForTutorial.isHidden = false
         speechBubbleViewForColorExplain.isHidden = false
+ 
+        tabBarDelegate?.activeBlurEffectView(with: true)
+    }
+    
+    private func activeTutorialNextPage() {
+        speechBubbleViewForColorExplain.isHidden = true
+
         speechBubbleViewForCategoryExplain.isHidden = false
         
         presenter.categoryType = [
@@ -486,33 +494,47 @@ extension HomeViewController: HomeViewProtocol {
         updateSearchTextField(with: "카페")
         updateSearchTextField(with: "술집")
         
-        tabBarDelegate?.activeBlurEffectView(with: true)
+        view.bringSubviewToFront(blurEffectViewForTutorial)
+        view.bringSubviewToFront(speechBubbleViewForColorExplain)
+        view.bringSubviewToFront(speechBubbleViewForCategoryExplain)
+        view.bringSubviewToFront(categoryCollectionView)
+        view.bringSubviewToFront(emptyEffectView)
     }
     
     @objc private func tappedTutorial(_ gesture: UITapGestureRecognizer) {
-        emptyEffectView.isHidden = true
-        blurEffectViewForTutorial.isHidden = true
-        speechBubbleViewForColorExplain.isHidden = true
-        speechBubbleViewForCategoryExplain.isHidden = true
-        
-        presenter.categoryType = [
-            ("식당", false),
-            ("카페", false),
-            ("술집", false),
-            ("빵집", false)
-        ]
-        
-        categoryCollectionView.reloadData()
-        
-        updateSearchTextField(with: "취소")
-        
-        UserDefaults.standard.set(
-            true,
-            forKey: UDKey.tutorialHome.rawValue
-        )
-        
-        tabBarDelegate?.activeBlurEffectView(with: false)
-        tabBarDelegate?.activeCheckWellcome()
+        if isTutorialNextPageShow {
+            isTutorialNextPageShow = false
+            emptyEffectView.isHidden = true
+            blurEffectViewForTutorial.isHidden = true
+            speechBubbleViewForCategoryExplain.isHidden = true
+            
+            presenter.categoryType = [
+                ("식당", false),
+                ("카페", false),
+                ("술집", false),
+                ("빵집", false)
+            ]
+            
+            categoryCollectionView.reloadData()
+            
+            updateSearchTextField(with: "취소")
+            
+            UserDefaults.standard.set(
+                true,
+                forKey: UDKey.tutorialHome.rawValue
+            )
+            
+            tabBarDelegate?.activeBlurEffectView(with: false)
+            tabBarDelegate?.activeCheckWellcome()
+            
+            view.bringSubviewToFront(blurEffectViewForTutorial)
+            view.bringSubviewToFront(speechBubbleViewForColorExplain)
+            view.bringSubviewToFront(speechBubbleViewForCategoryExplain)
+            view.bringSubviewToFront(emptyEffectView)
+        } else {
+            activeTutorialNextPage()
+            isTutorialNextPageShow = true
+        }
     }
     
     func setupGesture() {
