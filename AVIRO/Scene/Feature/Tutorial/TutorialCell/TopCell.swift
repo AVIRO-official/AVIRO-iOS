@@ -59,8 +59,8 @@ final class TopCell: UICollectionViewCell {
     }
     
     private func setupSubtitleFont(isTop: Bool, subtitle: String, subtitle2: String) {
-        let subtitleFont = isTop ? CFont.font.heavy31 : CFont.font.semibold31
-        let subtitle2Font = isTop ? CFont.font.semibold31 : CFont.font.heavy31
+        let subtitleFont = isTop ? UIFont.pretendard(size: 31, weight: .heavy) : UIFont.pretendard(size: 31, weight: .semibold)
+        let subtitle2Font = isTop ? UIFont.pretendard(size: 31, weight: .semibold) : UIFont.pretendard(size: 31, weight: .heavy)
         
         let attributedSubtitle = NSMutableAttributedString(
             string: subtitle,

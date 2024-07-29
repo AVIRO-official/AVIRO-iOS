@@ -22,7 +22,7 @@ final class ShowMoreButton: UIButton {
 
         self.setTitle(title, for: .normal)
         self.setTitleColor(.gray2, for: .normal)
-        self.titleLabel?.font = CFont.font.medium14
+        self.titleLabel?.font = .pretendard(size: 14, weight: .medium)
         
         self.setImage(UIImage(named: "More"), for: .normal)
         

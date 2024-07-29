@@ -30,90 +30,81 @@ private enum Layout {
 }
 
 final class LoginViewController: UIViewController {
-    lazy var presenter = LoginViewPresenter(viewController: self)
-        
+    var presenter: LoginViewPresenter!
+    
     // MARK: UI Property Definitions
-    private lazy var topImageView: UIImageView = {
+    private lazy var titleImageView: UIImageView = {
         let imageView = UIImageView()
-        
-        imageView.image = UIImage.launchtitle
-        imageView.clipsToBounds = false
+       
+        imageView.image = .aviroReverse
         
         return imageView
     }()
     
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
+    private lazy var berryMapImageView: UIImageView = {
+        let imageView = UIImageView()
         
-        let text = "가장 쉬운\n비건 맛집 찾기\n어비로"
+        imageView.image = .berryMap
         
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 2
-        
-        let normalAttributes: [NSAttributedString.Key: Any] = [
-            .font: CFont.font.medium45,
-            .foregroundColor: UIColor.loginTitleColor,
-            .paragraphStyle: paragraphStyle
-        ]
-        
-        let attributedString = NSMutableAttributedString(string: text, attributes: normalAttributes)
-        
-        let heavyAttributes: [NSAttributedString.Key: Any] = [
-            .font: CFont.font.heavy45,
-            .foregroundColor: UIColor.main,
-            .paragraphStyle: paragraphStyle
-        ]
-        
-        if let range = text.range(of: "어비로") {
-            attributedString.addAttributes(heavyAttributes, range: NSRange(range, in: text))
+        return imageView
+    }()
+
+    private lazy var naverButton: LoginButton = {
+        let btn = LoginButton()
+
+        btn.setButtonStyle(type: .naver)
+        btn.didTappedButton = { [weak self] in
+            // TODO: 함수 위치 변경하기
+            self?.presenter.checkMember(type: .naver)
         }
         
-        label.attributedText = attributedString
-        label.textAlignment = .left
-        label.numberOfLines = 3
-        
-        return label
+        return btn
     }()
     
-    private lazy var mainImageView: UIImageView = {
-        let imageView = UIImageView()
+    private lazy var kakaoButton: LoginButton = {
+        let btn = LoginButton()
         
-        imageView.image = UIImage.loginCharacter
-        imageView.clipsToBounds = false
-        
-        return imageView
-    }()
-        
-    private lazy var appleLoginButton: UIButton = {
-        let button = UIButton()
-        
-        button.setTitle(Text.apple.rawValue, for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.setImage(UIImage.apple, for: .normal)
-        
-        button.imageEdgeInsets = UIEdgeInsets(
-            top: 0,
-            left: -8,
-            bottom: 0,
-            right: 0
-        )
-        button.titleLabel?.font = CFont.font.medium17
-        
-        button.layer.borderColor = UIColor.black.cgColor
-        button.layer.borderWidth = 2
-        button.layer.cornerRadius = 26
-        button.clipsToBounds = true
-        button.backgroundColor = .black
-        
-        button.addTarget(
-            self,
-            action: #selector(tapAppleLogin),
-            for: .touchUpInside
-        )
-        
-        return button
+        btn.setButtonStyle(type: .kakao)
+        btn.didTappedButton = { [weak self] in
+            self?.presenter.checkMember(type: .kakao)
+        }
+
+        return btn
     }()
     
+    private lazy var googleButton: LoginButton = {
+        let btn = LoginButton()
+      
+        btn.setButtonStyle(type: .google)
+        btn.didTappedButton = { [weak self] in
+            self?.presenter.checkMember(type: .google)
+        }
+
+        return btn
+    }()
+    
+    private lazy var appleButton: LoginButton = {
+        let btn = LoginButton()
+        
+        btn.setButtonStyle(type: .apple)
+        btn.didTappedButton = { [weak self] in
+            self?.presenter.checkMember(type: .apple)
+        }
+
+        return btn
+    }()
+    
+    private lazy var loginButtonStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        
+        return stackView
+    }()
+
     private lazy var indicatorView: UIActivityIndicatorView = {
         let indicatorView = UIActivityIndicatorView()
         
@@ -145,10 +136,21 @@ extension LoginViewController: LoginViewProtocol {
     // MARK: Set up func
     func setupLayout() {
         [
-            topImageView,
-            titleLabel,
-            mainImageView,
-            appleLoginButton,
+            naverButton,
+            kakaoButton,
+            googleButton,
+            appleButton
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.heightAnchor.constraint(equalToConstant: 50).isActive = true
+            
+            loginButtonStackView.addArrangedSubview($0)
+        }
+        
+        [
+            titleImageView,
+            berryMapImageView,
+            loginButtonStackView,
             blurEffectView,
             indicatorView
         ].forEach {
@@ -157,30 +159,15 @@ extension LoginViewController: LoginViewProtocol {
         }
         
         NSLayoutConstraint.activate([
-            topImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 23),
-            topImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 38),
+            titleImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            titleImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 30),
             
-            titleLabel.topAnchor.constraint(equalTo: topImageView.bottomAnchor, constant: 15),
-            titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 37),
+            berryMapImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            berryMapImageView.bottomAnchor.constraint(equalTo: loginButtonStackView.topAnchor, constant: -45),
             
-            mainImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -35),
-            mainImageView.bottomAnchor.constraint(equalTo: appleLoginButton.topAnchor, constant: -20),
-            
-            appleLoginButton.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                constant: -Layout.Margin.appleToBottom.rawValue
-            ),
-            appleLoginButton.leadingAnchor.constraint(
-                equalTo: self.view.leadingAnchor,
-                constant: Layout.Margin.buttonH.rawValue
-            ),
-            appleLoginButton.trailingAnchor.constraint(
-                equalTo: self.view.trailingAnchor,
-                constant: -Layout.Margin.buttonH.rawValue
-            ),
-            appleLoginButton.heightAnchor.constraint(
-                equalToConstant: Layout.Size.buttonHeight.rawValue
-            ),
+            loginButtonStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 26.5),
+            loginButtonStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -26.5),
+            loginButtonStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
             
             indicatorView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             indicatorView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
@@ -197,7 +184,7 @@ extension LoginViewController: LoginViewProtocol {
     
     // MARK: UI Interactions
     @objc private func tapAppleLogin() {
-        presenter.clickedAppleLogin()
+//        presenter.clickedAppleLogin()
     }
     
     func switchIsLoading(with loading: Bool) {
@@ -217,20 +204,35 @@ extension LoginViewController: LoginViewProtocol {
         }
     }
     
-    func pushRegistrationWhenAppleLogin(_ userModel: AVIROAppleUserSignUpDTO) {
-        DispatchQueue.main.async { [weak self] in
-            let viewController = FirstRegistrationViewController()
-            
-            let presenter = FirstRegistrationPresenter(
-                viewController: viewController,
-                appleUserSignUpModel: userModel
-            )
-            
-            viewController.presenter = presenter
-
-            self?.navigationController?.pushViewController(viewController, animated: true)
-        }
+    // TODO: 코드 수정 필요
+    func pushRegistrationView(usecase: SocialLoginUseCaseInterface) {
+        let viewController = FirstRegistrationViewController()
+        
+        let presenter = FirstRegistrationPresenter(
+            socialLoginUseCase: usecase,
+            viewController: viewController
+        )
+        
+        viewController.presenter = presenter
+        
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
+    
+//    func pushRegistrationWhenAppleLogin(_ userModel: AVIROAppleUserSignUpDTO) {
+//        DispatchQueue.main.async { [weak self] in
+//            let viewController = FirstRegistrationViewController()
+//            
+//            let presenter = FirstRegistrationPresenter(
+//                socialLoginUseCase:
+//                viewController: viewController,
+//                appleUserSignUpModel: userModel
+//            )
+//            
+//            viewController.presenter = presenter
+//
+//            self?.navigationController?.pushViewController(viewController, animated: true)
+//        }
+//    }
     
     // MARK: Alert Interactions
     func afterLogoutAndMakeToastButton() {

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -95,6 +95,8 @@
 		C52FA3472A175B20005E70DC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52FA3462A175B20005E70DC /* HomeViewController.swift */; };
 		C52FA34C2A175B20005E70DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C52FA34B2A175B20005E70DC /* Assets.xcassets */; };
 		C52FA34F2A175B20005E70DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C52FA34D2A175B20005E70DC /* LaunchScreen.storyboard */; };
+		C534B14E2C2EABE900C62FDA /* LoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534B14D2C2EABE900C62FDA /* LoginInfo.swift */; };
+		C534B1522C32662A00C62FDA /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534B1512C32662A00C62FDA /* LoginButton.swift */; };
 		C5351B4D2A19223300116D50 /* KakaoMapRequestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B4C2A19223300116D50 /* KakaoMapRequestAPI.swift */; };
 		C5351B502A19225A00116D50 /* KakaoKeywordPlace+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B4F2A19225A00116D50 /* KakaoKeywordPlace+DTO.swift */; };
 		C5351B542A19A7B100116D50 /* UserCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B532A19A7B100116D50 /* UserCoordinate.swift */; };
@@ -141,6 +143,9 @@
 		C562B6E22B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */; };
 		C562B6E42B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */; };
 		C564DAB32BA57240002174B4 /* AVIROWellcome+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C564DAB22BA57240002174B4 /* AVIROWellcome+DTO.swift */; };
+		C566EF622C398EC6009E58DD /* AuthAPIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566EF612C398EC6009E58DD /* AuthAPIEndpoints.swift */; };
+		C566EF652C39931B009E58DD /* RepositoryTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566EF642C39931B009E58DD /* RepositoryTask.swift */; };
+		C566EF672C399333009E58DD /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566EF662C399333009E58DD /* Cancellable.swift */; };
 		C567C1502A56611500D4B426 /* TopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C567C14F2A56611500D4B426 /* TopCell.swift */; };
 		C568577D2A70E1F600F52715 /* MenuPlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568577C2A70E1F600F52715 /* MenuPlusButton.swift */; };
 		C56857802A7113C600F52715 /* NormalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568577F2A7113C600F52715 /* NormalTableViewCell.swift */; };
@@ -173,6 +178,10 @@
 		C59491D32AB0336100880B4B /* UIView(Animation)+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59491D22AB0336100880B4B /* UIView(Animation)+Extension.swift */; };
 		C595ACCD2A84A1A200D35123 /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C595ACCC2A84A1A200D35123 /* PlaceView.swift */; };
 		C595ACD12A84A4EB00D35123 /* PlaceSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C595ACD02A84A4EB00D35123 /* PlaceSummaryView.swift */; };
+		C5A169162C4D53970028BCC0 /* SignInFromApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A169152C4D53970028BCC0 /* SignInFromApple.swift */; };
+		C5A169182C4D53A50028BCC0 /* SignInFromKakaoNaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A169172C4D53A50028BCC0 /* SignInFromKakaoNaver.swift */; };
+		C5A1691A2C4D53CF0028BCC0 /* SingInInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A169192C4D53CF0028BCC0 /* SingInInfo.swift */; };
+		C5A1691D2C4D5DD60028BCC0 /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A1691C2C4D5DD60028BCC0 /* CommonError.swift */; };
 		C5A201B22A98502500A54381 /* TimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A201B12A98502500A54381 /* TimeUtility.swift */; };
 		C5A201B42A986EC300A54381 /* EditPlaceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A201B32A986EC300A54381 /* EditPlaceInfoViewController.swift */; };
 		C5A201B72A986EDF00A54381 /* EditMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A201B62A986EDF00A54381 /* EditMenuViewController.swift */; };
@@ -191,6 +200,26 @@
 		C5A9899E2A95A7940021B7C3 /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A9899D2A95A7940021B7C3 /* BookmarkManager.swift */; };
 		C5B071E12A59454300AE709A /* BottomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B071E02A59454300AE709A /* BottomCell.swift */; };
 		C5B071E52A59B4AC00AE709A /* RegistrationField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B071E42A59B4AC00AE709A /* RegistrationField.swift */; };
+		C5BA9DC92BE8AB8F004FA06E /* DataTransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DC82BE8AB8F004FA06E /* DataTransferService.swift */; };
+		C5BA9DCB2BE8AB97004FA06E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DCA2BE8AB97004FA06E /* NetworkService.swift */; };
+		C5BA9DCD2BE8AB9E004FA06E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DCC2BE8AB9E004FA06E /* Endpoint.swift */; };
+		C5BA9DCF2BE8ABA8004FA06E /* NetworkConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DCE2BE8ABA8004FA06E /* NetworkConfigurable.swift */; };
+		C5BA9DD22BE8AF80004FA06E /* BodyEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DD12BE8AF80004FA06E /* BodyEncoder.swift */; };
+		C5BA9DD42BE8B39B004FA06E /* RequestTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DD32BE8B39B004FA06E /* RequestTable.swift */; };
+		C5BA9DD62BE8B884004FA06E /* ResponseDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DD52BE8B884004FA06E /* ResponseDecoder.swift */; };
+		C5BA9DF22BECC8F9004FA06E /* NetworkSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DF12BECC8F9004FA06E /* NetworkSessionManager.swift */; };
+		C5BA9DF42BECC902004FA06E /* NetworkErrorLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DF32BECC902004FA06E /* NetworkErrorLogger.swift */; };
+		C5BA9DF62BECCD58004FA06E /* DataTransferError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DF52BECCD58004FA06E /* DataTransferError.swift */; };
+		C5BA9DFB2BED136A004FA06E /* DataTransferErrorLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DFA2BED136A004FA06E /* DataTransferErrorLogger.swift */; };
+		C5BA9E0E2BED1D75004FA06E /* AVIROViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E0D2BED1D75004FA06E /* AVIROViewModel.swift */; };
+		C5BA9E102BED1E11004FA06E /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E0F2BED1E11004FA06E /* Alertable.swift */; };
+		C5BA9E122BED223C004FA06E /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E112BED223C004FA06E /* Coordinator.swift */; };
+		C5BA9E142BED2244004FA06E /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E132BED2244004FA06E /* BaseCoordinator.swift */; };
+		C5BA9E172BED2585004FA06E /* printIfDebug.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E162BED2585004FA06E /* printIfDebug.swift */; };
+		C5BA9E192BED25D2004FA06E /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E182BED25D2004FA06E /* DIContainer.swift */; };
+		C5C1786D2C37B2E700B774AE /* GoogleAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C1786C2C37B2E700B774AE /* GoogleAuthRepository.swift */; };
+		C5C1786F2C37B30500B774AE /* KakaoAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C1786E2C37B30500B774AE /* KakaoAuthRepository.swift */; };
+		C5C178712C37B30E00B774AE /* NaverAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C178702C37B30E00B774AE /* NaverAuthRepository.swift */; };
 		C5C20BAC2AD504D500855BBB /* AmplitudeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BAB2AD504D500855BBB /* AmplitudeUtility.swift */; };
 		C5C290742A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C290732A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift */; };
 		C5C290772A85E4FF00ED5DCE /* PlaceHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C290762A85E4FF00ED5DCE /* PlaceHomeView.swift */; };
@@ -250,6 +279,40 @@
 		C5ED46932AAEB02F00F2DA04 /* PlaceOperationHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED46922AAEB02F00F2DA04 /* PlaceOperationHoursViewController.swift */; };
 		C5ED46952AAEB3F300F2DA04 /* OperationHourView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED46942AAEB3F300F2DA04 /* OperationHourView.swift */; };
 		C5ED46982AAEEFB600F2DA04 /* OperationHoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED46972AAEEFB600F2DA04 /* OperationHoursView.swift */; };
+		C5ED99352C088D290077B2F9 /* StoreListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99342C088D290077B2F9 /* StoreListRepository.swift */; };
+		C5ED99372C088D360077B2F9 /* StoreManagementRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99362C088D360077B2F9 /* StoreManagementRepository.swift */; };
+		C5ED99392C088D410077B2F9 /* BookmarkListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99382C088D410077B2F9 /* BookmarkListRepository.swift */; };
+		C5ED993B2C088D4F0077B2F9 /* StoreSummaryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED993A2C088D4F0077B2F9 /* StoreSummaryRepository.swift */; };
+		C5ED993D2C088DD10077B2F9 /* StoreInfoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED993C2C088DD10077B2F9 /* StoreInfoRepository.swift */; };
+		C5ED993F2C088DDC0077B2F9 /* StoreMenuRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED993E2C088DDC0077B2F9 /* StoreMenuRepository.swift */; };
+		C5ED99412C088DE40077B2F9 /* StoreReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99402C088DE40077B2F9 /* StoreReviewRepository.swift */; };
+		C5ED99432C088DEE0077B2F9 /* StoreOperationHoursRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99422C088DEE0077B2F9 /* StoreOperationHoursRepository.swift */; };
+		C5ED99452C088E000077B2F9 /* ReviewManagementRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99442C088E000077B2F9 /* ReviewManagementRepository.swift */; };
+		C5ED99472C088E0F0077B2F9 /* ChallengeInfoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99462C088E0F0077B2F9 /* ChallengeInfoRepository.swift */; };
+		C5ED99492C088E1B0077B2F9 /* UserChallengeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99482C088E1B0077B2F9 /* UserChallengeRepository.swift */; };
+		C5ED994B2C088E240077B2F9 /* UserInfoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED994A2C088E240077B2F9 /* UserInfoRepository.swift */; };
+		C5ED994D2C088E2C0077B2F9 /* AppleAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED994C2C088E2C0077B2F9 /* AppleAuthRepository.swift */; };
+		C5ED99512C088E3E0077B2F9 /* UserAccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99502C088E3E0077B2F9 /* UserAccountRepository.swift */; };
+		C5ED995A2C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99592C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift */; };
+		C5ED995E2C088EFA0077B2F9 /* UserAccountRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED995D2C088EFA0077B2F9 /* UserAccountRepositoryInterface.swift */; };
+		C5ED99602C088FAA0077B2F9 /* UserInfoRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED995F2C088FAA0077B2F9 /* UserInfoRepositoryInterface.swift */; };
+		C5ED99622C088FB50077B2F9 /* UserChallengeRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99612C088FB50077B2F9 /* UserChallengeRepositoryInterface.swift */; };
+		C5ED99642C088FC10077B2F9 /* ChallengeInfoRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99632C088FC10077B2F9 /* ChallengeInfoRepositoryInterface.swift */; };
+		C5ED99682C088FE60077B2F9 /* StoreOperationHoursRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99672C088FE60077B2F9 /* StoreOperationHoursRepositoryInterface.swift */; };
+		C5ED996A2C0890B30077B2F9 /* StoreReviewRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99692C0890B30077B2F9 /* StoreReviewRepositoryInterface.swift */; };
+		C5ED996C2C0890C30077B2F9 /* StoreMenuRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED996B2C0890C30077B2F9 /* StoreMenuRepositoryInterface.swift */; };
+		C5ED996E2C0890CE0077B2F9 /* StoreInfoRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED996D2C0890CE0077B2F9 /* StoreInfoRepositoryInterface.swift */; };
+		C5ED99702C0890DB0077B2F9 /* StoreSummaryRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED996F2C0890DB0077B2F9 /* StoreSummaryRepositoryInterface.swift */; };
+		C5ED99722C0891FC0077B2F9 /* BookmarkListRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99712C0891FC0077B2F9 /* BookmarkListRepositoryInterface.swift */; };
+		C5ED99742C0892060077B2F9 /* StoreListRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99732C0892060077B2F9 /* StoreListRepositoryInterface.swift */; };
+		C5ED99762C0892170077B2F9 /* StoreManagementRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99752C0892170077B2F9 /* StoreManagementRepositoryInterface.swift */; };
+		C5ED99782C0892C70077B2F9 /* SocialLoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99772C0892C70077B2F9 /* SocialLoginUseCase.swift */; };
+		C5ED997A2C0892CF0077B2F9 /* UserInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99792C0892CF0077B2F9 /* UserInfoUseCase.swift */; };
+		C5ED997C2C0892D90077B2F9 /* ChallengeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED997B2C0892D90077B2F9 /* ChallengeUseCase.swift */; };
+		C5ED997E2C0892F80077B2F9 /* ReviewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED997D2C0892F80077B2F9 /* ReviewUseCase.swift */; };
+		C5ED99802C08930B0077B2F9 /* StoreUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED997F2C08930B0077B2F9 /* StoreUseCase.swift */; };
+		C5ED99822C0893180077B2F9 /* BookmarkListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99812C0893180077B2F9 /* BookmarkListUseCase.swift */; };
+		C5ED99842C0893210077B2F9 /* StoreListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99832C0893210077B2F9 /* StoreListUseCase.swift */; };
 		C5F1014F2A6D19A800C53286 /* VeganOptionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F1014E2A6D19A800C53286 /* VeganOptionButton.swift */; };
 		C5F33DFD2ADED19000A29FB9 /* SystemUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F33DFC2ADED19000A29FB9 /* SystemUtility.swift */; };
 		C5FA0EAA2A94DB3E004AD8B4 /* ReportReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0EA92A94DB3E004AD8B4 /* ReportReviewViewController.swift */; };
@@ -374,6 +437,8 @@
 		C52FA3462A175B20005E70DC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C52FA34B2A175B20005E70DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C52FA3502A175B20005E70DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C534B14D2C2EABE900C62FDA /* LoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInfo.swift; sourceTree = "<group>"; };
+		C534B1512C32662A00C62FDA /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		C5351B4A2A1919F700116D50 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C5351B4C2A19223300116D50 /* KakaoMapRequestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapRequestAPI.swift; sourceTree = "<group>"; };
 		C5351B4F2A19225A00116D50 /* KakaoKeywordPlace+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KakaoKeywordPlace+DTO.swift"; sourceTree = "<group>"; };
@@ -423,6 +488,9 @@
 		C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoPresentationAnimator.swift; sourceTree = "<group>"; };
 		C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoPresentaionDelegate.swift; sourceTree = "<group>"; };
 		C564DAB22BA57240002174B4 /* AVIROWellcome+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROWellcome+DTO.swift"; sourceTree = "<group>"; };
+		C566EF612C398EC6009E58DD /* AuthAPIEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPIEndpoints.swift; sourceTree = "<group>"; };
+		C566EF642C39931B009E58DD /* RepositoryTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTask.swift; sourceTree = "<group>"; };
+		C566EF662C399333009E58DD /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		C567C14F2A56611500D4B426 /* TopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCell.swift; sourceTree = "<group>"; };
 		C568577C2A70E1F600F52715 /* MenuPlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPlusButton.swift; sourceTree = "<group>"; };
 		C568577F2A7113C600F52715 /* NormalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalTableViewCell.swift; sourceTree = "<group>"; };
@@ -456,6 +524,10 @@
 		C59491D22AB0336100880B4B /* UIView(Animation)+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView(Animation)+Extension.swift"; sourceTree = "<group>"; };
 		C595ACCC2A84A1A200D35123 /* PlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceView.swift; sourceTree = "<group>"; };
 		C595ACD02A84A4EB00D35123 /* PlaceSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSummaryView.swift; sourceTree = "<group>"; };
+		C5A169152C4D53970028BCC0 /* SignInFromApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFromApple.swift; sourceTree = "<group>"; };
+		C5A169172C4D53A50028BCC0 /* SignInFromKakaoNaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFromKakaoNaver.swift; sourceTree = "<group>"; };
+		C5A169192C4D53CF0028BCC0 /* SingInInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInInfo.swift; sourceTree = "<group>"; };
+		C5A1691C2C4D5DD60028BCC0 /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
 		C5A201B12A98502500A54381 /* TimeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUtility.swift; sourceTree = "<group>"; };
 		C5A201B32A986EC300A54381 /* EditPlaceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlaceInfoViewController.swift; sourceTree = "<group>"; };
 		C5A201B62A986EDF00A54381 /* EditMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenuViewController.swift; sourceTree = "<group>"; };
@@ -474,6 +546,26 @@
 		C5A9899D2A95A7940021B7C3 /* BookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
 		C5B071E02A59454300AE709A /* BottomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCell.swift; sourceTree = "<group>"; };
 		C5B071E42A59B4AC00AE709A /* RegistrationField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationField.swift; sourceTree = "<group>"; };
+		C5BA9DC82BE8AB8F004FA06E /* DataTransferService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferService.swift; sourceTree = "<group>"; };
+		C5BA9DCA2BE8AB97004FA06E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		C5BA9DCC2BE8AB9E004FA06E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		C5BA9DCE2BE8ABA8004FA06E /* NetworkConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfigurable.swift; sourceTree = "<group>"; };
+		C5BA9DD12BE8AF80004FA06E /* BodyEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyEncoder.swift; sourceTree = "<group>"; };
+		C5BA9DD32BE8B39B004FA06E /* RequestTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTable.swift; sourceTree = "<group>"; };
+		C5BA9DD52BE8B884004FA06E /* ResponseDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDecoder.swift; sourceTree = "<group>"; };
+		C5BA9DF12BECC8F9004FA06E /* NetworkSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionManager.swift; sourceTree = "<group>"; };
+		C5BA9DF32BECC902004FA06E /* NetworkErrorLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorLogger.swift; sourceTree = "<group>"; };
+		C5BA9DF52BECCD58004FA06E /* DataTransferError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferError.swift; sourceTree = "<group>"; };
+		C5BA9DFA2BED136A004FA06E /* DataTransferErrorLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferErrorLogger.swift; sourceTree = "<group>"; };
+		C5BA9E0D2BED1D75004FA06E /* AVIROViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVIROViewModel.swift; sourceTree = "<group>"; };
+		C5BA9E0F2BED1E11004FA06E /* Alertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
+		C5BA9E112BED223C004FA06E /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		C5BA9E132BED2244004FA06E /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
+		C5BA9E162BED2585004FA06E /* printIfDebug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = printIfDebug.swift; sourceTree = "<group>"; };
+		C5BA9E182BED25D2004FA06E /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		C5C1786C2C37B2E700B774AE /* GoogleAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthRepository.swift; sourceTree = "<group>"; };
+		C5C1786E2C37B30500B774AE /* KakaoAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthRepository.swift; sourceTree = "<group>"; };
+		C5C178702C37B30E00B774AE /* NaverAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAuthRepository.swift; sourceTree = "<group>"; };
 		C5C20BAB2AD504D500855BBB /* AmplitudeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeUtility.swift; sourceTree = "<group>"; };
 		C5C290732A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSegmentedControlView.swift; sourceTree = "<group>"; };
 		C5C290762A85E4FF00ED5DCE /* PlaceHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHomeView.swift; sourceTree = "<group>"; };
@@ -533,6 +625,41 @@
 		C5ED46922AAEB02F00F2DA04 /* PlaceOperationHoursViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceOperationHoursViewController.swift; sourceTree = "<group>"; };
 		C5ED46942AAEB3F300F2DA04 /* OperationHourView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationHourView.swift; sourceTree = "<group>"; };
 		C5ED46972AAEEFB600F2DA04 /* OperationHoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationHoursView.swift; sourceTree = "<group>"; };
+		C5ED99342C088D290077B2F9 /* StoreListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreListRepository.swift; sourceTree = "<group>"; };
+		C5ED99362C088D360077B2F9 /* StoreManagementRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManagementRepository.swift; sourceTree = "<group>"; };
+		C5ED99382C088D410077B2F9 /* BookmarkListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListRepository.swift; sourceTree = "<group>"; };
+		C5ED993A2C088D4F0077B2F9 /* StoreSummaryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSummaryRepository.swift; sourceTree = "<group>"; };
+		C5ED993C2C088DD10077B2F9 /* StoreInfoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoRepository.swift; sourceTree = "<group>"; };
+		C5ED993E2C088DDC0077B2F9 /* StoreMenuRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreMenuRepository.swift; sourceTree = "<group>"; };
+		C5ED99402C088DE40077B2F9 /* StoreReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewRepository.swift; sourceTree = "<group>"; };
+		C5ED99422C088DEE0077B2F9 /* StoreOperationHoursRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreOperationHoursRepository.swift; sourceTree = "<group>"; };
+		C5ED99442C088E000077B2F9 /* ReviewManagementRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewManagementRepository.swift; sourceTree = "<group>"; };
+		C5ED99462C088E0F0077B2F9 /* ChallengeInfoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoRepository.swift; sourceTree = "<group>"; };
+		C5ED99482C088E1B0077B2F9 /* UserChallengeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChallengeRepository.swift; sourceTree = "<group>"; };
+		C5ED994A2C088E240077B2F9 /* UserInfoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRepository.swift; sourceTree = "<group>"; };
+		C5ED994C2C088E2C0077B2F9 /* AppleAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthRepository.swift; sourceTree = "<group>"; };
+		C5ED99502C088E3E0077B2F9 /* UserAccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountRepository.swift; sourceTree = "<group>"; };
+		C5ED99592C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginRepositoryInterface.swift; sourceTree = "<group>"; };
+		C5ED995D2C088EFA0077B2F9 /* UserAccountRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountRepositoryInterface.swift; sourceTree = "<group>"; };
+		C5ED995F2C088FAA0077B2F9 /* UserInfoRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRepositoryInterface.swift; sourceTree = "<group>"; };
+		C5ED99612C088FB50077B2F9 /* UserChallengeRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChallengeRepositoryInterface.swift; sourceTree = "<group>"; };
+		C5ED99632C088FC10077B2F9 /* ChallengeInfoRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoRepositoryInterface.swift; sourceTree = "<group>"; };
+		C5ED99652C088FD30077B2F9 /* ReviewManagementRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewManagementRepositoryInterface.swift; sourceTree = "<group>"; };
+		C5ED99672C088FE60077B2F9 /* StoreOperationHoursRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreOperationHoursRepositoryInterface.swift; sourceTree = "<group>"; };
+		C5ED99692C0890B30077B2F9 /* StoreReviewRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewRepositoryInterface.swift; sourceTree = "<group>"; };
+		C5ED996B2C0890C30077B2F9 /* StoreMenuRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreMenuRepositoryInterface.swift; sourceTree = "<group>"; };
+		C5ED996D2C0890CE0077B2F9 /* StoreInfoRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoRepositoryInterface.swift; sourceTree = "<group>"; };
+		C5ED996F2C0890DB0077B2F9 /* StoreSummaryRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSummaryRepositoryInterface.swift; sourceTree = "<group>"; };
+		C5ED99712C0891FC0077B2F9 /* BookmarkListRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListRepositoryInterface.swift; sourceTree = "<group>"; };
+		C5ED99732C0892060077B2F9 /* StoreListRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreListRepositoryInterface.swift; sourceTree = "<group>"; };
+		C5ED99752C0892170077B2F9 /* StoreManagementRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManagementRepositoryInterface.swift; sourceTree = "<group>"; };
+		C5ED99772C0892C70077B2F9 /* SocialLoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginUseCase.swift; sourceTree = "<group>"; };
+		C5ED99792C0892CF0077B2F9 /* UserInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoUseCase.swift; sourceTree = "<group>"; };
+		C5ED997B2C0892D90077B2F9 /* ChallengeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeUseCase.swift; sourceTree = "<group>"; };
+		C5ED997D2C0892F80077B2F9 /* ReviewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewUseCase.swift; sourceTree = "<group>"; };
+		C5ED997F2C08930B0077B2F9 /* StoreUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreUseCase.swift; sourceTree = "<group>"; };
+		C5ED99812C0893180077B2F9 /* BookmarkListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListUseCase.swift; sourceTree = "<group>"; };
+		C5ED99832C0893210077B2F9 /* StoreListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreListUseCase.swift; sourceTree = "<group>"; };
 		C5F1014E2A6D19A800C53286 /* VeganOptionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeganOptionButton.swift; sourceTree = "<group>"; };
 		C5F33DFC2ADED19000A29FB9 /* SystemUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemUtility.swift; sourceTree = "<group>"; };
 		C5F33DFE2ADFC5B600A29FB9 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -601,13 +728,11 @@
 		C50367EC2A1791620020C6BB /* App */ = {
 			isa = PBXGroup;
 			children = (
-				C510002C2AB5F1E600F65C1F /* Fonts */,
-				C5E430AA2A5D13B600CB67EC /* Lottie */,
 				C505EB172ACC5AC50057A4F8 /* LaunchScreenViewController.swift */,
 				C52FA3422A175B20005E70DC /* AppDelegate.swift */,
 				C52FA3442A175B20005E70DC /* SceneDelegate.swift */,
 				C51132C02A559BCA006E1EC3 /* AppController.swift */,
-				C52FA34B2A175B20005E70DC /* Assets.xcassets */,
+				C5BA9E182BED25D2004FA06E /* DIContainer.swift */,
 				C52FA34D2A175B20005E70DC /* LaunchScreen.storyboard */,
 				C52FA3502A175B20005E70DC /* Info.plist */,
 				62166DED2BA2E92300F05D40 /* API.plist */,
@@ -918,14 +1043,28 @@
 		C52FA3412A175B20005E70DC /* AVIRO */ = {
 			isa = PBXGroup;
 			children = (
+				C5BA9DFC2BED1C0D004FA06E /* Resources */,
 				C593B64C2A4BFD9A00D224CE /* AVIRO.entitlements */,
 				C50367EC2A1791620020C6BB /* App */,
 				C50367F62A179D6E0020C6BB /* Custom */,
 				C50367F32A1795BE0020C6BB /* Model */,
 				C50367F22A1795B90020C6BB /* Manager */,
 				C50367ED2A1791840020C6BB /* Scene */,
+				C5BA9DFE2BED1C64004FA06E /* Data */,
+				C5BA9DFF2BED1C8F004FA06E /* Domain */,
+				C5BA9E002BED1C9C004FA06E /* Presentation */,
+				C5BA9DC62BE8AB22004FA06E /* Infrastructure */,
+				C5BA9E152BED256F004FA06E /* Common */,
 			);
 			path = AVIRO;
+			sourceTree = "<group>";
+		};
+		C534B14C2C2EABD300C62FDA /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C534B14D2C2EABE900C62FDA /* LoginInfo.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		C5351B4E2A19223600116D50 /* KakaoMapManager */ = {
@@ -1097,6 +1236,7 @@
 			isa = PBXGroup;
 			children = (
 				C5A3C3C32A39658A0050AB3D /* LoginViewController.swift */,
+				C534B1512C32662A00C62FDA /* LoginButton.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1401,6 +1541,14 @@
 			path = ETC;
 			sourceTree = "<group>";
 		};
+		C566EF632C39930D009E58DD /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C566EF642C39931B009E58DD /* RepositoryTask.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		C567C14D2A5658C700D4B426 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -1582,6 +1730,24 @@
 			path = TutorialCell;
 			sourceTree = "<group>";
 		};
+		C5A169142C4D53520028BCC0 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				C5A169152C4D53970028BCC0 /* SignInFromApple.swift */,
+				C5A169172C4D53A50028BCC0 /* SignInFromKakaoNaver.swift */,
+				C5A169192C4D53CF0028BCC0 /* SingInInfo.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		C5A1691B2C4D5DCC0028BCC0 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				C5A1691C2C4D5DD60028BCC0 /* CommonError.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		C5A201B52A986ECA00A54381 /* EditPlaceInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -1660,6 +1826,227 @@
 				C52CD2DC2BCA5C310031671B /* BlurEffectView.swift */,
 			);
 			path = SubClass;
+			sourceTree = "<group>";
+		};
+		C5BA9DC62BE8AB22004FA06E /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9DC72BE8AB7A004FA06E /* Network */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		C5BA9DC72BE8AB7A004FA06E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9DF72BECCDB5004FA06E /* DataTransfer */,
+				C5BA9DEF2BECC8BD004FA06E /* NetworkService */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		C5BA9DD72BE8B88A004FA06E /* Response_Request */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9DD32BE8B39B004FA06E /* RequestTable.swift */,
+				C5BA9DD12BE8AF80004FA06E /* BodyEncoder.swift */,
+			);
+			path = Response_Request;
+			sourceTree = "<group>";
+		};
+		C5BA9DEF2BECC8BD004FA06E /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9DD72BE8B88A004FA06E /* Response_Request */,
+				C5BA9DCC2BE8AB9E004FA06E /* Endpoint.swift */,
+				C5BA9DCE2BE8ABA8004FA06E /* NetworkConfigurable.swift */,
+				C5BA9DCA2BE8AB97004FA06E /* NetworkService.swift */,
+				C5BA9DF12BECC8F9004FA06E /* NetworkSessionManager.swift */,
+				C5BA9DF32BECC902004FA06E /* NetworkErrorLogger.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		C5BA9DF72BECCDB5004FA06E /* DataTransfer */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9DD52BE8B884004FA06E /* ResponseDecoder.swift */,
+				C5BA9DF52BECCD58004FA06E /* DataTransferError.swift */,
+				C5BA9DFA2BED136A004FA06E /* DataTransferErrorLogger.swift */,
+				C5BA9DC82BE8AB8F004FA06E /* DataTransferService.swift */,
+			);
+			path = DataTransfer;
+			sourceTree = "<group>";
+		};
+		C5BA9DFC2BED1C0D004FA06E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C52FA34B2A175B20005E70DC /* Assets.xcassets */,
+				C5E430AA2A5D13B600CB67EC /* Lottie */,
+				C510002C2AB5F1E600F65C1F /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C5BA9DFE2BED1C64004FA06E /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9E012BED1CB1004FA06E /* Common */,
+				C5BA9E022BED1CB7004FA06E /* Network */,
+				C5BA9E032BED1CBF004FA06E /* PresistentStorges */,
+				C5BA9E042BED1CD2004FA06E /* Repositories */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		C5BA9DFF2BED1C8F004FA06E /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9E072BED1CF8004FA06E /* Entities */,
+				C5BA9E062BED1CF0004FA06E /* RepositoryInterfaces */,
+				C5BA9E052BED1CE8004FA06E /* UseCases */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		C5BA9E002BED1C9C004FA06E /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9E0C2BED1D5D004FA06E /* Base */,
+				C5BA9E0B2BED1D58004FA06E /* Feature */,
+				C5BA9E082BED1D07004FA06E /* Utils */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		C5BA9E012BED1CB1004FA06E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		C5BA9E022BED1CB7004FA06E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED99322C088D050077B2F9 /* DataMapping */,
+				C5ED99332C088D0E0077B2F9 /* Targets */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		C5BA9E032BED1CBF004FA06E /* PresistentStorges */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED99312C088CE80077B2F9 /* UserInfoStorage */,
+				C5ED992F2C088CC50077B2F9 /* StoreRawModelsStorge */,
+				C5ED99302C088CD90077B2F9 /* BookmarkListStorage */,
+				C5ED992E2C088CAA0077B2F9 /* SearchHistoryStorge */,
+			);
+			path = PresistentStorges;
+			sourceTree = "<group>";
+		};
+		C5BA9E042BED1CD2004FA06E /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				C566EF632C39930D009E58DD /* Utils */,
+				C5ED992D2C0880800077B2F9 /* StoreListRepositories */,
+				C5ED992C2C08807A0077B2F9 /* BookmarkListRepositories */,
+				C5ED992B2C0880710077B2F9 /* StoreRepositories */,
+				C5ED992A2C0880660077B2F9 /* ReviewRepositories */,
+				C5ED99292C08805A0077B2F9 /* ChallengeRepositories */,
+				C5ED99282C08804E0077B2F9 /* UserInfoRepositories */,
+				C5ED99272C08803D0077B2F9 /* AuthRepositories */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		C5BA9E052BED1CE8004FA06E /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED99832C0893210077B2F9 /* StoreListUseCase.swift */,
+				C5ED99812C0893180077B2F9 /* BookmarkListUseCase.swift */,
+				C5ED997F2C08930B0077B2F9 /* StoreUseCase.swift */,
+				C5ED997D2C0892F80077B2F9 /* ReviewUseCase.swift */,
+				C5ED997B2C0892D90077B2F9 /* ChallengeUseCase.swift */,
+				C5ED99792C0892CF0077B2F9 /* UserInfoUseCase.swift */,
+				C5ED99772C0892C70077B2F9 /* SocialLoginUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		C5BA9E062BED1CF0004FA06E /* RepositoryInterfaces */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED99582C088EC90077B2F9 /* StoresRepositoryInterfaces */,
+				C5ED99572C088EB10077B2F9 /* BookmarkListRepositoryInterfaces */,
+				C5ED99562C088EA60077B2F9 /* StoreRepositoryInterfaces */,
+				C5ED99552C088E9D0077B2F9 /* ReviewRepositoryInterfaces */,
+				C5ED99542C088E950077B2F9 /* ChallengeRepositoryInterfaces */,
+				C5ED99532C088E880077B2F9 /* UserInfoRepositoryInterfaces */,
+				C5ED99522C088E690077B2F9 /* SocialLoginRepositoryInterfaces */,
+			);
+			path = RepositoryInterfaces;
+			sourceTree = "<group>";
+		};
+		C5BA9E072BED1CF8004FA06E /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				C5A1691B2C4D5DCC0028BCC0 /* Common */,
+				C5A169142C4D53520028BCC0 /* SignIn */,
+				C534B14C2C2EABD300C62FDA /* User */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		C5BA9E082BED1D07004FA06E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9E092BED1D27004FA06E /* Extensions */,
+				C5BA9E0A2BED1D2D004FA06E /* Protocols */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		C5BA9E092BED1D27004FA06E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C5BA9E0A2BED1D2D004FA06E /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9E0F2BED1E11004FA06E /* Alertable.swift */,
+				C5BA9E112BED223C004FA06E /* Coordinator.swift */,
+				C5BA9E132BED2244004FA06E /* BaseCoordinator.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		C5BA9E0B2BED1D58004FA06E /* Feature */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Feature;
+			sourceTree = "<group>";
+		};
+		C5BA9E0C2BED1D5D004FA06E /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9E0D2BED1D75004FA06E /* AVIROViewModel.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		C5BA9E152BED256F004FA06E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				C5BA9E162BED2585004FA06E /* printIfDebug.swift */,
+				C566EF662C399333009E58DD /* Cancellable.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		C5C290752A85E4EF00ED5DCE /* SegmentedControlSubView */ = {
@@ -1990,6 +2377,314 @@
 			path = PlaceOperationSubView;
 			sourceTree = "<group>";
 		};
+		C5ED99272C08803D0077B2F9 /* AuthRepositories */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED994C2C088E2C0077B2F9 /* AppleAuthRepository.swift */,
+				C5C1786C2C37B2E700B774AE /* GoogleAuthRepository.swift */,
+				C5C1786E2C37B30500B774AE /* KakaoAuthRepository.swift */,
+				C5C178702C37B30E00B774AE /* NaverAuthRepository.swift */,
+			);
+			path = AuthRepositories;
+			sourceTree = "<group>";
+		};
+		C5ED99282C08804E0077B2F9 /* UserInfoRepositories */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED99502C088E3E0077B2F9 /* UserAccountRepository.swift */,
+				C5ED994A2C088E240077B2F9 /* UserInfoRepository.swift */,
+			);
+			path = UserInfoRepositories;
+			sourceTree = "<group>";
+		};
+		C5ED99292C08805A0077B2F9 /* ChallengeRepositories */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED99462C088E0F0077B2F9 /* ChallengeInfoRepository.swift */,
+				C5ED99482C088E1B0077B2F9 /* UserChallengeRepository.swift */,
+			);
+			path = ChallengeRepositories;
+			sourceTree = "<group>";
+		};
+		C5ED992A2C0880660077B2F9 /* ReviewRepositories */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED99442C088E000077B2F9 /* ReviewManagementRepository.swift */,
+			);
+			path = ReviewRepositories;
+			sourceTree = "<group>";
+		};
+		C5ED992B2C0880710077B2F9 /* StoreRepositories */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED993A2C088D4F0077B2F9 /* StoreSummaryRepository.swift */,
+				C5ED993C2C088DD10077B2F9 /* StoreInfoRepository.swift */,
+				C5ED993E2C088DDC0077B2F9 /* StoreMenuRepository.swift */,
+				C5ED99402C088DE40077B2F9 /* StoreReviewRepository.swift */,
+				C5ED99422C088DEE0077B2F9 /* StoreOperationHoursRepository.swift */,
+			);
+			path = StoreRepositories;
+			sourceTree = "<group>";
+		};
+		C5ED992C2C08807A0077B2F9 /* BookmarkListRepositories */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED99382C088D410077B2F9 /* BookmarkListRepository.swift */,
+			);
+			path = BookmarkListRepositories;
+			sourceTree = "<group>";
+		};
+		C5ED992D2C0880800077B2F9 /* StoreListRepositories */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED99342C088D290077B2F9 /* StoreListRepository.swift */,
+				C5ED99362C088D360077B2F9 /* StoreManagementRepository.swift */,
+			);
+			path = StoreListRepositories;
+			sourceTree = "<group>";
+		};
+		C5ED992E2C088CAA0077B2F9 /* SearchHistoryStorge */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SearchHistoryStorge;
+			sourceTree = "<group>";
+		};
+		C5ED992F2C088CC50077B2F9 /* StoreRawModelsStorge */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = StoreRawModelsStorge;
+			sourceTree = "<group>";
+		};
+		C5ED99302C088CD90077B2F9 /* BookmarkListStorage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BookmarkListStorage;
+			sourceTree = "<group>";
+		};
+		C5ED99312C088CE80077B2F9 /* UserInfoStorage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UserInfoStorage;
+			sourceTree = "<group>";
+		};
+		C5ED99322C088D050077B2F9 /* DataMapping */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED99862C0893C50077B2F9 /* Request */,
+				C5ED99852C0893BD0077B2F9 /* Response */,
+			);
+			path = DataMapping;
+			sourceTree = "<group>";
+		};
+		C5ED99332C088D0E0077B2F9 /* Targets */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED99952C0894860077B2F9 /* Auth */,
+			);
+			path = Targets;
+			sourceTree = "<group>";
+		};
+		C5ED99522C088E690077B2F9 /* SocialLoginRepositoryInterfaces */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED99592C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift */,
+				C5ED995D2C088EFA0077B2F9 /* UserAccountRepositoryInterface.swift */,
+			);
+			path = SocialLoginRepositoryInterfaces;
+			sourceTree = "<group>";
+		};
+		C5ED99532C088E880077B2F9 /* UserInfoRepositoryInterfaces */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED995F2C088FAA0077B2F9 /* UserInfoRepositoryInterface.swift */,
+			);
+			path = UserInfoRepositoryInterfaces;
+			sourceTree = "<group>";
+		};
+		C5ED99542C088E950077B2F9 /* ChallengeRepositoryInterfaces */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED99612C088FB50077B2F9 /* UserChallengeRepositoryInterface.swift */,
+				C5ED99632C088FC10077B2F9 /* ChallengeInfoRepositoryInterface.swift */,
+			);
+			path = ChallengeRepositoryInterfaces;
+			sourceTree = "<group>";
+		};
+		C5ED99552C088E9D0077B2F9 /* ReviewRepositoryInterfaces */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED99652C088FD30077B2F9 /* ReviewManagementRepositoryInterface.swift */,
+			);
+			path = ReviewRepositoryInterfaces;
+			sourceTree = "<group>";
+		};
+		C5ED99562C088EA60077B2F9 /* StoreRepositoryInterfaces */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED996F2C0890DB0077B2F9 /* StoreSummaryRepositoryInterface.swift */,
+				C5ED996D2C0890CE0077B2F9 /* StoreInfoRepositoryInterface.swift */,
+				C5ED996B2C0890C30077B2F9 /* StoreMenuRepositoryInterface.swift */,
+				C5ED99692C0890B30077B2F9 /* StoreReviewRepositoryInterface.swift */,
+				C5ED99672C088FE60077B2F9 /* StoreOperationHoursRepositoryInterface.swift */,
+			);
+			path = StoreRepositoryInterfaces;
+			sourceTree = "<group>";
+		};
+		C5ED99572C088EB10077B2F9 /* BookmarkListRepositoryInterfaces */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED99712C0891FC0077B2F9 /* BookmarkListRepositoryInterface.swift */,
+			);
+			path = BookmarkListRepositoryInterfaces;
+			sourceTree = "<group>";
+		};
+		C5ED99582C088EC90077B2F9 /* StoresRepositoryInterfaces */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED99732C0892060077B2F9 /* StoreListRepositoryInterface.swift */,
+				C5ED99752C0892170077B2F9 /* StoreManagementRepositoryInterface.swift */,
+			);
+			path = StoresRepositoryInterfaces;
+			sourceTree = "<group>";
+		};
+		C5ED99852C0893BD0077B2F9 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED99942C0894400077B2F9 /* StoreList */,
+				C5ED99932C0894390077B2F9 /* BookmarkList */,
+				C5ED99922C0894350077B2F9 /* Store */,
+				C5ED99912C0894320077B2F9 /* Review */,
+				C5ED99902C08942B0077B2F9 /* Challenge */,
+				C5ED998F2C0894270077B2F9 /* UserInfo */,
+				C5ED998E2C0894210077B2F9 /* Auth */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		C5ED99862C0893C50077B2F9 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				C5ED998D2C0894170077B2F9 /* StoreList */,
+				C5ED998C2C0894100077B2F9 /* BookmarkList */,
+				C5ED998B2C08940B0077B2F9 /* Store */,
+				C5ED998A2C0894060077B2F9 /* Review */,
+				C5ED99892C0894010077B2F9 /* Challenge */,
+				C5ED99882C0893FD0077B2F9 /* UserInfo */,
+				C5ED99872C0893F20077B2F9 /* Auth */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		C5ED99872C0893F20077B2F9 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		C5ED99882C0893FD0077B2F9 /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UserInfo;
+			sourceTree = "<group>";
+		};
+		C5ED99892C0894010077B2F9 /* Challenge */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Challenge;
+			sourceTree = "<group>";
+		};
+		C5ED998A2C0894060077B2F9 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
+		C5ED998B2C08940B0077B2F9 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		C5ED998C2C0894100077B2F9 /* BookmarkList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BookmarkList;
+			sourceTree = "<group>";
+		};
+		C5ED998D2C0894170077B2F9 /* StoreList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = StoreList;
+			sourceTree = "<group>";
+		};
+		C5ED998E2C0894210077B2F9 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		C5ED998F2C0894270077B2F9 /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UserInfo;
+			sourceTree = "<group>";
+		};
+		C5ED99902C08942B0077B2F9 /* Challenge */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Challenge;
+			sourceTree = "<group>";
+		};
+		C5ED99912C0894320077B2F9 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
+		C5ED99922C0894350077B2F9 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		C5ED99932C0894390077B2F9 /* BookmarkList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BookmarkList;
+			sourceTree = "<group>";
+		};
+		C5ED99942C0894400077B2F9 /* StoreList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = StoreList;
+			sourceTree = "<group>";
+		};
+		C5ED99952C0894860077B2F9 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				C566EF612C398EC6009E58DD /* AuthAPIEndpoints.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		C5FA0EA72A94D92B004AD8B4 /* Report */ = {
 			isa = PBXGroup;
 			children = (
@@ -2132,7 +2827,7 @@
 				};
 			};
 			buildConfigurationList = C52FA33A2A175B20005E70DC /* Build configuration list for PBXProject "AVIRO" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -2284,18 +2979,25 @@
 				C5ED46932AAEB02F00F2DA04 /* PlaceOperationHoursViewController.swift in Sources */,
 				C5732C752A41962D00CDC499 /* AVIRORequestAPI.swift in Sources */,
 				C562B6DC2B38704600CE5D4C /* ChallengeViewModel.swift in Sources */,
+				C5C178712C37B30E00B774AE /* NaverAuthRepository.swift in Sources */,
+				C5A169162C4D53970028BCC0 /* SignInFromApple.swift in Sources */,
 				C5C20BAC2AD504D500855BBB /* AmplitudeUtility.swift in Sources */,
 				C513854C2AAB3B52001AB827 /* NickNameChangeblePresenter.swift in Sources */,
 				C5D93DA12A581F5A00629C39 /* FirstRegistrationPresenter.swift in Sources */,
 				C50B18CD2B94D696005DECDC /* MyPlaceCellModel.swift in Sources */,
+				C5BA9DF22BECC8F9004FA06E /* NetworkSessionManager.swift in Sources */,
 				C567C1502A56611500D4B426 /* TopCell.swift in Sources */,
 				C58FBF842AC26D3E00AB6EFC /* APIManagerProtocol.swift in Sources */,
 				C50F6B042A6BCD6900E942F5 /* CategoryButton.swift in Sources */,
+				C5BA9DD22BE8AF80004FA06E /* BodyEncoder.swift in Sources */,
 				C5D3E1602B9D942400DBB346 /* NoListButton.swift in Sources */,
 				C58FBF862AC270A200AB6EFC /* APITypes.swift in Sources */,
 				C562B6DF2B387AE200CE5D4C /* ChallengeInfoViewController.swift in Sources */,
 				C5C915492A777F8500C7CB93 /* SearchField.swift in Sources */,
 				C52066212A7CA9050038ECCD /* MainField.swift in Sources */,
+				C5ED99622C088FB50077B2F9 /* UserChallengeRepositoryInterface.swift in Sources */,
+				C566EF652C39931B009E58DD /* RepositoryTask.swift in Sources */,
+				C566EF622C398EC6009E58DD /* AuthAPIEndpoints.swift in Sources */,
 				C5EB510B2A209FD300B29CC1 /* HomeSearchPresenter.swift in Sources */,
 				C5DBF8412B3A787800668B0D /* CGFloat+Extension.swift in Sources */,
 				C52066262A7CC3CE0038ECCD /* NoHistoryLabelView.swift in Sources */,
@@ -2307,31 +3009,41 @@
 				C52066292A7CD5FC0038ECCD /* HistoryTableModel.swift in Sources */,
 				C5FD92EB2A9C786600CF4673 /* PublicAPIRequestComponents.swift in Sources */,
 				C58C49C82AC9B67600DE04B7 /* AppleUserLoginModel.swift in Sources */,
+				C5BA9E172BED2585004FA06E /* printIfDebug.swift in Sources */,
 				C5503B592B9F51C60050643F /* WelcomeViewController.swift in Sources */,
 				C54B591F2B9606C500C0B190 /* UITextView+Extension.swift in Sources */,
 				C58FBF902AC2B83A00AB6EFC /* AVIROAPIManagerProtocol.swift in Sources */,
 				C5DCBC9F2B91D9FE003502BA /* MyCommentListViewModel.swift in Sources */,
 				C50F6AF52A68FD6300E942F5 /* EnrollPlacePresenter.swift in Sources */,
+				C5BA9DFB2BED136A004FA06E /* DataTransferErrorLogger.swift in Sources */,
 				C50DB7572A9B8DF80078B501 /* EditLocationAddressTextView.swift in Sources */,
 				C595ACD12A84A4EB00D35123 /* PlaceSummaryView.swift in Sources */,
 				C520663A2A808DC40038ECCD /* PlaceListHeaderView.swift in Sources */,
+				C566EF672C399333009E58DD /* Cancellable.swift in Sources */,
 				C52066382A808DAD0038ECCD /* HistoryHeaderView.swift in Sources */,
+				C5ED99842C0893210077B2F9 /* StoreListUseCase.swift in Sources */,
 				C5C290742A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift in Sources */,
 				C52FA3472A175B20005E70DC /* HomeViewController.swift in Sources */,
 				C5503B5C2B9F54C20050643F /* WelcomeCollectionViewCell.swift in Sources */,
 				C5FD92E32A9C6C1E00CF4673 /* EditLocationAddressTextTableViewCell.swift in Sources */,
+				C534B1522C32662A00C62FDA /* LoginButton.swift in Sources */,
 				C54BC0DB2A2C2D0D00B65439 /* UIColor+Extension.swift in Sources */,
 				C52FA3432A175B20005E70DC /* AppDelegate.swift in Sources */,
+				C5BA9DCF2BE8ABA8004FA06E /* NetworkConfigurable.swift in Sources */,
 				C5C290812A8616E500ED5DCE /* PlaceInfoView.swift in Sources */,
 				C5B071E12A59454300AE709A /* BottomCell.swift in Sources */,
+				C5ED99512C088E3E0077B2F9 /* UserAccountRepository.swift in Sources */,
 				C51000382AB5F3BD00F65C1F /* UIFont+Extension.swift in Sources */,
 				C56295072B3188530067BBE5 /* ReviewWriteViewController.swift in Sources */,
+				C5ED995A2C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift in Sources */,
 				C5476B7B2B31516000F5FC6E /* LicenseDetailViewController.swift in Sources */,
 				C5FBDA602B398280007AC77E /* ChallengeInfoOrangeView.swift in Sources */,
 				C5FA0EAA2A94DB3E004AD8B4 /* ReportReviewViewController.swift in Sources */,
 				C5C90EBD2AA85E7000AB3668 /* AVIROOperationHours+DTO.swift in Sources */,
 				C5F33DFD2ADED19000A29FB9 /* SystemUtility.swift in Sources */,
 				C513854E2AAD8E9F001AB827 /* AVIROReportPlace+DTO.swift in Sources */,
+				C5C1786F2C37B30500B774AE /* KakaoAuthRepository.swift in Sources */,
+				C5ED996A2C0890B30077B2F9 /* StoreReviewRepositoryInterface.swift in Sources */,
 				C520663C2A80C0450038ECCD /* CenterCoordinate.swift in Sources */,
 				C58EC7D22AB1B5AD00401FF7 /* AVIROEditPhone+DTO.swift in Sources */,
 				C5C961932A8D9EE20016E2F8 /* PlaceMenuTableViewCell.swift in Sources */,
@@ -2347,28 +3059,39 @@
 				C50F6AFB2A68FFC300E942F5 /* EnrollVeganDetailView.swift in Sources */,
 				C5C90EB92AA78D0200AB3668 /* EditOperationHourChangebleView.swift in Sources */,
 				C5A201C72A98A6D200A54381 /* EditOperatingHoursView.swift in Sources */,
+				C5BA9DF62BECCD58004FA06E /* DataTransferError.swift in Sources */,
 				C5C290772A85E4FF00ED5DCE /* PlaceHomeView.swift in Sources */,
 				C564DAB32BA57240002174B4 /* AVIROWellcome+DTO.swift in Sources */,
 				C5D93D9F2A581EC800629C39 /* FirstRegistrationViewController.swift in Sources */,
 				C528E4C02A5FF1CB002BD72E /* FinalRegistrationViewController.swift in Sources */,
 				C5FBDA5C2B398264007AC77E /* ChallengeInfoYellowView.swift in Sources */,
 				C5DCBC8F2B91CF46003502BA /* AVIROMyBookmarkList+DTO.swift in Sources */,
+				C5A1691D2C4D5DD60028BCC0 /* CommonError.swift in Sources */,
 				C5D93DA32A58718300629C39 /* NextPageButton.swift in Sources */,
+				C5ED99602C088FAA0077B2F9 /* UserInfoRepositoryInterface.swift in Sources */,
+				C5BA9E0E2BED1D75004FA06E /* AVIROViewModel.swift in Sources */,
 				C50DB7512A9B83550078B501 /* ChangeableAddressViewController.swift in Sources */,
+				C5ED99762C0892170077B2F9 /* StoreManagementRepositoryInterface.swift in Sources */,
+				C5BA9E142BED2244004FA06E /* BaseCoordinator.swift in Sources */,
 				C5A989992A959E040021B7C3 /* AVIROBookmark+DTO.swift in Sources */,
 				C54B591D2B95F61F00C0B190 /* MyCommentListTableViewCell.swift in Sources */,
 				C5476B6E2B30760000F5FC6E /* ChallengeLevelView.swift in Sources */,
 				C51000582AB939A200F65C1F /* NoResultLabel.swift in Sources */,
+				C5ED99722C0891FC0077B2F9 /* BookmarkListRepositoryInterface.swift in Sources */,
 				C5D802722B3C6E5E00136D0E /* LevelUpAlertView.swift in Sources */,
 				C58EC7D02AB1B59100401FF7 /* AVIROEditLocation+DTO.swift in Sources */,
 				C5803F582A88C1990064A853 /* PlaceTopModel.swift in Sources */,
 				C5D36D2E2A76031E003328E8 /* Double+Extension.swift in Sources */,
+				C5ED99642C088FC10077B2F9 /* ChallengeInfoRepositoryInterface.swift in Sources */,
 				C5EB51082A209F6900B29CC1 /* HomeSearchViewController.swift in Sources */,
 				C5503B5E2B9F55D70050643F /* UIView+Extension.swift in Sources */,
 				C5538AAF2A1BB81200661DE2 /* AVIROEnrollPlace+DTO.swift in Sources */,
 				C51000552AB8123600F65C1F /* AVIROReportReview+DTO.swift in Sources */,
+				C5BA9DF42BECC902004FA06E /* NetworkErrorLogger.swift in Sources */,
 				C50F6AF32A68FD0A00E942F5 /* EnrollPlaceViewController.swift in Sources */,
+				C5ED99472C088E0F0077B2F9 /* ChallengeInfoRepository.swift in Sources */,
 				C5732C7E2A41D42700CDC499 /* RequestTableFieldModel.swift in Sources */,
+				C5ED99782C0892C70077B2F9 /* SocialLoginUseCase.swift in Sources */,
 				C5C961982A8DA5880016E2F8 /* EditInfoButton.swift in Sources */,
 				C5476B682B303BE800F5FC6E /* MyInfoView.swift in Sources */,
 				C5A989972A959D920021B7C3 /* AVIROUpdateBookmark+DTO.swift in Sources */,
@@ -2378,9 +3101,11 @@
 				C52066232A7CAC910038ECCD /* NoHistoryView.swift in Sources */,
 				C5E306E72A6FB4ED00C11CF7 /* MenuField.swift in Sources */,
 				C5ED46982AAEEFB600F2DA04 /* OperationHoursView.swift in Sources */,
+				C5BA9E102BED1E11004FA06E /* Alertable.swift in Sources */,
 				C51AED212A8B2BDB0015FBC2 /* HomeMapReferButton.swift in Sources */,
 				C5E430B32A5DADBE00CB67EC /* SecondRegistrationPresenter.swift in Sources */,
 				C5EB510D2A20A4B400B29CC1 /* HomeSearchViewTableViewCell.swift in Sources */,
+				C5ED99432C088DEE0077B2F9 /* StoreOperationHoursRepository.swift in Sources */,
 				C510005C2AB9C39500F65C1F /* MarkerModelManager.swift in Sources */,
 				C5FD92ED2A9C7AE800CF4673 /* PublicAPI.swift in Sources */,
 				C50367F52A1795D10020C6BB /* HomeViewPresenter.swift in Sources */,
@@ -2392,13 +3117,20 @@
 				C5C90EB22AA5EC9E00AB3668 /* EditMenuChangedMarkerModel.swift in Sources */,
 				C51B09BA2A8215D800916BBD /* MarkerModel.swift in Sources */,
 				C52FA3452A175B20005E70DC /* SceneDelegate.swift in Sources */,
+				C5ED99412C088DE40077B2F9 /* StoreReviewRepository.swift in Sources */,
 				C5351B542A19A7B100116D50 /* UserCoordinate.swift in Sources */,
 				C5EB50EA2A1C705900B29CC1 /* SettingViewController.swift in Sources */,
+				C5ED993D2C088DD10077B2F9 /* StoreInfoRepository.swift in Sources */,
+				C5ED995E2C088EFA0077B2F9 /* UserAccountRepositoryInterface.swift in Sources */,
+				C5ED99742C0892060077B2F9 /* StoreListRepositoryInterface.swift in Sources */,
+				C5BA9E192BED25D2004FA06E /* DIContainer.swift in Sources */,
 				C5D802702B3C6E4000136D0E /* RecommendPlaceAlertView.swift in Sources */,
 				C510005A2AB998F600F65C1F /* UIImage+Extension.swift in Sources */,
 				C5FBDA5E2B398270007AC77E /* ChallengeInfoGreenView.swift in Sources */,
 				C5D8E8632A3DEC3900D88A43 /* String+Extension.swift in Sources */,
 				C58EC7D62AB1B61500401FF7 /* AVIROEditCommonBeforeAfterDTO.swift in Sources */,
+				C5ED99702C0890DB0077B2F9 /* StoreSummaryRepositoryInterface.swift in Sources */,
+				C5ED997C2C0892D90077B2F9 /* ChallengeUseCase.swift in Sources */,
 				C58EC7CE2AB1B57100401FF7 /* AVIROEditOperationTime+DTO.swift in Sources */,
 				C50DB7542A9B838F0078B501 /* ChangeableAddressPresenter.swift in Sources */,
 				C5DCBC9D2B91D9F5003502BA /* MyPlaceListViewController.swift in Sources */,
@@ -2406,10 +3138,12 @@
 				C58EC7D42AB1B5C400401FF7 /* AVIROEditURL+DTO.swift in Sources */,
 				C50F6B022A6BC8E400E942F5 /* EnrollField.swift in Sources */,
 				C552D5342ABE8CA500933D8A /* AVIRODeleteAPI.swift in Sources */,
+				C5BA9DD62BE8B884004FA06E /* ResponseDecoder.swift in Sources */,
 				C510005E2ABAA3C700F65C1F /* Enum+.swift in Sources */,
 				C58FBF942AC2DB6D00AB6EFC /* KakaoKeywordResultDTO.swift in Sources */,
 				C51B09B82A82155200916BBD /* MarkerModelCache.swift in Sources */,
 				C54B59172B95F3D000C0B190 /* MyBookmarkListTableViewCell.swift in Sources */,
+				C5ED993B2C088D4F0077B2F9 /* StoreSummaryRepository.swift in Sources */,
 				C5A9899B2A95A6B50021B7C3 /* BookmarkCache.swift in Sources */,
 				C52651DE2B7FB8B0002038CF /* CategoryCollectionViewCell.swift in Sources */,
 				C520662D2A7CE1CC0038ECCD /* SearchHistoryManager.swift in Sources */,
@@ -2426,25 +3160,32 @@
 				6206A6562BA3C48A00056560 /* AVIROChallengeCommentDTO.swift in Sources */,
 				C5166E4D2A945228003495AA /* MyData.swift in Sources */,
 				C58B9AAE2A5675B9008AEAC3 /* TutorialViewController.swift in Sources */,
+				C5BA9DCD2BE8AB9E004FA06E /* Endpoint.swift in Sources */,
 				C5FF13552A42C88D0026981D /* AVIROPlaceMenus+DTO.swift in Sources */,
 				C55AE5C02BC6DCA50089DF85 /* ChallengeNameStickerView.swift in Sources */,
 				C56E7A112A971504009CCAF2 /* ReportCellView.swift in Sources */,
 				C52066332A7E80350038ECCD /* MatchedPlaceCellModel.swift in Sources */,
 				C595ACCD2A84A1A200D35123 /* PlaceView.swift in Sources */,
 				C51385422AAADB0E001AB827 /* EditNickNameButton.swift in Sources */,
+				C5ED997A2C0892CF0077B2F9 /* UserInfoUseCase.swift in Sources */,
 				C547A8BA2A17D8D4004D1339 /* KakaoAPI.swift in Sources */,
 				C5732C772A41A0A500CDC499 /* AVIROMapMarker+DTO.swift in Sources */,
 				C5FF13532A42C8810026981D /* AVIROPlaceInfo+DTO.swift in Sources */,
 				C5351B5C2A19F60200116D50 /* SearchPlacePresenter.swift in Sources */,
 				C562B6E42B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift in Sources */,
 				C53833652B9C7B6100ED6A50 /* UINavigationController+Extension.swift in Sources */,
+				C5ED993F2C088DDC0077B2F9 /* StoreMenuRepository.swift in Sources */,
 				C513854A2AAB3B13001AB827 /* NickNameChangebleViewController.swift in Sources */,
 				C50E6F6F2A8F10B500703B9E /* UILabel+Extension.swift in Sources */,
 				C52066352A7F3FAE0038ECCD /* HistoryTableViewCell.swift in Sources */,
 				C5C90EB72AA7078300AB3668 /* EditOperationHoursModel.swift in Sources */,
+				C5A169182C4D53A50028BCC0 /* SignInFromKakaoNaver.swift in Sources */,
+				C5BA9DCB2BE8AB97004FA06E /* NetworkService.swift in Sources */,
 				C54733D32BE20EF4004E961C /* SearchUtility.swift in Sources */,
 				C528E4BA2A5F9A3E002BD72E /* ThridRegistrationViewController.swift in Sources */,
 				C528E4BC2A5F9AB6002BD72E /* ThridRegistrationPresenter.swift in Sources */,
+				C5ED997E2C0892F80077B2F9 /* ReviewUseCase.swift in Sources */,
+				C5ED99392C088D410077B2F9 /* BookmarkListRepository.swift in Sources */,
 				C51000612ABAE61F00F65C1F /* ReportReviewModel.swift in Sources */,
 				C5C290792A85E51000ED5DCE /* PlaceMenuView.swift in Sources */,
 				C54B76612B88B2D10095E110 /* FranchiseToggleButton.swift in Sources */,
@@ -2452,7 +3193,9 @@
 				C5DCBCA32B91DA28003502BA /* MyBookmarkListViewModel.swift in Sources */,
 				C5A201B42A986EC300A54381 /* EditPlaceInfoViewController.swift in Sources */,
 				C51AED1D2A8A192D0015FBC2 /* ChangedViewAction+HomeViewController.swift in Sources */,
+				C5ED99452C088E000077B2F9 /* ReviewManagementRepository.swift in Sources */,
 				C51B09BC2A82397800916BBD /* Marker+Extension.swift in Sources */,
+				C534B14E2C2EABE900C62FDA /* LoginInfo.swift in Sources */,
 				C53C54D22AD67E8800C3662A /* MarkerModelLocalDB.swift in Sources */,
 				C58FBF922AC2D87300AB6EFC /* KakaoAPIManagerProtocol.swift in Sources */,
 				C528E4BE2A5FB816002BD72E /* TermsTableCell.swift in Sources */,
@@ -2462,16 +3205,22 @@
 				C5C9619C2A8DB1D80016E2F8 /* MenuTypeLabel.swift in Sources */,
 				C5476B6C2B304C8900F5FC6E /* ChallengeUserInfoView.swift in Sources */,
 				C5351B7A2A1B439000116D50 /* KakaoCoordinateSearchDTO.swift in Sources */,
+				C5ED99372C088D360077B2F9 /* StoreManagementRepository.swift in Sources */,
 				C5C290852A86173F00ED5DCE /* PlaceReviewWriteView.swift in Sources */,
+				C5A1691A2C4D53CF0028BCC0 /* SingInInfo.swift in Sources */,
 				C51BBAD52A78D53D00BF5B7C /* AVIROCheckPlace+DTO.swift in Sources */,
+				C5ED996E2C0890CE0077B2F9 /* StoreInfoRepositoryInterface.swift in Sources */,
 				C56857802A7113C600F52715 /* NormalTableViewCell.swift in Sources */,
 				C549CDD82B9B538500CB6BF5 /* MyBookmarkCellModel.swift in Sources */,
+				C5BA9DD42BE8B39B004FA06E /* RequestTable.swift in Sources */,
 				C52066312A7E4A580038ECCD /* AVIROMainSearchCompare+DTO.swift in Sources */,
 				C5C9619F2A8DEB230016E2F8 /* ReviewWriteButton.swift in Sources */,
 				C5D3E15A2B9D887600DBB346 /* AVIROTabBarType.swift in Sources */,
 				C5DCBC9A2B91D9E9003502BA /* MyPlaceListViewModel.swift in Sources */,
+				C5ED99682C088FE60077B2F9 /* StoreOperationHoursRepositoryInterface.swift in Sources */,
 				C5E143A72AB43B8F007AC8C9 /* AVIROResult+DTO.swift in Sources */,
 				C505C1E02B3ACCEC0058F115 /* AVIROMyChallengeLevelResult+DTO.swift in Sources */,
+				C5ED99492C088E1B0077B2F9 /* UserChallengeRepository.swift in Sources */,
 				C5E430B52A5DAE9800CB67EC /* SecondRegistrationViewController.swift in Sources */,
 				C593B64B2A4AEA9800D224CE /* AVIROReview+DTO.swift in Sources */,
 				C5C90EB52AA6D80300AB3668 /* EditOperatingHourView.swift in Sources */,
@@ -2482,6 +3231,8 @@
 				C5FF13572A42C8970026981D /* AVIROPlaceReviews+DTO.swift in Sources */,
 				C541521D2AC125E100F39826 /* TutorialTopLabel.swift in Sources */,
 				C5B071E52A59B4AC00AE709A /* RegistrationField.swift in Sources */,
+				C5ED99802C08930B0077B2F9 /* StoreUseCase.swift in Sources */,
+				C5ED99352C088D290077B2F9 /* StoreListRepository.swift in Sources */,
 				C53893162A5EC0C500CB9A54 /* GenderButton.swift in Sources */,
 				C505EB182ACC5AC50057A4F8 /* LaunchScreenViewController.swift in Sources */,
 				C50F6AFD2A68FFCB00E942F5 /* EnrollMenuTableView.swift in Sources */,
@@ -2489,16 +3240,22 @@
 				C5476B612B3028FA00F5FC6E /* ChallengeViewController.swift in Sources */,
 				C5D3E15E2B9D890D00DBB346 /* AVIROTabBarSettingDelegate.swift in Sources */,
 				C5A201C52A98A67900A54381 /* EditPhoneView.swift in Sources */,
+				C5ED99822C0893180077B2F9 /* BookmarkListUseCase.swift in Sources */,
 				C5732C712A41739000CDC499 /* AVIROAPI.swift in Sources */,
 				C54386792B3432FE00BD2CAF /* ViewModel.swift in Sources */,
 				C50F6AF92A68FFBB00E942F5 /* EnrollStoreInfoView.swift in Sources */,
 				C505C1DA2B3AC0070058F115 /* AVIROConfiguration.swift in Sources */,
 				C5FD92F72A9CDB9300CF4673 /* EditMenuTopView.swift in Sources */,
+				C5ED994D2C088E2C0077B2F9 /* AppleAuthRepository.swift in Sources */,
 				C56857822A7113CF00F52715 /* RequestTableViewCell.swift in Sources */,
+				C5C1786D2C37B2E700B774AE /* GoogleAuthRepository.swift in Sources */,
 				C52CD2DD2BCA5C310031671B /* BlurEffectView.swift in Sources */,
 				C5C2907B2A85E51B00ED5DCE /* PlaceReviewsView.swift in Sources */,
+				C5BA9DC92BE8AB8F004FA06E /* DataTransferService.swift in Sources */,
 				C5A201BD2A98708800A54381 /* EditPlaceInfoPresenter.swift in Sources */,
 				C59491D32AB0336100880B4B /* UIView(Animation)+Extension.swift in Sources */,
+				C5ED994B2C088E240077B2F9 /* UserInfoRepository.swift in Sources */,
+				C5BA9E122BED223C004FA06E /* Coordinator.swift in Sources */,
 				C5D3E15C2B9D88F200DBB346 /* AVIROTabBarInteractionDelegate.swift in Sources */,
 				C51385502AAD921F001AB827 /* AVIROPlaceReportCheck+DTO.swift in Sources */,
 				C51385472AAAF3BB001AB827 /* SettingCell.swift in Sources */,
@@ -2511,6 +3268,7 @@
 				C51AED1F2A8B2BC80015FBC2 /* HomeTopButton.swift in Sources */,
 				C5FA0EAC2A94DF39004AD8B4 /* ReportReviewPresenter.swift in Sources */,
 				C5DCBCA12B91DA13003502BA /* MyCommentListViewController.swift in Sources */,
+				C5ED996C2C0890C30077B2F9 /* StoreMenuRepositoryInterface.swift in Sources */,
 				C5A201B22A98502500A54381 /* TimeUtility.swift in Sources */,
 				C56295092B31885C0067BBE5 /* ReviewWriteViewModel.swift in Sources */,
 				C5476B6A2B304C8200F5FC6E /* ChallengeTitleView.swift in Sources */,
@@ -2677,12 +3435,13 @@
 				CODE_SIGN_ENTITLEMENTS = AVIRO/AVIRO.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = C4K2HXA435;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "어비로";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -2695,7 +3454,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.5;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.VeganRestaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2714,12 +3473,13 @@
 				CODE_SIGN_ENTITLEMENTS = AVIRO/AVIRO.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = C4K2HXA435;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "어비로";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -2732,7 +3492,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.5;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.VeganRestaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

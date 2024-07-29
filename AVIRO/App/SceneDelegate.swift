@@ -7,6 +7,10 @@
 
 import UIKit
 
+import NaverThirdPartyLogin
+import KakaoSDKAuth
+import GoogleSignIn
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
@@ -31,5 +35,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 }
             }
         }
+    }
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let urlContext = URLContexts.first else { return }
+        let url = urlContext.url
+        print(url)
+        
+        // Naver
+        if url.scheme == "com.aviro.ios" {
+            NaverThirdPartyLoginConnection
+                .getSharedInstance()
+                .receiveAccessToken(url)
+            
+            return
+        }
+        
+        // Kakao
+        if AuthApi.isKakaoTalkLoginUrl(url) {
+            _ = AuthController.handleOpenUrl(url: url)
+            
+            return
+        }
+        
+        // Google
+        GIDSignIn.sharedInstance.handle(url)
     }
 }

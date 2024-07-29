@@ -30,7 +30,7 @@ final class MenuPlusButton: UIButton {
         _ image: UIImage? = UIImage.plus.withTintColor(.main)
     ) {
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: CFont.font.semibold16,
+            .font: UIFont.pretendard(size: 16, weight: .semibold),
             .foregroundColor: UIColor.main
         ]
         

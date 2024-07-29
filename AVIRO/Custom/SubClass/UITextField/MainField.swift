@@ -104,7 +104,7 @@ class MainField: UITextField {
         self.layer.shadowOffset = CGSize(width: 2, height: 2)
 
         self.textColor = .gray0
-        self.font = CFont.font.medium18
+        self.font = .pretendard(size: 18, weight: .medium)
         self.backgroundColor = .gray7
         self.layer.cornerRadius = 10
     }

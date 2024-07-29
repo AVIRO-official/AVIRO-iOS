@@ -73,7 +73,7 @@ final class MenuField: UITextField {
     
     private func configuration() {
         textColor = .gray0
-        font = CFont.font.medium15
+        font = .pretendard(size: 15, weight: .medium)
         backgroundColor = .gray6
         layer.cornerRadius = 10
     }

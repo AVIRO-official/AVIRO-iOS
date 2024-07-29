@@ -20,7 +20,7 @@ extension UIButton {
             with: rect,
             options: .usesLineFragmentOrigin,
             attributes: [
-                NSAttributedString.Key.font: titleLabel?.font ?? CFont.font.medium16
+                NSAttributedString.Key.font: titleLabel?.font ?? .pretendard(size: 16, weight: .medium)
             ],
             context: nil
         )

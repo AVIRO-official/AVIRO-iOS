@@ -14,13 +14,15 @@ protocol FirstRegistrationProtocol: NSObject {
     
     func changeSubInfo(subInfo: String, isVaild: Bool)
     
-    func pushSecondRegistrationView(_ signupModel: AVIROAppleUserSignUpDTO)
+    func pushSecondRegistrationView(usecase: SocialLoginUseCaseInterface)
     
     func showErrorAlert(with error: String, title: String?)
 }
 
 final class FirstRegistrationPresenter {
     weak var viewController: FirstRegistrationProtocol?
+    
+    private let socialLoginUseCase: SocialLoginUseCaseInterface!
     
     var appleSignUpModel: AVIROAppleUserSignUpDTO?
     
@@ -39,20 +41,27 @@ final class FirstRegistrationPresenter {
     }
     
     private var timer: Timer?
-        
-    init(viewController: FirstRegistrationProtocol,
-         appleUserSignUpModel: AVIROAppleUserSignUpDTO? = nil
+    
+    init(
+        socialLoginUseCase: SocialLoginUseCaseInterface,
+        viewController: FirstRegistrationProtocol,
+        appleUserSignUpModel: AVIROAppleUserSignUpDTO? = nil
     ) {
+        self.socialLoginUseCase = socialLoginUseCase
         self.viewController = viewController
         self.appleSignUpModel = appleUserSignUpModel
     }
-
+    
+    deinit {
+        print("FirstRegistration Protocol Deinit")
+    }
+    
     func viewDidLoad() {
         viewController?.setupLayout()
         viewController?.setupAttribute()
         viewController?.setupGesture()
     }
-
+    
     func insertUserNickName(_ userName: String) {
         userNickname = userName
     }
@@ -62,7 +71,7 @@ final class FirstRegistrationPresenter {
     }
     
     @objc private func checkDuplication() {
-
+        
         guard let userNickname = userNickname else { return }
         
         let nickname = AVIRONicknameIsDuplicatedCheckDTO(nickname: userNickname)
@@ -91,10 +100,10 @@ final class FirstRegistrationPresenter {
     }
     
     func pushUserInfo() {
-        guard var appleSignUpModel = appleSignUpModel else { return }
+        guard let userNickname = userNickname else { return }
         
-        appleSignUpModel.nickname = userNickname
+        socialLoginUseCase.firstUpdateSignInInfo(nickname: userNickname)
         
-        viewController?.pushSecondRegistrationView(appleSignUpModel)
+        viewController?.pushSecondRegistrationView(usecase: socialLoginUseCase)
     }
 }

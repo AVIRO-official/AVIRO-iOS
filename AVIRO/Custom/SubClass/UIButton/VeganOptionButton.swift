@@ -101,7 +101,7 @@ final class VeganOptionButton: UIButton {
         
         setAttributedTitle(attributedStringSelected, for: .selected)
 
-        titleLabel?.font = CFont.font.bold15
+        titleLabel?.font = .pretendard(size: 15, weight: .bold)
         titleLabel?.numberOfLines = 2
         
         tintColor = .gray2

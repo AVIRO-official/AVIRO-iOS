@@ -11,10 +11,22 @@ pod 'KeychainSwift', '22.0.0'
 pod 'lottie-ios', '4.4.1'
 pod 'RealmSwift', '10.48.0'
 pod 'Toast-Swift', '5.1.0'
-pod 'AmplitudeSwift', '1.4.4'
+pod 'AmplitudeSwift', '1.4.5'
 pod 'RxSwift', '6.6.0'
 pod 'RxCocoa', '6.6.0'
 pod 'RxDataSources', '~> 5.0' 
+
+# social login
+
+# 추후 SwiftUI 사용 시 'GoogleSignInSwiftSupport' 추가 필요
+pod 'GoogleSignIn' 
+pod 'KakaoSDKCommon'
+pod 'RxKakaoSDKCommon'
+pod 'KakaoSDKAuth'
+pod 'RxKakaoSDKAuth'
+pod 'KakaoSDKUser'
+pod 'RxKakaoSDKUser'
+pod 'naveridlogin-sdk-ios'
 
   # Pods for AVIRO
 

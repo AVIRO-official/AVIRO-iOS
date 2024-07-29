@@ -57,7 +57,7 @@ final class MenuTypeLabel: UILabel {
     private func setAttribute() {
         self.layer.cornerRadius = 12
         self.layer.borderWidth = 1
-        self.font = CFont.font.bold11
+        self.font = .pretendard(size: 11, weight: .bold)
     }
     
     private func isVeganType() {

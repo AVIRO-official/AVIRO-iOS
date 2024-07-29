@@ -17,6 +17,25 @@ final class ReviewPushView: UIView {
         
         view.backgroundColor = .gray7
         
+        let label = UILabel()
+        label.text = "식당에 대한 경험과 팁을 알려주세요!"
+        label.font = .pretendard(size: 15, weight: .medium)
+        label.textColor = .gray4
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(label)
+        
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 16
+            ),
+            label.centerYAnchor.constraint(
+                equalTo: view.centerYAnchor
+            )
+        ])
+        
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(textFieldTapped(_:)))
         view.addGestureRecognizer(tapGesture)
         

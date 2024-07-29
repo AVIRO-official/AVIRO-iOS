@@ -15,12 +15,14 @@ protocol SecondRegistrationProtocol: NSObject {
 
     func isValidDate(with isValid: Bool)
     
-    func pushThridRegistrationView(_ userInfoModel: AVIROAppleUserSignUpDTO)
+    func pushThridRegistrationView(usecase: SocialLoginUseCaseInterface)
 }
 
 final class SecondRegistrationPresenter {
     weak var viewController: SecondRegistrationProtocol?
     
+    private let socialLoginUseCase: SocialLoginUseCaseInterface!
+
     private var userInfoModel: AVIROAppleUserSignUpDTO?
     
     var birth = "" {
@@ -42,9 +44,12 @@ final class SecondRegistrationPresenter {
         
     private var timer: Timer?
     
-    init(viewController: SecondRegistrationProtocol,
+    init(
+        socialLoginUseCase: SocialLoginUseCaseInterface,
+        viewController: SecondRegistrationProtocol,
          userInfoModel: AVIROAppleUserSignUpDTO? = nil
     ) {
+        self.socialLoginUseCase = socialLoginUseCase
         self.viewController = viewController
         self.userInfoModel = userInfoModel
     }
@@ -57,23 +62,19 @@ final class SecondRegistrationPresenter {
     }
     
     func pushUserInfo() {
-        guard var userInfoModel = userInfoModel else { return }
-        
+        let gender = gender?.rawValue ?? ""
         if isWrongBirth {
             birth = "0"
         }
-
-        if let gender = gender {
-            userInfoModel.gender = gender.rawValue
-        } else {
-            userInfoModel.gender = ""
-        }
         
         let birth = Int(birth.components(separatedBy: ".").joined()) ?? 0
+            
+        socialLoginUseCase.secondUpdateSignInInfo(
+            gender: gender,
+            birth: birth
+        )
         
-        userInfoModel.birthday = birth
-        
-        viewController?.pushThridRegistrationView(userInfoModel)
+        viewController?.pushThridRegistrationView(usecase: socialLoginUseCase)
     }
     
     @objc func afterEndTimer() {

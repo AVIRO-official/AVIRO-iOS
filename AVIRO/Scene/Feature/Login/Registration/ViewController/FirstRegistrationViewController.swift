@@ -35,14 +35,14 @@ private enum Layout {
 }
 
 final class FirstRegistrationViewController: UIViewController {
-    lazy var presenter = FirstRegistrationPresenter(viewController: self)
+    var presenter: FirstRegistrationPresenter!
     
     // MARK: UI Property Definitions
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         
         label.text = Text.title.rawValue
-        label.font = CFont.font.bold24
+        label.font = .pretendard(size: 24, weight: .bold)
         label.textColor = .main
         label.numberOfLines = 2
         
@@ -53,7 +53,7 @@ final class FirstRegistrationViewController: UIViewController {
         let label = UILabel()
         
         label.text = Text.subtitle.rawValue
-        label.font = CFont.font.regular14
+        label.font = .pretendard(size: 14, weight: .regular)
         label.textColor = .gray1
         
         return label
@@ -73,7 +73,7 @@ final class FirstRegistrationViewController: UIViewController {
         let label = UILabel()
         
         label.text = Text.subInfo.rawValue
-        label.font = CFont.font.regular13
+        label.font = .pretendard(size: 13, weight: .regular)
         label.numberOfLines = 2
         label.lineBreakMode = .byCharWrapping
         label.textColor = .gray2
@@ -85,7 +85,7 @@ final class FirstRegistrationViewController: UIViewController {
         let label = UILabel()
         
         label.text = Text.subInfo2.rawValue
-        label.font =  CFont.font.regular13
+        label.font = .pretendard(size: 13, weight: .regular)
         label.textColor = .gray2
         label.textAlignment = .right
         
@@ -238,18 +238,21 @@ extension FirstRegistrationViewController: FirstRegistrationProtocol {
     
     // MARK: Push Interactions
     func pushSecondRegistrationView(
-        _ userInfoModel: AVIROAppleUserSignUpDTO
+        usecase: SocialLoginUseCaseInterface
     ) {
         let viewController = SecondRegistrationViewController()
         
         let presenter = SecondRegistrationPresenter(
-            viewController: viewController,
-            userInfoModel: userInfoModel
+            socialLoginUseCase: usecase,
+            viewController: viewController
         )
         
         viewController.presenter = presenter
         
-        navigationController?.pushViewController(viewController, animated: true)
+        navigationController?.pushViewController(
+            viewController,
+            animated: true
+        )
     }
     
     // MARK: Alert Intercations

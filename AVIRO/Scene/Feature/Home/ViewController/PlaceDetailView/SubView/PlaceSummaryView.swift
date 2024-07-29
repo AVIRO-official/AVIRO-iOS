@@ -155,7 +155,7 @@ final class PlaceSummaryView: UIView {
     private lazy var whenSlideTopLabel: UILabel = {
         let label = UILabel()
         
-        label.font = CFont.font.medium15
+        label.font = .pretendard(size: 15, weight: .medium)
         label.numberOfLines = 1
         
         return label
@@ -164,7 +164,7 @@ final class PlaceSummaryView: UIView {
     private lazy var whenSlideMiddleLabel: UILabel = {
         let label = UILabel()
         
-        label.font =  CFont.font.heavy24
+        label.font = .pretendard(size: 24, weight: .heavy)
         label.textColor = .gray0
         label.numberOfLines = 3
         label.lineBreakMode = .byCharWrapping
@@ -176,7 +176,7 @@ final class PlaceSummaryView: UIView {
     private lazy var whenSlideBottomLabel: UILabel = {
         let label = UILabel()
         
-        label.font = CFont.font.regular14
+        label.font = .pretendard(size: 14, weight: .regular)
         label.textColor = .gray2
         
         return label
@@ -195,7 +195,7 @@ final class PlaceSummaryView: UIView {
     private lazy var whenFullTitle: UILabel = {
         let label = UILabel()
         
-        label.font = CFont.font.semibold18
+        label.font = .pretendard(size: 18, weight: .semibold)
         label.textAlignment = .center
         label.lineBreakMode = .byCharWrapping
         label.numberOfLines = 2

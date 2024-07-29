@@ -63,38 +63,6 @@ final class SettingViewPresenter {
 //        loadMyData()
     }
     
-//    private func loadMyData() {
-//        let myNickName = MyData.my.nickname
-//        let myStar = String(BookmarkFacadeManager().loadAllData().count)
-//        
-//        AVIROAPIManager().loadMyContributedCount(with: MyData.my.id) { [weak self] result in
-//            switch result {
-//            case .success(let success):
-//                if success.statusCode == 200 {
-//                    if let myPlace = success.data?.placeCount,
-//                       let myReview = success.data?.commentCount {
-//                        
-//                        let myPlaceString = String(myPlace)
-//                        let myReviewString = String(myReview)
-//                        
-//                        self?.myDataModel = MyDataModel(
-//                            id: myNickName,
-//                            place: myPlaceString,
-//                            review: myReviewString,
-//                            star: myStar
-//                        )
-//                    }
-//                } else {
-//                    self?.viewController?.showErrorAlert(with: "서버 에러", title: nil)
-//                }
-//            case .failure(let error):
-//                if let error = error.errorDescription {
-//                    self?.viewController?.showErrorAlert(with: error, title: nil)
-//                }
-//            }
-//        }
-//    }
-    
     func whenAfterLogout() {
         bookmarkManager.deleteAllData()
         markerManager.deleteAllMarker()
@@ -103,16 +71,37 @@ final class SettingViewPresenter {
         UserCoordinate.shared.isFirstLoadLocation = false
         
         self.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
+        self.keychain.delete(KeychainKey.refreshToken.rawValue)
+        self.keychain.delete(KeychainKey.userID.rawValue)
+        UserDefaults.standard.set(
+            "none",
+            forKey: UDKey.loginType.rawValue
+        )
         
         viewController?.pushLoginViewController(type: .logout)
     }
     
     func whenAfterWithdrawal() {
-        guard let refreshToken = keychain.get(KeychainKey.appleRefreshToken.rawValue) else { return }
+        guard let type = UserDefaults.standard.string(
+            forKey: UDKey.loginType.rawValue
+        ) else { return }
+        
+        var token = ""
+        
+        if type == "apple" {
+            token = keychain.get(
+                KeychainKey.refreshToken.rawValue
+            ) ?? ""
+        } else {
+            token = keychain.get(KeychainKey.userID.rawValue) ?? ""
+        }
         
         viewController?.switchIsLoading(with: true)
-
-        let model = AVIROAutoLoginWhenAppleUserDTO(refreshToken: refreshToken)
+        
+        let model = AVIRORevokeUserDTO(
+            refreshToken: token,
+            type: type
+        )
                         
         AVIROAPI.manager.revokeAppleUser(with: model) { [weak self] result in
             switch result {
@@ -123,6 +112,13 @@ final class SettingViewPresenter {
                     MyData.my.whenLogout()
                     UserCoordinate.shared.isFirstLoadLocation = false
                     self?.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
+                    self?.keychain.delete(KeychainKey.refreshToken.rawValue)
+                    self?.keychain.delete(KeychainKey.userID.rawValue)
+                    UserDefaults.standard.set(
+                        "none",
+                        forKey: UDKey.loginType.rawValue
+                    )
+                    
                     self?.amplitude.withdrawal()
                     
                     DispatchQueue.main.async {
