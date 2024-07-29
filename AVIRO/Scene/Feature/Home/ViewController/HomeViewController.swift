@@ -484,15 +484,15 @@ extension HomeViewController: HomeViewProtocol {
         
         presenter.categoryType = [
             ("취소", false),
-            ("식당", false),
+            ("식당", true),
             ("카페", true),
-            ("술집", true),
+            ("술집", false),
             ("빵집", false)
         ]
         categoryCollectionView.reloadData()
         
+        updateSearchTextField(with: "식당")
         updateSearchTextField(with: "카페")
-        updateSearchTextField(with: "술집")
         
         view.bringSubviewToFront(blurEffectViewForTutorial)
         view.bringSubviewToFront(speechBubbleViewForColorExplain)
