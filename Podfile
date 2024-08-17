@@ -16,6 +16,18 @@ pod 'RxSwift', '6.6.0'
 pod 'RxCocoa', '6.6.0'
 pod 'RxDataSources', '~> 5.0' 
 
+# social login
+
+# 추후 SwiftUI 사용 시 'GoogleSignInSwiftSupport' 추가 필요
+pod 'GoogleSignIn' 
+pod 'KakaoSDKCommon'
+pod 'RxKakaoSDKCommon'
+pod 'KakaoSDKAuth'
+pod 'RxKakaoSDKAuth'
+pod 'KakaoSDKUser'
+pod 'RxKakaoSDKUser'
+pod 'naveridlogin-sdk-ios'
+
   # Pods for AVIRO
 
 end

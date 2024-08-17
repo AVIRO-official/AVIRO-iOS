@@ -55,7 +55,7 @@ class EnrollField: UITextField {
     
     private func configuration() {
         self.textColor = .gray0
-        self.font = CFont.font.medium16
+        self.font = .pretendard(size: 16, weight: .medium)
         self.backgroundColor = .gray6
         self.layer.cornerRadius = 10
     }

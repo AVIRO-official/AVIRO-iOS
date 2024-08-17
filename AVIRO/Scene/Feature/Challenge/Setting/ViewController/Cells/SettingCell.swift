@@ -44,6 +44,21 @@ final class SettingCell: UITableViewCell {
         return label
     }()
     
+    private lazy var socialLogo: UIImageView = {
+        let imageView = UIImageView()
+        
+        return imageView
+    }()
+    
+    private lazy var socialLabel: UILabel = {
+        let lbl = UILabel()
+        
+        lbl.textColor = .gray2
+        lbl.font = .pretendard(size: 15, weight: .regular)
+        
+        return lbl
+    }()
+    
     private var settingValue: SettingsRow!
     
     var tappedAfterSettingValue: ((SettingsRow) -> Void)?
@@ -66,7 +81,9 @@ final class SettingCell: UITableViewCell {
         [
             settingButton,
             pushButton,
-            versionLabel
+            versionLabel,
+            socialLogo,
+            socialLabel
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.contentView.addSubview($0)
@@ -80,11 +97,21 @@ final class SettingCell: UITableViewCell {
             pushButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             
             versionLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            versionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)
+            versionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            
+            socialLogo.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            socialLogo.trailingAnchor.constraint(equalTo: socialLabel.leadingAnchor, constant: -3),
+            socialLogo.widthAnchor.constraint(equalToConstant: 24),
+            socialLogo.heightAnchor.constraint(equalToConstant: 24),
+            
+            socialLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            socialLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)
         ])
         
         pushButton.isHidden = true
         versionLabel.isHidden = true
+        socialLogo.isHidden = true
+        socialLabel.isHidden = true
     }
     
     private func setupAttribute() {
@@ -99,6 +126,25 @@ final class SettingCell: UITableViewCell {
         
         if settingsRow == .logout {
             settingButton.setTitleColor(.red, for: .normal)
+            socialLogo.isHidden = false
+            socialLabel.isHidden = false
+            
+            switch UserDefaults.standard.string(forKey: UDKey.loginType.rawValue) {
+            case "apple":
+                socialLabel.text = "Apple 계정"
+                socialLogo.image = .appleLogo
+            case "google":
+                socialLabel.text = "Google 계정"
+                socialLogo.image = .googleLogo
+            case "kakao":
+                socialLabel.text = "Kakao 계정"
+                socialLogo.image = .kakaoLogo
+            case "naver":
+                socialLabel.text = "Naver 계정"
+                socialLogo.image = .naverLogo
+            default:
+                break
+            }
         }
         
         self.settingValue = settingsRow

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -95,6 +95,8 @@
 		C52FA3472A175B20005E70DC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52FA3462A175B20005E70DC /* HomeViewController.swift */; };
 		C52FA34C2A175B20005E70DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C52FA34B2A175B20005E70DC /* Assets.xcassets */; };
 		C52FA34F2A175B20005E70DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C52FA34D2A175B20005E70DC /* LaunchScreen.storyboard */; };
+		C534B14E2C2EABE900C62FDA /* LoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534B14D2C2EABE900C62FDA /* LoginInfo.swift */; };
+		C534B1522C32662A00C62FDA /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534B1512C32662A00C62FDA /* LoginButton.swift */; };
 		C5351B4D2A19223300116D50 /* KakaoMapRequestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B4C2A19223300116D50 /* KakaoMapRequestAPI.swift */; };
 		C5351B502A19225A00116D50 /* KakaoKeywordPlace+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B4F2A19225A00116D50 /* KakaoKeywordPlace+DTO.swift */; };
 		C5351B542A19A7B100116D50 /* UserCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B532A19A7B100116D50 /* UserCoordinate.swift */; };
@@ -141,6 +143,9 @@
 		C562B6E22B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */; };
 		C562B6E42B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */; };
 		C564DAB32BA57240002174B4 /* AVIROWellcome+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C564DAB22BA57240002174B4 /* AVIROWellcome+DTO.swift */; };
+		C566EF622C398EC6009E58DD /* AuthAPIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566EF612C398EC6009E58DD /* AuthAPIEndpoints.swift */; };
+		C566EF652C39931B009E58DD /* RepositoryTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566EF642C39931B009E58DD /* RepositoryTask.swift */; };
+		C566EF672C399333009E58DD /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566EF662C399333009E58DD /* Cancellable.swift */; };
 		C567C1502A56611500D4B426 /* TopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C567C14F2A56611500D4B426 /* TopCell.swift */; };
 		C568577D2A70E1F600F52715 /* MenuPlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568577C2A70E1F600F52715 /* MenuPlusButton.swift */; };
 		C56857802A7113C600F52715 /* NormalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568577F2A7113C600F52715 /* NormalTableViewCell.swift */; };
@@ -173,6 +178,10 @@
 		C59491D32AB0336100880B4B /* UIView(Animation)+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59491D22AB0336100880B4B /* UIView(Animation)+Extension.swift */; };
 		C595ACCD2A84A1A200D35123 /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C595ACCC2A84A1A200D35123 /* PlaceView.swift */; };
 		C595ACD12A84A4EB00D35123 /* PlaceSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C595ACD02A84A4EB00D35123 /* PlaceSummaryView.swift */; };
+		C5A169162C4D53970028BCC0 /* SignInFromApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A169152C4D53970028BCC0 /* SignInFromApple.swift */; };
+		C5A169182C4D53A50028BCC0 /* SignInFromKakaoNaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A169172C4D53A50028BCC0 /* SignInFromKakaoNaver.swift */; };
+		C5A1691A2C4D53CF0028BCC0 /* SingInInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A169192C4D53CF0028BCC0 /* SingInInfo.swift */; };
+		C5A1691D2C4D5DD60028BCC0 /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A1691C2C4D5DD60028BCC0 /* CommonError.swift */; };
 		C5A201B22A98502500A54381 /* TimeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A201B12A98502500A54381 /* TimeUtility.swift */; };
 		C5A201B42A986EC300A54381 /* EditPlaceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A201B32A986EC300A54381 /* EditPlaceInfoViewController.swift */; };
 		C5A201B72A986EDF00A54381 /* EditMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A201B62A986EDF00A54381 /* EditMenuViewController.swift */; };
@@ -208,6 +217,9 @@
 		C5BA9E142BED2244004FA06E /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E132BED2244004FA06E /* BaseCoordinator.swift */; };
 		C5BA9E172BED2585004FA06E /* printIfDebug.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E162BED2585004FA06E /* printIfDebug.swift */; };
 		C5BA9E192BED25D2004FA06E /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9E182BED25D2004FA06E /* DIContainer.swift */; };
+		C5C1786D2C37B2E700B774AE /* GoogleAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C1786C2C37B2E700B774AE /* GoogleAuthRepository.swift */; };
+		C5C1786F2C37B30500B774AE /* KakaoAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C1786E2C37B30500B774AE /* KakaoAuthRepository.swift */; };
+		C5C178712C37B30E00B774AE /* NaverAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C178702C37B30E00B774AE /* NaverAuthRepository.swift */; };
 		C5C20BAC2AD504D500855BBB /* AmplitudeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C20BAB2AD504D500855BBB /* AmplitudeUtility.swift */; };
 		C5C290742A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C290732A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift */; };
 		C5C290772A85E4FF00ED5DCE /* PlaceHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C290762A85E4FF00ED5DCE /* PlaceHomeView.swift */; };
@@ -280,15 +292,12 @@
 		C5ED99492C088E1B0077B2F9 /* UserChallengeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99482C088E1B0077B2F9 /* UserChallengeRepository.swift */; };
 		C5ED994B2C088E240077B2F9 /* UserInfoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED994A2C088E240077B2F9 /* UserInfoRepository.swift */; };
 		C5ED994D2C088E2C0077B2F9 /* AppleAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED994C2C088E2C0077B2F9 /* AppleAuthRepository.swift */; };
-		C5ED994F2C088E340077B2F9 /* AutoLoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED994E2C088E340077B2F9 /* AutoLoginRepository.swift */; };
 		C5ED99512C088E3E0077B2F9 /* UserAccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99502C088E3E0077B2F9 /* UserAccountRepository.swift */; };
-		C5ED995A2C088EE30077B2F9 /* AppleAuthRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99592C088EE30077B2F9 /* AppleAuthRepositoryInterface.swift */; };
-		C5ED995C2C088EEF0077B2F9 /* AutoLoginRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED995B2C088EEF0077B2F9 /* AutoLoginRepositoryInterface.swift */; };
+		C5ED995A2C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99592C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift */; };
 		C5ED995E2C088EFA0077B2F9 /* UserAccountRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED995D2C088EFA0077B2F9 /* UserAccountRepositoryInterface.swift */; };
 		C5ED99602C088FAA0077B2F9 /* UserInfoRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED995F2C088FAA0077B2F9 /* UserInfoRepositoryInterface.swift */; };
 		C5ED99622C088FB50077B2F9 /* UserChallengeRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99612C088FB50077B2F9 /* UserChallengeRepositoryInterface.swift */; };
 		C5ED99642C088FC10077B2F9 /* ChallengeInfoRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99632C088FC10077B2F9 /* ChallengeInfoRepositoryInterface.swift */; };
-		C5ED99662C088FD30077B2F9 /* ReviewManagementRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99652C088FD30077B2F9 /* ReviewManagementRepositoryInterface.swift */; };
 		C5ED99682C088FE60077B2F9 /* StoreOperationHoursRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99672C088FE60077B2F9 /* StoreOperationHoursRepositoryInterface.swift */; };
 		C5ED996A2C0890B30077B2F9 /* StoreReviewRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99692C0890B30077B2F9 /* StoreReviewRepositoryInterface.swift */; };
 		C5ED996C2C0890C30077B2F9 /* StoreMenuRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED996B2C0890C30077B2F9 /* StoreMenuRepositoryInterface.swift */; };
@@ -297,7 +306,7 @@
 		C5ED99722C0891FC0077B2F9 /* BookmarkListRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99712C0891FC0077B2F9 /* BookmarkListRepositoryInterface.swift */; };
 		C5ED99742C0892060077B2F9 /* StoreListRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99732C0892060077B2F9 /* StoreListRepositoryInterface.swift */; };
 		C5ED99762C0892170077B2F9 /* StoreManagementRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99752C0892170077B2F9 /* StoreManagementRepositoryInterface.swift */; };
-		C5ED99782C0892C70077B2F9 /* AuthUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99772C0892C70077B2F9 /* AuthUseCase.swift */; };
+		C5ED99782C0892C70077B2F9 /* SocialLoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99772C0892C70077B2F9 /* SocialLoginUseCase.swift */; };
 		C5ED997A2C0892CF0077B2F9 /* UserInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED99792C0892CF0077B2F9 /* UserInfoUseCase.swift */; };
 		C5ED997C2C0892D90077B2F9 /* ChallengeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED997B2C0892D90077B2F9 /* ChallengeUseCase.swift */; };
 		C5ED997E2C0892F80077B2F9 /* ReviewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ED997D2C0892F80077B2F9 /* ReviewUseCase.swift */; };
@@ -428,6 +437,8 @@
 		C52FA3462A175B20005E70DC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C52FA34B2A175B20005E70DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C52FA3502A175B20005E70DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C534B14D2C2EABE900C62FDA /* LoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInfo.swift; sourceTree = "<group>"; };
+		C534B1512C32662A00C62FDA /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		C5351B4A2A1919F700116D50 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C5351B4C2A19223300116D50 /* KakaoMapRequestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapRequestAPI.swift; sourceTree = "<group>"; };
 		C5351B4F2A19225A00116D50 /* KakaoKeywordPlace+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KakaoKeywordPlace+DTO.swift"; sourceTree = "<group>"; };
@@ -477,6 +488,9 @@
 		C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoPresentationAnimator.swift; sourceTree = "<group>"; };
 		C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoPresentaionDelegate.swift; sourceTree = "<group>"; };
 		C564DAB22BA57240002174B4 /* AVIROWellcome+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROWellcome+DTO.swift"; sourceTree = "<group>"; };
+		C566EF612C398EC6009E58DD /* AuthAPIEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPIEndpoints.swift; sourceTree = "<group>"; };
+		C566EF642C39931B009E58DD /* RepositoryTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTask.swift; sourceTree = "<group>"; };
+		C566EF662C399333009E58DD /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		C567C14F2A56611500D4B426 /* TopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCell.swift; sourceTree = "<group>"; };
 		C568577C2A70E1F600F52715 /* MenuPlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPlusButton.swift; sourceTree = "<group>"; };
 		C568577F2A7113C600F52715 /* NormalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalTableViewCell.swift; sourceTree = "<group>"; };
@@ -510,6 +524,10 @@
 		C59491D22AB0336100880B4B /* UIView(Animation)+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView(Animation)+Extension.swift"; sourceTree = "<group>"; };
 		C595ACCC2A84A1A200D35123 /* PlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceView.swift; sourceTree = "<group>"; };
 		C595ACD02A84A4EB00D35123 /* PlaceSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSummaryView.swift; sourceTree = "<group>"; };
+		C5A169152C4D53970028BCC0 /* SignInFromApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFromApple.swift; sourceTree = "<group>"; };
+		C5A169172C4D53A50028BCC0 /* SignInFromKakaoNaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFromKakaoNaver.swift; sourceTree = "<group>"; };
+		C5A169192C4D53CF0028BCC0 /* SingInInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInInfo.swift; sourceTree = "<group>"; };
+		C5A1691C2C4D5DD60028BCC0 /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
 		C5A201B12A98502500A54381 /* TimeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUtility.swift; sourceTree = "<group>"; };
 		C5A201B32A986EC300A54381 /* EditPlaceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlaceInfoViewController.swift; sourceTree = "<group>"; };
 		C5A201B62A986EDF00A54381 /* EditMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenuViewController.swift; sourceTree = "<group>"; };
@@ -545,6 +563,9 @@
 		C5BA9E132BED2244004FA06E /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		C5BA9E162BED2585004FA06E /* printIfDebug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = printIfDebug.swift; sourceTree = "<group>"; };
 		C5BA9E182BED25D2004FA06E /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		C5C1786C2C37B2E700B774AE /* GoogleAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthRepository.swift; sourceTree = "<group>"; };
+		C5C1786E2C37B30500B774AE /* KakaoAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthRepository.swift; sourceTree = "<group>"; };
+		C5C178702C37B30E00B774AE /* NaverAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAuthRepository.swift; sourceTree = "<group>"; };
 		C5C20BAB2AD504D500855BBB /* AmplitudeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeUtility.swift; sourceTree = "<group>"; };
 		C5C290732A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSegmentedControlView.swift; sourceTree = "<group>"; };
 		C5C290762A85E4FF00ED5DCE /* PlaceHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHomeView.swift; sourceTree = "<group>"; };
@@ -617,10 +638,8 @@
 		C5ED99482C088E1B0077B2F9 /* UserChallengeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChallengeRepository.swift; sourceTree = "<group>"; };
 		C5ED994A2C088E240077B2F9 /* UserInfoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRepository.swift; sourceTree = "<group>"; };
 		C5ED994C2C088E2C0077B2F9 /* AppleAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthRepository.swift; sourceTree = "<group>"; };
-		C5ED994E2C088E340077B2F9 /* AutoLoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLoginRepository.swift; sourceTree = "<group>"; };
 		C5ED99502C088E3E0077B2F9 /* UserAccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountRepository.swift; sourceTree = "<group>"; };
-		C5ED99592C088EE30077B2F9 /* AppleAuthRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthRepositoryInterface.swift; sourceTree = "<group>"; };
-		C5ED995B2C088EEF0077B2F9 /* AutoLoginRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLoginRepositoryInterface.swift; sourceTree = "<group>"; };
+		C5ED99592C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginRepositoryInterface.swift; sourceTree = "<group>"; };
 		C5ED995D2C088EFA0077B2F9 /* UserAccountRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountRepositoryInterface.swift; sourceTree = "<group>"; };
 		C5ED995F2C088FAA0077B2F9 /* UserInfoRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRepositoryInterface.swift; sourceTree = "<group>"; };
 		C5ED99612C088FB50077B2F9 /* UserChallengeRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChallengeRepositoryInterface.swift; sourceTree = "<group>"; };
@@ -634,7 +653,7 @@
 		C5ED99712C0891FC0077B2F9 /* BookmarkListRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListRepositoryInterface.swift; sourceTree = "<group>"; };
 		C5ED99732C0892060077B2F9 /* StoreListRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreListRepositoryInterface.swift; sourceTree = "<group>"; };
 		C5ED99752C0892170077B2F9 /* StoreManagementRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManagementRepositoryInterface.swift; sourceTree = "<group>"; };
-		C5ED99772C0892C70077B2F9 /* AuthUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCase.swift; sourceTree = "<group>"; };
+		C5ED99772C0892C70077B2F9 /* SocialLoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginUseCase.swift; sourceTree = "<group>"; };
 		C5ED99792C0892CF0077B2F9 /* UserInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoUseCase.swift; sourceTree = "<group>"; };
 		C5ED997B2C0892D90077B2F9 /* ChallengeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeUseCase.swift; sourceTree = "<group>"; };
 		C5ED997D2C0892F80077B2F9 /* ReviewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewUseCase.swift; sourceTree = "<group>"; };
@@ -1040,6 +1059,14 @@
 			path = AVIRO;
 			sourceTree = "<group>";
 		};
+		C534B14C2C2EABD300C62FDA /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C534B14D2C2EABE900C62FDA /* LoginInfo.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		C5351B4E2A19223600116D50 /* KakaoMapManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1209,6 +1236,7 @@
 			isa = PBXGroup;
 			children = (
 				C5A3C3C32A39658A0050AB3D /* LoginViewController.swift */,
+				C534B1512C32662A00C62FDA /* LoginButton.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1513,6 +1541,14 @@
 			path = ETC;
 			sourceTree = "<group>";
 		};
+		C566EF632C39930D009E58DD /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C566EF642C39931B009E58DD /* RepositoryTask.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		C567C14D2A5658C700D4B426 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -1692,6 +1728,24 @@
 				C5B071E02A59454300AE709A /* BottomCell.swift */,
 			);
 			path = TutorialCell;
+			sourceTree = "<group>";
+		};
+		C5A169142C4D53520028BCC0 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				C5A169152C4D53970028BCC0 /* SignInFromApple.swift */,
+				C5A169172C4D53A50028BCC0 /* SignInFromKakaoNaver.swift */,
+				C5A169192C4D53CF0028BCC0 /* SingInInfo.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		C5A1691B2C4D5DCC0028BCC0 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				C5A1691C2C4D5DD60028BCC0 /* CommonError.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		C5A201B52A986ECA00A54381 /* EditPlaceInfo */ = {
@@ -1895,6 +1949,7 @@
 		C5BA9E042BED1CD2004FA06E /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				C566EF632C39930D009E58DD /* Utils */,
 				C5ED992D2C0880800077B2F9 /* StoreListRepositories */,
 				C5ED992C2C08807A0077B2F9 /* BookmarkListRepositories */,
 				C5ED992B2C0880710077B2F9 /* StoreRepositories */,
@@ -1915,7 +1970,7 @@
 				C5ED997D2C0892F80077B2F9 /* ReviewUseCase.swift */,
 				C5ED997B2C0892D90077B2F9 /* ChallengeUseCase.swift */,
 				C5ED99792C0892CF0077B2F9 /* UserInfoUseCase.swift */,
-				C5ED99772C0892C70077B2F9 /* AuthUseCase.swift */,
+				C5ED99772C0892C70077B2F9 /* SocialLoginUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1929,7 +1984,7 @@
 				C5ED99552C088E9D0077B2F9 /* ReviewRepositoryInterfaces */,
 				C5ED99542C088E950077B2F9 /* ChallengeRepositoryInterfaces */,
 				C5ED99532C088E880077B2F9 /* UserInfoRepositoryInterfaces */,
-				C5ED99522C088E690077B2F9 /* AuthRepositoryInterfaces */,
+				C5ED99522C088E690077B2F9 /* SocialLoginRepositoryInterfaces */,
 			);
 			path = RepositoryInterfaces;
 			sourceTree = "<group>";
@@ -1937,6 +1992,9 @@
 		C5BA9E072BED1CF8004FA06E /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				C5A1691B2C4D5DCC0028BCC0 /* Common */,
+				C5A169142C4D53520028BCC0 /* SignIn */,
+				C534B14C2C2EABD300C62FDA /* User */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1986,6 +2044,7 @@
 			isa = PBXGroup;
 			children = (
 				C5BA9E162BED2585004FA06E /* printIfDebug.swift */,
+				C566EF662C399333009E58DD /* Cancellable.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2322,8 +2381,9 @@
 			isa = PBXGroup;
 			children = (
 				C5ED994C2C088E2C0077B2F9 /* AppleAuthRepository.swift */,
-				C5ED994E2C088E340077B2F9 /* AutoLoginRepository.swift */,
-				C5ED99502C088E3E0077B2F9 /* UserAccountRepository.swift */,
+				C5C1786C2C37B2E700B774AE /* GoogleAuthRepository.swift */,
+				C5C1786E2C37B30500B774AE /* KakaoAuthRepository.swift */,
+				C5C178702C37B30E00B774AE /* NaverAuthRepository.swift */,
 			);
 			path = AuthRepositories;
 			sourceTree = "<group>";
@@ -2331,6 +2391,7 @@
 		C5ED99282C08804E0077B2F9 /* UserInfoRepositories */ = {
 			isa = PBXGroup;
 			children = (
+				C5ED99502C088E3E0077B2F9 /* UserAccountRepository.swift */,
 				C5ED994A2C088E240077B2F9 /* UserInfoRepository.swift */,
 			);
 			path = UserInfoRepositories;
@@ -2427,14 +2488,13 @@
 			path = Targets;
 			sourceTree = "<group>";
 		};
-		C5ED99522C088E690077B2F9 /* AuthRepositoryInterfaces */ = {
+		C5ED99522C088E690077B2F9 /* SocialLoginRepositoryInterfaces */ = {
 			isa = PBXGroup;
 			children = (
-				C5ED99592C088EE30077B2F9 /* AppleAuthRepositoryInterface.swift */,
-				C5ED995B2C088EEF0077B2F9 /* AutoLoginRepositoryInterface.swift */,
+				C5ED99592C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift */,
 				C5ED995D2C088EFA0077B2F9 /* UserAccountRepositoryInterface.swift */,
 			);
-			path = AuthRepositoryInterfaces;
+			path = SocialLoginRepositoryInterfaces;
 			sourceTree = "<group>";
 		};
 		C5ED99532C088E880077B2F9 /* UserInfoRepositoryInterfaces */ = {
@@ -2620,6 +2680,7 @@
 		C5ED99952C0894860077B2F9 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				C566EF612C398EC6009E58DD /* AuthAPIEndpoints.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -2766,7 +2827,7 @@
 				};
 			};
 			buildConfigurationList = C52FA33A2A175B20005E70DC /* Build configuration list for PBXProject "AVIRO" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -2918,6 +2979,8 @@
 				C5ED46932AAEB02F00F2DA04 /* PlaceOperationHoursViewController.swift in Sources */,
 				C5732C752A41962D00CDC499 /* AVIRORequestAPI.swift in Sources */,
 				C562B6DC2B38704600CE5D4C /* ChallengeViewModel.swift in Sources */,
+				C5C178712C37B30E00B774AE /* NaverAuthRepository.swift in Sources */,
+				C5A169162C4D53970028BCC0 /* SignInFromApple.swift in Sources */,
 				C5C20BAC2AD504D500855BBB /* AmplitudeUtility.swift in Sources */,
 				C513854C2AAB3B52001AB827 /* NickNameChangeblePresenter.swift in Sources */,
 				C5D93DA12A581F5A00629C39 /* FirstRegistrationPresenter.swift in Sources */,
@@ -2933,6 +2996,8 @@
 				C5C915492A777F8500C7CB93 /* SearchField.swift in Sources */,
 				C52066212A7CA9050038ECCD /* MainField.swift in Sources */,
 				C5ED99622C088FB50077B2F9 /* UserChallengeRepositoryInterface.swift in Sources */,
+				C566EF652C39931B009E58DD /* RepositoryTask.swift in Sources */,
+				C566EF622C398EC6009E58DD /* AuthAPIEndpoints.swift in Sources */,
 				C5EB510B2A209FD300B29CC1 /* HomeSearchPresenter.swift in Sources */,
 				C5DBF8412B3A787800668B0D /* CGFloat+Extension.swift in Sources */,
 				C52066262A7CC3CE0038ECCD /* NoHistoryLabelView.swift in Sources */,
@@ -2942,7 +3007,6 @@
 				C5F1014F2A6D19A800C53286 /* VeganOptionButton.swift in Sources */,
 				C505C1DD2B3ACCC40058F115 /* AVIROChallengeInfoResult+DTO.swift in Sources */,
 				C52066292A7CD5FC0038ECCD /* HistoryTableModel.swift in Sources */,
-				C5ED995C2C088EEF0077B2F9 /* AutoLoginRepositoryInterface.swift in Sources */,
 				C5FD92EB2A9C786600CF4673 /* PublicAPIRequestComponents.swift in Sources */,
 				C58C49C82AC9B67600DE04B7 /* AppleUserLoginModel.swift in Sources */,
 				C5BA9E172BED2585004FA06E /* printIfDebug.swift in Sources */,
@@ -2955,12 +3019,14 @@
 				C50DB7572A9B8DF80078B501 /* EditLocationAddressTextView.swift in Sources */,
 				C595ACD12A84A4EB00D35123 /* PlaceSummaryView.swift in Sources */,
 				C520663A2A808DC40038ECCD /* PlaceListHeaderView.swift in Sources */,
+				C566EF672C399333009E58DD /* Cancellable.swift in Sources */,
 				C52066382A808DAD0038ECCD /* HistoryHeaderView.swift in Sources */,
 				C5ED99842C0893210077B2F9 /* StoreListUseCase.swift in Sources */,
 				C5C290742A85E4EC00ED5DCE /* PlaceSegmentedControlView.swift in Sources */,
 				C52FA3472A175B20005E70DC /* HomeViewController.swift in Sources */,
 				C5503B5C2B9F54C20050643F /* WelcomeCollectionViewCell.swift in Sources */,
 				C5FD92E32A9C6C1E00CF4673 /* EditLocationAddressTextTableViewCell.swift in Sources */,
+				C534B1522C32662A00C62FDA /* LoginButton.swift in Sources */,
 				C54BC0DB2A2C2D0D00B65439 /* UIColor+Extension.swift in Sources */,
 				C52FA3432A175B20005E70DC /* AppDelegate.swift in Sources */,
 				C5BA9DCF2BE8ABA8004FA06E /* NetworkConfigurable.swift in Sources */,
@@ -2969,13 +3035,14 @@
 				C5ED99512C088E3E0077B2F9 /* UserAccountRepository.swift in Sources */,
 				C51000382AB5F3BD00F65C1F /* UIFont+Extension.swift in Sources */,
 				C56295072B3188530067BBE5 /* ReviewWriteViewController.swift in Sources */,
-				C5ED995A2C088EE30077B2F9 /* AppleAuthRepositoryInterface.swift in Sources */,
+				C5ED995A2C088EE30077B2F9 /* SocialLoginRepositoryInterface.swift in Sources */,
 				C5476B7B2B31516000F5FC6E /* LicenseDetailViewController.swift in Sources */,
 				C5FBDA602B398280007AC77E /* ChallengeInfoOrangeView.swift in Sources */,
 				C5FA0EAA2A94DB3E004AD8B4 /* ReportReviewViewController.swift in Sources */,
 				C5C90EBD2AA85E7000AB3668 /* AVIROOperationHours+DTO.swift in Sources */,
 				C5F33DFD2ADED19000A29FB9 /* SystemUtility.swift in Sources */,
 				C513854E2AAD8E9F001AB827 /* AVIROReportPlace+DTO.swift in Sources */,
+				C5C1786F2C37B30500B774AE /* KakaoAuthRepository.swift in Sources */,
 				C5ED996A2C0890B30077B2F9 /* StoreReviewRepositoryInterface.swift in Sources */,
 				C520663C2A80C0450038ECCD /* CenterCoordinate.swift in Sources */,
 				C58EC7D22AB1B5AD00401FF7 /* AVIROEditPhone+DTO.swift in Sources */,
@@ -2999,6 +3066,7 @@
 				C528E4C02A5FF1CB002BD72E /* FinalRegistrationViewController.swift in Sources */,
 				C5FBDA5C2B398264007AC77E /* ChallengeInfoYellowView.swift in Sources */,
 				C5DCBC8F2B91CF46003502BA /* AVIROMyBookmarkList+DTO.swift in Sources */,
+				C5A1691D2C4D5DD60028BCC0 /* CommonError.swift in Sources */,
 				C5D93DA32A58718300629C39 /* NextPageButton.swift in Sources */,
 				C5ED99602C088FAA0077B2F9 /* UserInfoRepositoryInterface.swift in Sources */,
 				C5BA9E0E2BED1D75004FA06E /* AVIROViewModel.swift in Sources */,
@@ -3023,14 +3091,13 @@
 				C50F6AF32A68FD0A00E942F5 /* EnrollPlaceViewController.swift in Sources */,
 				C5ED99472C088E0F0077B2F9 /* ChallengeInfoRepository.swift in Sources */,
 				C5732C7E2A41D42700CDC499 /* RequestTableFieldModel.swift in Sources */,
-				C5ED99782C0892C70077B2F9 /* AuthUseCase.swift in Sources */,
+				C5ED99782C0892C70077B2F9 /* SocialLoginUseCase.swift in Sources */,
 				C5C961982A8DA5880016E2F8 /* EditInfoButton.swift in Sources */,
 				C5476B682B303BE800F5FC6E /* MyInfoView.swift in Sources */,
 				C5A989972A959D920021B7C3 /* AVIROUpdateBookmark+DTO.swift in Sources */,
 				C5E7B7A92A4D3CDF00CA2090 /* AVIROUser+DTO.swift in Sources */,
 				C5A201C32A98A61F00A54381 /* EditLocationBottomView.swift in Sources */,
 				C5DCBC8B2B91CEE8003502BA /* AVIROMyCommentList+DTO.swift in Sources */,
-				C5ED994F2C088E340077B2F9 /* AutoLoginRepository.swift in Sources */,
 				C52066232A7CAC910038ECCD /* NoHistoryView.swift in Sources */,
 				C5E306E72A6FB4ED00C11CF7 /* MenuField.swift in Sources */,
 				C5ED46982AAEEFB600F2DA04 /* OperationHoursView.swift in Sources */,
@@ -3112,6 +3179,7 @@
 				C50E6F6F2A8F10B500703B9E /* UILabel+Extension.swift in Sources */,
 				C52066352A7F3FAE0038ECCD /* HistoryTableViewCell.swift in Sources */,
 				C5C90EB72AA7078300AB3668 /* EditOperationHoursModel.swift in Sources */,
+				C5A169182C4D53A50028BCC0 /* SignInFromKakaoNaver.swift in Sources */,
 				C5BA9DCB2BE8AB97004FA06E /* NetworkService.swift in Sources */,
 				C54733D32BE20EF4004E961C /* SearchUtility.swift in Sources */,
 				C528E4BA2A5F9A3E002BD72E /* ThridRegistrationViewController.swift in Sources */,
@@ -3127,6 +3195,7 @@
 				C51AED1D2A8A192D0015FBC2 /* ChangedViewAction+HomeViewController.swift in Sources */,
 				C5ED99452C088E000077B2F9 /* ReviewManagementRepository.swift in Sources */,
 				C51B09BC2A82397800916BBD /* Marker+Extension.swift in Sources */,
+				C534B14E2C2EABE900C62FDA /* LoginInfo.swift in Sources */,
 				C53C54D22AD67E8800C3662A /* MarkerModelLocalDB.swift in Sources */,
 				C58FBF922AC2D87300AB6EFC /* KakaoAPIManagerProtocol.swift in Sources */,
 				C528E4BE2A5FB816002BD72E /* TermsTableCell.swift in Sources */,
@@ -3138,6 +3207,7 @@
 				C5351B7A2A1B439000116D50 /* KakaoCoordinateSearchDTO.swift in Sources */,
 				C5ED99372C088D360077B2F9 /* StoreManagementRepository.swift in Sources */,
 				C5C290852A86173F00ED5DCE /* PlaceReviewWriteView.swift in Sources */,
+				C5A1691A2C4D53CF0028BCC0 /* SingInInfo.swift in Sources */,
 				C51BBAD52A78D53D00BF5B7C /* AVIROCheckPlace+DTO.swift in Sources */,
 				C5ED996E2C0890CE0077B2F9 /* StoreInfoRepositoryInterface.swift in Sources */,
 				C56857802A7113C600F52715 /* NormalTableViewCell.swift in Sources */,
@@ -3178,6 +3248,7 @@
 				C5FD92F72A9CDB9300CF4673 /* EditMenuTopView.swift in Sources */,
 				C5ED994D2C088E2C0077B2F9 /* AppleAuthRepository.swift in Sources */,
 				C56857822A7113CF00F52715 /* RequestTableViewCell.swift in Sources */,
+				C5C1786D2C37B2E700B774AE /* GoogleAuthRepository.swift in Sources */,
 				C52CD2DD2BCA5C310031671B /* BlurEffectView.swift in Sources */,
 				C5C2907B2A85E51B00ED5DCE /* PlaceReviewsView.swift in Sources */,
 				C5BA9DC92BE8AB8F004FA06E /* DataTransferService.swift in Sources */,
@@ -3370,6 +3441,7 @@
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "어비로";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -3382,7 +3454,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.5;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.VeganRestaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3407,6 +3479,7 @@
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "어비로";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "근처 비건 식당 검색이 이제 더 쉬어집니다! 사용자의 위치 정보는 서비스 이용간 최적화하는 데 사용되며, 모든 데이터는 안전하게 관리됩니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -3419,7 +3492,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.5;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.VeganRestaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

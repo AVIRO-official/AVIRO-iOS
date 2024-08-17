@@ -36,7 +36,7 @@ final class FinalRegistrationViewController: UIViewController {
         label.text = Text.title.rawValue
         label.textColor = .main
         label.textAlignment = .center
-        label.font = CFont.font.bold24
+        label.font = .pretendard(size: 24, weight: .bold)
         label.numberOfLines = 2
         
         return label

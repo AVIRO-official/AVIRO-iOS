@@ -40,14 +40,14 @@ private enum Layout {
 }
 
 final class SecondRegistrationViewController: UIViewController {
-    lazy var presenter = SecondRegistrationPresenter(viewController: self)
+    var presenter: SecondRegistrationPresenter!
     
     // MARK: UI Property Definitions
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         
         label.text = Text.title.rawValue
-        label.font = CFont.font.bold24
+        label.font = .pretendard(size: 24, weight: .bold)
         label.textColor = .main
         label.numberOfLines = 2
         
@@ -57,7 +57,7 @@ final class SecondRegistrationViewController: UIViewController {
         let label = UILabel()
         
         label.text = Text.subtitle.rawValue
-        label.font = CFont.font.regular14
+        label.font = .pretendard(size: 14, weight: .regular)
         label.textColor = .gray1
         
         return label
@@ -76,7 +76,7 @@ final class SecondRegistrationViewController: UIViewController {
         let label = UILabel()
         
         label.text = Text.birthSub.rawValue
-        label.font = CFont.font.regular13
+        label.font = .pretendard(size: 13, weight: .regular)
         label.textColor = .gray2
         
         return label
@@ -127,7 +127,7 @@ final class SecondRegistrationViewController: UIViewController {
         let label = UILabel()
         
         label.text = Text.genderSub.rawValue
-        label.font = CFont.font.regular13
+        label.font = .pretendard(size: 13, weight: .regular)
         label.textColor = .gray2
         
         return label
@@ -315,18 +315,21 @@ extension SecondRegistrationViewController: SecondRegistrationProtocol {
     
     // MARK: Push Interactions
     func pushThridRegistrationView(
-        _ userInfoModel: AVIROAppleUserSignUpDTO
+        usecase: SocialLoginUseCaseInterface
     ) {
         let viewController = ThridRegistrationViewController()
         
         let presenter = ThridRegistrationPresenter(
-            viewController: viewController,
-            userInfo: userInfoModel
+            socialLoginUseCase: usecase,
+            viewController: viewController
         )
         
         viewController.presenter = presenter
         
-        navigationController?.pushViewController(viewController, animated: true)
+        navigationController?.pushViewController(
+            viewController,
+            animated: true
+        )
     }
 }
 

@@ -58,8 +58,8 @@ final class DataTransferService {
     
     init(
         networkService: NetworkService,
-        errorResolver: DataTransferErrorResolverProtocol,
-        errorLogger: DataTransferErrorLoggerProtocol
+        errorResolver: DataTransferErrorResolverProtocol = DataTransferErrorResolver(),
+        errorLogger: DataTransferErrorLoggerProtocol = DataTransferErrorLogger()
     ) {
         self.networkService = networkService
         self.errorResolver = errorResolver

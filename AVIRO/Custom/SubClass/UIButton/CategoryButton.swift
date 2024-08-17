@@ -18,7 +18,7 @@ final class CategoryButton: UIButton {
     
     func setButton(_ title: String) {
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: CFont.font.medium16,
+            .font: UIFont.pretendard(size: 16, weight: .medium),
             .foregroundColor: UIColor.gray0
         ]
         

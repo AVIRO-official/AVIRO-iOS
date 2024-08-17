@@ -21,6 +21,16 @@ enum UDKey: String {
     case tutorialChallenge
     case hideUntil
     case timeForUpdate
+    
+    case loginType
+}
+
+enum LoginTypeKey: String {
+    case none
+    case apple
+    case google
+    case kakao
+    case naver
 }
 
 // MARK: NotificationCenter Name
@@ -31,6 +41,9 @@ enum NotiName: String {
 // MARK: Keychain
 enum KeychainKey: String {
     case appleRefreshToken
+    
+    case refreshToken
+    case userID
 }
 
 // MARK: TableViewCell Identifier

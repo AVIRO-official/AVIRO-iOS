@@ -67,7 +67,7 @@ class RegistrationField: UITextField {
     }
     
     private func configuration() {
-        self.font = CFont.font.medium18
+        self.font = .pretendard(size: 18, weight: .medium)
         self.textColor = .gray0
         self.layer.cornerRadius = 25
         self.backgroundColor = .gray6

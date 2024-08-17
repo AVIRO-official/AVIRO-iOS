@@ -20,7 +20,7 @@ final class EditInfoButton: UIButton {
     func setButton(_ title: String) {
         self.setTitle(title, for: .normal)
         self.setTitleColor(.keywordBlue, for: .normal)
-        self.titleLabel?.font = CFont.font.medium14
+        self.titleLabel?.font = .pretendard(size: 14, weight: .medium)
         
         self.setImage(
             UIImage.editInfo.withRenderingMode(.alwaysTemplate),
