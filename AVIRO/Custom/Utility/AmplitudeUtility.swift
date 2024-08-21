@@ -19,7 +19,7 @@ enum AMType: String {
     case userLogin = "user_login"
     // Remove
     case userLogout = "user_logout"
-    
+        //t
     // Move
     case placeUpload = "place_upload"
     // Move
