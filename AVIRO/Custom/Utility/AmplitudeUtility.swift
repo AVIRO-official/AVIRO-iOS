@@ -46,63 +46,39 @@ enum AMType: String {
     case wellcomeClose = "wellcome_close"
 }
 
-enum AMPMyPageType: String {
-    case challenge = "chall_present"
-    case places = "placeList_present"
-    case reviews = "reviewList_present"
-    case bookmarks = "bookmarkList_present"
-}
-
 enum AMPUserType: String {
-    case startSignUp = "user_start_sign_up"
-    case doneSignUp = "user_done_sign_up"
-    case login = "user_login"
-    case logout = "user_logout"
-    case startWithdrawal = "user_start_withdrawal"
-    case doneWithdrawal = "user_done_withdrawal"
+    case signUpClick = "signup_click"
+    case signupComplete = "signup_complete"
+    case loginComplete = "login_complete"
+    case logoutComplete = "logout_comlete"
+    case withdrawalComplete = "withdrawal_Complete"
 }
 
-enum AMPPlaceType: String {
-    case clickMark = "place_click_mark"
-    case clickFilter = "place_click_filter"
-    case presentSheet = "place_present_sheet"
-    case presentHalf = "place_present_half"
-    case scrollHome = "place_scroll_home"
-    case viewMenu = "place_view_menu"
-    case viewReview = "place_view_review"
-    
-    case upload = "place_upload"
-    case edit = "place_edit"
+enum AMPBrowseType: String {
+    case searchEnterTerm = "search_enter_term"
+    case searchClickResult = "search_click_result"
+    case bookmarkClickInPlace = "bookmark_click_in_place"
+    case bookmarkClickInMap = "bookmark_click_in_map"
+    case bookmarkClickList = "bookmark_click_list"
+    case placeViewSheet = "place_view_sheet"
+    case placeViewhalf = "place_view_half"
+    case placeViewMenu = "place_view_menu"
+    case placeViewReview = "place_view_review"
 }
 
-enum AMPReviewType: String {
-    case startHome = "review_start_home"
-    case startReview = "review_start_review"
-    case write = "review_write"
-    case submitted = "review_submitted"
-    
-    case upload = "review_upload"
-}
-
-enum AMPMenuType: String {
-    case edit = "menu_edit"
-}
-
-enum AMPSearchType: String {
-    case click = "search_click"
-    case clickRecent = "search_click_recent"
-    case clickResults = "search_click_results"
-}
-
-enum AMPWellcomeType: String {
-    case click = "wellcome_click"
-    case noShow = "wellcome_noShow"
-    case close = "wellcome_close"
-}
-
-enum AMPLevelType: String {
-    case levelUpDidMove = "level_up_didMove"
-    case levelUpDidNotMove = "level_up_didNotMove"
+enum AMPEngage: String {
+    case reviewViewUpload = "review_view_upload"
+    case reviewCompleteUpload = "review_complete_upload"
+    case placeViewUpload = "place_view_upload"
+    case placeCompleteUpload = "place_complete_upload"
+    case challengeClickCheckingLevelUp = "challenge_click_checking_levelup"
+    case challengeView = "challenge_view"
+    case placeClickEditPlace = "place_click_edit_place"
+    case placeCompleteEditPlace = "place_complete_edit_place"
+    case placeClickEditMenu = "place_click_edit_menu"
+    case placeCompleteEditMenu = "place_complete_edit_menu"
+    case placeClickRemove = "place_click_remove"
+    case placeCompleteRemove = "place_complete_remove"
 }
 
 protocol AmplitudeProtocol {
