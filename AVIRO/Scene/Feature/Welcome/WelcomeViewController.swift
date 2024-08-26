@@ -25,6 +25,7 @@ final class WelcomeViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         
         layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
         
         let collectionView = UICollectionView(
             frame: .zero,
@@ -37,6 +38,7 @@ final class WelcomeViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.isPagingEnabled = true
+        collectionView.layer.cornerRadius = 16
         
         collectionView.register(
             WelcomeCollectionViewCell.self,
@@ -186,15 +188,15 @@ final class WelcomeViewController: UIViewController {
             imageCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             imageCollectionView.heightAnchor.constraint(equalToConstant: 380),
             
-            viewPageControl.topAnchor.constraint(
+            viewPageControl.bottomAnchor.constraint(
                 equalTo: imageCollectionView.bottomAnchor,
-                constant: 6
+                constant: -56
             ),
             viewPageControl.centerXAnchor.constraint(
                 equalTo: imageCollectionView.centerXAnchor
             ),
             
-            bottomStackView.topAnchor.constraint(equalTo: viewPageControl.bottomAnchor, constant: 12),
+            bottomStackView.topAnchor.constraint(equalTo: imageCollectionView.bottomAnchor),
             bottomStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30.5),
             bottomStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -30.5),
             bottomStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
@@ -266,7 +268,13 @@ extension WelcomeViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        return CGSize(width: 270, height: 380)
+        return CGSize(width: 280, height: 380)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+
+        viewPageControl.currentPage = page
     }
 }
 

@@ -93,7 +93,7 @@ final class WelcomeCollectionViewCell: UICollectionViewCell {
         self.backgroundColor = .clear
         
         self.clipsToBounds = true
-        self.layer.cornerRadius = 15
+        self.layer.cornerRadius = 16
     }
     
     // TODO: 추후 모델링

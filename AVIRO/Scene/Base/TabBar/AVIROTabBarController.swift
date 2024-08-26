@@ -182,7 +182,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
             welcomeView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             welcomeView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             welcomeView.widthAnchor.constraint(equalToConstant: 280),
-            welcomeView.heightAnchor.constraint(equalToConstant: 445)
+            welcomeView.heightAnchor.constraint(equalToConstant: 420)
         ])
     }
     
