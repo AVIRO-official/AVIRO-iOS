@@ -42,6 +42,7 @@ final class AppController {
         self.window = window
         window.backgroundColor = .gray7
 
+//        setTutorialView()
         setTabBarView()
 //        checkLoginType()
     }

@@ -97,8 +97,8 @@ final class WelcomeCollectionViewCell: UICollectionViewCell {
     }
     
     // TODO: 추후 모델링
-    func configure(with url: URL) {
-        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+    func configure(with welcomePopupData: WelcomePopup) {
+        URLSession.shared.dataTask(with: welcomePopupData.imageURL) { [weak self] data, _, error in
             guard let self = self else { return }
             
             if let _ = error {
@@ -113,6 +113,10 @@ final class WelcomeCollectionViewCell: UICollectionViewCell {
                 }
             }
         }.resume()
+        
+        checkButton.backgroundColor = UIColor(
+            hex: welcomePopupData.buttonColor
+        )
     }
     
     private func imageLoadFail() {
