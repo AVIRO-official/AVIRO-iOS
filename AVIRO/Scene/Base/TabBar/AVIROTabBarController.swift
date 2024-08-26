@@ -191,7 +191,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
         
         setupButtons()
         
-        checkWellcomeShow()
+        checkWelcomeShow()
     }
     
     private func setupButtons() {
@@ -244,8 +244,8 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
         ])
     }
     
-    // MARK: - Wellcome VC
-    private func checkWellcomeShow() {
+    // MARK: - Welcome VC
+    private func checkWelcomeShow() {
         guard UserDefaults.standard.bool(
             forKey: UDKey.tutorialHome.rawValue
         ) else { return }
@@ -303,7 +303,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
     }
     
     func activeCheckWellcome() {
-        checkWellcomeShow()
+        checkWelcomeShow()
     }
     
     // MARK: - TabBar Click After

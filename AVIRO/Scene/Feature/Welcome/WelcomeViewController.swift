@@ -167,19 +167,17 @@ final class WelcomeViewController: UIViewController {
     }
     
     func loadWelcomeImage(completionHandler: @escaping () -> Void) {
-        AVIROAPI.manager.loadWellcomeImagesURL { [weak self] result in
+        AVIROAPI.manager.loadWelcomePopups { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
-                    if let imageURL = data.data?.imageUrl {
-                        guard let url = URL(string: imageURL) else { return }
-                        let urlArray = [url]
-                        self.urlLoadFail(with: false)
-                        
-                        self.images = urlArray
-                        completionHandler()
-                    }
+                    let orderedData = data.data?
+                        .sorted(by: { $0.order < $1.order })
+                        .map { $0.toDomain() }
+                     
+                    
+
                 case .failure(let _):
                     self.urlLoadFail(with: true)
                     completionHandler()
