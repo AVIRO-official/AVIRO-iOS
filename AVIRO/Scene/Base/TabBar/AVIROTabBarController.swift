@@ -289,6 +289,10 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
                 self?.selectedIndex = 2
             }
             
+            self?.welcomeViewController?.didPushURL = { url in
+                self?.showWebView(with: url)
+            }
+            
             self?.blurView.isHidden = false
             self?.welcomeView.isHidden = false
         }

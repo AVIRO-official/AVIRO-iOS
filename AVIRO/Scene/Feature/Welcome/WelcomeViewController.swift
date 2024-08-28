@@ -154,6 +154,7 @@ final class WelcomeViewController: UIViewController {
     var didTappedNoShowButton: (() -> Void)?
     var didTappedCloseButton: (() -> Void)?
     var didTappedCheckButton: (() -> Void)?
+    var didPushURL: ((URL) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -298,9 +299,24 @@ extension WelcomeViewController: UICollectionViewDataSource {
         cell.configure(with: welcomePopups[indexPath.row])
         
         cell.didTappedCheckButton = { [weak self] in
-            self?.didTappedCheckButton?()
+//            self?.didTappedCheckButton?()
+            self?.didTappedPopup(index: indexPath.row)
         }
         
         return cell
+    }
+    
+    private func didTappedPopup(index: Int) {
+        let tappedPopup = welcomePopups[index]
+        
+        if let url = tappedPopup.url {
+            didPushURL?(url)
+            return
+        }
+        
+        if let event = tappedPopup.event {
+            didTappedCheckButton?()
+            return
+        }
     }
 }
