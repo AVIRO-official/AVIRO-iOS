@@ -922,10 +922,10 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
      */
     
     // MARK: Get wellcomeImagesURL
-    func loadWellcomeImagesURL(
-        completionHandler: @escaping (Result<AVIROWellcomeDTO, APIError>) -> Void
+    func loadWelcomePopups(
+        completionHandler: @escaping (Result<AVIROWelcomeDTO, APIError>) -> Void
     ) {
-        guard let url = requestAPI.getWellcomImagesURL().url else {
+        guard let url = requestAPI.getWelcomeImagesURL().url else {
             completionHandler(.failure(.urlError))
             return
         }

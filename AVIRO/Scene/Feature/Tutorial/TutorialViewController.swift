@@ -105,6 +105,12 @@ final class TutorialViewController: UIViewController {
         pageControl.currentPageIndicatorTintColor = .main
         pageControl.pageIndicatorTintColor = .gray5
         
+        pageControl.addTarget(
+            self,
+            action: #selector(pageControlTapped(_:)),
+            for: .valueChanged
+        )
+
         return pageControl
     }()
     
@@ -177,6 +183,21 @@ final class TutorialViewController: UIViewController {
         } else {
             nextButton.isHidden = true
         }
+    }
+    
+    @objc private func pageControlTapped(_ sender: UIPageControl) {
+        let currentPage = sender.currentPage
+
+        let indexPath = IndexPath(item: currentPage, section: 0)
+        
+        topCollectionView.scrollToItem(
+            at: indexPath,
+            at: .centeredHorizontally,
+            animated: true
+        )
+        
+        // 버튼 상태도 업데이트
+        changeButton()
     }
     
     @objc func tappedButton() {

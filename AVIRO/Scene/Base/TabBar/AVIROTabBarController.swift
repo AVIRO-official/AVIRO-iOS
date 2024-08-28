@@ -39,7 +39,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
     
     private lazy var tabBarBlurView = BlurEffectView()
     
-    private lazy var wellcomeView: UIView = {
+    private lazy var welcomeView: UIView = {
         let view = UIView()
        
         view.backgroundColor = .clear
@@ -152,7 +152,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
             bottomInsetView,
             tabBarBlurView,
             blurView,
-            wellcomeView
+            welcomeView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview($0)
@@ -179,10 +179,10 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
             blurView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             blurView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             
-            wellcomeView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            wellcomeView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            wellcomeView.widthAnchor.constraint(equalToConstant: 280),
-            wellcomeView.heightAnchor.constraint(equalToConstant: 415)
+            welcomeView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            welcomeView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            welcomeView.widthAnchor.constraint(equalToConstant: 280),
+            welcomeView.heightAnchor.constraint(equalToConstant: 420)
         ])
     }
     
@@ -191,7 +191,7 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
         
         setupButtons()
         
-        checkWellcomeShow()
+        checkWelcomeShow()
     }
     
     private func setupButtons() {
@@ -244,8 +244,8 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
         ])
     }
     
-    // MARK: - Wellcome VC
-    private func checkWellcomeShow() {
+    // MARK: - Welcome VC
+    private func checkWelcomeShow() {
         guard UserDefaults.standard.bool(
             forKey: UDKey.tutorialHome.rawValue
         ) else { return }
@@ -289,21 +289,25 @@ final class AVIROTabBarController: UIViewController, TabBarFromSubVCDelegate {
                 self?.selectedIndex = 2
             }
             
+            self?.welcomeViewController?.didPushURL = { url in
+                self?.showWebView(with: url)
+            }
+            
             self?.blurView.isHidden = false
-            self?.wellcomeView.isHidden = false
+            self?.welcomeView.isHidden = false
         }
     }
     
     private func removeWelcomeVC() {
         blurView.isHidden = true
-        wellcomeView.isHidden = true
+        welcomeView.isHidden = true
 
         welcomeViewController?.remove()
         welcomeViewController = nil
     }
     
     func activeCheckWellcome() {
-        checkWellcomeShow()
+        checkWelcomeShow()
     }
     
     // MARK: - TabBar Click After
