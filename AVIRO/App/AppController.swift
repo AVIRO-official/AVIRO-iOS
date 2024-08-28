@@ -43,8 +43,8 @@ final class AppController {
         window.backgroundColor = .gray7
 
 //        setTutorialView()
-        setTabBarView()
-//        checkLoginType()
+//        setTabBarView()
+        checkLoginType()
     }
     
     private func checkLoginType() {
