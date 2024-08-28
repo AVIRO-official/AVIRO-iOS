@@ -11,19 +11,29 @@ import AmplitudeSwift
 
 // MARK: Amplitude
 enum AMType: String {
+    // Remove
     case signUp = "user_sign up"
+    // Remove
     case withdrawal = "user_withdrawal"
+    // Remove
     case userLogin = "user_login"
+    // Remove
     case userLogout = "user_logout"
-    
+        //t
+    // Move
     case placeUpload = "place_upload"
+    // Move
     case reviewUpload = "review_upload"
-    
+    // Move
     case placeEdit = "place_edit"
+    // Remove
     case placeSearch = "place_serach"
+    // Remove
     case placePresent = "place_present"
+    // Move
     case menuEdit = "menu_edit"
     
+    // Move everything
     case challPresent = "chall_present"
     case placeListPresent = "placeList_present"
     case reviewListPresent = "reviewList_present"
@@ -34,6 +44,41 @@ enum AMType: String {
     case wellcomeClick = "wellcome_click"
     case wellcomeNoShow = "wellcome_noShow"
     case wellcomeClose = "wellcome_close"
+}
+
+enum AMPUserType: String {
+    case signUpClick = "signup_click"
+    case signupComplete = "signup_complete"
+    case loginComplete = "login_complete"
+    case logoutComplete = "logout_comlete"
+    case withdrawalComplete = "withdrawal_Complete"
+}
+
+enum AMPBrowseType: String {
+    case searchEnterTerm = "search_enter_term"
+    case searchClickResult = "search_click_result"
+    case bookmarkClickInPlace = "bookmark_click_in_place"
+    case bookmarkClickInMap = "bookmark_click_in_map"
+    case bookmarkClickList = "bookmark_click_list"
+    case placeViewSheet = "place_view_sheet"
+    case placeViewhalf = "place_view_half"
+    case placeViewMenu = "place_view_menu"
+    case placeViewReview = "place_view_review"
+}
+
+enum AMPEngage: String {
+    case reviewViewUpload = "review_view_upload"
+    case reviewCompleteUpload = "review_complete_upload"
+    case placeViewUpload = "place_view_upload"
+    case placeCompleteUpload = "place_complete_upload"
+    case challengeClickCheckingLevelUp = "challenge_click_checking_levelup"
+    case challengeView = "challenge_view"
+    case placeClickEditPlace = "place_click_edit_place"
+    case placeCompleteEditPlace = "place_complete_edit_place"
+    case placeClickEditMenu = "place_click_edit_menu"
+    case placeCompleteEditMenu = "place_complete_edit_menu"
+    case placeClickRemove = "place_click_remove"
+    case placeCompleteRemove = "place_complete_remove"
 }
 
 protocol AmplitudeProtocol {

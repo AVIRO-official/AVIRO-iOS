@@ -8,7 +8,7 @@
 import Foundation
 
 protocol AVIROAPIMangerProtocol: APIManagerProtocol {
-    // MARK: - Marker Refer
+    // MARK: - Marker / Map Refer
     /*
      - GET places
      - POST place
@@ -271,5 +271,10 @@ protocol AVIROAPIMangerProtocol: APIManagerProtocol {
     func editNickname(
         with nickname: AVIRONicknameChagneableDTO,
         completionHandler: @escaping (Result<AVIROResultDTO, APIError>) -> Void
+    )
+    
+    // MARK: Popup
+    func loadWelcomePopups(
+        completionHandler: @escaping (Result<AVIROWelcomeDTO, APIError>) -> Void
     )
 }

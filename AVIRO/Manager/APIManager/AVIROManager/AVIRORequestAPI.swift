@@ -54,7 +54,7 @@ struct AVIRORequestAPI {
     static let myCommentListPath = "/2/mypage/comment"
     static let myBookmarkListPath = "/2/mypage/bookmark"
     
-    static let wellcomeImagesPath = "/2/map/load/popup"
+    static let welcomeImagesPath = "/3/map/load/popup"
     
     static let kakaoUserCheckPath = "/3/member/kakao"
 
@@ -304,8 +304,8 @@ struct AVIRORequestAPI {
     }
     
     // MARK: GET WellcomeImages URL
-    mutating func getWellcomImagesURL() -> URLComponents {
-        return createURLComponents(path: AVIRORequestAPI.wellcomeImagesPath)
+    mutating func getWelcomeImagesURL() -> URLComponents {
+        return createURLComponents(path: AVIRORequestAPI.welcomeImagesPath)
     }
     
     // MARK: Kakao user check

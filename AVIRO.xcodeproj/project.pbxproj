@@ -95,6 +95,7 @@
 		C52FA3472A175B20005E70DC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52FA3462A175B20005E70DC /* HomeViewController.swift */; };
 		C52FA34C2A175B20005E70DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C52FA34B2A175B20005E70DC /* Assets.xcassets */; };
 		C52FA34F2A175B20005E70DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C52FA34D2A175B20005E70DC /* LaunchScreen.storyboard */; };
+		C533122A2C7CA2C70026703B /* WelcomePopups.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53312292C7CA2C70026703B /* WelcomePopups.swift */; };
 		C534B14E2C2EABE900C62FDA /* LoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534B14D2C2EABE900C62FDA /* LoginInfo.swift */; };
 		C534B1522C32662A00C62FDA /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534B1512C32662A00C62FDA /* LoginButton.swift */; };
 		C5351B4D2A19223300116D50 /* KakaoMapRequestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5351B4C2A19223300116D50 /* KakaoMapRequestAPI.swift */; };
@@ -142,7 +143,7 @@
 		C562B6DF2B387AE200CE5D4C /* ChallengeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6DE2B387AE200CE5D4C /* ChallengeInfoViewController.swift */; };
 		C562B6E22B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */; };
 		C562B6E42B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */; };
-		C564DAB32BA57240002174B4 /* AVIROWellcome+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C564DAB22BA57240002174B4 /* AVIROWellcome+DTO.swift */; };
+		C564DAB32BA57240002174B4 /* AVIROWelcome+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C564DAB22BA57240002174B4 /* AVIROWelcome+DTO.swift */; };
 		C566EF622C398EC6009E58DD /* AuthAPIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566EF612C398EC6009E58DD /* AuthAPIEndpoints.swift */; };
 		C566EF652C39931B009E58DD /* RepositoryTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566EF642C39931B009E58DD /* RepositoryTask.swift */; };
 		C566EF672C399333009E58DD /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566EF662C399333009E58DD /* Cancellable.swift */; };
@@ -437,6 +438,7 @@
 		C52FA3462A175B20005E70DC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C52FA34B2A175B20005E70DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C52FA3502A175B20005E70DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C53312292C7CA2C70026703B /* WelcomePopups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePopups.swift; sourceTree = "<group>"; };
 		C534B14D2C2EABE900C62FDA /* LoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInfo.swift; sourceTree = "<group>"; };
 		C534B1512C32662A00C62FDA /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		C5351B4A2A1919F700116D50 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -487,7 +489,7 @@
 		C562B6DE2B387AE200CE5D4C /* ChallengeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoViewController.swift; sourceTree = "<group>"; };
 		C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoPresentationAnimator.swift; sourceTree = "<group>"; };
 		C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoPresentaionDelegate.swift; sourceTree = "<group>"; };
-		C564DAB22BA57240002174B4 /* AVIROWellcome+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROWellcome+DTO.swift"; sourceTree = "<group>"; };
+		C564DAB22BA57240002174B4 /* AVIROWelcome+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROWelcome+DTO.swift"; sourceTree = "<group>"; };
 		C566EF612C398EC6009E58DD /* AuthAPIEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPIEndpoints.swift; sourceTree = "<group>"; };
 		C566EF642C39931B009E58DD /* RepositoryTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTask.swift; sourceTree = "<group>"; };
 		C566EF662C399333009E58DD /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
@@ -760,9 +762,10 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
-		C50367F32A1795BE0020C6BB /* Model */ = {
+		C50367F32A1795BE0020C6BB /* Model_Domain */ = {
 			isa = PBXGroup;
 			children = (
+				C53312282C7CA2B40026703B /* WelcomeModel */,
 				C51000292AB5B90200F65C1F /* UserModel */,
 				C5EB51022A20927400B29CC1 /* HomeViewModel */,
 				C5732C7A2A41D3F800CDC499 /* EnrollViewModel */,
@@ -772,7 +775,7 @@
 				C51B09B62A82046000916BBD /* LocalDataModel */,
 				C5351B652A1A128D00116D50 /* SingletonModel */,
 			);
-			path = Model;
+			path = Model_Domain;
 			sourceTree = "<group>";
 		};
 		C50367F62A179D6E0020C6BB /* Custom */ = {
@@ -986,13 +989,6 @@
 			path = HeaderView;
 			sourceTree = "<group>";
 		};
-		C520663D2A80C60D0038ECCD /* ViewLogic */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewLogic;
-			sourceTree = "<group>";
-		};
 		C520663E2A80C6220038ECCD /* CoordinateSingleton */ = {
 			isa = PBXGroup;
 			children = (
@@ -1047,7 +1043,7 @@
 				C593B64C2A4BFD9A00D224CE /* AVIRO.entitlements */,
 				C50367EC2A1791620020C6BB /* App */,
 				C50367F62A179D6E0020C6BB /* Custom */,
-				C50367F32A1795BE0020C6BB /* Model */,
+				C50367F32A1795BE0020C6BB /* Model_Domain */,
 				C50367F22A1795B90020C6BB /* Manager */,
 				C50367ED2A1791840020C6BB /* Scene */,
 				C5BA9DFE2BED1C64004FA06E /* Data */,
@@ -1057,6 +1053,14 @@
 				C5BA9E152BED256F004FA06E /* Common */,
 			);
 			path = AVIRO;
+			sourceTree = "<group>";
+		};
+		C53312282C7CA2B40026703B /* WelcomeModel */ = {
+			isa = PBXGroup;
+			children = (
+				C53312292C7CA2C70026703B /* WelcomePopups.swift */,
+			);
+			path = WelcomeModel;
 			sourceTree = "<group>";
 		};
 		C534B14C2C2EABD300C62FDA /* User */ = {
@@ -1080,7 +1084,6 @@
 		C5351B652A1A128D00116D50 /* SingletonModel */ = {
 			isa = PBXGroup;
 			children = (
-				C520663D2A80C60D0038ECCD /* ViewLogic */,
 				C5166E4B2A945214003495AA /* MyData */,
 				C520663E2A80C6220038ECCD /* CoordinateSingleton */,
 				C520663F2A80C6450038ECCD /* APISingleton */,
@@ -1536,7 +1539,7 @@
 		C564DAB12BA571A7002174B4 /* ETC */ = {
 			isa = PBXGroup;
 			children = (
-				C564DAB22BA57240002174B4 /* AVIROWellcome+DTO.swift */,
+				C564DAB22BA57240002174B4 /* AVIROWelcome+DTO.swift */,
 			);
 			path = ETC;
 			sourceTree = "<group>";
@@ -3061,7 +3064,7 @@
 				C5A201C72A98A6D200A54381 /* EditOperatingHoursView.swift in Sources */,
 				C5BA9DF62BECCD58004FA06E /* DataTransferError.swift in Sources */,
 				C5C290772A85E4FF00ED5DCE /* PlaceHomeView.swift in Sources */,
-				C564DAB32BA57240002174B4 /* AVIROWellcome+DTO.swift in Sources */,
+				C564DAB32BA57240002174B4 /* AVIROWelcome+DTO.swift in Sources */,
 				C5D93D9F2A581EC800629C39 /* FirstRegistrationViewController.swift in Sources */,
 				C528E4C02A5FF1CB002BD72E /* FinalRegistrationViewController.swift in Sources */,
 				C5FBDA5C2B398264007AC77E /* ChallengeInfoYellowView.swift in Sources */,
@@ -3069,6 +3072,7 @@
 				C5A1691D2C4D5DD60028BCC0 /* CommonError.swift in Sources */,
 				C5D93DA32A58718300629C39 /* NextPageButton.swift in Sources */,
 				C5ED99602C088FAA0077B2F9 /* UserInfoRepositoryInterface.swift in Sources */,
+				C533122A2C7CA2C70026703B /* WelcomePopups.swift in Sources */,
 				C5BA9E0E2BED1D75004FA06E /* AVIROViewModel.swift in Sources */,
 				C50DB7512A9B83550078B501 /* ChangeableAddressViewController.swift in Sources */,
 				C5ED99762C0892170077B2F9 /* StoreManagementRepositoryInterface.swift in Sources */,
@@ -3435,7 +3439,7 @@
 				CODE_SIGN_ENTITLEMENTS = AVIRO/AVIRO.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C4K2HXA435;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
@@ -3454,7 +3458,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.VeganRestaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3473,7 +3477,7 @@
 				CODE_SIGN_ENTITLEMENTS = AVIRO/AVIRO.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C4K2HXA435;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
@@ -3492,7 +3496,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.VeganRestaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
