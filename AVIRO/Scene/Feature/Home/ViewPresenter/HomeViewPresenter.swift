@@ -160,7 +160,7 @@ final class HomeViewPresenter: NSObject {
     init(viewController: HomeViewProtocol,
          markerManager: MarkerModelManagerProtocol = MarkerModelManager(),
          bookmarkManager: BookmarkFacadeProtocol = BookmarkFacadeManager(),
-         amplitude: AmplitudeProtocol = AmplitudeUtility()
+         amplitude: AmplitudeProtocol = AmplitudeUtility.shared
     ) {
         self.viewController = viewController
         

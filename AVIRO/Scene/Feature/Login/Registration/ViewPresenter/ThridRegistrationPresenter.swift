@@ -18,19 +18,19 @@ protocol ThridRegistrationProtocol: NSObject {
 
 final class ThridRegistrationPresenter {
     enum Term: String {
-           case aviroUsage = "어비로 이용 약관 동의 (필수)"
-           case personalInfo = "개인정보 수집 및 이용 동의 (필수)"
-           case locationService = "위치기반 서비스 이용약관 동의 (필수)"
+        case aviroUsage = "어비로 이용 약관 동의 (필수)"
+        case personalInfo = "개인정보 수집 및 이용 동의 (필수)"
+        case locationService = "위치기반 서비스 이용약관 동의 (필수)"
     }
-
+    
     weak var viewController: ThridRegistrationProtocol?
-
+    
     private let keyChain = KeychainSwift()
     private let amplitude: AmplitudeProtocol
     private let socialLoginUseCase: SocialLoginUseCaseInterface!
-
+    
     private var userInfoModel: AVIROAppleUserSignUpDTO?
-        
+    
     var terms: [(Term, Bool)] = [
         (.aviroUsage, false),
         (.personalInfo, false),
@@ -40,8 +40,8 @@ final class ThridRegistrationPresenter {
     init(
         socialLoginUseCase: SocialLoginUseCaseInterface,
         viewController: ThridRegistrationProtocol,
-         userInfo: AVIROAppleUserSignUpDTO? = nil,
-         amplitude: AmplitudeProtocol = AmplitudeUtility()
+        userInfo: AVIROAppleUserSignUpDTO? = nil,
+        amplitude: AmplitudeProtocol = AmplitudeUtility.shared
     ) {
         self.socialLoginUseCase = socialLoginUseCase
         self.viewController = viewController

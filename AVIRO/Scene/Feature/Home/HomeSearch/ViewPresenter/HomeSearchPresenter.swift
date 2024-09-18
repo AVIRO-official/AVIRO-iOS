@@ -91,7 +91,7 @@ final class HomeSearchPresenter {
     }
     
     init(viewController: HomeSearchProtocol,
-         amplitude: AmplitudeProtocol = AmplitudeUtility()
+         amplitude: AmplitudeProtocol = AmplitudeUtility.shared
     ) {
         self.viewController = viewController
         

@@ -44,7 +44,7 @@ final class SettingViewPresenter {
     init(viewController: MyPageViewProtocol,
          bookmarkManager: BookmarkFacadeManager = BookmarkFacadeManager(),
          markerManager: MarkerModelManagerProtocol = MarkerModelManager(),
-         amplitude: AmplitudeProtocol = AmplitudeUtility()
+         amplitude: AmplitudeProtocol = AmplitudeUtility.shared
     ) {
         self.viewController = viewController
         self.bookmarkManager = bookmarkManager

@@ -41,7 +41,7 @@ final class ReviewWriteViewModel: ViewModel {
         placeAddress: String,
         content: String = "",
         editCommentId: String? = nil,
-        amplitude: AmplitudeProtocol = AmplitudeUtility()
+        amplitude: AmplitudeProtocol = AmplitudeUtility.shared
     ) {
         self.placeId = placeId
         self.placeIcon = placeIcon

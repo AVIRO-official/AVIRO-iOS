@@ -14,7 +14,7 @@ final class AppController {
     static let shared = AppController()
     
     private let keychain = KeychainSwift()
-    private let amplitude = AmplitudeUtility()
+    private let amplitude = AmplitudeUtility.shared
     
     private let socialLoginUsecase: SocialLoginUseCase
     
@@ -181,7 +181,8 @@ final class AppController {
         let loginVC = LoginViewController()
         let presenter = LoginViewPresenter(
             socialLoginUseCase: socialLoginUsecase,
-            viewController: loginVC
+            viewController: loginVC,
+            amplitude: AmplitudeUtility.shared
         )
         
         loginVC.presenter = presenter

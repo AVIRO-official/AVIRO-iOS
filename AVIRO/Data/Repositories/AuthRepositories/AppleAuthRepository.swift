@@ -63,6 +63,8 @@ extension AppleAuthRepository: ASAuthorizationControllerDelegate {
                 authorizationCode: code
             )
             
+            print(code)
+            
             AVIROAPI.manager.checkAppleUserWhenLogin(
                 with: memberCheckDTO
             ) { [weak self] result in

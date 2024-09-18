@@ -82,6 +82,35 @@ enum AMPEngage: String {
 }
 
 protocol AmplitudeProtocol {
+    func signUpClick(with type: LoginType)
+    func signUpComplete()
+    func loginComplete()
+    func logoutComplete()
+    func withdrawalComplete()
+    
+    func searchEnterTerm()
+    func searchClickResult()
+    func bookmarkClickInPlace()
+    func bookmarkClickInMap()
+    func bookmarkClickList()
+    func placeViewSheet()
+    func placeViewHalf()
+    func placeViewMenu()
+    func placeViewReview()
+    
+    func reviewViewUpload()
+    func reviewCompleteUpload()
+    func placeViewUpload()
+    func placeCompleteUpload()
+    func challengeClickCheckingLevelUp()
+    func challengeView()
+    func placeClickEditPlace()
+    func placeCompleteEditPlace()
+    func placeClickEditMenu()
+    func placeCompleteEditMenu()
+    func placeClickRemove()
+    func placeCompleteRemove()
+    
     func signUp(with userId: String)
     func withdrawal()
     func login()
@@ -110,6 +139,10 @@ protocol AmplitudeProtocol {
 }
 
 final class AmplitudeUtility: AmplitudeProtocol {
+    private init() { }
+    
+    static let shared = AmplitudeUtility()
+    
     private var amplitude: Amplitude? {
         if Thread.isMainThread {
             return (UIApplication.shared.delegate as? AppDelegate)?.amplitude
@@ -120,6 +153,116 @@ final class AmplitudeUtility: AmplitudeProtocol {
             }
             return amplitudeInstance
         }
+    }
+    
+    func signUpClick(with type: LoginType) {
+        let identify = Identify()
+        identify.set(property: "auth_type", value: type.rawValue)
+        
+        amplitude?.identify(identify: identify)
+        amplitude?.track(
+            eventType: AMPUserType.signUpClick.rawValue
+        )
+    }
+    
+    func signUpComplete() {
+        
+    }
+    
+    func loginComplete() {
+        
+    }
+    
+    func logoutComplete() {
+        
+    }
+    
+    func withdrawalComplete() {
+        
+    }
+    
+    func searchEnterTerm() {
+        
+    }
+    
+    func searchClickResult() {
+        
+    }
+    
+    func bookmarkClickInPlace() {
+        
+    }
+    
+    func bookmarkClickInMap() {
+        
+    }
+    
+    func bookmarkClickList() {
+        
+    }
+    
+    func placeViewSheet() {
+        
+    }
+    
+    func placeViewHalf() {
+        
+    }
+    
+    func placeViewMenu() {
+        
+    }
+    
+    func placeViewReview() {
+        
+    }
+    
+    func reviewViewUpload() {
+        
+    }
+    
+    func reviewCompleteUpload() {
+        
+    }
+    
+    func placeViewUpload() {
+        
+    }
+    
+    func placeCompleteUpload() {
+        
+    }
+    
+    func challengeClickCheckingLevelUp() {
+        
+    }
+    
+    func challengeView() {
+        
+    }
+    
+    func placeClickEditPlace() {
+        
+    }
+    
+    func placeCompleteEditPlace() {
+        
+    }
+    
+    func placeClickEditMenu() {
+        
+    }
+    
+    func placeCompleteEditMenu() {
+        
+    }
+    
+    func placeClickRemove() {
+        
+    }
+    
+    func placeCompleteRemove() {
+        
     }
     
     // MARK: Setup User
@@ -263,6 +406,110 @@ final class AmplitudeUtility: AmplitudeProtocol {
 }
 
 final class AmplitudeUtilityDummy: AmplitudeProtocol {
+    func signUpComplete() {
+        
+    }
+    
+    func loginComplete() {
+        
+    }
+    
+    func logoutComplete() {
+        
+    }
+    
+    func withdrawalComplete() {
+        
+    }
+    
+    func searchEnterTerm() {
+        
+    }
+    
+    func searchClickResult() {
+        
+    }
+    
+    func bookmarkClickInPlace() {
+        
+    }
+    
+    func bookmarkClickInMap() {
+        
+    }
+    
+    func bookmarkClickList() {
+        
+    }
+    
+    func placeViewSheet() {
+        
+    }
+    
+    func placeViewHalf() {
+        
+    }
+    
+    func placeViewMenu() {
+        
+    }
+    
+    func placeViewReview() {
+        
+    }
+    
+    func reviewViewUpload() {
+        
+    }
+    
+    func reviewCompleteUpload() {
+        
+    }
+    
+    func placeViewUpload() {
+        
+    }
+    
+    func placeCompleteUpload() {
+        
+    }
+    
+    func challengeClickCheckingLevelUp() {
+        
+    }
+    
+    func challengeView() {
+        
+    }
+    
+    func placeClickEditPlace() {
+        
+    }
+    
+    func placeCompleteEditPlace() {
+        
+    }
+    
+    func placeClickEditMenu() {
+        
+    }
+    
+    func placeCompleteEditMenu() {
+        
+    }
+    
+    func placeClickRemove() {
+        
+    }
+    
+    func placeCompleteRemove() {
+        
+    }
+    
+    func signUpClick(with type: LoginType) {
+        return 
+    }
+    
     func signUp(with userId: String) { return }
     func withdrawal() { return }
     func login() { return }
