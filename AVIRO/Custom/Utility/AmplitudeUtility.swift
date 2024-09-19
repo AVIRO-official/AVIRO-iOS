@@ -87,8 +87,8 @@ protocol AmplitudeProtocol {
     func logoutComplete()
     func withdrawalComplete()
     
-    func searchEnterTerm()
-    func searchClickResult()
+    func searchEnterTerm(path: HomeSearchPath, number: Int, keyword: String)
+    func searchClickResult(index: Int, keyword: String, placeID: String?, placeName: String?, category: CategoryType?)
     func bookmarkClickInPlace()
     func bookmarkClickInMap()
     func bookmarkClickList()
@@ -233,12 +233,40 @@ final class AmplitudeUtility: AmplitudeProtocol {
         )
     }
     
-    func searchEnterTerm() {
-        
+    // TODO: Number 수정 필요
+    // 현 코드에서는 불가능
+    func searchEnterTerm(
+        path: HomeSearchPath,
+        number: Int,
+        keyword: String
+    ) {
+        amplitude?.track(
+            eventType: AMPBrowseType.searchEnterTerm.rawValue,
+            eventProperties: [
+                "search_path": path.value,
+                "number": number,
+                "keywords": keyword
+            ]
+        )
     }
     
-    func searchClickResult() {
-        
+    func searchClickResult(
+        index: Int,
+        keyword: String,
+        placeID: String? = nil,
+        placeName: String? = nil,
+        category: CategoryType? = nil
+    ) {
+        amplitude?.track(
+            eventType: AMPBrowseType.searchClickResult.rawValue,
+            eventProperties: [
+                "rank": index + 1,
+                "keywords": keyword,
+                "place_id": placeID ?? "null",
+                "place_name": placeName ?? "null",
+                "category": category?.title ?? "null"
+            ]
+        )
     }
     
     func bookmarkClickInPlace() {
@@ -489,11 +517,21 @@ final class AmplitudeUtilityDummy: AmplitudeProtocol {
         
     }
     
-    func searchEnterTerm() {
+    func searchEnterTerm(
+        path: HomeSearchPath,
+        number: Int,
+        keyword: String
+    ) {
         
     }
     
-    func searchClickResult() {
+    func searchClickResult(
+        index: Int,
+        keyword: String,
+        placeID: String?,
+        placeName: String?,
+        category: CategoryType?
+    ) {
         
     }
     

@@ -7,6 +7,20 @@
 
 import UIKit
 
+enum HomeSearchPath {
+    case enterTheTerm
+    case clickRecentKeyword
+    
+    var value: String {
+        switch self {
+        case .enterTheTerm:
+            return "enter the term"
+        case .clickRecentKeyword:
+            return "click recent keyword"
+        }
+    }
+}
+
 protocol HomeSearchProtocol: NSObject {
     func setupLayout()
     func setupAttribute()
@@ -15,11 +29,11 @@ protocol HomeSearchProtocol: NSObject {
     
     func historyListTableReload()
     func afterDidSelectedHistoryCell(_ query: String)
-
+    
     func activeIndicatorView()
     func placeListNoResultData()
     func placeListTableReloadData()
-
+    
     func popViewController()
     
     func showErrorAlert(with error: String, title: String?)
@@ -27,7 +41,7 @@ protocol HomeSearchProtocol: NSObject {
 
 final class HomeSearchPresenter {
     weak var viewController: HomeSearchProtocol?
-
+    
     private let searchHistoryManager = SearchHistoryManager()
     private let amplitude: AmplitudeProtocol
     
@@ -50,7 +64,10 @@ final class HomeSearchPresenter {
     
     @objc private func afterInputData() {
         self.viewController?.activeIndicatorView()
-        self.initSearchDataAndCompareAVIROData(query)
+        self.initSearchDataAndCompareAVIROData(
+            query,
+            searchPath: .enterTheTerm
+        )
     }
     
     var selectedPlace: ((String) -> Void)?
@@ -82,7 +99,7 @@ final class HomeSearchPresenter {
         
         return historyPlaceModel[row]
     }
-
+    
     // MARK: 데이터 변함에 따라 보여지는 view가 다름
     private (set) var haveHistoryTableValues = false {
         didSet {
@@ -105,7 +122,7 @@ final class HomeSearchPresenter {
         viewController?.setupLayout()
         viewController?.setupAttribute()
     }
-                
+    
     private func loadHistoryTableArray() {
         let loadedHistory = searchHistoryManager.getHistoryModel()
         
@@ -152,28 +169,34 @@ final class HomeSearchPresenter {
     }
     
     // MARK: 최초 Search 후 KakaoMap Load -> AVIRO 데이터 비교
-    func initSearchDataAndCompareAVIROData(_ query: String) {
+    func initSearchDataAndCompareAVIROData(
+        _ query: String,
+        searchPath: HomeSearchPath
+    ) {
         guard query != "" else { return }
         
         isEndCompare = false
         matchedPlaceModel.removeAll()
         
-        initialSearchData(query: query) { [weak self] placeList in
+        initialSearchData(
+            searchPath: searchPath,
+            query: query
+        ) { [weak self] placeList in
             self?.makeToPlaceFromAVIROData(placeList: placeList)
         }
-        
     }
     
     // MARK: Paging후 KakaoMap Load -> AVIRO 데이터 비교
     func afterPagingSearchAndCompareAVIROData(_ query: String) {
         guard query != "" else { return }
-
+        
         pagingSearchData(query: query) { [weak self] placeList in
             self?.makeToPlaceFromAVIROData(placeList: placeList)
         }
     }
     
     private func initialSearchData(
+        searchPath: HomeSearchPath,
         query: String,
         completion: @escaping ([PlaceListModel]) -> Void
     ) {
@@ -181,7 +204,18 @@ final class HomeSearchPresenter {
         
         currentPage = 1
         isEnding = false
-        searchPlaceData(query: query, page: currentPage, completion: completion)
+        searchPlaceData(
+            query: query,
+            page: currentPage,
+            completion: completion) { [weak self] number in
+                guard let self = self else { return }
+                
+                self.amplitude.searchEnterTerm(
+                    path: searchPath,
+                    number: number,
+                    keyword: query
+                )
+            }
     }
     
     private func pagingSearchData(
@@ -189,13 +223,19 @@ final class HomeSearchPresenter {
         completion: @escaping ([PlaceListModel]) -> Void
     ) {
         currentPage += 1
-        searchPlaceData(query: query, page: currentPage, completion: completion)
+        searchPlaceData(
+            query: query,
+            page: currentPage,
+            completion: completion) { _ in
+                return
+            }
     }
     
     private func searchPlaceData(
         query: String,
         page: Int,
-        completion: @escaping ([PlaceListModel]) -> Void
+        completion: @escaping ([PlaceListModel]) -> Void,
+        logCompletion: @escaping (Int) -> Void
     ) {
         if isEnding || isLoading {
             return
@@ -239,12 +279,12 @@ final class HomeSearchPresenter {
                 }
                 
                 self?.isEnding = model.meta.isEnd
-                
+                logCompletion(model.meta.totalCount)
                 completion(placeList)
                 
             case .failure(let error):
                 self?.isLoading = false
-
+                
                 if let error = error.errorDescription {
                     self?.viewController?.showErrorAlert(with: error, title: nil)
                 }
@@ -269,9 +309,9 @@ final class HomeSearchPresenter {
             
             beforeMatchedArray.append(model)
         }
-                
+        
         let beforeMatchedRequestModel = AVIROBeforeComparePlaceDTO(placeArray: beforeMatchedArray)
-                
+        
         AVIROAPI.manager.checkPlaceList(with: beforeMatchedRequestModel) { [weak self] result in
             switch result {
             case .success(let model):
@@ -309,7 +349,7 @@ final class HomeSearchPresenter {
             
             let roundedX = Double(round(1000 * place.x) / 1000)
             let roundedY = Double(round(1000 * place.y) / 1000)
-
+            
             let matchedPlace = MatchedPlaceModel(
                 placeId: matched?.placeId ?? "",
                 title: place.title,
@@ -321,10 +361,10 @@ final class HomeSearchPresenter {
                 x: roundedX,
                 y: roundedY
             )
-
+            
             matchedPlaceModel.append(matchedPlace)
         }
-
+        
         if matchedPlaceModel.count == 0 {
             viewController?.placeListNoResultData()
             
@@ -337,9 +377,12 @@ final class HomeSearchPresenter {
     func afterMainSearch(_ indexPath: IndexPath) {
         if isEndCompare {
             let model = matchedPlaceModel[indexPath.row]
-
-            let userInfo: [String: Any] = [NotiName.afterMainSearch.rawValue: model]
-
+            
+            let userInfo: [String: Any] = [
+                NotiName.afterMainSearch.rawValue: model,
+                "Index": indexPath.row
+            ]
+            
             NotificationCenter.default.post(
                 name: NSNotification.Name(NotiName.afterMainSearch.rawValue),
                 object: nil,

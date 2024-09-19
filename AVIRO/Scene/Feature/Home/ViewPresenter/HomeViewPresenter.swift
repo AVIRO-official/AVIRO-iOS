@@ -527,21 +527,35 @@ final class HomeViewPresenter: NSObject {
     }
     
     // MARK: Notification Method afterMainSearch
-    @objc func afterMainSearchPlace(_ noficiation: Notification) {
-        guard let checkIsInAVIRO = noficiation.userInfo?[NotiName.afterMainSearch.rawValue]
-                as? MatchedPlaceModel else { return }
+    @objc func afterMainSearchPlace(_ notification: Notification) {
+        guard let checkIsInAVIRO = notification.userInfo?[NotiName.afterMainSearch.rawValue]
+                as? MatchedPlaceModel,
+              let index = notification.userInfo?["Index"] as? Int
+        else { return }
         
-        afterMainSearch(checkIsInAVIRO)
+        afterMainSearch(checkIsInAVIRO, searchIndex: index)
     }
     
     // MARK: After Main Search Method
-    private func afterMainSearch(_ afterSearchModel: MatchedPlaceModel) {
+    private func afterMainSearch(
+        _ afterSearchModel: MatchedPlaceModel,
+        searchIndex: Int
+    ) {
         // AVIRO에 데이터가 없을 때
         if !afterSearchModel.allVegan && !afterSearchModel.someVegan && !afterSearchModel.requestVegan {
             viewController?.moveToCameraWhenNoAVIRO(
                 afterSearchModel.x,
                 afterSearchModel.y
             )
+            
+            amplitude.searchClickResult(
+                index: searchIndex,
+                keyword: afterSearchModel.title,
+                placeID: nil,
+                placeName: nil,
+                category: nil
+            )
+            
         } else {
         // AVIRO에 데이터가 있을 때
             let (markerModel, index) = markerModelManager.getMarkerModelFromSerachModel(with: afterSearchModel)
@@ -560,6 +574,14 @@ final class HomeViewPresenter: NSObject {
             getPlaceSummaryModel(markerModel)
 
             viewController?.moveToCameraWhenHasAVIRO(markerModel, zoomTo: 14)
+            
+            amplitude.searchClickResult(
+                index: searchIndex,
+                keyword: afterSearchModel.title,
+                placeID: markerModel.placeId,
+                placeName: afterSearchModel.title,
+                category: markerModel.categoryType
+            )
         }
     }
     
