@@ -607,6 +607,7 @@ final class HomeViewPresenter: NSObject {
     func loadBookmark(_ isSelected: Bool) {
         isStarButtonSelected = isSelected
         if isSelected {
+            amplitude.bookmarkClickInMap()
             whenAfterLoadStarButtonTapped()
         } else {
             whenAfterLoadNotStarButtonTapped()
@@ -705,11 +706,15 @@ final class HomeViewPresenter: NSObject {
     
     // MARK: Bookmark Upload & Delete Method
     func updateBookmark(_ isSelected: Bool) {
-        guard let placeId = selectedPlaceId else { return }
+        guard let placeId = selectedPlaceId,
+            let summaryModel = selectedSummaryModel
+        else { return }
         
         let placeIds = [placeId]
         
         if isSelected {
+            amplitude.bookmarkClickInPlace(clickedModel: summaryModel)
+            
             bookmarkManager.updateData(with: placeIds) { [weak self] error in
                 self?.viewController?.showToastAlert(error)
             }

@@ -89,7 +89,7 @@ protocol AmplitudeProtocol {
     
     func searchEnterTerm(path: HomeSearchPath, number: Int, keyword: String)
     func searchClickResult(index: Int, keyword: String, placeID: String?, placeName: String?, category: CategoryType?)
-    func bookmarkClickInPlace()
+    func bookmarkClickInPlace(clickedModel: AVIROPlaceSummary)
     func bookmarkClickInMap()
     func bookmarkClickList()
     func placeViewSheet()
@@ -269,16 +269,28 @@ final class AmplitudeUtility: AmplitudeProtocol {
         )
     }
     
-    func bookmarkClickInPlace() {
-        
+    func bookmarkClickInPlace(clickedModel: AVIROPlaceSummary) {
+        amplitude?.track(
+            eventType: AMPBrowseType.bookmarkClickInPlace.rawValue,
+            eventProperties: [
+                "address": clickedModel.address,
+                "place_id": clickedModel.placeId,
+                "place_name": clickedModel.title,
+                "category": clickedModel.category
+            ]
+        )
     }
     
     func bookmarkClickInMap() {
-        
+        amplitude?.track(
+            eventType: AMPBrowseType.bookmarkClickInMap.rawValue
+        )
     }
     
     func bookmarkClickList() {
-        
+        amplitude?.track(
+            eventType: AMPBrowseType.bookmarkClickList.rawValue
+        )
     }
     
     func placeViewSheet() {
@@ -535,7 +547,7 @@ final class AmplitudeUtilityDummy: AmplitudeProtocol {
         
     }
     
-    func bookmarkClickInPlace() {
+    func bookmarkClickInPlace(clickedModel: AVIROPlaceSummary) {
         
     }
     

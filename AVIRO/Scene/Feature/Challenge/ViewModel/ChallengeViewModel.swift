@@ -124,7 +124,7 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
                 case .review:
                     self.amplitude.reviewListPresent()
                 case .bookmark:
-                    self.amplitude.bookmarkListPresent()
+                    self.amplitude.bookmarkClickList()
                 }
                 
                 return
