@@ -108,7 +108,7 @@ final class ThridRegistrationPresenter {
                         }
 //                        self?.amplitude.signUp(with: data.userId)
                         
-                        MyData.my.whenLogin(
+                        MyData.my.createUser(
                             userId: data.userId,
                             userName: data.userName,
                             userEmail: data.userEmail,
@@ -116,7 +116,6 @@ final class ThridRegistrationPresenter {
                             marketingAgree: data.marketingAgree
                         )
                         self?.viewController?.pushFinalRegistrationView()
-                        self?.amplitude.signUpComplete()
                     }
                 } else {
                     if let message = success.message {

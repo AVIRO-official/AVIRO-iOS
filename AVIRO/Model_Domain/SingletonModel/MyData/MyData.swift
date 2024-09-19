@@ -8,6 +8,13 @@
 import Foundation
 
 protocol MyDataProtocol {
+    func createUser(
+        userId: String,
+        userName: String,
+        userEmail: String,
+        userNickname: String,
+        marketingAgree: Int
+    )
     func whenLogin(
         userId: String,
         userName: String,
@@ -44,6 +51,22 @@ final class MyData: MyDataProtocol {
         self.nickname = userNickName
         self.marketingAgree = marketingAgree
         self.amplitude = amplitude
+    }
+    
+    func createUser(
+        userId: String,
+        userName: String,
+        userEmail: String,
+        userNickname: String,
+        marketingAgree: Int
+    ) {
+        self.id = userId
+        self.name = userName
+        self.email = userEmail
+        self.nickname = userNickname
+        self.marketingAgree = marketingAgree
+        
+        amplitude.signUpComplete()
     }
     
     func whenLogin(
