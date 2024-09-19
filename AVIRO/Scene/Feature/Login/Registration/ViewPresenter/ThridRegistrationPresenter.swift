@@ -106,7 +106,7 @@ final class ThridRegistrationPresenter {
                                 KeychainKey.refreshToken.rawValue
                             )
                         }
-                        self?.amplitude.signUp(with: data.userId)
+//                        self?.amplitude.signUp(with: data.userId)
                         
                         MyData.my.whenLogin(
                             userId: data.userId,
@@ -116,6 +116,7 @@ final class ThridRegistrationPresenter {
                             marketingAgree: data.marketingAgree
                         )
                         self?.viewController?.pushFinalRegistrationView()
+                        self?.amplitude.signUpComplete()
                     }
                 } else {
                     if let message = success.message {

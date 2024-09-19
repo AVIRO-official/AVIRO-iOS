@@ -76,11 +76,12 @@ final class LoginViewPresenter: NSObject {
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let isMember):
-                        self?.amplitude.signUpClick(with: type)
                         self?.viewController?.switchIsLoading(with: false)
                         if isMember {
+                            self?.amplitude.loginComplete()
                             self?.viewController?.pushTabBar()
                         } else {
+                            self?.amplitude.signUpClick(with: type)
                             let usecase = self?.socialLoginUseCase
                             self?.viewController?.pushRegistrationView(usecase: usecase!)
                         }

@@ -73,8 +73,8 @@ extension SocialLoginUseCase: SocialLoginUseCaseInterface {
                             result.userData.refreshToken,
                             forKey: KeychainKey.refreshToken.rawValue
                         )
+                        
                         completion(.success(true))
-
                     } else {
                         self?.setupUserDataFromApple(result)
                         self?.signinInfo.loginType = .apple

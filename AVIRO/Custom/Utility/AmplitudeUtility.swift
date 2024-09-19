@@ -19,7 +19,6 @@ enum AMType: String {
     case userLogin = "user_login"
     // Remove
     case userLogout = "user_logout"
-        //t
     // Move
     case placeUpload = "place_upload"
     // Move
@@ -121,9 +120,13 @@ protocol AmplitudeProtocol {
     
     func placePresent(with place: String)
     func placeSearch(with query: String)
-
+    
     func placeEdit(with place: String)
-    func menuEdit(with place: String, beforeMenus: [AVIROMenu], afterMenus: [AVIROMenu])
+    func menuEdit(
+        with place: String,
+        beforeMenus: [AVIROMenu],
+        afterMenus: [AVIROMenu]
+    )
     
     func challengePresent()
     func placeListPresent()
@@ -157,7 +160,10 @@ final class AmplitudeUtility: AmplitudeProtocol {
     
     func signUpClick(with type: LoginType) {
         let identify = Identify()
-        identify.set(property: "auth_type", value: type.rawValue)
+        identify.set(
+            property: "auth_type",
+            value: type.rawValue
+        )
         
         amplitude?.identify(identify: identify)
         amplitude?.track(
@@ -166,14 +172,48 @@ final class AmplitudeUtility: AmplitudeProtocol {
     }
     
     func signUpComplete() {
+        let date = Date().toSimpleDateString()
+        let identify = Identify()
+        let version = SystemUtility.appVersion ?? ""
+        let type = UserDefaults.standard.string(forKey: UDKey.loginType.rawValue) ?? ""
         
+        identify.set(
+            property: "name",
+            value: MyData.my.name
+        )
+        identify.set(
+            property: "email",
+            value: MyData.my.email
+        )
+        identify.set(
+            property: "nickname",
+            value: MyData.my.nickname
+        )
+        identify.set(
+            property: "version",
+            value: version
+        )
+        identify.set(
+            property: "auth_type",
+            value: type
+        )
+        
+        amplitude?.identify(identify: identify)
+        
+        
+        amplitude?.track(eventType: date)
+        amplitude?.track(
+            eventType: AMPUserType.signupComplete.rawValue
+        )
     }
     
     func loginComplete() {
-        
+        let type = UserDefaults.standard.string(forKey: UDKey.loginType.rawValue) ?? ""
     }
     
     func logoutComplete() {
+        let type = UserDefaults.standard.string(forKey: UDKey.loginType.rawValue) ?? ""
+
         
     }
     
@@ -273,16 +313,31 @@ final class AmplitudeUtility: AmplitudeProtocol {
     
     // MARK: Withdrawal User
     func withdrawal() {
-        amplitude?.track(eventType: AMType.withdrawal.rawValue)
+        amplitude?.track(
+            eventType: AMType.withdrawal.rawValue
+        )
     }
     
     // MARK: Login
     func login() {
         let identify = Identify()
-        identify.set(property: "name", value: MyData.my.name)
-        identify.set(property: "email", value: MyData.my.email)
-        identify.set(property: "nickname", value: MyData.my.nickname)
-        identify.set(property: "version", value: SystemUtility.appVersion ?? "")
+        
+        identify.set(
+            property: "name",
+            value: MyData.my.name
+        )
+        identify.set(
+            property: "email",
+            value: MyData.my.email
+        )
+        identify.set(
+            property: "nickname",
+            value: MyData.my.nickname
+        )
+        identify.set(
+            property: "version",
+            value: SystemUtility.appVersion ?? ""
+        )
         
         amplitude?.identify(identify: identify)
         amplitude?.track(eventType: AMType.userLogin.rawValue)
@@ -507,7 +562,7 @@ final class AmplitudeUtilityDummy: AmplitudeProtocol {
     }
     
     func signUpClick(with type: LoginType) {
-        return 
+        return
     }
     
     func signUp(with userId: String) { return }
@@ -520,7 +575,7 @@ final class AmplitudeUtilityDummy: AmplitudeProtocol {
         with place: String,
         review: String
     ) { return }
-
+    
     func placePresent(with place: String) { return }
     func placeSearch(with query: String) { return }
     

@@ -133,13 +133,12 @@ final class AppController {
         keychain.delete(KeychainKey.refreshToken.rawValue)
         
         guard let userID = keychain.get(KeychainKey.userID.rawValue) else {
-            print("ADAWDAW")
             setLoginView()
             return
         }
         
         let userCheck = AVIROKakaoUserCheckMemberDTO(userId: userID)
-        print("TSET")
+
         AVIROAPI.manager.checkKakaoUserWhenLogin(with: userCheck) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
