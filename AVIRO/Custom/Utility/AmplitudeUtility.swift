@@ -200,25 +200,37 @@ final class AmplitudeUtility: AmplitudeProtocol {
         
         amplitude?.identify(identify: identify)
         
-        
-        amplitude?.track(eventType: date)
         amplitude?.track(
-            eventType: AMPUserType.signupComplete.rawValue
+            eventType: AMPUserType.signupComplete.rawValue,
+            eventProperties: ["signup_date": date]
         )
     }
     
     func loginComplete() {
-        let type = UserDefaults.standard.string(forKey: UDKey.loginType.rawValue) ?? ""
+        let date = Date().toString()
+        
+        amplitude?.track(
+            eventType: AMPUserType.loginComplete.rawValue,
+            eventProperties: ["login_date": date]
+        )
     }
     
     func logoutComplete() {
-        let type = UserDefaults.standard.string(forKey: UDKey.loginType.rawValue) ?? ""
-
+        let date = Date().toString()
         
+        amplitude?.track(
+            eventType: AMPUserType.logoutComplete.rawValue,
+            eventProperties: ["logout_date": date]
+        )
     }
     
     func withdrawalComplete() {
+        let date = Date().toSimpleDateString()
         
+        amplitude?.track(
+            eventType: AMPUserType.withdrawalComplete.rawValue,
+            eventProperties: ["withdrawal_date": date]
+        )
     }
     
     func searchEnterTerm() {

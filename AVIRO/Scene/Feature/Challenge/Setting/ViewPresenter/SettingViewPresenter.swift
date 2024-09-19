@@ -109,7 +109,7 @@ final class SettingViewPresenter {
                 if success.statusCode == 200 {
                     self?.bookmarkManager.deleteAllData()
                     
-                    MyData.my.whenLogout()
+                    MyData.my.whenWithdrawal()
                     UserCoordinate.shared.isFirstLoadLocation = false
                     self?.keychain.delete(KeychainKey.appleRefreshToken.rawValue)
                     self?.keychain.delete(KeychainKey.refreshToken.rawValue)
@@ -118,9 +118,7 @@ final class SettingViewPresenter {
                         "none",
                         forKey: UDKey.loginType.rawValue
                     )
-                    
-                    self?.amplitude.withdrawal()
-                    
+                                        
                     DispatchQueue.main.async {
                         self?.markerManager.deleteAllMarker()
                         

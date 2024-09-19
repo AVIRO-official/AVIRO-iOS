@@ -78,7 +78,6 @@ final class LoginViewPresenter: NSObject {
                     case .success(let isMember):
                         self?.viewController?.switchIsLoading(with: false)
                         if isMember {
-                            self?.amplitude.loginComplete()
                             self?.viewController?.pushTabBar()
                         } else {
                             self?.amplitude.signUpClick(with: type)

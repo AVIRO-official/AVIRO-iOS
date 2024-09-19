@@ -16,6 +16,7 @@ protocol MyDataProtocol {
         marketingAgree: Int
     )
     func whenLogout()
+    func whenWithdrawal()
 }
 
 final class MyData: MyDataProtocol {
@@ -58,7 +59,7 @@ final class MyData: MyDataProtocol {
         self.nickname = userNickname
         self.marketingAgree = marketingAgree
         
-        self.amplitude.login()
+        amplitude.loginComplete()
     }
     
     func whenLogout() {
@@ -68,6 +69,16 @@ final class MyData: MyDataProtocol {
         self.nickname = ""
         self.marketingAgree = 0
         
-        self.amplitude.logout()
+        amplitude.logoutComplete()
+    }
+    
+    func whenWithdrawal() {
+        self.id = ""
+        self.name = ""
+        self.email = ""
+        self.nickname = ""
+        self.marketingAgree = 0
+        
+        amplitude.withdrawalComplete()
     }
 }

@@ -142,7 +142,7 @@
 		C562B6DF2B387AE200CE5D4C /* ChallengeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6DE2B387AE200CE5D4C /* ChallengeInfoViewController.swift */; };
 		C562B6E22B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */; };
 		C562B6E42B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */; };
-		C564DAB32BA57240002174B4 /* AVIROWellcome+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C564DAB22BA57240002174B4 /* AVIROWellcome+DTO.swift */; };
+		C564DAB32BA57240002174B4 /* AVIROWelcome+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C564DAB22BA57240002174B4 /* AVIROWelcome+DTO.swift */; };
 		C566EF622C398EC6009E58DD /* AuthAPIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566EF612C398EC6009E58DD /* AuthAPIEndpoints.swift */; };
 		C566EF652C39931B009E58DD /* RepositoryTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566EF642C39931B009E58DD /* RepositoryTask.swift */; };
 		C566EF672C399333009E58DD /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C566EF662C399333009E58DD /* Cancellable.swift */; };
@@ -201,6 +201,7 @@
 		C5B071E12A59454300AE709A /* BottomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B071E02A59454300AE709A /* BottomCell.swift */; };
 		C5B071E52A59B4AC00AE709A /* RegistrationField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B071E42A59B4AC00AE709A /* RegistrationField.swift */; };
 		C5B371542C9B217E003B8084 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B371532C9B217E003B8084 /* Date+Extension.swift */; };
+		C5B371572C9BBE76003B8084 /* WelcomePopups.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B371562C9BBE76003B8084 /* WelcomePopups.swift */; };
 		C5BA9DC92BE8AB8F004FA06E /* DataTransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DC82BE8AB8F004FA06E /* DataTransferService.swift */; };
 		C5BA9DCB2BE8AB97004FA06E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DCA2BE8AB97004FA06E /* NetworkService.swift */; };
 		C5BA9DCD2BE8AB9E004FA06E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA9DCC2BE8AB9E004FA06E /* Endpoint.swift */; };
@@ -488,7 +489,7 @@
 		C562B6DE2B387AE200CE5D4C /* ChallengeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoViewController.swift; sourceTree = "<group>"; };
 		C562B6E12B387B8700CE5D4C /* ChallengeInfoPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoPresentationAnimator.swift; sourceTree = "<group>"; };
 		C562B6E32B387CA200CE5D4C /* ChallengeInfoPresentaionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoPresentaionDelegate.swift; sourceTree = "<group>"; };
-		C564DAB22BA57240002174B4 /* AVIROWellcome+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROWellcome+DTO.swift"; sourceTree = "<group>"; };
+		C564DAB22BA57240002174B4 /* AVIROWelcome+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROWelcome+DTO.swift"; sourceTree = "<group>"; };
 		C566EF612C398EC6009E58DD /* AuthAPIEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPIEndpoints.swift; sourceTree = "<group>"; };
 		C566EF642C39931B009E58DD /* RepositoryTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTask.swift; sourceTree = "<group>"; };
 		C566EF662C399333009E58DD /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
@@ -548,6 +549,7 @@
 		C5B071E02A59454300AE709A /* BottomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCell.swift; sourceTree = "<group>"; };
 		C5B071E42A59B4AC00AE709A /* RegistrationField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationField.swift; sourceTree = "<group>"; };
 		C5B371532C9B217E003B8084 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		C5B371562C9BBE76003B8084 /* WelcomePopups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePopups.swift; sourceTree = "<group>"; };
 		C5BA9DC82BE8AB8F004FA06E /* DataTransferService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferService.swift; sourceTree = "<group>"; };
 		C5BA9DCA2BE8AB97004FA06E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		C5BA9DCC2BE8AB9E004FA06E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
@@ -762,9 +764,10 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
-		C50367F32A1795BE0020C6BB /* Model */ = {
+		C50367F32A1795BE0020C6BB /* Model_Domain */ = {
 			isa = PBXGroup;
 			children = (
+				C5B371552C9BBE68003B8084 /* WelcomeModel */,
 				C51000292AB5B90200F65C1F /* UserModel */,
 				C5EB51022A20927400B29CC1 /* HomeViewModel */,
 				C5732C7A2A41D3F800CDC499 /* EnrollViewModel */,
@@ -774,7 +777,7 @@
 				C51B09B62A82046000916BBD /* LocalDataModel */,
 				C5351B652A1A128D00116D50 /* SingletonModel */,
 			);
-			path = Model;
+			path = Model_Domain;
 			sourceTree = "<group>";
 		};
 		C50367F62A179D6E0020C6BB /* Custom */ = {
@@ -989,13 +992,6 @@
 			path = HeaderView;
 			sourceTree = "<group>";
 		};
-		C520663D2A80C60D0038ECCD /* ViewLogic */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewLogic;
-			sourceTree = "<group>";
-		};
 		C520663E2A80C6220038ECCD /* CoordinateSingleton */ = {
 			isa = PBXGroup;
 			children = (
@@ -1050,7 +1046,7 @@
 				C593B64C2A4BFD9A00D224CE /* AVIRO.entitlements */,
 				C50367EC2A1791620020C6BB /* App */,
 				C50367F62A179D6E0020C6BB /* Custom */,
-				C50367F32A1795BE0020C6BB /* Model */,
+				C50367F32A1795BE0020C6BB /* Model_Domain */,
 				C50367F22A1795B90020C6BB /* Manager */,
 				C50367ED2A1791840020C6BB /* Scene */,
 				C5BA9DFE2BED1C64004FA06E /* Data */,
@@ -1083,7 +1079,6 @@
 		C5351B652A1A128D00116D50 /* SingletonModel */ = {
 			isa = PBXGroup;
 			children = (
-				C520663D2A80C60D0038ECCD /* ViewLogic */,
 				C5166E4B2A945214003495AA /* MyData */,
 				C520663E2A80C6220038ECCD /* CoordinateSingleton */,
 				C520663F2A80C6450038ECCD /* APISingleton */,
@@ -1539,7 +1534,7 @@
 		C564DAB12BA571A7002174B4 /* ETC */ = {
 			isa = PBXGroup;
 			children = (
-				C564DAB22BA57240002174B4 /* AVIROWellcome+DTO.swift */,
+				C564DAB22BA57240002174B4 /* AVIROWelcome+DTO.swift */,
 			);
 			path = ETC;
 			sourceTree = "<group>";
@@ -1829,6 +1824,14 @@
 				C52CD2DC2BCA5C310031671B /* BlurEffectView.swift */,
 			);
 			path = SubClass;
+			sourceTree = "<group>";
+		};
+		C5B371552C9BBE68003B8084 /* WelcomeModel */ = {
+			isa = PBXGroup;
+			children = (
+				C5B371562C9BBE76003B8084 /* WelcomePopups.swift */,
+			);
+			path = WelcomeModel;
 			sourceTree = "<group>";
 		};
 		C5BA9DC62BE8AB22004FA06E /* Infrastructure */ = {
@@ -3064,7 +3067,7 @@
 				C5A201C72A98A6D200A54381 /* EditOperatingHoursView.swift in Sources */,
 				C5BA9DF62BECCD58004FA06E /* DataTransferError.swift in Sources */,
 				C5C290772A85E4FF00ED5DCE /* PlaceHomeView.swift in Sources */,
-				C564DAB32BA57240002174B4 /* AVIROWellcome+DTO.swift in Sources */,
+				C564DAB32BA57240002174B4 /* AVIROWelcome+DTO.swift in Sources */,
 				C5D93D9F2A581EC800629C39 /* FirstRegistrationViewController.swift in Sources */,
 				C528E4C02A5FF1CB002BD72E /* FinalRegistrationViewController.swift in Sources */,
 				C5FBDA5C2B398264007AC77E /* ChallengeInfoYellowView.swift in Sources */,
@@ -3214,6 +3217,7 @@
 				C5A1691A2C4D53CF0028BCC0 /* SingInInfo.swift in Sources */,
 				C51BBAD52A78D53D00BF5B7C /* AVIROCheckPlace+DTO.swift in Sources */,
 				C5ED996E2C0890CE0077B2F9 /* StoreInfoRepositoryInterface.swift in Sources */,
+				C5B371572C9BBE76003B8084 /* WelcomePopups.swift in Sources */,
 				C56857802A7113C600F52715 /* NormalTableViewCell.swift in Sources */,
 				C549CDD82B9B538500CB6BF5 /* MyBookmarkCellModel.swift in Sources */,
 				C5BA9DD42BE8B39B004FA06E /* RequestTable.swift in Sources */,
@@ -3439,7 +3443,7 @@
 				CODE_SIGN_ENTITLEMENTS = AVIRO/AVIRO.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C4K2HXA435;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
@@ -3458,7 +3462,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.VeganRestaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3477,7 +3481,7 @@
 				CODE_SIGN_ENTITLEMENTS = AVIRO/AVIRO.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C4K2HXA435;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AVIRO/App/Info.plist;
@@ -3496,7 +3500,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = SeonghunJeon.VeganRestaurant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
