@@ -65,6 +65,15 @@ enum AMPBrowseType: String {
     case placeViewReview = "place_view_review"
 }
 
+enum PlaceViewSheetType: String {
+    case marker = "marker"
+    case search = "search"
+    case bookmark = "bookmark in map"
+    case bookmarkList = "bookmark in challenge tab"
+    case registeredPlaceList = "registered place list in challenge tab"
+    case registeredReviewList = "registered review list in challenge tab"
+}
+
 enum AMPEngage: String {
     case reviewViewUpload = "review_view_upload"
     case reviewCompleteUpload = "review_complete_upload"
@@ -92,7 +101,7 @@ protocol AmplitudeProtocol {
     func bookmarkClickInPlace(clickedModel: AVIROPlaceSummary)
     func bookmarkClickInMap()
     func bookmarkClickList()
-    func placeViewSheet()
+    func placeViewSheet(path: PlaceViewSheetType, clickedModel: AVIROPlaceSummary, restaurantActive: Bool, cafeActive: Bool, barActive: Bool, bakeryActive: Bool)
     func placeViewHalf()
     func placeViewMenu()
     func placeViewReview()
@@ -293,8 +302,27 @@ final class AmplitudeUtility: AmplitudeProtocol {
         )
     }
     
-    func placeViewSheet() {
-        
+    func placeViewSheet(
+        path: PlaceViewSheetType,
+        clickedModel: AVIROPlaceSummary,
+        restaurantActive: Bool,
+        cafeActive: Bool,
+        barActive: Bool,
+        bakeryActive: Bool
+    ) {
+        amplitude?.track(
+            eventType: AMPBrowseType.placeViewSheet.rawValue,
+            eventProperties: [
+                "view_path_browse_place": path.rawValue,
+                "place_name": clickedModel.title,
+                "place_id": clickedModel.placeId,
+                "category": clickedModel.category,
+                "toggle_restaurant_activated": restaurantActive,
+                "toggle_cafe_activated": cafeActive,
+                "toggle_bar_activated" : barActive,
+                "toggle_bakery_activated": bakeryActive
+            ]
+        )
     }
     
     func placeViewHalf() {
@@ -559,7 +587,7 @@ final class AmplitudeUtilityDummy: AmplitudeProtocol {
         
     }
     
-    func placeViewSheet() {
+    func placeViewSheet(path: PlaceViewSheetType, clickedModel: AVIROPlaceSummary, restaurantActive: Bool, cafeActive: Bool, barActive: Bool, bakeryActive: Bool) {
         
     }
     

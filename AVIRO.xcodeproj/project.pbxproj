@@ -63,7 +63,7 @@
 		C51385502AAD921F001AB827 /* AVIROPlaceReportCheck+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C513854F2AAD921F001AB827 /* AVIROPlaceReportCheck+DTO.swift */; };
 		C5166E492A9305A9003495AA /* AVIROPlaceSummary+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5166E482A9305A9003495AA /* AVIROPlaceSummary+DTO.swift */; };
 		C5166E4D2A945228003495AA /* MyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5166E4C2A945228003495AA /* MyData.swift */; };
-		C51AED1D2A8A192D0015FBC2 /* ChangedViewAction+HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51AED1C2A8A192D0015FBC2 /* ChangedViewAction+HomeViewController.swift */; };
+		C51AED1D2A8A192D0015FBC2 /* HomeViewController+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51AED1C2A8A192D0015FBC2 /* HomeViewController+Action.swift */; };
 		C51AED1F2A8B2BC80015FBC2 /* HomeTopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51AED1E2A8B2BC80015FBC2 /* HomeTopButton.swift */; };
 		C51AED212A8B2BDB0015FBC2 /* HomeMapReferButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51AED202A8B2BDB0015FBC2 /* HomeMapReferButton.swift */; };
 		C51AED232A8B7B000015FBC2 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51AED222A8B7B000015FBC2 /* UIViewController+Extension.swift */; };
@@ -405,7 +405,7 @@
 		C513854F2AAD921F001AB827 /* AVIROPlaceReportCheck+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROPlaceReportCheck+DTO.swift"; sourceTree = "<group>"; };
 		C5166E482A9305A9003495AA /* AVIROPlaceSummary+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROPlaceSummary+DTO.swift"; sourceTree = "<group>"; };
 		C5166E4C2A945228003495AA /* MyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyData.swift; sourceTree = "<group>"; };
-		C51AED1C2A8A192D0015FBC2 /* ChangedViewAction+HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChangedViewAction+HomeViewController.swift"; sourceTree = "<group>"; };
+		C51AED1C2A8A192D0015FBC2 /* HomeViewController+Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+Action.swift"; sourceTree = "<group>"; };
 		C51AED1E2A8B2BC80015FBC2 /* HomeTopButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTopButton.swift; sourceTree = "<group>"; };
 		C51AED202A8B2BDB0015FBC2 /* HomeMapReferButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMapReferButton.swift; sourceTree = "<group>"; };
 		C51AED222A8B7B000015FBC2 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -1128,7 +1128,7 @@
 			isa = PBXGroup;
 			children = (
 				C52FA3462A175B20005E70DC /* HomeViewController.swift */,
-				C51AED1C2A8A192D0015FBC2 /* ChangedViewAction+HomeViewController.swift */,
+				C51AED1C2A8A192D0015FBC2 /* HomeViewController+Action.swift */,
 				C5D8026B2B3C67F300136D0E /* AfterHomeViewControllerProtocol.swift */,
 				C52651DC2B7FB896002038CF /* CategoryCell */,
 				C5D8026D2B3C6E0000136D0E /* AfterUploadAlertView */,
@@ -3199,7 +3199,7 @@
 				C5FBDA5A2B398258007AC77E /* ChallengeInfoTopLabelView.swift in Sources */,
 				C5DCBCA32B91DA28003502BA /* MyBookmarkListViewModel.swift in Sources */,
 				C5A201B42A986EC300A54381 /* EditPlaceInfoViewController.swift in Sources */,
-				C51AED1D2A8A192D0015FBC2 /* ChangedViewAction+HomeViewController.swift in Sources */,
+				C51AED1D2A8A192D0015FBC2 /* HomeViewController+Action.swift in Sources */,
 				C5ED99452C088E000077B2F9 /* ReviewManagementRepository.swift in Sources */,
 				C51B09BC2A82397800916BBD /* Marker+Extension.swift in Sources */,
 				C534B14E2C2EABE900C62FDA /* LoginInfo.swift in Sources */,

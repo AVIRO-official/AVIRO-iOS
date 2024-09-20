@@ -285,6 +285,15 @@ final class HomeViewController: UIViewController {
         super.viewWillDisappear(animated)
 
         presenter.viewWillDisappear()
+        
+        self.presenter.categoryType = [
+            ("식당", false),
+            ("카페", false),
+            ("술집", false),
+            ("빵집", false)
+        ]
+        searchTextField.placeholder = Text.searchPlaceHolder.rawValue
+        categoryCollectionView.reloadData()
     }
 }
 
@@ -1270,7 +1279,6 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
                 self?.blurEffectView.isHidden = true
             }
         }
-        
     }
     
     private func updateReview(with model: AfterWriteReviewModel) {
@@ -1327,7 +1335,9 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
 extension HomeViewController: TabBarToSubVCDelegate {
     func handleTabBarInteraction(withData data: [String: Any]) {
         if let placeId = data[TabBarKeys.placeId] as? String {
-            whenTabBarKeyIsPlaceId(with: placeId)
+            let source = data[TabBarKeys.source] as? TabBarSourceValues ?? .placeList
+            
+            whenTabBarKeyIsPlaceId(with: placeId, from: source)
         }
         
         if let isShowReview = data[TabBarKeys.showReview] as? Bool, isShowReview {
@@ -1340,8 +1350,11 @@ extension HomeViewController: TabBarToSubVCDelegate {
         }
     }
     
-    private func whenTabBarKeyIsPlaceId(with placeId: String) {
-        presenter.checkPlaceIdTest(with: placeId)
+    private func whenTabBarKeyIsPlaceId(
+        with placeId: String,
+        from source: TabBarSourceValues
+    ) {
+        presenter.checkPlaceIdTest(with: placeId, from: source)
     }
     
     private func whenTabBarkeyIsShwReview() {
@@ -1539,7 +1552,7 @@ extension HomeViewController: UICollectionViewDataSource {
         
         return cell
     }
-        
+    
     private func updateSearchTextField(with type: String) {
         if type == "취소" {
             searchTextField.placeholder = Text.searchPlaceHolder.rawValue

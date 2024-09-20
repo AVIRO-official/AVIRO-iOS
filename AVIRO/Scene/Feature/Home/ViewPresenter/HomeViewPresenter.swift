@@ -141,7 +141,7 @@ final class HomeViewPresenter: NSObject {
             }
         }
     }
-    
+        
     var afterGetPlaceSummaryModel: (() -> Void)?
     var afterGetPlaceDetailModel: (() -> Void)?
     
@@ -244,6 +244,8 @@ final class HomeViewPresenter: NSObject {
         if !whenKeepPlaceInfoView {
             initMarkerState()
         }
+        
+        afterCategoryChangedLoadAllMarkers()
     }
     
     // MARK: 전화, url 들어가고 난 후에도 계속 place 정보 보여주기 위한 함수
@@ -337,18 +339,20 @@ final class HomeViewPresenter: NSObject {
         guard let markerModel = markerModel,
               let index = index else { return }
         
-        getPlaceSummaryModel(markerModel)
-        
-        hasTouchedMarkerBefore = true
-        
-        selectedMarkerIndex = index
-        selectedMarkerModel = markerModel
-        selectedMarkerModel?.isClicked = true
-                
-        markerModelManager.updateMarkerModelWhenClicked(with: selectedMarkerModel!)
-        viewController?.moveToCameraWhenHasAVIRO(markerModel, zoomTo: 14)
-        
-        CenterCoordinate.shared.isChangedFromEnrollView = false
+        getPlaceSummaryModel(markerModel) { [weak self] in
+            guard let self = self else { return }
+            
+            self.hasTouchedMarkerBefore = true
+            
+            self.selectedMarkerIndex = index
+            self.selectedMarkerModel = markerModel
+            self.selectedMarkerModel?.isClicked = true
+                    
+            self.markerModelManager.updateMarkerModelWhenClicked(with: selectedMarkerModel!)
+            self.viewController?.moveToCameraWhenHasAVIRO(markerModel, zoomTo: 14)
+            
+            CenterCoordinate.shared.isChangedFromEnrollView = false
+        }
     }
     
     // MARK: Create Marker
@@ -440,6 +444,7 @@ final class HomeViewPresenter: NSObject {
     }
     
     /// 클릭한 마커 저장 후 viewController에 알리기
+    // TODO: Marker star or not
     private func setMarkerToTouchedState(_ marker: NMFMarker) {
         let (markerModel, index) = markerModelManager.getMarkerModelFromMarker(with: marker)
                 
@@ -447,21 +452,56 @@ final class HomeViewPresenter: NSObject {
         
         guard let validIndex = index else { return }
         
-        getPlaceSummaryModel(validMarkerModel)
+        var restaurantActive = false
+        var cafeActive = false
+        var barActive = false
+        var bakeryActive = false
         
-        selectedMarkerIndex = validIndex
-        selectedMarkerModel = validMarkerModel
+        for (category, isActive) in categoryType {
+            switch category {
+            case "식당":
+                restaurantActive = isActive
+            case "카페":
+                cafeActive = isActive
+            case "술집":
+                barActive = isActive
+            case "빵집":
+                bakeryActive = isActive
+            default:
+                break
+            }
+        }
         
-        selectedMarkerModel?.isClicked = true
+        getPlaceSummaryModel(validMarkerModel) { [weak self] in
+            guard let self = self else { return }
+            guard let selectedSummaryModel = self.selectedSummaryModel else { return }
+            
+            self.selectedMarkerIndex = validIndex
+            self.selectedMarkerModel = validMarkerModel
+            
+            self.selectedMarkerModel?.isClicked = true
 
-        hasTouchedMarkerBefore = true
-                
-        markerModelManager.updateMarkerModelWhenClicked(with: selectedMarkerModel!)
-        viewController?.moveToCameraWhenHasAVIRO(validMarkerModel, zoomTo: nil)
+            self.hasTouchedMarkerBefore = true
+                    
+            self.markerModelManager.updateMarkerModelWhenClicked(with: selectedMarkerModel!)
+            self.viewController?.moveToCameraWhenHasAVIRO(validMarkerModel, zoomTo: nil)
+            
+            self.amplitude.placeViewSheet(
+                path: isStarButtonSelected ? .bookmark : .marker,
+                clickedModel: selectedSummaryModel,
+                restaurantActive: restaurantActive,
+                cafeActive: cafeActive,
+                barActive: barActive,
+                bakeryActive: bakeryActive
+            )
+        }
     }
     
     // MARK: Load Place Sumamry
-    private func getPlaceSummaryModel(_ markerModel: MarkerModel) {
+    private func getPlaceSummaryModel(
+        _ markerModel: MarkerModel,
+        completion: @escaping () -> Void
+    ) {
         let mapPlace = markerModel.veganType
         let placeX = markerModel.marker.position.lng
         let placeY = markerModel.marker.position.lat
@@ -505,6 +545,7 @@ final class HomeViewPresenter: NSObject {
                             )
                             
                             self?.afterGetPlaceSummaryModel?()
+                            completion()
                         }
                     }
                 } else {
@@ -571,36 +612,73 @@ final class HomeViewPresenter: NSObject {
                         
             hasTouchedMarkerBefore = true
             
-            getPlaceSummaryModel(markerModel)
-
-            viewController?.moveToCameraWhenHasAVIRO(markerModel, zoomTo: 14)
-            
-            amplitude.searchClickResult(
-                index: searchIndex,
-                keyword: afterSearchModel.title,
-                placeID: markerModel.placeId,
-                placeName: afterSearchModel.title,
-                category: markerModel.categoryType
-            )
+            getPlaceSummaryModel(markerModel) { [weak self] in
+                guard let self = self else { return }
+                guard let selectedSummaryModel = self.selectedSummaryModel else { return }
+                
+                self.viewController?.moveToCameraWhenHasAVIRO(
+                    markerModel,
+                    zoomTo: 14
+                )
+                
+                self.amplitude.searchClickResult(
+                    index: searchIndex,
+                    keyword: afterSearchModel.title,
+                    placeID: markerModel.placeId,
+                    placeName: afterSearchModel.title,
+                    category: markerModel.categoryType
+                )
+                
+                self.amplitude.placeViewSheet(
+                    path: .search,
+                    clickedModel: selectedSummaryModel,
+                    restaurantActive: false,
+                    cafeActive: false,
+                    barActive: false,
+                    bakeryActive: false
+                )
+            }
         }
     }
     
     // MARK: PlaceId로 marker 확인
-    func checkPlaceIdTest(with placeId: String) {
+    func checkPlaceIdTest(with placeId: String, from source: TabBarSourceValues) {
         let (markerModel, index) = markerModelManager.getMarkerModelFromPlaceId(with: placeId)
         
         guard let markerModel = markerModel else { return }
         guard let index = index else { return }
-                                        
+            
+        let sheetType: PlaceViewSheetType
+        
+        switch source {
+        case .placeList:
+            sheetType = .registeredPlaceList
+        case .commentList:
+            sheetType = .registeredReviewList
+        case .bookmarkList:
+            sheetType = .bookmarkList
+        }
+        
         selectedMarkerIndex = index
         selectedMarkerModel = markerModel
         selectedMarkerModel?.isClicked = true
                     
         hasTouchedMarkerBefore = true
         
-        getPlaceSummaryModel(markerModel)
-
-        viewController?.moveToCameraWhenHasAVIRO(markerModel, zoomTo: 14)
+        getPlaceSummaryModel(markerModel) { [weak self] in
+            guard let self = self else { return }
+            guard let selectedSummaryModel = self.selectedSummaryModel else { return }
+            
+            self.viewController?.moveToCameraWhenHasAVIRO(markerModel, zoomTo: 14)
+            self.amplitude.placeViewSheet(
+                path: sheetType,
+                clickedModel: selectedSummaryModel,
+                restaurantActive: false,
+                cafeActive: false,
+                barActive: false,
+                bakeryActive: false
+            )
+        }
     }
     
     // MARK: Bookmark Load Method
