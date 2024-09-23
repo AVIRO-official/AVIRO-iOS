@@ -53,7 +53,7 @@ protocol HomeViewProtocol: NSObject {
         editSegmentedIndex: Int
     )
     func pushEditMenuViewController(placeId: String, isAll: Bool, isSome: Bool, isRequest: Bool, menuArray: [AVIROMenu])
-    func pushReviewWriteView(with viewModel: ReviewWriteViewModel)
+    func pushReviewWriteView(with viewModel: ReviewWritableViewModel)
 
     func openWebLink(url: URL)
     func showActionSheetWhenSuccessReport()
@@ -1169,7 +1169,7 @@ final class HomeViewPresenter: NSObject {
             image = .requestCell
         }
         
-        let viewModel = ReviewWriteViewModel(
+        let viewModel = ReviewWritableViewModel(
             placeId: markerModel.placeId,
             placeIcon: image,
             placeTitle: summaryModel.title,
@@ -1201,7 +1201,7 @@ final class HomeViewPresenter: NSObject {
             image = .requestCell
         }
         
-        let viewModel = ReviewWriteViewModel(
+        let viewModel = ReviewWritableViewModel(
             placeId: markerModel.placeId,
             placeIcon: image,
             placeTitle: summaryModel.title,
@@ -1215,11 +1215,11 @@ final class HomeViewPresenter: NSObject {
     }
     
     func afterLevelUpViewCheckTapped(with level: Int) {
-        amplitude.levelupDidMove(with: level)
+        amplitude.challengeClickCheckingLevelUp(isChecked: true)
     }
     
     func afterLevelUpViewNocheckTapped(with level: Int) {
-        amplitude.levelupDidNotMove(with: level)
+        amplitude.challengeClickCheckingLevelUp(isChecked: false)
     }
     
     func loggingSearchedInfo(

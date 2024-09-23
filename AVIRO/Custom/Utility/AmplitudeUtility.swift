@@ -152,8 +152,8 @@ protocol AmplitudeProtocol {
         category: String
     )
     func placeViewUpload()
-    func placeCompleteUpload()
-    func challengeClickCheckingLevelUp()
+    func placeCompleteUpload(model: AVIROEnrollPlaceDTO)
+    func challengeClickCheckingLevelUp(isChecked: Bool)
     func challengeView()
     func placeClickEditPlace()
     func placeCompleteEditPlace()
@@ -449,19 +449,32 @@ final class AmplitudeUtility: AmplitudeProtocol {
     }
     
     func placeViewUpload() {
-        
+        amplitude?.track(
+            eventType: AMPEngage.placeViewUpload.rawValue
+        )
     }
     
-    func placeCompleteUpload() {
-        
+    func placeCompleteUpload(model: AVIROEnrollPlaceDTO) {
+        amplitude?.track(
+            eventType: AMPEngage.placeCompleteUpload.rawValue,
+            eventProperties: [
+                "place_name": model.title,
+                "place_id": model.placeId,
+                "category": model.category,
+                "menu_number": model.menuArray?.count ?? 0
+            ]
+        )
     }
     
-    func challengeClickCheckingLevelUp() {
-        
+    func challengeClickCheckingLevelUp(isChecked: Bool) {
+        amplitude?.track(
+            eventType: AMPEngage.challengeClickCheckingLevelUp.rawValue,
+            eventProperties: ["select": isChecked]
+        )
     }
     
     func challengeView() {
-        
+        amplitude?.track(eventType: AMPEngage.challengeView.rawValue)
     }
     
     func placeClickEditPlace() {
@@ -716,11 +729,11 @@ final class AmplitudeUtilityDummy: AmplitudeProtocol {
         
     }
     
-    func placeCompleteUpload() {
+    func placeCompleteUpload(model: AVIROEnrollPlaceDTO) {
         
     }
     
-    func challengeClickCheckingLevelUp() {
+    func challengeClickCheckingLevelUp(isChecked: Bool) {
         
     }
     

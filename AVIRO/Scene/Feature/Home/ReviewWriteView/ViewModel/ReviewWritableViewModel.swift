@@ -22,7 +22,7 @@ struct AfterWriteReviewModel {
     let userLevel: Int
 }
 
-final class ReviewWriteViewModel: ViewModel {
+final class ReviewWritableViewModel: ViewModel {
     private var amplitude: AmplitudeProtocol!
     
     private var placeId: String!

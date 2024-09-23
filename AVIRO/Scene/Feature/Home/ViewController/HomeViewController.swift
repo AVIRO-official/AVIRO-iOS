@@ -936,7 +936,7 @@ extension HomeViewController: HomeViewProtocol {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    func pushReviewWriteView(with viewModel: ReviewWriteViewModel) {
+    func pushReviewWriteView(with viewModel: ReviewWritableViewModel) {
         let vc = ReviewWriteViewController.create(with: viewModel)
         
         vc.tabBarDelegate = tabBarDelegate

@@ -136,7 +136,7 @@
 		C5538AAF2A1BB81200661DE2 /* AVIROEnrollPlace+DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5538AAE2A1BB81200661DE2 /* AVIROEnrollPlace+DTO.swift */; };
 		C55AE5C02BC6DCA50089DF85 /* ChallengeNameStickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55AE5BF2BC6DCA50089DF85 /* ChallengeNameStickerView.swift */; };
 		C56295072B3188530067BBE5 /* ReviewWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56295062B3188530067BBE5 /* ReviewWriteViewController.swift */; };
-		C56295092B31885C0067BBE5 /* ReviewWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56295082B31885C0067BBE5 /* ReviewWriteViewModel.swift */; };
+		C56295092B31885C0067BBE5 /* ReviewWritableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56295082B31885C0067BBE5 /* ReviewWritableViewModel.swift */; };
 		C562950C2B318BB60067BBE5 /* ReviewPlaceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562950B2B318BB60067BBE5 /* ReviewPlaceInfoView.swift */; };
 		C562B6DC2B38704600CE5D4C /* ChallengeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6DB2B38704600CE5D4C /* ChallengeViewModel.swift */; };
 		C562B6DF2B387AE200CE5D4C /* ChallengeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562B6DE2B387AE200CE5D4C /* ChallengeInfoViewController.swift */; };
@@ -483,7 +483,7 @@
 		C5538AAE2A1BB81200661DE2 /* AVIROEnrollPlace+DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVIROEnrollPlace+DTO.swift"; sourceTree = "<group>"; };
 		C55AE5BF2BC6DCA50089DF85 /* ChallengeNameStickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeNameStickerView.swift; sourceTree = "<group>"; };
 		C56295062B3188530067BBE5 /* ReviewWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewWriteViewController.swift; sourceTree = "<group>"; };
-		C56295082B31885C0067BBE5 /* ReviewWriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewWriteViewModel.swift; sourceTree = "<group>"; };
+		C56295082B31885C0067BBE5 /* ReviewWritableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewWritableViewModel.swift; sourceTree = "<group>"; };
 		C562950B2B318BB60067BBE5 /* ReviewPlaceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPlaceInfoView.swift; sourceTree = "<group>"; };
 		C562B6DB2B38704600CE5D4C /* ChallengeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewModel.swift; sourceTree = "<group>"; };
 		C562B6DE2B387AE200CE5D4C /* ChallengeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoViewController.swift; sourceTree = "<group>"; };
@@ -1498,7 +1498,7 @@
 		C56295042B3188230067BBE5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				C56295082B31885C0067BBE5 /* ReviewWriteViewModel.swift */,
+				C56295082B31885C0067BBE5 /* ReviewWritableViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3278,7 +3278,7 @@
 				C5DCBCA12B91DA13003502BA /* MyCommentListViewController.swift in Sources */,
 				C5ED996C2C0890C30077B2F9 /* StoreMenuRepositoryInterface.swift in Sources */,
 				C5A201B22A98502500A54381 /* TimeUtility.swift in Sources */,
-				C56295092B31885C0067BBE5 /* ReviewWriteViewModel.swift in Sources */,
+				C56295092B31885C0067BBE5 /* ReviewWritableViewModel.swift in Sources */,
 				C5476B6A2B304C8200F5FC6E /* ChallengeTitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

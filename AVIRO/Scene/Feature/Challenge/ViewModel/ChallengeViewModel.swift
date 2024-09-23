@@ -59,17 +59,16 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
         let challengeInfoError = PublishSubject<Error>()
         let myContributionCountError = PublishSubject<Error>()
         let myChallengeLevelError = PublishSubject<Error>()
-                
+        
         // 3개의 api가 하나의 loadInfoTrigger stream을 받고있어서 간헐적으로 api 호출이 실패함
         // 순차적으로 api 호출하도록 각각의 result을 연결
+        
         let challengeInfoResult = loadInfoTrigger
             .flatMap { [weak self] in
                 guard let self = self else {
                     return Driver<AVIROChallengeInfoDataDTO>.empty()
                 }
-                
-                self.amplitude.challengePresent()
-                
+                                
                 return self.loadChallengeInfoAPI()
                     .asDriver(onErrorRecover: { error in
                         challengeInfoError.onNext(error)
@@ -209,5 +208,9 @@ final class ChallengeViewModel: ViewModel, ChallengeViewModelProtocol {
             }
             return Disposables.create()
         }
+    }
+    
+    func handleViewWillAppearEvent() {
+        amplitude.challengeView()
     }
 }

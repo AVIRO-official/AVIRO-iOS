@@ -13,7 +13,7 @@ final class ReviewWriteViewController: UIViewController {
     weak var tabBarDelegate: TabBarFromSubVCDelegate?
     weak var homeViewDelegate: AfterHomeViewControllerProtocol?
     
-    private var viewModel: ReviewWriteViewModel!
+    private var viewModel: ReviewWritableViewModel!
     private let disposeBag = DisposeBag()
         
     private lazy var placeInfoView: ReviewPlaceInfoView = {
@@ -146,7 +146,7 @@ final class ReviewWriteViewController: UIViewController {
     
     private var afterViewDidLoad = false
     
-    static func create(with viewModel: ReviewWriteViewModel) -> ReviewWriteViewController {
+    static func create(with viewModel: ReviewWritableViewModel) -> ReviewWriteViewController {
         let vc = ReviewWriteViewController()
         
         vc.viewModel = viewModel
@@ -360,7 +360,7 @@ final class ReviewWriteViewController: UIViewController {
                 self?.startLoading()
             }
         
-        let input = ReviewWriteViewModel.Input(
+        let input = ReviewWritableViewModel.Input(
             viewDidLoadTrigger: viewDidLoadTrigger,
             text: text,
             uploadReview: updateReview

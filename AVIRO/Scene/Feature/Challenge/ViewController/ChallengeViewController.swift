@@ -221,6 +221,7 @@ final class ChallengeViewController: UIViewController {
     private func dataBinding() {
         let viewWillAppearTrigger = self.rx.viewWillAppear
             .do { [weak self] _ in
+                self?.viewModel.handleViewWillAppearEvent()
                 self?.challengeUserInfoView.startIndicator()
             }
             .map { _ in }
