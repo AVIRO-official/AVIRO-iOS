@@ -8,7 +8,7 @@
 import Foundation
 
 extension Date {
-    func toString(format: String = "yyyy-MM-dd HH:mm") -> String {
+    func toString2(format: String = "yyyy-MM-dd HH:mm") -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         
@@ -16,7 +16,7 @@ extension Date {
     }
     
     func toSimpleDateString() -> String {
-        return toString(format: "yyyy-MM-dd")
+        return toString2(format: "yyyy-MM-dd")
     }
 }
 

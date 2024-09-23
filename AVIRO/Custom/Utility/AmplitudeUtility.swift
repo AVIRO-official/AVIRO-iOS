@@ -155,12 +155,16 @@ protocol AmplitudeProtocol {
     func placeCompleteUpload(model: AVIROEnrollPlaceDTO)
     func challengeClickCheckingLevelUp(isChecked: Bool)
     func challengeView()
-    func placeClickEditPlace()
+    func placeClickEditPlace(model: AVIROPlaceSummary)
     func placeCompleteEditPlace()
-    func placeClickEditMenu()
-    func placeCompleteEditMenu()
-    func placeClickRemove()
-    func placeCompleteRemove()
+    func placeClickEditMenu(model: AVIROPlaceSummary)
+    func placeCompleteEditMenu(
+        before: Int,
+        after: Int,
+        model: AVIROPlaceSummary
+    )
+    func placeClickRemove(model: AVIROPlaceSummary)
+    func placeCompleteRemove(model: AVIROPlaceSummary)
     
     func signUp(with userId: String)
     func withdrawal()
@@ -259,7 +263,7 @@ final class AmplitudeUtility: AmplitudeProtocol {
     }
     
     func loginComplete() {
-        let date = Date().toString()
+        let date = Date().toString2()
         
         amplitude?.track(
             eventType: AMPUserType.loginComplete.rawValue,
@@ -268,7 +272,7 @@ final class AmplitudeUtility: AmplitudeProtocol {
     }
     
     func logoutComplete() {
-        let date = Date().toString()
+        let date = Date().toString2()
         
         amplitude?.track(
             eventType: AMPUserType.logoutComplete.rawValue,
@@ -477,28 +481,75 @@ final class AmplitudeUtility: AmplitudeProtocol {
         amplitude?.track(eventType: AMPEngage.challengeView.rawValue)
     }
     
-    func placeClickEditPlace() {
-        
+    func placeClickEditPlace(model: AVIROPlaceSummary) {
+        amplitude?.track(
+            eventType: AMPEngage.placeClickEditPlace.rawValue,
+            eventProperties: [
+                "place_name": model.title,
+                "place_id": model.placeId,
+                "category": model.category
+            ]
+        )
     }
     
     func placeCompleteEditPlace() {
         
     }
     
-    func placeClickEditMenu() {
-        
+    func placeClickEditMenu(model: AVIROPlaceSummary) {
+        amplitude?.track(
+            eventType: AMPEngage.placeClickEditMenu.rawValue,
+            eventProperties: [
+                "place_name": model.title,
+                "place_id": model.placeId,
+                "category": model.category
+            ]
+        )
     }
     
-    func placeCompleteEditMenu() {
+    func placeCompleteEditMenu(
+        before: Int,
+        after: Int,
+        model: AVIROPlaceSummary
+    ) {
+        let date = Date().toString2()
         
+        amplitude?.track(
+            eventType: AMPEngage.placeCompleteEditMenu.rawValue,
+            eventProperties: [
+                "number_before": before,
+                "number_detail": after,
+                "edit_date": date,
+                "place_name": model.title,
+                "place_id": model.placeId,
+                "category": model.category
+            ]
+        )
     }
     
-    func placeClickRemove() {
-        
+    func placeClickRemove(model: AVIROPlaceSummary) {
+        amplitude?.track(
+            eventType: AMPEngage.placeClickRemove.rawValue,
+            eventProperties: [
+                "place_name": model.title,
+                "place_id": model.placeId,
+                "category": model.category
+            ]
+        )
     }
     
-    func placeCompleteRemove() {
+    func placeCompleteRemove(model: AVIROPlaceSummary) {
+        let date = Date().toString2()
         
+        amplitude?.track(
+            eventType: AMPEngage.placeCompleteRemove.rawValue,
+            eventProperties: [
+                "edit_date": date,
+                "place_name": model.title,
+                "place_id": model.placeId,
+                "category": model.category
+            ]
+        )
     }
     
     // MARK: Setup User
@@ -741,7 +792,7 @@ final class AmplitudeUtilityDummy: AmplitudeProtocol {
         
     }
     
-    func placeClickEditPlace() {
+    func placeClickEditPlace(model: AVIROPlaceSummary) {
         
     }
     
@@ -749,19 +800,23 @@ final class AmplitudeUtilityDummy: AmplitudeProtocol {
         
     }
     
-    func placeClickEditMenu() {
+    func placeClickEditMenu(model: AVIROPlaceSummary) {
         
     }
     
-    func placeCompleteEditMenu() {
+    func placeCompleteEditMenu(
+        before: Int,
+        after: Int,
+        model: AVIROPlaceSummary
+    ) {
         
     }
     
-    func placeClickRemove() {
+    func placeClickRemove(model: AVIROPlaceSummary) {
         
     }
     
-    func placeCompleteRemove() {
+    func placeCompleteRemove(model: AVIROPlaceSummary) {
         
     }
     
