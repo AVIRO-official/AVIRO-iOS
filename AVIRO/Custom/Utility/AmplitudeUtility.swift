@@ -65,15 +65,6 @@ enum AMPBrowseType: String {
     case placeViewReview = "place_view_review"
 }
 
-enum PlaceViewSheetType: String {
-    case marker = "marker"
-    case search = "search"
-    case bookmark = "bookmark in map"
-    case bookmarkList = "bookmark in challenge tab"
-    case registeredPlaceList = "registered place list in challenge tab"
-    case registeredReviewList = "registered review list in challenge tab"
-}
-
 enum AMPEngage: String {
     case reviewViewUpload = "review_view_upload"
     case reviewCompleteUpload = "review_complete_upload"
@@ -89,6 +80,31 @@ enum AMPEngage: String {
     case placeCompleteRemove = "place_complete_remove"
 }
 
+enum PlaceViewSheetType: String {
+    case marker = "marker"
+    case search = "search"
+    case bookmark = "bookmark in map"
+    case bookmarkList = "bookmark in challenge tab"
+    case registeredPlaceList = "registered place list in challenge tab"
+    case registeredReviewList = "registered review list in challenge tab"
+}
+
+enum ScolledInHomeType {
+    case menu
+    case review
+}
+
+enum InfoSearchType: String {
+    case scrolledInHomeTab = "scroll in home tab"
+    case menuTabbed = "click menu tab"
+    case reviewTabbed = "click review tab"
+}
+
+enum ReviewUploadPagePathType: String {
+    case home = "button in home tab"
+    case review = "filed in review tab"
+}
+
 protocol AmplitudeProtocol {
     func signUpClick(with type: LoginType)
     func signUpComplete()
@@ -96,18 +112,45 @@ protocol AmplitudeProtocol {
     func logoutComplete()
     func withdrawalComplete()
     
-    func searchEnterTerm(path: HomeSearchPath, number: Int, keyword: String)
-    func searchClickResult(index: Int, keyword: String, placeID: String?, placeName: String?, category: CategoryType?)
+    func searchEnterTerm(
+        path: HomeSearchPath,
+        number: Int,
+        keyword: String
+    )
+    func searchClickResult(
+        index: Int,
+        keyword: String,
+        placeID: String?,
+        placeName: String?,
+        category: CategoryType?
+    )
     func bookmarkClickInPlace(clickedModel: AVIROPlaceSummary)
     func bookmarkClickInMap()
     func bookmarkClickList()
-    func placeViewSheet(path: PlaceViewSheetType, clickedModel: AVIROPlaceSummary, restaurantActive: Bool, cafeActive: Bool, barActive: Bool, bakeryActive: Bool)
-    func placeViewHalf()
-    func placeViewMenu()
-    func placeViewReview()
+    func placeViewSheet(
+        path: PlaceViewSheetType,
+        clickedModel: AVIROPlaceSummary,
+        restaurantActive: Bool,
+        cafeActive: Bool,
+        barActive: Bool,
+        bakeryActive: Bool
+    )
+    func placeViewHalf(clickedModel: AVIROPlaceSummary)
+    func placeViewInfoSearched(
+        type: InfoSearchType,
+        scrollType: ScolledInHomeType?,
+        model: AVIROPlaceSummary
+    )
     
-    func reviewViewUpload()
-    func reviewCompleteUpload()
+    func reviewViewUpload(
+        type: ReviewUploadPagePathType,
+        model: AVIROPlaceSummary
+    )
+    func reviewCompleteUpload(
+        model: AfterWriteReviewModel,
+        placeName: String,
+        category: String
+    )
     func placeViewUpload()
     func placeCompleteUpload()
     func challengeClickCheckingLevelUp()
@@ -325,24 +368,84 @@ final class AmplitudeUtility: AmplitudeProtocol {
         )
     }
     
-    func placeViewHalf() {
-        
+    func placeViewHalf(clickedModel: AVIROPlaceSummary) {
+        amplitude?.track(
+            eventType: AMPBrowseType.placeViewhalf.rawValue,
+            eventProperties: [
+                "place_name": clickedModel.title,
+                "plaece_id": clickedModel.placeId,
+                "category": clickedModel.category
+            ]
+        )
     }
     
-    func placeViewMenu() {
+    func placeViewInfoSearched(
+        type: InfoSearchType,
+        scrollType: ScolledInHomeType?,
+        model: AVIROPlaceSummary
+    ) {
+        var eventType: String = ""
+        var pathType: String = ""
         
+        pathType = type.rawValue
+
+        switch type {
+        case .scrolledInHomeTab:
+            switch scrollType {
+            case .menu:
+                eventType = AMPBrowseType.placeViewMenu.rawValue
+            case .review:
+                eventType = AMPBrowseType.placeViewReview.rawValue
+            case nil:
+                break
+            }
+        case .menuTabbed:
+            eventType = AMPBrowseType.placeViewMenu.rawValue
+        case .reviewTabbed:
+            eventType = AMPBrowseType.placeViewReview.rawValue
+        }
+        
+        amplitude?.track(
+            eventType: eventType,
+            eventProperties: [
+                "view_path_browse_menu": pathType,
+                "place_name": model.title,
+                "plaece_id": model.placeId,
+                "category": model.category
+            ]
+        )
     }
     
-    func placeViewReview() {
-        
+    func reviewViewUpload(
+        type: ReviewUploadPagePathType,
+        model: AVIROPlaceSummary
+    ) {
+        amplitude?.track(
+            eventType: AMPEngage.reviewViewUpload.rawValue,
+            eventProperties: [
+                "view_path_upload_review": type.rawValue,
+                "place_name": model.title,
+                "place_id": model.placeId,
+                "category": model.category
+            ]
+        )
     }
     
-    func reviewViewUpload() {
-        
-    }
-    
-    func reviewCompleteUpload() {
-        
+    func reviewCompleteUpload(
+        model: AfterWriteReviewModel,
+        placeName: String,
+        category: String
+    ) {
+        amplitude?.track(
+            eventType: AMPEngage.reviewCompleteUpload.rawValue,
+            eventProperties: [
+                "review": model.content,
+                "review_id": model.contentId,
+                "place_name": placeName,
+                "place_id": model.placeId,
+                "category": category
+            ]
+        )
     }
     
     func placeViewUpload() {
@@ -591,23 +694,21 @@ final class AmplitudeUtilityDummy: AmplitudeProtocol {
         
     }
     
-    func placeViewHalf() {
+    func placeViewHalf(clickedModel: AVIROPlaceSummary) {
         
     }
     
-    func placeViewMenu() {
+    func placeViewInfoSearched(
+        type: InfoSearchType,
+        scrollType: ScolledInHomeType?,
+        model: AVIROPlaceSummary
+    ) { }
+    
+    func reviewViewUpload(type: ReviewUploadPagePathType, model: AVIROPlaceSummary) {
         
     }
     
-    func placeViewReview() {
-        
-    }
-    
-    func reviewViewUpload() {
-        
-    }
-    
-    func reviewCompleteUpload() {
+    func reviewCompleteUpload(model: AfterWriteReviewModel, placeName: String, category: String) {
         
     }
     

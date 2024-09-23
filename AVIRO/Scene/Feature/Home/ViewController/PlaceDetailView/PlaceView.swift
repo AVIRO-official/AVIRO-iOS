@@ -28,6 +28,30 @@ final class PlaceView: UIView {
         }
     }
     
+    var isScrollUntilMenu = false {
+        didSet {
+            segmentedControlView.isScrollUntilMenu = isScrollUntilMenu
+        }
+    }
+    
+    var isScrollUntilReview = false {
+        didSet {
+            segmentedControlView.isScrollUntilReview = isScrollUntilReview
+        }
+    }
+    
+    var isTabbedMenu = false {
+        didSet {
+            segmentedControlView.isTabbedMenu = isTabbedMenu
+        }
+    }
+    
+    var isTabbedReview = false {
+        didSet {
+            segmentedControlView.isTabbedReview = isTabbedReview
+        }
+    }
+    
     var isLoadingTopView: Bool = true {
         didSet {
             if isLoadingTopView {
@@ -72,8 +96,13 @@ final class PlaceView: UIView {
     var reportReview: ((AVIROReportReviewModel) -> Void)?
     var whenBeforeEditMyReview: ((String, String) -> Void)?
     
-    var pushReviewWriteView: (() -> Void)? 
+    var pushReviewWriteView: ((ReviewUploadPagePathType) -> Void)?
     var deleteRequestButtonTapped: (() -> Void)?
+    
+    var scrolledMenu: (() -> Void)?
+    var scrolledReview: (() -> Void)?
+    var tabbedMenu: (() -> Void)?
+    var tabbedReview: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -239,12 +268,28 @@ final class PlaceView: UIView {
             self?.whenBeforeEditMyReview?(commentId, content)
         }
         
-        segmentedControlView.pushReviewWriteView = { [weak self] in
-            self?.pushReviewWriteView?()
+        segmentedControlView.pushReviewWriteView = { [weak self] type in
+            self?.pushReviewWriteView?(type)
         }
         
         segmentedControlView.deleteRequestButtonTapped = { [weak self] in
             self?.deleteRequestButtonTapped?()
+        }
+        
+        segmentedControlView.scrolledMenu = { [weak self] in
+            self?.scrolledMenu?()
+        }
+        
+        segmentedControlView.scrolledReview = { [weak self] in
+            self?.scrolledReview?()
+        }
+        
+        segmentedControlView.tabbedMenu = { [weak self] in
+            self?.tabbedMenu?()
+        }
+        
+        segmentedControlView.tabbedReview = { [weak self] in
+            self?.tabbedReview?()
         }
     }
     

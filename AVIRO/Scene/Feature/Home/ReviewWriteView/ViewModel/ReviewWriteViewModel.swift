@@ -31,6 +31,7 @@ final class ReviewWriteViewModel: ViewModel {
     private var placeAddress: String!
     private var editReview: String = ""
     private var editCommentId: String?
+    private var category: String
     
     private var isViewWillAppear = true
     
@@ -41,6 +42,7 @@ final class ReviewWriteViewModel: ViewModel {
         placeAddress: String,
         content: String = "",
         editCommentId: String? = nil,
+        category: String,
         amplitude: AmplitudeProtocol = AmplitudeUtility.shared
     ) {
         self.placeId = placeId
@@ -49,6 +51,7 @@ final class ReviewWriteViewModel: ViewModel {
         self.placeAddress = placeAddress
         self.editReview = content
         self.editCommentId = editCommentId
+        self.category = category
         
         self.amplitude = amplitude
     }
@@ -205,10 +208,8 @@ final class ReviewWriteViewModel: ViewModel {
                 switch result {
                 case .success(let model):
                     if model.statusCode == 200 {
-                        self?.amplitude.reviewUpload(
-                            with: self?.placeTitle ?? "",
-                            review: reviewModel.content
-                        )
+                        guard let title = self?.placeTitle,
+                              let category = self?.category else { return }
                         
                         guard let myChallengeStatus = model.data else { return }
                         
@@ -219,6 +220,12 @@ final class ReviewWriteViewModel: ViewModel {
                             userId: reviewModel.userId,
                             levelUp: myChallengeStatus.levelUp,
                             userLevel: myChallengeStatus.userLevel
+                        )
+                        
+                        self?.amplitude.reviewCompleteUpload(
+                            model: resultModel,
+                            placeName: title,
+                            category: category
                         )
                         
                         single(.success((resultModel, false)))

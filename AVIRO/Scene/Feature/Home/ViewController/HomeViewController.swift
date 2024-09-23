@@ -675,8 +675,9 @@ extension HomeViewController: HomeViewProtocol {
         
         cameraUpdate.animation = .easeIn
         cameraUpdate.animationDuration = 0.25
-        popupPlaceView()
         naverMapView.moveCamera(cameraUpdate)
+        
+        popupPlaceView()
     }
     
     private func popupPlaceView() {
@@ -685,6 +686,14 @@ extension HomeViewController: HomeViewProtocol {
         isFullUpView = false
         isSlideUpView = false
 
+        placeView.isLoadingTopView = false
+        placeView.isScrollUntilMenu = false
+        placeView.isScrollUntilReview = false
+        placeView.isTabbedMenu = false
+        placeView.isTabbedReview = false
+    }
+    
+    func placeViewIsLoading() {
         placeView.isLoadingTopView = true
     }
     
@@ -698,7 +707,7 @@ extension HomeViewController: HomeViewProtocol {
             placeId: placeId,
             isStar: isStar
         )
-        
+                
         changedSearchField(with: placeModel.placeTitle)
     }
     
@@ -1230,12 +1239,40 @@ extension HomeViewController {
             self?.showEditMyReviewAlert(commentId, content)
         }
         
-        placeView.pushReviewWriteView = { [weak self] in
-            self?.presenter.pushReviewWriteView()
+        placeView.pushReviewWriteView = { [weak self] type in
+            self?.presenter.pushReviewWriteView(type: type)
         }
         
         placeView.deleteRequestButtonTapped = { [weak self] in
             self?.presenter.checkReportPlaceDuplecated()
+        }
+        
+        placeView.scrolledMenu = { [weak self] in
+            self?.presenter.loggingSearchedInfo(
+                type: .scrolledInHomeTab,
+                scrollType: .menu
+            )
+        }
+        
+        placeView.scrolledReview = { [weak self] in
+            self?.presenter.loggingSearchedInfo(
+                type: .scrolledInHomeTab,
+                scrollType: .review
+            )
+        }
+        
+        placeView.tabbedMenu = { [weak self] in
+            self?.presenter.loggingSearchedInfo(
+                type: .menuTabbed,
+                scrollType: nil
+            )
+        }
+        
+        placeView.tabbedReview = { [weak self] in
+            self?.presenter.loggingSearchedInfo(
+                type: .reviewTabbed,
+                scrollType: nil
+            )
         }
     }
 }

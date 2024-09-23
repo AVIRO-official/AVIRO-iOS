@@ -69,6 +69,8 @@ protocol HomeViewProtocol: NSObject {
     func updateCancelButtonFromCategoryCollection()
     
     func afterClickedCategoryModel(showMarkers: [NMFMarker], hideMarkers: [NMFMarker])
+    
+    func placeViewIsLoading()
 }
 
 final class HomeViewPresenter: NSObject {
@@ -484,6 +486,7 @@ final class HomeViewPresenter: NSObject {
             self.hasTouchedMarkerBefore = true
                     
             self.markerModelManager.updateMarkerModelWhenClicked(with: selectedMarkerModel!)
+            
             self.viewController?.moveToCameraWhenHasAVIRO(validMarkerModel, zoomTo: nil)
             
             self.amplitude.placeViewSheet(
@@ -507,6 +510,7 @@ final class HomeViewPresenter: NSObject {
         let placeY = markerModel.marker.position.lat
         let placeId = markerModel.placeId
 
+        viewController?.placeViewIsLoading()
         selectedPlaceId = placeId
         
         AVIROAPI.manager.loadPlaceSummary(with: placeId) { [weak self] result in
@@ -551,11 +555,13 @@ final class HomeViewPresenter: NSObject {
                 } else {
                     if let message = summary.message {
                         self?.viewController?.showErrorAlert(with: message, title: nil)
+                        completion()
                     }
                 }
             case .failure(let error):
                 if let error = error.errorDescription {
                     self?.viewController?.showErrorAlert(with: error, title: nil)
+                    completion()
                 }
             }
         }
@@ -615,7 +621,7 @@ final class HomeViewPresenter: NSObject {
             getPlaceSummaryModel(markerModel) { [weak self] in
                 guard let self = self else { return }
                 guard let selectedSummaryModel = self.selectedSummaryModel else { return }
-                
+
                 self.viewController?.moveToCameraWhenHasAVIRO(
                     markerModel,
                     zoomTo: 14
@@ -806,6 +812,7 @@ final class HomeViewPresenter: NSObject {
     // MARK: Get Place Model Detail
     func getPlaceModelDetail() {
         guard let placeId = selectedPlaceId else { return }
+        guard let selectedSummaryModel = selectedSummaryModel else { return }
 
         let dispatchGroup = DispatchGroup()
         
@@ -819,7 +826,7 @@ final class HomeViewPresenter: NSObject {
                 menuModel: self?.selectedMenuModel,
                 reviewsModel: self?.selectedReviewsModel
             )
-            
+            self?.amplitude.placeViewHalf(clickedModel: selectedSummaryModel)
             self?.afterGetPlaceDetailModel?()
         }
     }
@@ -1142,12 +1149,14 @@ final class HomeViewPresenter: NSObject {
     }
     
     // MARK: Push Review Write ViewController
-    func pushReviewWriteView() {
+    func pushReviewWriteView(type: ReviewUploadPagePathType) {
         whenKeepPlaceInfoView = true
 
         guard let markerModel = selectedMarkerModel,
               let summaryModel = selectedSummaryModel,
               let infoModel = selectedInfoModel else { return }
+        
+        amplitude.reviewViewUpload(type: type, model: summaryModel)
         
         var image: UIImage!
         
@@ -1164,7 +1173,8 @@ final class HomeViewPresenter: NSObject {
             placeId: markerModel.placeId,
             placeIcon: image,
             placeTitle: summaryModel.title,
-            placeAddress: infoModel.address + " " + (infoModel.address2 ?? "")
+            placeAddress: infoModel.address + " " + (infoModel.address2 ?? ""), 
+            category: summaryModel.category
         )
         
         viewController?.pushReviewWriteView(with: viewModel)
@@ -1197,7 +1207,8 @@ final class HomeViewPresenter: NSObject {
             placeTitle: summaryModel.title,
             placeAddress: infoModel.address + " " + (infoModel.address2 ?? ""),
             content: content,
-            editCommentId: commentId
+            editCommentId: commentId,
+            category: summaryModel.category
         )
         
         viewController?.pushReviewWriteView(with: viewModel)
@@ -1209,6 +1220,19 @@ final class HomeViewPresenter: NSObject {
     
     func afterLevelUpViewNocheckTapped(with level: Int) {
         amplitude.levelupDidNotMove(with: level)
+    }
+    
+    func loggingSearchedInfo(
+        type: InfoSearchType,
+        scrollType: ScolledInHomeType?
+    ) {
+        guard let selectedSummaryModel = selectedSummaryModel else { return }
+        
+        amplitude.placeViewInfoSearched(
+            type: type,
+            scrollType: scrollType,
+            model: selectedSummaryModel
+        )
     }
 }
 

@@ -39,7 +39,7 @@ final class PlaceSegmentedControlView: UIView {
     private lazy var rightSwipteGesture = UISwipeGestureRecognizer()
     
     private var homeBottomConstraint: NSLayoutConstraint?
-
+    
     private var afterInitViewConstrait = false
     
     private var placeId = ""
@@ -62,13 +62,18 @@ final class PlaceSegmentedControlView: UIView {
         }
     }
     
+    var isScrollUntilMenu = false
+    var isScrollUntilReview = false
+    var isTabbedMenu = false
+    var isTabbedReview = false
+    
     // placeInfo
     var afterPhoneButtonTappedWhenNoData: (() -> Void)?
     var afterTimePlusButtonTapped: (() -> Void)?
     var afterTimeTableShowButtonTapped: (() -> Void)?
     var afterHomePageButtonTapped: ((String) -> Void)?
     var afterEditInfoButtonTapped: (() -> Void)?
-
+    
     // menu
     var editMenu: (() -> Void)?
     
@@ -79,10 +84,15 @@ final class PlaceSegmentedControlView: UIView {
     var reportReview: ((AVIROReportReviewModel) -> Void)?
     var whenBeforeEditMyReview: ((String, String) -> Void)?
     
-    var pushReviewWriteView: (() -> Void)?
+    var pushReviewWriteView: ((ReviewUploadPagePathType) -> Void)?
     
     // delete request
     var deleteRequestButtonTapped: (() -> Void)?
+    
+    var scrolledMenu: (() -> Void)?
+    var scrolledReview: (() -> Void)?
+    var tabbedMenu: (() -> Void)?
+    var tabbedReview: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -91,6 +101,8 @@ final class PlaceSegmentedControlView: UIView {
         makeAttribute()
         makeGesture()
         handleClosure()
+        
+        scrollView.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -130,7 +142,7 @@ final class PlaceSegmentedControlView: UIView {
             reviewView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             reviewView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
-
+        
         makeLayoutInScrollView()
         makeLayoutIndicatorView()
     }
@@ -173,7 +185,7 @@ final class PlaceSegmentedControlView: UIView {
         segmentedControl.addTarget(self, action: #selector(segmentedChanged(segment:)), for: .valueChanged)
         segmentedControl.selectedSegmentIndex = 0
     }
-        
+    
     private func makeGesture() {
         self.addGestureRecognizer(leftSwipeGesture)
         self.addGestureRecognizer(rightSwipteGesture)
@@ -194,7 +206,7 @@ final class PlaceSegmentedControlView: UIView {
         
         whenActiveSegmentedChanged()
     }
-      
+    
     func allDataBinding(placeId: String,
                         infoModel: AVIROPlaceInfo?,
                         menuModel: AVIROPlaceMenus?,
@@ -287,6 +299,11 @@ final class PlaceSegmentedControlView: UIView {
         reviewView.isHidden = true
         
         menuView.isHidden = false
+        
+        if !isTabbedMenu {
+            isTabbedMenu.toggle()
+            tabbedMenu?()
+        }
     }
     
     private func activeReviewView() {
@@ -294,6 +311,11 @@ final class PlaceSegmentedControlView: UIView {
         homeView.isHidden = true
         
         reviewView.isHidden = false
+        
+        if !isTabbedReview {
+            isTabbedReview.toggle()
+            tabbedReview?()
+        }
     }
     
     private func scrollViewSetOffset(_ x: Double = 0.0,
@@ -319,10 +341,10 @@ final class PlaceSegmentedControlView: UIView {
     }
     
     func editMyReview(with model: AVIROEnrollReviewDTO) {
-//        if segmentedControl.selectedSegmentIndex == 0 {
-//            self.segmentedControl.selectedSegmentIndex = 2
-//            self.activeReviewView()
-//        }
+        //        if segmentedControl.selectedSegmentIndex == 0 {
+        //            self.segmentedControl.selectedSegmentIndex = 2
+        //            self.activeReviewView()
+        //        }
         reviewView.editMyReview(with: model)
     }
     
@@ -377,10 +399,10 @@ final class PlaceSegmentedControlView: UIView {
         }
         
         homeView.showMoreReviewsAndWriteComment = { [weak self] in
-            self?.pushReviewWriteView?()
-//            self?.segmentedControl.selectedSegmentIndex = 2
-//            self?.activeReviewView()
-//            self?.reviewView.autoStartWriteComment()
+            self?.pushReviewWriteView?(.home)
+            //            self?.segmentedControl.selectedSegmentIndex = 2
+            //            self?.activeReviewView()
+            //            self?.reviewView.autoStartWriteComment()
         }
         
         homeView.deleteRequestButtonTapped = { [weak self] in
@@ -415,7 +437,30 @@ final class PlaceSegmentedControlView: UIView {
         }
         
         reviewView.pushReviewWriteView = { [weak self] in
-            self?.pushReviewWriteView?()
+            self?.pushReviewWriteView?(.review)
+        }
+    }
+}
+
+extension PlaceSegmentedControlView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // 화면의 중앙값 계산
+        let scrollViewCenterY = scrollView.contentOffset.y + scrollView.frame.size.height / 2
+        
+        // PlaceMenuView와 PlaceReviewsView의 중앙값 계산
+        let placeMenuCenterY = homeView.placeMenuView.frame.origin.y + (homeView.placeMenuView.frame.height / 2)
+        let placeReviewsCenterY = homeView.placeReviewsView.frame.origin.y + (homeView.placeReviewsView.frame.height / 2)
+        
+        // PlaceMenuView가 중앙에 있는지 확인
+        if abs(scrollViewCenterY - placeMenuCenterY) < 50 && !isScrollUntilMenu {
+            scrolledMenu?()
+            isScrollUntilMenu.toggle()
+        }
+        
+        // PlaceReviewsView가 중앙에 있는지 확인
+        if abs(scrollViewCenterY - placeReviewsCenterY) < 50 && !isScrollUntilReview {
+            scrolledReview?()
+            isScrollUntilReview.toggle()
         }
     }
 }
