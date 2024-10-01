@@ -218,14 +218,16 @@ final class ReviewWritableViewModel: ViewModel {
                             contentId: reviewModel.commentId,
                             content: reviewModel.content,
                             userId: reviewModel.userId,
-                            levelUp: myChallengeStatus.levelUp,
-                            userLevel: myChallengeStatus.userLevel
+                            levelUp: myChallengeStatus.levelUp ?? false,
+                            userLevel: myChallengeStatus.userLevel ?? 0
                         )
                         
                         self?.amplitude.reviewCompleteUpload(
                             model: resultModel,
                             placeName: title,
-                            category: category
+                            category: category,
+                            total: myChallengeStatus.added_comment_num,
+                            isFirst: myChallengeStatus.isFirst
                         )
                         
                         single(.success((resultModel, false)))

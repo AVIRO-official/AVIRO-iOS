@@ -105,6 +105,13 @@ enum ReviewUploadPagePathType: String {
     case review = "filed in review tab"
 }
 
+enum PlaceInfoEditType: String {
+    case homepage = "homepage"
+    case businessHours = "business hours"
+    case address = "address"
+    case phone = "phone number"
+}
+
 protocol AmplitudeProtocol {
     func signUpClick(with type: LoginType)
     func signUpComplete()
@@ -124,7 +131,7 @@ protocol AmplitudeProtocol {
         placeName: String?,
         category: CategoryType?
     )
-    func bookmarkClickInPlace(clickedModel: AVIROPlaceSummary)
+    func bookmarkClickInPlace(clickedModel: AVIROPlaceSummary, bookmarks: Int)
     func bookmarkClickInMap()
     func bookmarkClickList()
     func placeViewSheet(
@@ -149,14 +156,16 @@ protocol AmplitudeProtocol {
     func reviewCompleteUpload(
         model: AfterWriteReviewModel,
         placeName: String,
-        category: String
+        category: String,
+        total: Int,
+        isFirst: Bool
     )
     func placeViewUpload()
-    func placeCompleteUpload(model: AVIROEnrollPlaceDTO)
+    func placeCompleteUpload(model: AVIROEnrollPlaceDTO, total: Int, isFirst: Bool)
     func challengeClickCheckingLevelUp(isChecked: Bool)
     func challengeView()
     func placeClickEditPlace(model: AVIROPlaceSummary)
-    func placeCompleteEditPlace()
+    func placeCompleteEditPlace(category: String, before: String, after: String, model: AVIROPlaceSummary)
     func placeClickEditMenu(model: AVIROPlaceSummary)
     func placeCompleteEditMenu(
         before: Int,
@@ -253,6 +262,10 @@ final class AmplitudeUtility: AmplitudeProtocol {
             property: "auth_type",
             value: type
         )
+        identify.set(
+            property: "signup_date",
+            value: date
+        )
         
         amplitude?.identify(identify: identify)
         
@@ -325,7 +338,19 @@ final class AmplitudeUtility: AmplitudeProtocol {
         )
     }
     
-    func bookmarkClickInPlace(clickedModel: AVIROPlaceSummary) {
+    func bookmarkClickInPlace(
+        clickedModel: AVIROPlaceSummary,
+        bookmarks: Int
+    ) {
+        let identify = Identify()
+
+        identify.set(
+            property: "total_bookmark",
+            value: bookmarks
+        )
+        
+        amplitude?.identify(identify: identify)
+        
         amplitude?.track(
             eventType: AMPBrowseType.bookmarkClickInPlace.rawValue,
             eventProperties: [
@@ -438,8 +463,32 @@ final class AmplitudeUtility: AmplitudeProtocol {
     func reviewCompleteUpload(
         model: AfterWriteReviewModel,
         placeName: String,
-        category: String
+        category: String,
+        total: Int,
+        isFirst: Bool
     ) {
+        let identify = Identify()
+        let date = Date().toSimpleDateString()
+        
+        identify.set(
+            property: "total_reviews",
+            value: total
+        )
+        
+        if isFirst {
+            identify.set(
+                property: "review_date_first",
+                value: date
+            )
+        }
+        
+        identify.set(
+            property: "review_date_last",
+            value: date
+        )
+        
+        amplitude?.identify(identify: identify)
+        
         amplitude?.track(
             eventType: AMPEngage.reviewCompleteUpload.rawValue,
             eventProperties: [
@@ -458,7 +507,33 @@ final class AmplitudeUtility: AmplitudeProtocol {
         )
     }
     
-    func placeCompleteUpload(model: AVIROEnrollPlaceDTO) {
+    func placeCompleteUpload(
+        model: AVIROEnrollPlaceDTO,
+        total: Int,
+        isFirst: Bool
+    ) {
+        let identify = Identify()
+        let date = Date().toSimpleDateString()
+        
+        identify.set(
+            property: "total_places",
+            value: total
+        )
+        
+        if isFirst {
+            identify.set(
+                property: "place_date_first",
+                value: date
+            )
+        }
+        
+        identify.set(
+            property: "place_date_last",
+            value: date
+        )
+        
+        amplitude?.identify(identify: identify)
+        
         amplitude?.track(
             eventType: AMPEngage.placeCompleteUpload.rawValue,
             eventProperties: [
@@ -492,8 +567,24 @@ final class AmplitudeUtility: AmplitudeProtocol {
         )
     }
     
-    func placeCompleteEditPlace() {
+    func placeCompleteEditPlace(
+        category: String,
+        before: String,
+        after: String,
+        model: AVIROPlaceSummary
+    ) {
+        let date = Date().toString2()
         
+        amplitude?.track(eventType: AMPEngage.placeCompleteEditPlace.rawValue, eventProperties: [
+            "edit_category": category,
+            "edit_before": before,
+            "edit_detail": after,
+            "edit_date": date,
+            "place_name": model.title,
+            "place_id": model.placeId,
+            "category": model.category
+        ]
+        )
     }
     
     func placeClickEditMenu(model: AVIROPlaceSummary) {
@@ -742,7 +833,7 @@ final class AmplitudeUtilityDummy: AmplitudeProtocol {
         
     }
     
-    func bookmarkClickInPlace(clickedModel: AVIROPlaceSummary) {
+    func bookmarkClickInPlace(clickedModel: AVIROPlaceSummary, bookmarks: Int) {
         
     }
     
@@ -772,7 +863,13 @@ final class AmplitudeUtilityDummy: AmplitudeProtocol {
         
     }
     
-    func reviewCompleteUpload(model: AfterWriteReviewModel, placeName: String, category: String) {
+    func reviewCompleteUpload(
+        model: AfterWriteReviewModel,
+        placeName: String,
+        category: String,
+        total: Int,
+        isFirst: Bool
+    ) {
         
     }
     
@@ -780,7 +877,11 @@ final class AmplitudeUtilityDummy: AmplitudeProtocol {
         
     }
     
-    func placeCompleteUpload(model: AVIROEnrollPlaceDTO) {
+    func placeCompleteUpload(
+        model: AVIROEnrollPlaceDTO,
+        total: Int,
+        isFirst: Bool
+    ) {
         
     }
     
@@ -796,7 +897,7 @@ final class AmplitudeUtilityDummy: AmplitudeProtocol {
         
     }
     
-    func placeCompleteEditPlace() {
+    func placeCompleteEditPlace(category: String, before: String, after: String, model: AVIROPlaceSummary) {
         
     }
     

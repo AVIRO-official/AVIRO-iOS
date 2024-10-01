@@ -45,7 +45,7 @@ final class EditPlaceInfoPresenter {
     weak var viewController: EditPlaceInfoProtocol?
     
     private let amplitude: AmplitudeProtocol
-        
+    
     private var selectedIndex: Int!
     private var placeId: String?
     private var placeMarkerModel: MarkerModel?
@@ -56,6 +56,8 @@ final class EditPlaceInfoPresenter {
     private var newMarker = NMFMarker()
     
     private var canChange = false
+    
+    private var editedTypes = Set<PlaceInfoEditType>()
     
     var afterChangedTitle = "" {
         didSet {
@@ -182,7 +184,7 @@ final class EditPlaceInfoPresenter {
     
     func viewWillAppear() {
         viewController?.whenViewWillAppearSelectedIndex(selectedIndex)
-
+        
         addKeyboardNotification()
     }
     
@@ -231,7 +233,7 @@ final class EditPlaceInfoPresenter {
             if let keyboardFrame: NSValue = notification.userInfo?[
                 UIResponder.keyboardFrameEndUserInfoKey
             ] as? NSValue {
-               let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardRectangle = keyboardFrame.cgRectValue
                 viewController.keyboardWillShow(
                     height: keyboardRectangle.height
                 )
@@ -241,14 +243,14 @@ final class EditPlaceInfoPresenter {
     
     @objc private func keyboardWillHide(
         notification: NSNotification) {
-        guard let viewController = viewController else { return }
-        
-        if viewController.isDetailFieldCheckBeforeKeyboardShowAndHide(
-            notification: notification
-        ) {
-            viewController.keyboardWillHide()
+            guard let viewController = viewController else { return }
+            
+            if viewController.isDetailFieldCheckBeforeKeyboardShowAndHide(
+                notification: notification
+            ) {
+                viewController.keyboardWillHide()
+            }
         }
-    }
     
     // MARK: Data Binding
     private func dataBinding() {
@@ -335,7 +337,7 @@ final class EditPlaceInfoPresenter {
             placeMarkerModel: placeMarkerModel
         )
     }
-
+    
     private func changedMarkerLocation() {
         if isChangedFromPublicAddress {
             changeLocationFromKakaoAPI()
@@ -361,7 +363,7 @@ final class EditPlaceInfoPresenter {
                         
                         self?.changedMarker(lat: y, lng: x)
                     }
-   
+                    
                 }
             case .failure(let error):
                 if let error = error.errorDescription {
@@ -390,7 +392,7 @@ final class EditPlaceInfoPresenter {
               let lng = Double(lng) else { return }
         
         let latLng = NMGLatLng(lat: lat, lng: lng)
-   
+        
         newMarker.position = latLng
         
         viewController?.updateNaverMap(latLng)
@@ -493,7 +495,7 @@ extension EditPlaceInfoPresenter {
     ) {
         if let index = afterChangedOperationHourArray
             .firstIndex(where: {$0.day == model.day}
-        ) {
+            ) {
             afterChangedOperationHourArray[index]
                 .operatingHours = model.operatingHours
             afterChangedOperationHourArray[index]
@@ -510,7 +512,7 @@ extension EditPlaceInfoPresenter {
     ) {
         if let index = afterChangedOperationHourArray
             .firstIndex(where: {$0.day == model.day}
-        ) {
+            ) {
             afterChangedOperationHourArray
                 .remove(at: index)
         }
@@ -558,7 +560,7 @@ extension EditPlaceInfoPresenter {
             nickName: nickName,
             dispatchGroup: dispatchGroup
         )
-
+        
         requestEditOperationHour(
             placeId: placeId,
             userId: userId,
@@ -576,7 +578,7 @@ extension EditPlaceInfoPresenter {
         dispatchGroup.notify(queue: .main
         ) { [weak self] in
             if self?.canChange ?? false {
-                self?.amplitude.placeEdit(with: placeTitle)
+                self?.afterEditPlaceInfo()
                 self?.viewController?.popViewController()
                 self?.afterReportShowAlert?()
             } else {
@@ -600,7 +602,7 @@ extension EditPlaceInfoPresenter {
             ||
             isChangedAddressDetail {
             guard  let beforeCategory = placeSummary?.category,
-                  let beforeAddress = placeInfo?.address
+                   let beforeAddress = placeInfo?.address
             else { return }
             
             let beforeAdderss2 = placeInfo?.address2 ?? ""
@@ -613,17 +615,17 @@ extension EditPlaceInfoPresenter {
                 nickname: nickName,
                 title: placeTitle,
                 changedTitle: isChangedTitle ?
-                    AVIROEditCommonBeforeAfterDTO(
-                        before: placeTitle,
-                        after: afterChangedTitle
-                    )
+                AVIROEditCommonBeforeAfterDTO(
+                    before: placeTitle,
+                    after: afterChangedTitle
+                )
                 :
                     nil,
                 category: isChangedCategory ?
-                    AVIROEditCommonBeforeAfterDTO(
-                        before: beforeCategory,
-                        after: afterChangedCategory.title
-                    )
+                AVIROEditCommonBeforeAfterDTO(
+                    before: beforeCategory,
+                    after: afterChangedCategory.title
+                )
                 :
                     nil,
                 address: whenRequestAndLoadAddressBasedOnCondition(
@@ -635,7 +637,7 @@ extension EditPlaceInfoPresenter {
                 x: whenRequestAndLoadXLongitude(beforeAddress: beforeAddress),
                 y: whenRequestAndLoadYLatitude(beforeAddress: beforeAddress)
             )
-
+            
             AVIROAPI.manager.editPlaceLocation(with: model) { [weak self] result in
                 defer { dispatchGroup.leave() }
                 switch result {
@@ -671,7 +673,7 @@ extension EditPlaceInfoPresenter {
         } else if
             (isChangedAddress || isChangedAddressDetail)
                 &&
-            (afterChangedAddress == "" || afterChangedAddress == beforeAddress) {
+                (afterChangedAddress == "" || afterChangedAddress == beforeAddress) {
             return AVIROEditCommonBeforeAfterDTO(
                 before: beforeAddress,
                 after: beforeAddress
@@ -687,7 +689,7 @@ extension EditPlaceInfoPresenter {
         if (isChangedAddress || isChangedAddressDetail)
             &&
             (
-             afterChangedAddressDetail != beforeDetailAddress
+                afterChangedAddressDetail != beforeDetailAddress
             ) {
             return AVIROEditCommonBeforeAfterDTO(
                 before: beforeDetailAddress,
@@ -696,9 +698,9 @@ extension EditPlaceInfoPresenter {
         } else if
             (isChangedAddress || isChangedAddressDetail)
                 &&
-            (
-             afterChangedAddressDetail == beforeDetailAddress
-            ) {
+                (
+                    afterChangedAddressDetail == beforeDetailAddress
+                ) {
             return AVIROEditCommonBeforeAfterDTO(
                 before: beforeDetailAddress,
                 after: beforeDetailAddress
@@ -744,9 +746,9 @@ extension EditPlaceInfoPresenter {
         dispatchGroup: DispatchGroup
     ) {
         if isChangedPhone {
-
+            
             dispatchGroup.enter()
-
+            
             let beforePhone = placeInfo?.phone ?? ""
             
             let model = AVIROEditPhoneDTO(
@@ -887,5 +889,87 @@ extension EditPlaceInfoPresenter {
                 }
             }
         }
+    }
+    
+    private func afterEditPlaceInfo() {
+        guard let placeSummary = placeSummary,
+            let placeInfo = placeInfo
+        else { return }
+        
+        var category = ""
+        var before = ""
+        var after = ""
+        
+        if isChangedTitle {
+            editedTypes.insert(.homepage)
+            before += placeSummary.title + ", "
+            after += afterChangedTitle + ", "
+        }
+        
+        if isChangedCategory {
+            editedTypes.insert(.homepage)
+
+            before += placeSummary.category + ", "
+            after += afterChangedCategory.title + ", "
+        }
+        
+        if isChangedURL {
+            editedTypes.insert(.homepage)
+            
+            before += placeInfo.url ?? "url 없음" + ", "
+            after += afterChangedURL + ", "
+        }
+        
+        if isChangedPhone {
+            editedTypes.insert(.phone)
+            
+            before += placeInfo.phone ?? "phone number 없음" + ", "
+            after += afterChangedPhone + ", "
+        }
+        
+        if isChangedAddress || isChangedAddressDetail {
+            editedTypes.insert(.address)
+            
+            var beforeAddress = placeInfo.address + " " + (placeInfo.address2 ?? "") + ", "
+            var afterAddress = afterChangedAddress + " " + afterChangedAddressDetail + ", "
+            
+            before += beforeAddress
+            after += afterAddress
+        }
+        
+        if isChangedOperationHour {
+            guard let placeOperationModels = placeOperationModels else { return }
+            
+            editedTypes.insert(.businessHours)
+            
+            var beforeOperation = ""
+            var afterOperation = ""
+            
+            placeOperationModels.forEach {
+                beforeOperation += $0.day.rawValue + "요일, "
+                beforeOperation +=  "영업 시간: " + $0.operatingHours + ", "
+                beforeOperation +=  "휴식: " + $0.breakTime + ", "
+            }
+            
+            afterChangedOperationHourArray.forEach {
+                afterOperation += $0.day.rawValue + "요일, "
+                afterOperation +=  "영업 시간: " + $0.operatingHours + ", "
+                afterOperation +=  "휴식: " + $0.breakTime + ", "
+            }
+            
+            before += beforeOperation
+            after += afterOperation
+        }
+        
+        editedTypes.forEach {
+            category += $0.rawValue + ", "
+        }
+        
+        amplitude.placeCompleteEditPlace(
+            category: category,
+            before: before,
+            after: after,
+            model: placeSummary
+        )
     }
 }

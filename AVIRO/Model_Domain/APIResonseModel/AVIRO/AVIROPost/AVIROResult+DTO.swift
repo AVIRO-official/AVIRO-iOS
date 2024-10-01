@@ -20,6 +20,21 @@ struct AVIROResultWhenChallengeDTO: Decodable {
 }
 
 struct AVIROMyChallengeStatusDTO: Decodable {
-    let levelUp: Bool
-    let userLevel: Int
+    let levelUp: Bool?
+    let userLevel: Int?
+    let addedPlace: Int
+    let isFirst: Bool
+}
+
+struct AVIROResultWhenChallengeReviewDTO: Decodable {
+    let statusCode: Int
+    let message: String?
+    let data: AVIROMyChallengeStatusReviewDTO?
+}
+
+struct AVIROMyChallengeStatusReviewDTO: Decodable {
+    let levelUp: Bool?
+    let userLevel: Int?
+    let added_comment_num: Int
+    let isFirst: Bool
 }

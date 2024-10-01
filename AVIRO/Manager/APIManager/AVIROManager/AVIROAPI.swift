@@ -390,7 +390,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
     // MARK: POST Review
     func createReview(
         with reviewModel: AVIROEnrollReviewDTO,
-        completionHandler: @escaping (Result<AVIROResultWhenChallengeDTO, APIError>) -> Void
+        completionHandler: @escaping (Result<AVIROResultWhenChallengeReviewDTO, APIError>) -> Void
     ) {
         guard let url = postAPI.commentUpload().url else {
             completionHandler(.failure(.urlError))

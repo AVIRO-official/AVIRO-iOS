@@ -159,12 +159,15 @@ final class EditMenuPresenter {
     
     private var isFirstPopupKeyBoard = true
     
+    var amplitude: AmplitudeProtocol!
+    
     init(viewController: EditMenuProtocol,
          placeId: String? = nil,
          isAll: Bool? = nil,
          isSome: Bool? = nil,
          isRequest: Bool? = nil,
-         menuArray: [AVIROMenu]? = nil
+         menuArray: [AVIROMenu]? = nil,
+         amplitude: AmplitudeProtocol = AmplitudeUtility.shared
     ) {
         self.viewController = viewController
         self.placeId = placeId
@@ -905,6 +908,21 @@ final class EditMenuPresenter {
             isSome: isSome,
             isRequest: isRequest
         )
+
+        guard let isDefaultMenuTable = isDefaultMenuTable else { return }
+        
+        if isDefaultMenuTable {
+            print("==================")
+            print(initVeganMenuArray)
+            print("==================")
+            print(veganMenuArray)
+            print("==================")
+        } else {
+            print(initRequestVeganMenuArray)
+            print("==================")
+            print(requestVeganMenuArray)
+            print("==================")
+        }
         
         AVIROAPI.manager.editMenu(with: editMenu) { [weak self] result in
             switch result {
