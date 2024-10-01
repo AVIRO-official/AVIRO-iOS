@@ -309,7 +309,8 @@ final class MyCommentListViewController: UIViewController {
                 0,
                 withData: [
                     TabBarKeys.placeId: placeId,
-                    TabBarKeys.showReview: true
+                    TabBarKeys.showReview: true,
+                    TabBarKeys.source: TabBarSourceValues.commentList
                 ]
             )
         }

@@ -8,6 +8,13 @@
 import Foundation
 
 protocol MyDataProtocol {
+    func createUser(
+        userId: String,
+        userName: String,
+        userEmail: String,
+        userNickname: String,
+        marketingAgree: Int
+    )
     func whenLogin(
         userId: String,
         userName: String,
@@ -16,6 +23,7 @@ protocol MyDataProtocol {
         marketingAgree: Int
     )
     func whenLogout()
+    func whenWithdrawal()
 }
 
 final class MyData: MyDataProtocol {
@@ -35,7 +43,7 @@ final class MyData: MyDataProtocol {
         userEmail: String = "",
         userNickName: String = "",
         marketingAgree: Int = 0,
-        amplitude: AmplitudeProtocol = AmplitudeUtility()
+        amplitude: AmplitudeProtocol = AmplitudeUtility.shared
     ) {
         self.id = userId
         self.name = userName
@@ -43,6 +51,22 @@ final class MyData: MyDataProtocol {
         self.nickname = userNickName
         self.marketingAgree = marketingAgree
         self.amplitude = amplitude
+    }
+    
+    func createUser(
+        userId: String,
+        userName: String,
+        userEmail: String,
+        userNickname: String,
+        marketingAgree: Int
+    ) {
+        self.id = userId
+        self.name = userName
+        self.email = userEmail
+        self.nickname = userNickname
+        self.marketingAgree = marketingAgree
+        
+        amplitude.signUpComplete()
     }
     
     func whenLogin(
@@ -58,7 +82,7 @@ final class MyData: MyDataProtocol {
         self.nickname = userNickname
         self.marketingAgree = marketingAgree
         
-        self.amplitude.login()
+        amplitude.loginComplete()
     }
     
     func whenLogout() {
@@ -68,6 +92,16 @@ final class MyData: MyDataProtocol {
         self.nickname = ""
         self.marketingAgree = 0
         
-        self.amplitude.logout()
+        amplitude.logoutComplete()
+    }
+    
+    func whenWithdrawal() {
+        self.id = ""
+        self.name = ""
+        self.email = ""
+        self.nickname = ""
+        self.marketingAgree = 0
+        
+        amplitude.withdrawalComplete()
     }
 }

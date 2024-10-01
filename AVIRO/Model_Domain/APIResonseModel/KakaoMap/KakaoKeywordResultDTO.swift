@@ -14,9 +14,11 @@ struct KakaoKeywordResultDTO: Decodable {
 
 struct KakaoKeywordMetaData: Decodable {
     let isEnd: Bool
+    let totalCount: Int
     
     enum CodingKeys: String, CodingKey {
         case isEnd = "is_end"
+        case totalCount = "total_count"
     }
 }
 

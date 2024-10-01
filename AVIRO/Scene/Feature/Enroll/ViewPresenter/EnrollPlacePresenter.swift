@@ -89,7 +89,7 @@ final class EnrollPlacePresenter {
     private var isFirstPopupKeyBoard = true
     
     init(viewController: EnrollPlaceProtocol,
-         amplitude: AmplitudeProtocol = AmplitudeUtility()
+         amplitude: AmplitudeProtocol = AmplitudeUtility.shared
     ) {
         self.viewController = viewController
         
@@ -109,6 +109,8 @@ final class EnrollPlacePresenter {
         isFirstPopupKeyBoard = true
         
         addKeyboardNotification()
+        
+        amplitude.placeViewUpload()
     }
     
     // MARK: View Will Disappear
@@ -126,7 +128,11 @@ final class EnrollPlacePresenter {
             switch result {
             case .success(let resultModel):
                 if resultModel.statusCode == 200 {
-                    self?.amplitude.placeUpload(with: veganModel.title)
+                    self?.amplitude.placeCompleteUpload(
+                        model: veganModel,
+                        total: resultModel.data?.addedPlace ?? 1,
+                        isFirst: resultModel.data?.isFirst ?? false
+                    )
                     
                     CenterCoordinate.shared.longitude = veganModel.x
                     CenterCoordinate.shared.latitude = veganModel.y
@@ -135,8 +141,8 @@ final class EnrollPlacePresenter {
                     // TODO: - Challenge On/Off 기능 추가시 변경 필요
                     if let myChallengeStatus = resultModel.data {
                         self?.viewController?.popViewController(
-                            level: myChallengeStatus.userLevel,
-                            isLevelUp: myChallengeStatus.levelUp
+                            level: myChallengeStatus.userLevel ?? 1,
+                            isLevelUp: myChallengeStatus.levelUp ?? false
                         )
                     }
                 } else {

@@ -119,7 +119,7 @@ protocol AVIROAPIMangerProtocol: APIManagerProtocol {
     // MARK: POST Review
     func createReview(
         with reviewModel: AVIROEnrollReviewDTO,
-        completionHandler: @escaping (Result<AVIROResultWhenChallengeDTO, APIError>) -> Void
+        completionHandler: @escaping (Result<AVIROResultWhenChallengeReviewDTO, APIError>) -> Void
     )
     
     // MARK: POST Edit Location

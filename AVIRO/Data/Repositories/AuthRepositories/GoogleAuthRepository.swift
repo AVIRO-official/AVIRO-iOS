@@ -38,11 +38,17 @@ extension GoogleAuthRepository: GoogleLoginRepositoryInterface {
             errorCompletion("구글 로그인을 사용할 수 없습니다.")
             return
         }
-        
+        let test = UIApplication.getMostTopViewController()
         requestLogin()
         
         self.loginCompletion = loginCompletion
         self.errorCompletion = errorCompletion
+
+        print(GIDSignIn.sharedInstance.configuration?.serverClientID)
+        
+        let config = GIDConfiguration(clientID: clientID, serverClientID: "310817462771-q5o6bv76a0os9lgqaqfico9jomv7fvkc.apps.googleusercontent.com")
+        
+        GIDSignIn.sharedInstance.configuration = config
         
         GIDSignIn.sharedInstance.signIn(
             withPresenting: viewController
@@ -58,6 +64,8 @@ extension GoogleAuthRepository: GoogleLoginRepositoryInterface {
                 self?.errorCompletion?("구글 사용자 정보를 가져올 수 없습니다.")
                 return
             }
+            
+            print(signInResult?.serverAuthCode)
             
             let checkMemberDTO = AVIROKakaoUserCheckMemberDTO(userId: userID)
             

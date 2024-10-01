@@ -32,12 +32,15 @@ final class LoginViewPresenter: NSObject {
     var whenAfterWithdrawal = false
     
     private let socialLoginUseCase: SocialLoginUseCaseInterface!
+    private let amplitude: AmplitudeProtocol
     
     init(
         socialLoginUseCase: SocialLoginUseCaseInterface,
-        viewController: LoginViewProtocol
+        viewController: LoginViewProtocol,
+        amplitude: AmplitudeProtocol
     ) {
         self.socialLoginUseCase = socialLoginUseCase
+        self.amplitude = amplitude
         
         self.viewController = viewController
     }
@@ -77,9 +80,11 @@ final class LoginViewPresenter: NSObject {
                         if isMember {
                             self?.viewController?.pushTabBar()
                         } else {
+                            self?.amplitude.signUpClick(with: type)
                             let usecase = self?.socialLoginUseCase
                             self?.viewController?.pushRegistrationView(usecase: usecase!)
                         }
+                        
                     case .failure(let error):
                         self?.viewController?.switchIsLoading(with: false)
                         self?.viewController?.showErrorAlert(with: error.localizedDescription, title: nil)

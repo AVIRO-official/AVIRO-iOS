@@ -34,7 +34,7 @@ struct AVIROPostAPI {
     ]
     
     // MARK: - URL Property
-    static let placeEnrollPath = "/2/map/add/place"
+    static let placeEnrollPath = "/3/map/add/place"
     static let placeListMatchedPath = "/2/map/check/place"
     static let placeListReportPath = "/2/map/report/place"
     
@@ -43,7 +43,7 @@ struct AVIROPostAPI {
     static let editPlaceOperationPath = "/2/map/update/time"
     static let editPlaceURLPath = "/2/map/report/url"
     
-    static let commentUploadPath = "/2/map/add/comment"
+    static let commentUploadPath = "/3/map/add/comment"
     static let commentEditPath = "/2/map/update/comment"
     static let commentReportPath = "/2/map/report/comment"
     static let afterUploadCommentRecommendPlacePath = "/2/map/add/recommend"

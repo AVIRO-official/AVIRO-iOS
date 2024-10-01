@@ -14,19 +14,19 @@ protocol HomeViewProtocol: NSObject {
     func setupLayout()
     func setupAttribute()
     func setupGesture()
-        
+    
     func whenViewWillAppear()
     func whenViewWillAppearOffAllCondition()
     func whenAfterPopEditViewController()
-
+    
     func isFectingData()
     func endFectingData()
-//    func keyboardWillShow(notification: NSNotification)
-//    func keyboardWillHide()
-//    
+    //    func keyboardWillShow(notification: NSNotification)
+    //    func keyboardWillHide()
+    //
     func isSuccessLocation()
     func ifDeniedLocation(_ mapCoor: NMGLatLng)
-
+    
     func loadMarkers(with markers: [NMFMarker])
     func afterLoadStarButton(showMarkers: [NMFMarker], hideMarkers: [NMFMarker])
     
@@ -53,8 +53,8 @@ protocol HomeViewProtocol: NSObject {
         editSegmentedIndex: Int
     )
     func pushEditMenuViewController(placeId: String, isAll: Bool, isSome: Bool, isRequest: Bool, menuArray: [AVIROMenu])
-    func pushReviewWriteView(with viewModel: ReviewWriteViewModel)
-
+    func pushReviewWriteView(with viewModel: ReviewWritableViewModel)
+    
     func openWebLink(url: URL)
     func showActionSheetWhenSuccessReport()
     func showToastAlert(_ title: String)
@@ -69,6 +69,8 @@ protocol HomeViewProtocol: NSObject {
     func updateCancelButtonFromCategoryCollection()
     
     func afterClickedCategoryModel(showMarkers: [NMFMarker], hideMarkers: [NMFMarker])
+    
+    func placeViewIsLoading()
 }
 
 final class HomeViewPresenter: NSObject {
@@ -78,7 +80,7 @@ final class HomeViewPresenter: NSObject {
     private let bookmarkManager: BookmarkFacadeProtocol
     private let amplitude: AmplitudeProtocol
     private let locationManager = CLLocationManager()
-
+    
     var homeMapData: [AVIROMarkerModel]?
     
     private var hasTouchedMarkerBefore = false
@@ -86,13 +88,13 @@ final class HomeViewPresenter: NSObject {
     private var isFirstViewWillappear = true
     private var whenKeepPlaceInfoView = false
     
-    private var selectedMarkerIndex = 0 
+    private var selectedMarkerIndex = 0
     private var selectedMarkerModel: MarkerModel?
     private var selectedSummaryModel: AVIROPlaceSummary?
     private var selectedInfoModel: AVIROPlaceInfo?
     private var selectedMenuModel: AVIROPlaceMenus?
     private var selectedReviewsModel: AVIROReviewsArray?
-        
+    
     private var selectedPlaceId: String?
     
     private var isStarButtonSelected: Bool = false
@@ -160,7 +162,7 @@ final class HomeViewPresenter: NSObject {
     init(viewController: HomeViewProtocol,
          markerManager: MarkerModelManagerProtocol = MarkerModelManager(),
          bookmarkManager: BookmarkFacadeProtocol = BookmarkFacadeManager(),
-         amplitude: AmplitudeProtocol = AmplitudeUtility()
+         amplitude: AmplitudeProtocol = AmplitudeUtility.shared
     ) {
         self.viewController = viewController
         
@@ -187,7 +189,7 @@ final class HomeViewPresenter: NSObject {
         UserCoordinate.shared.afterFirstLoadLocation = { [weak self] in
             self?.loadVeganData()
         }
-            
+        
         setNotification()
     }
     
@@ -201,7 +203,7 @@ final class HomeViewPresenter: NSObject {
     }
     
     func viewWillAppear() {
-//        addKeyboardNotification()
+        //        addKeyboardNotification()
         
         handleMarkerUpdate()
         handleViewWillAppearActions()
@@ -244,6 +246,8 @@ final class HomeViewPresenter: NSObject {
         if !whenKeepPlaceInfoView {
             initMarkerState()
         }
+        
+        afterCategoryChangedLoadAllMarkers()
     }
     
     // MARK: 전화, url 들어가고 난 후에도 계속 place 정보 보여주기 위한 함수
@@ -265,7 +269,7 @@ final class HomeViewPresenter: NSObject {
                 self?.viewController?.showErrorAlertWhenLoadMarker()
             }
         }
-
+        
         bookmarkManager.fetchAllData { [weak self] error in
             self?.viewController?.showErrorAlert(with: error, title: nil)
         }
@@ -273,7 +277,7 @@ final class HomeViewPresenter: NSObject {
     
     private func saveMarkers(_ mapData: [AVIROMarkerModel]) {
         var markerModels = [MarkerModel]()
-
+        
         for (index, data) in mapData.enumerated() {
             let markerModel = createMarker(from: data)
             markerModels.append(markerModel)
@@ -300,14 +304,14 @@ final class HomeViewPresenter: NSObject {
                 }
             }
         }
-
+        
     }
     
     private func updateMarkers(_ mapData: [AVIROMarkerModel]?) {
         guard let mapData = mapData else { return }
         
         let uniqueMapData = Array(Set(mapData))
-
+        
         uniqueMapData.forEach { data in
             let markerModel = createMarker(from: data)
             markerModelManager.updateMarkerModels(with: markerModel)
@@ -337,18 +341,20 @@ final class HomeViewPresenter: NSObject {
         guard let markerModel = markerModel,
               let index = index else { return }
         
-        getPlaceSummaryModel(markerModel)
-        
-        hasTouchedMarkerBefore = true
-        
-        selectedMarkerIndex = index
-        selectedMarkerModel = markerModel
-        selectedMarkerModel?.isClicked = true
-                
-        markerModelManager.updateMarkerModelWhenClicked(with: selectedMarkerModel!)
-        viewController?.moveToCameraWhenHasAVIRO(markerModel, zoomTo: 14)
-        
-        CenterCoordinate.shared.isChangedFromEnrollView = false
+        getPlaceSummaryModel(markerModel) { [weak self] in
+            guard let self = self else { return }
+            
+            self.hasTouchedMarkerBefore = true
+            
+            self.selectedMarkerIndex = index
+            self.selectedMarkerModel = markerModel
+            self.selectedMarkerModel?.isClicked = true
+            
+            self.markerModelManager.updateMarkerModelWhenClicked(with: selectedMarkerModel!)
+            self.viewController?.moveToCameraWhenHasAVIRO(markerModel, zoomTo: 14)
+            
+            CenterCoordinate.shared.isChangedFromEnrollView = false
+        }
     }
     
     // MARK: Create Marker
@@ -406,7 +412,7 @@ final class HomeViewPresenter: NSObject {
             isSome: data.someMenuVegan,
             isRequest: data.ifRequestVegan
         )
-                
+        
         return markerModel
     }
     
@@ -420,9 +426,9 @@ final class HomeViewPresenter: NSObject {
     func initMarkerState() {
         resetPreviouslyTouchedMarker()
     }
-
+    
     private func resetPreviouslyTouchedMarker() {
-       /// 최초 터치 이후 작동을 위한 분기처리
+        /// 최초 터치 이후 작동을 위한 분기처리
         if hasTouchedMarkerBefore {
             if var selectedMarkerModel = selectedMarkerModel {
                 selectedMarkerModel.isClicked = false
@@ -440,33 +446,71 @@ final class HomeViewPresenter: NSObject {
     }
     
     /// 클릭한 마커 저장 후 viewController에 알리기
+    // TODO: Marker star or not
     private func setMarkerToTouchedState(_ marker: NMFMarker) {
         let (markerModel, index) = markerModelManager.getMarkerModelFromMarker(with: marker)
-                
+        
         guard let validMarkerModel = markerModel else { return }
         
         guard let validIndex = index else { return }
         
-        getPlaceSummaryModel(validMarkerModel)
+        var restaurantActive = false
+        var cafeActive = false
+        var barActive = false
+        var bakeryActive = false
         
-        selectedMarkerIndex = validIndex
-        selectedMarkerModel = validMarkerModel
+        for (category, isActive) in categoryType {
+            switch category {
+            case "식당":
+                restaurantActive = isActive
+            case "카페":
+                cafeActive = isActive
+            case "술집":
+                barActive = isActive
+            case "빵집":
+                bakeryActive = isActive
+            default:
+                break
+            }
+        }
         
-        selectedMarkerModel?.isClicked = true
-
-        hasTouchedMarkerBefore = true
-                
-        markerModelManager.updateMarkerModelWhenClicked(with: selectedMarkerModel!)
-        viewController?.moveToCameraWhenHasAVIRO(validMarkerModel, zoomTo: nil)
+        getPlaceSummaryModel(validMarkerModel) { [weak self] in
+            guard let self = self else { return }
+            guard let selectedSummaryModel = self.selectedSummaryModel else { return }
+            
+            self.selectedMarkerIndex = validIndex
+            self.selectedMarkerModel = validMarkerModel
+            
+            self.selectedMarkerModel?.isClicked = true
+            
+            self.hasTouchedMarkerBefore = true
+            
+            self.markerModelManager.updateMarkerModelWhenClicked(with: selectedMarkerModel!)
+            
+            self.viewController?.moveToCameraWhenHasAVIRO(validMarkerModel, zoomTo: nil)
+            
+            self.amplitude.placeViewSheet(
+                path: isStarButtonSelected ? .bookmark : .marker,
+                clickedModel: selectedSummaryModel,
+                restaurantActive: restaurantActive,
+                cafeActive: cafeActive,
+                barActive: barActive,
+                bakeryActive: bakeryActive
+            )
+        }
     }
     
     // MARK: Load Place Sumamry
-    private func getPlaceSummaryModel(_ markerModel: MarkerModel) {
+    private func getPlaceSummaryModel(
+        _ markerModel: MarkerModel,
+        completion: @escaping () -> Void
+    ) {
         let mapPlace = markerModel.veganType
         let placeX = markerModel.marker.position.lng
         let placeY = markerModel.marker.position.lat
         let placeId = markerModel.placeId
-
+        
+        viewController?.placeViewIsLoading()
         selectedPlaceId = placeId
         
         AVIROAPI.manager.loadPlaceSummary(with: placeId) { [weak self] result in
@@ -505,16 +549,19 @@ final class HomeViewPresenter: NSObject {
                             )
                             
                             self?.afterGetPlaceSummaryModel?()
+                            completion()
                         }
                     }
                 } else {
                     if let message = summary.message {
                         self?.viewController?.showErrorAlert(with: message, title: nil)
+                        completion()
                     }
                 }
             case .failure(let error):
                 if let error = error.errorDescription {
                     self?.viewController?.showErrorAlert(with: error, title: nil)
+                    completion()
                 }
             }
         }
@@ -527,64 +574,125 @@ final class HomeViewPresenter: NSObject {
     }
     
     // MARK: Notification Method afterMainSearch
-    @objc func afterMainSearchPlace(_ noficiation: Notification) {
-        guard let checkIsInAVIRO = noficiation.userInfo?[NotiName.afterMainSearch.rawValue]
-                as? MatchedPlaceModel else { return }
+    @objc func afterMainSearchPlace(_ notification: Notification) {
+        guard let checkIsInAVIRO = notification.userInfo?[NotiName.afterMainSearch.rawValue]
+                as? MatchedPlaceModel,
+              let index = notification.userInfo?["Index"] as? Int
+        else { return }
         
-        afterMainSearch(checkIsInAVIRO)
+        afterMainSearch(checkIsInAVIRO, searchIndex: index)
     }
     
     // MARK: After Main Search Method
-    private func afterMainSearch(_ afterSearchModel: MatchedPlaceModel) {
+    private func afterMainSearch(
+        _ afterSearchModel: MatchedPlaceModel,
+        searchIndex: Int
+    ) {
         // AVIRO에 데이터가 없을 때
         if !afterSearchModel.allVegan && !afterSearchModel.someVegan && !afterSearchModel.requestVegan {
             viewController?.moveToCameraWhenNoAVIRO(
                 afterSearchModel.x,
                 afterSearchModel.y
             )
+            
+            amplitude.searchClickResult(
+                index: searchIndex,
+                keyword: afterSearchModel.title,
+                placeID: nil,
+                placeName: nil,
+                category: nil
+            )
+            
         } else {
-        // AVIRO에 데이터가 있을 때
+            // AVIRO에 데이터가 있을 때
             let (markerModel, index) = markerModelManager.getMarkerModelFromSerachModel(with: afterSearchModel)
             
             guard let markerModel = markerModel else { return }
             guard let index = index else { return }
             
             whenShowPlaceAfterActionFromChildViewController = true
-                                    
+            
             selectedMarkerIndex = index
             selectedMarkerModel = markerModel
             selectedMarkerModel?.isClicked = true
-                        
+            
             hasTouchedMarkerBefore = true
             
-            getPlaceSummaryModel(markerModel)
-
-            viewController?.moveToCameraWhenHasAVIRO(markerModel, zoomTo: 14)
+            getPlaceSummaryModel(markerModel) { [weak self] in
+                guard let self = self else { return }
+                guard let selectedSummaryModel = self.selectedSummaryModel else { return }
+                
+                self.viewController?.moveToCameraWhenHasAVIRO(
+                    markerModel,
+                    zoomTo: 14
+                )
+                
+                self.amplitude.searchClickResult(
+                    index: searchIndex,
+                    keyword: afterSearchModel.title,
+                    placeID: markerModel.placeId,
+                    placeName: afterSearchModel.title,
+                    category: markerModel.categoryType
+                )
+                
+                self.amplitude.placeViewSheet(
+                    path: .search,
+                    clickedModel: selectedSummaryModel,
+                    restaurantActive: false,
+                    cafeActive: false,
+                    barActive: false,
+                    bakeryActive: false
+                )
+            }
         }
     }
     
     // MARK: PlaceId로 marker 확인
-    func checkPlaceIdTest(with placeId: String) {
+    func checkPlaceIdTest(with placeId: String, from source: TabBarSourceValues) {
         let (markerModel, index) = markerModelManager.getMarkerModelFromPlaceId(with: placeId)
         
         guard let markerModel = markerModel else { return }
         guard let index = index else { return }
-                                        
+        
+        let sheetType: PlaceViewSheetType
+        
+        switch source {
+        case .placeList:
+            sheetType = .registeredPlaceList
+        case .commentList:
+            sheetType = .registeredReviewList
+        case .bookmarkList:
+            sheetType = .bookmarkList
+        }
+        
         selectedMarkerIndex = index
         selectedMarkerModel = markerModel
         selectedMarkerModel?.isClicked = true
-                    
+        
         hasTouchedMarkerBefore = true
         
-        getPlaceSummaryModel(markerModel)
-
-        viewController?.moveToCameraWhenHasAVIRO(markerModel, zoomTo: 14)
+        getPlaceSummaryModel(markerModel) { [weak self] in
+            guard let self = self else { return }
+            guard let selectedSummaryModel = self.selectedSummaryModel else { return }
+            
+            self.viewController?.moveToCameraWhenHasAVIRO(markerModel, zoomTo: 14)
+            self.amplitude.placeViewSheet(
+                path: sheetType,
+                clickedModel: selectedSummaryModel,
+                restaurantActive: false,
+                cafeActive: false,
+                barActive: false,
+                bakeryActive: false
+            )
+        }
     }
     
     // MARK: Bookmark Load Method
     func loadBookmark(_ isSelected: Bool) {
         isStarButtonSelected = isSelected
         if isSelected {
+            
+            amplitude.bookmarkClickInMap()
             whenAfterLoadStarButtonTapped()
         } else {
             whenAfterLoadNotStarButtonTapped()
@@ -614,7 +722,7 @@ final class HomeViewPresenter: NSObject {
             self.hideMarkerWhenClickedCategory = markersModel.filter { model in
                 !self.selectedCategory.contains(model.categoryType)
             }
-
+            
             let showMarkers = self.showMarkerWhenClickedCategory.map { $0.marker }
             let hideMarkers = self.hideMarkerWhenClickedCategory.map { $0.marker }
             
@@ -683,7 +791,9 @@ final class HomeViewPresenter: NSObject {
     
     // MARK: Bookmark Upload & Delete Method
     func updateBookmark(_ isSelected: Bool) {
-        guard let placeId = selectedPlaceId else { return }
+        guard let placeId = selectedPlaceId,
+              let summaryModel = selectedSummaryModel
+        else { return }
         
         let placeIds = [placeId]
         
@@ -691,6 +801,11 @@ final class HomeViewPresenter: NSObject {
             bookmarkManager.updateData(with: placeIds) { [weak self] error in
                 self?.viewController?.showToastAlert(error)
             }
+            
+            amplitude.bookmarkClickInPlace(
+                clickedModel: summaryModel,
+                bookmarks: bookmarkManager.loadAllData().count
+            )
         } else {
             bookmarkManager.deleteData(with: placeIds) { [weak self] error in
                 self?.viewController?.showToastAlert(error)
@@ -701,7 +816,8 @@ final class HomeViewPresenter: NSObject {
     // MARK: Get Place Model Detail
     func getPlaceModelDetail() {
         guard let placeId = selectedPlaceId else { return }
-
+        guard let selectedSummaryModel = selectedSummaryModel else { return }
+        
         let dispatchGroup = DispatchGroup()
         
         loadPlaceInfo(with: placeId, dispatchGroup: dispatchGroup)
@@ -714,7 +830,7 @@ final class HomeViewPresenter: NSObject {
                 menuModel: self?.selectedMenuModel,
                 reviewsModel: self?.selectedReviewsModel
             )
-            
+            self?.amplitude.placeViewHalf(clickedModel: selectedSummaryModel)
             self?.afterGetPlaceDetailModel?()
         }
     }
@@ -784,9 +900,10 @@ final class HomeViewPresenter: NSObject {
             }
         }
     }
-        
+    
     func reportPlace(_ type: AVIROReportPlaceType) {
         guard let placeId = selectedPlaceId else { return }
+        guard let selectedSummaryModel = selectedSummaryModel else { return }
         
         let model = AVIROReportPlaceDTO(
             placeId: placeId,
@@ -794,11 +911,12 @@ final class HomeViewPresenter: NSObject {
             nickname: MyData.my.nickname,
             code: type.code
         )
-
+        
         AVIROAPI.manager.reportPlace(with: model) { [weak self] result in
             switch result {
             case .success(let success):
                 if success.statusCode == 200 {
+                    self?.amplitude.placeCompleteRemove(model: selectedSummaryModel)
                     self?.viewController?.showActionSheetWhenSuccessReport()
                 } else {
                     if let message = success.message {
@@ -812,9 +930,10 @@ final class HomeViewPresenter: NSObject {
             }
         }
     }
-
+    
     func checkReportPlaceDuplecated() {
         guard let placeId = selectedPlaceId else { return }
+        guard let selectedSummaryModel = selectedSummaryModel else { return }
         
         let model = AVIROPlaceReportCheckDTO(
             placeId: placeId,
@@ -828,6 +947,7 @@ final class HomeViewPresenter: NSObject {
                     if success.data?.reported ?? false {
                         self?.viewController?.showAlertWhenDuplicatedReport()
                     } else {
+                        self?.amplitude.placeClickRemove(model: selectedSummaryModel)
                         self?.viewController?.showAlertWhenReportPlace()
                     }
                 } else {
@@ -842,7 +962,7 @@ final class HomeViewPresenter: NSObject {
             }
         }
     }
-
+    
     func getPlace() -> String {
         guard let place = selectedSummaryModel?.title else { return "" }
         return place
@@ -880,8 +1000,10 @@ final class HomeViewPresenter: NSObject {
               let placeInfo = selectedInfoModel
         else { return }
         
+        amplitude.placeClickEditPlace(model: placeSummary)
+        
         whenKeepPlaceInfoView = true
-                
+        
         viewController?.pushEditPlaceInfoViewController(
             placeMarkerModel: placeMarkerModel,
             placeId: placeId,
@@ -893,7 +1015,8 @@ final class HomeViewPresenter: NSObject {
     
     func editMenu() {
         guard let placeMarkerModel = selectedMarkerModel,
-              let placeMenuModel = selectedMenuModel
+              let placeMenuModel = selectedMenuModel,
+              let selectedSummaryModel = selectedSummaryModel
         else { return }
         
         let placeId = placeMarkerModel.placeId
@@ -901,6 +1024,8 @@ final class HomeViewPresenter: NSObject {
         let isSome = placeMarkerModel.isSome
         let isRequest = placeMarkerModel.isRequest
         let menuArray = placeMenuModel.menuArray
+        
+        amplitude.placeClickEditMenu(model: selectedSummaryModel)
         
         whenKeepPlaceInfoView = true
         
@@ -938,13 +1063,13 @@ final class HomeViewPresenter: NSObject {
     
     private func setAmplitudeWhenEditMenu(with menuArray: [AVIROMenu]) {
         guard let beforeMenus = selectedMenuModel?.menuArray,
-              let place = selectedSummaryModel?.title
+              let selectedSummaryModel = selectedSummaryModel
         else { return }
         
-        amplitude.menuEdit(
-            with: place,
-            beforeMenus: beforeMenus,
-            afterMenus: menuArray
+        amplitude.placeCompleteEditMenu(
+            before: beforeMenus.count,
+            after: menuArray.count,
+            model: selectedSummaryModel
         )
     }
     
@@ -952,14 +1077,14 @@ final class HomeViewPresenter: NSObject {
     /// 메뉴 변경시 비건 메뉴 구성 변경으로 인한 업데이트 조치
     func afterEditMenuChangedMarker(_ changedMarkerModel: EditMenuChangedMarkerModel) {
         guard var selectedMarkerModel = selectedMarkerModel else { return }
-
+        
         selectedMarkerModel.veganType = changedMarkerModel.mapPlace
         selectedMarkerModel.isAll = changedMarkerModel.isAll
         selectedMarkerModel.isSome = changedMarkerModel.isSome
         selectedMarkerModel.isRequest = changedMarkerModel.isRequest
-
+        
         self.selectedMarkerModel = selectedMarkerModel
-
+        
         markerModelManager.updateSelectedMarkerModel(index: selectedMarkerIndex, model: selectedMarkerModel)
         
         viewController?.updateMapPlace(changedMarkerModel.mapPlace)
@@ -969,7 +1094,7 @@ final class HomeViewPresenter: NSObject {
         guard let selectedPlaceId = selectedPlaceId else { return }
         
         let recommendModel = AVIRORecommendPlaceDTO(
-            placeId: selectedPlaceId, 
+            placeId: selectedPlaceId,
             userId: MyData.my.id
         )
         
@@ -1037,12 +1162,14 @@ final class HomeViewPresenter: NSObject {
     }
     
     // MARK: Push Review Write ViewController
-    func pushReviewWriteView() {
+    func pushReviewWriteView(type: ReviewUploadPagePathType) {
         whenKeepPlaceInfoView = true
-
+        
         guard let markerModel = selectedMarkerModel,
               let summaryModel = selectedSummaryModel,
               let infoModel = selectedInfoModel else { return }
+        
+        amplitude.reviewViewUpload(type: type, model: summaryModel)
         
         var image: UIImage!
         
@@ -1055,11 +1182,12 @@ final class HomeViewPresenter: NSObject {
             image = .requestCell
         }
         
-        let viewModel = ReviewWriteViewModel(
+        let viewModel = ReviewWritableViewModel(
             placeId: markerModel.placeId,
             placeIcon: image,
             placeTitle: summaryModel.title,
-            placeAddress: infoModel.address + " " + (infoModel.address2 ?? "")
+            placeAddress: infoModel.address + " " + (infoModel.address2 ?? ""),
+            category: summaryModel.category
         )
         
         viewController?.pushReviewWriteView(with: viewModel)
@@ -1070,7 +1198,7 @@ final class HomeViewPresenter: NSObject {
         _ content: String
     ) {
         whenKeepPlaceInfoView = true
-
+        
         guard let markerModel = selectedMarkerModel,
               let summaryModel = selectedSummaryModel,
               let infoModel = selectedInfoModel else { return }
@@ -1086,24 +1214,38 @@ final class HomeViewPresenter: NSObject {
             image = .requestCell
         }
         
-        let viewModel = ReviewWriteViewModel(
+        let viewModel = ReviewWritableViewModel(
             placeId: markerModel.placeId,
             placeIcon: image,
             placeTitle: summaryModel.title,
             placeAddress: infoModel.address + " " + (infoModel.address2 ?? ""),
             content: content,
-            editCommentId: commentId
+            editCommentId: commentId,
+            category: summaryModel.category
         )
         
         viewController?.pushReviewWriteView(with: viewModel)
     }
     
     func afterLevelUpViewCheckTapped(with level: Int) {
-        amplitude.levelupDidMove(with: level)
+        amplitude.challengeClickCheckingLevelUp(isChecked: true)
     }
     
     func afterLevelUpViewNocheckTapped(with level: Int) {
-        amplitude.levelupDidNotMove(with: level)
+        amplitude.challengeClickCheckingLevelUp(isChecked: false)
+    }
+    
+    func loggingSearchedInfo(
+        type: InfoSearchType,
+        scrollType: ScolledInHomeType?
+    ) {
+        guard let selectedSummaryModel = selectedSummaryModel else { return }
+        
+        amplitude.placeViewInfoSearched(
+            type: type,
+            scrollType: scrollType,
+            model: selectedSummaryModel
+        )
     }
 }
 
@@ -1112,7 +1254,7 @@ extension HomeViewPresenter: CLLocationManagerDelegate {
     func locationUpdate() {
         locationAuthorization()
     }
-
+    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         locationAuthorization()
     }
@@ -1134,13 +1276,13 @@ extension HomeViewPresenter: CLLocationManagerDelegate {
             break
         }
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         
         UserCoordinate.shared.latitude = location.coordinate.latitude
         UserCoordinate.shared.longitude = location.coordinate.longitude
-
+        
         if !UserCoordinate.shared.isFirstLoadLocation {
             UserCoordinate.shared.isFirstLoadLocation = true
         }
@@ -1153,7 +1295,7 @@ extension HomeViewPresenter: CLLocationManagerDelegate {
     private func ifDeniedLocation() {
         UserCoordinate.shared.latitude = DefaultCoordinate.lat.rawValue
         UserCoordinate.shared.longitude = DefaultCoordinate.lng.rawValue
-
+        
         if !UserCoordinate.shared.isFirstLoadLocation {
             UserCoordinate.shared.isFirstLoadLocation = true
         }

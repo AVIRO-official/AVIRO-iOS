@@ -10,9 +10,9 @@ import UIKit
 final class PlaceHomeView: UIView {
     
     private lazy var placeInfoView = PlaceInfoView()
-    private lazy var placeMenuView = PlaceMenuView()
+    lazy var placeMenuView = PlaceMenuView()
     private lazy var placeReviewWriteView = PlaceReviewWriteView()
-    private lazy var placeReviewsView = PlaceReviewsView()
+    lazy var placeReviewsView = PlaceReviewsView()
     private lazy var placeDeleteRequestView = PlaceDeleteRequestView()
     
     private var viewHeightConstraint: NSLayoutConstraint?

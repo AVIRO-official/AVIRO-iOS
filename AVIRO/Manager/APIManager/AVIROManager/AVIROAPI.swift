@@ -20,7 +20,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
     private init(session: URLSession = .shared) {
         self.session = session
     }
-        
+    
     internal func performRequest<T>(
         with url: URL,
         httpMethod: HTTPMethodType = .get,
@@ -51,7 +51,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             defer {
                 self?.onRequest.remove(url)
             }
-
+            
             if let error = error {
                 completionHandler(.failure(.networkError(error)))
                 return
@@ -70,6 +70,13 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             guard let data = data else {
                 completionHandler(.failure(.badRequest))
                 return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+                print("JSON Response: \(json)")
+            } catch {
+                print("Failed to serialize JSON: \(error)")
             }
             
             do {
@@ -99,7 +106,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             return APIError.badRequest
         }
     }
-
+    
     // MARK: - Marker Refer
     /*
      - GET places / loadNerbyPlaceModels
@@ -142,7 +149,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-
+        
         performRequest(
             with: url,
             httpMethod: .post,
@@ -161,7 +168,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-
+        
         performRequest(
             with: url,
             headers: requestAPI.headers,
@@ -183,7 +190,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-
+        
         performRequest(
             with: url,
             httpMethod: .post,
@@ -202,7 +209,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-
+        
         performRequest(
             with: url,
             headers: requestAPI.headers,
@@ -265,7 +272,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-
+        
         performRequest(
             with: url,
             httpMethod: .post,
@@ -274,7 +281,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler: completionHandler
         )
     }
-
+    
     // MARK: - Detail Info Refer
     /*
      - GET Summary / loadPlaceSummary
@@ -303,7 +310,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-                
+        
         performRequest(
             with: url,
             headers: requestAPI.headers,
@@ -320,7 +327,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-
+        
         performRequest(
             with: url,
             headers: requestAPI.headers,
@@ -337,7 +344,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-
+        
         performRequest(
             with: url,
             headers: requestAPI.headers,
@@ -354,7 +361,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-
+        
         performRequest(
             with: url,
             headers: requestAPI.headers,
@@ -371,7 +378,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-
+        
         performRequest(
             with: url,
             headers: requestAPI.headers,
@@ -383,7 +390,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
     // MARK: POST Review
     func createReview(
         with reviewModel: AVIROEnrollReviewDTO,
-        completionHandler: @escaping (Result<AVIROResultWhenChallengeDTO, APIError>) -> Void
+        completionHandler: @escaping (Result<AVIROResultWhenChallengeReviewDTO, APIError>) -> Void
     ) {
         guard let url = postAPI.commentUpload().url else {
             completionHandler(.failure(.urlError))
@@ -418,7 +425,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-
+        
         performRequest(
             with: url,
             httpMethod: .post,
@@ -442,7 +449,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-
+        
         performRequest(
             with: url,
             httpMethod: .post,
@@ -466,7 +473,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-
+        
         performRequest(
             with: url,
             httpMethod: .post,
@@ -490,7 +497,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-
+        
         performRequest(
             with: url,
             httpMethod: .post,
@@ -514,7 +521,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-
+        
         performRequest(
             with: url,
             httpMethod: .post,
@@ -538,7 +545,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-
+        
         performRequest(
             with: url,
             httpMethod: .post,
@@ -586,7 +593,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-
+        
         performRequest(
             with: url,
             httpMethod: .post,
@@ -633,7 +640,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-
+        
         performRequest(
             with: url,
             headers: requestAPI.headers,
@@ -681,7 +688,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-
+        
         performRequest(
             with: url,
             headers: requestAPI.headers,
@@ -764,7 +771,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-
+        
         performRequest(
             with: url,
             httpMethod: .post,
@@ -788,7 +795,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-
+        
         performRequest(
             with: url,
             httpMethod: .post,
@@ -807,12 +814,12 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.urlError))
             return
         }
-
+        
         guard let jsonData = try? JSONEncoder().encode(userId) else {
             completionHandler(.failure(.encodingError))
             return
         }
-                
+        
         performRequest(
             with: url,
             completionHandler: completionHandler
@@ -858,7 +865,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-
+        
         performRequest(
             with: url,
             httpMethod: .post,
@@ -882,7 +889,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-
+        
         performRequest(
             with: url,
             httpMethod: .post,
@@ -906,7 +913,7 @@ final class AVIROAPI: AVIROAPIMangerProtocol {
             completionHandler(.failure(.encodingError))
             return
         }
-
+        
         performRequest(
             with: url,
             httpMethod: .post,

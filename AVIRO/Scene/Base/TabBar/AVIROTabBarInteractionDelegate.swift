@@ -10,6 +10,13 @@ import Foundation
 struct TabBarKeys {
     static let placeId = "placeId"
     static let showReview = "review"
+    static let source = "source"
+}
+
+enum TabBarSourceValues: String {
+    case placeList
+    case commentList
+    case bookmarkList
 }
 
 protocol TabBarToSubVCDelegate: AnyObject {

@@ -285,6 +285,15 @@ final class HomeViewController: UIViewController {
         super.viewWillDisappear(animated)
 
         presenter.viewWillDisappear()
+        
+        self.presenter.categoryType = [
+            ("식당", false),
+            ("카페", false),
+            ("술집", false),
+            ("빵집", false)
+        ]
+        searchTextField.placeholder = Text.searchPlaceHolder.rawValue
+        categoryCollectionView.reloadData()
     }
 }
 
@@ -666,8 +675,9 @@ extension HomeViewController: HomeViewProtocol {
         
         cameraUpdate.animation = .easeIn
         cameraUpdate.animationDuration = 0.25
-        popupPlaceView()
         naverMapView.moveCamera(cameraUpdate)
+        
+        popupPlaceView()
     }
     
     private func popupPlaceView() {
@@ -676,6 +686,14 @@ extension HomeViewController: HomeViewProtocol {
         isFullUpView = false
         isSlideUpView = false
 
+        placeView.isLoadingTopView = false
+        placeView.isScrollUntilMenu = false
+        placeView.isScrollUntilReview = false
+        placeView.isTabbedMenu = false
+        placeView.isTabbedReview = false
+    }
+    
+    func placeViewIsLoading() {
         placeView.isLoadingTopView = true
     }
     
@@ -689,7 +707,7 @@ extension HomeViewController: HomeViewProtocol {
             placeId: placeId,
             isStar: isStar
         )
-        
+                
         changedSearchField(with: placeModel.placeTitle)
     }
     
@@ -918,7 +936,7 @@ extension HomeViewController: HomeViewProtocol {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    func pushReviewWriteView(with viewModel: ReviewWriteViewModel) {
+    func pushReviewWriteView(with viewModel: ReviewWritableViewModel) {
         let vc = ReviewWriteViewController.create(with: viewModel)
         
         vc.tabBarDelegate = tabBarDelegate
@@ -1221,12 +1239,40 @@ extension HomeViewController {
             self?.showEditMyReviewAlert(commentId, content)
         }
         
-        placeView.pushReviewWriteView = { [weak self] in
-            self?.presenter.pushReviewWriteView()
+        placeView.pushReviewWriteView = { [weak self] type in
+            self?.presenter.pushReviewWriteView(type: type)
         }
         
         placeView.deleteRequestButtonTapped = { [weak self] in
             self?.presenter.checkReportPlaceDuplecated()
+        }
+        
+        placeView.scrolledMenu = { [weak self] in
+            self?.presenter.loggingSearchedInfo(
+                type: .scrolledInHomeTab,
+                scrollType: .menu
+            )
+        }
+        
+        placeView.scrolledReview = { [weak self] in
+            self?.presenter.loggingSearchedInfo(
+                type: .scrolledInHomeTab,
+                scrollType: .review
+            )
+        }
+        
+        placeView.tabbedMenu = { [weak self] in
+            self?.presenter.loggingSearchedInfo(
+                type: .menuTabbed,
+                scrollType: nil
+            )
+        }
+        
+        placeView.tabbedReview = { [weak self] in
+            self?.presenter.loggingSearchedInfo(
+                type: .reviewTabbed,
+                scrollType: nil
+            )
         }
     }
 }
@@ -1270,7 +1316,6 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
                 self?.blurEffectView.isHidden = true
             }
         }
-        
     }
     
     private func updateReview(with model: AfterWriteReviewModel) {
@@ -1327,7 +1372,9 @@ extension HomeViewController: AfterHomeViewControllerProtocol {
 extension HomeViewController: TabBarToSubVCDelegate {
     func handleTabBarInteraction(withData data: [String: Any]) {
         if let placeId = data[TabBarKeys.placeId] as? String {
-            whenTabBarKeyIsPlaceId(with: placeId)
+            let source = data[TabBarKeys.source] as? TabBarSourceValues ?? .placeList
+            
+            whenTabBarKeyIsPlaceId(with: placeId, from: source)
         }
         
         if let isShowReview = data[TabBarKeys.showReview] as? Bool, isShowReview {
@@ -1340,8 +1387,11 @@ extension HomeViewController: TabBarToSubVCDelegate {
         }
     }
     
-    private func whenTabBarKeyIsPlaceId(with placeId: String) {
-        presenter.checkPlaceIdTest(with: placeId)
+    private func whenTabBarKeyIsPlaceId(
+        with placeId: String,
+        from source: TabBarSourceValues
+    ) {
+        presenter.checkPlaceIdTest(with: placeId, from: source)
     }
     
     private func whenTabBarkeyIsShwReview() {
@@ -1539,7 +1589,7 @@ extension HomeViewController: UICollectionViewDataSource {
         
         return cell
     }
-        
+    
     private func updateSearchTextField(with type: String) {
         if type == "취소" {
             searchTextField.placeholder = Text.searchPlaceHolder.rawValue

@@ -291,7 +291,13 @@ final class MyPlaceListViewController: UIViewController {
     
     internal func placeCellDidTapped(with placeId: String) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
-            self?.tabBarDelegate?.setSelectedIndex(0, withData: [TabBarKeys.placeId: placeId])
+            self?.tabBarDelegate?.setSelectedIndex(
+                0,
+                withData: [
+                    TabBarKeys.placeId: placeId,
+                    TabBarKeys.source : TabBarSourceValues.placeList
+                ]
+            )
         }
 
     }

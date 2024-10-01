@@ -73,7 +73,10 @@ final class HomeSearchViewController: UIViewController {
         }
         view.touchedCanActiveSort = { [weak self] in
             guard let query = self?.searchField.text else { return }
-            self?.presenter.initSearchDataAndCompareAVIROData(query)
+            self?.presenter.initSearchDataAndCompareAVIROData(
+                query,
+                searchPath: .enterTheTerm
+            )
         }
         
         return view
@@ -294,7 +297,10 @@ extension HomeSearchViewController: HomeSearchProtocol {
         searchField.text = query
         
         whenStartSearchingChangedView()
-        presenter.initSearchDataAndCompareAVIROData(query)
+        presenter.initSearchDataAndCompareAVIROData(
+            query,
+            searchPath: .clickRecentKeyword
+        )
     }
     
     func activeIndicatorView() {
@@ -511,7 +517,10 @@ extension HomeSearchViewController: UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         switch tableView.tag {
         case 0:
             presenter.insertHistoryModel(indexPath)
