@@ -15,13 +15,51 @@ final class LRUCacheStorage: ImagesStorageInterface {
     }
     
     private(set) var capacity: UInt
+    private var dict = [String: Node<CacheNode>]()
+    private var list = DoublyLinkedList<CacheNode>()
     
-    
-    func getData(key: String, completion: @escaping (Data?) -> Void) {
-        
+    init(capacity: UInt = 50) {
+        self.capacity = capacity
     }
     
-    func setData(key: String, value: Data) {
-        
+    func getData(
+        key: String,
+        completion: @escaping (Data?) -> Void
+    ) {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            
+            guard let node = self.dict[key] else {
+                completion(nil)
+                return
+            }
+            
+            self.list.moveToHead(node: node)
+            
+            completion(node.value.value)
+        }
+    }
+    
+    func setData(
+        key: String,
+        value: Data
+    ) {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            
+            if let node = self.dict[key] {
+                self.list.moveToHead(node: node)
+                node.value.value = value
+            } else {
+                if self.list.count == self.capacity {
+                    if let node = self.list.removeLast() {
+                        self.dict.removeValue(forKey: node.value.key)
+                    }
+                }
+                
+                let newNode = self.list.push(value: CacheNode(key: key, value: value))
+                self.dict[key] = newNode
+            }
+        }
     }
 }
