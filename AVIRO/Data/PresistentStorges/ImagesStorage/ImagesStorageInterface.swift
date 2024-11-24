@@ -15,4 +15,4 @@ protocol ImagesStorageInterface {
     func setData(key: String, value: Data)
 }
 
-test
+// test 
