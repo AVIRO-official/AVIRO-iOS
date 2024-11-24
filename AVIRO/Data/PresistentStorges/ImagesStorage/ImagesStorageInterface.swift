@@ -14,3 +14,5 @@ protocol ImagesStorageInterface {
     func getData(key: String, completion: @escaping (Data?) -> Void)
     func setData(key: String, value: Data)
 }
+
+test
